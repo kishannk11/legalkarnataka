@@ -1,3 +1,22 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require_once 'config/config.php';
+require_once "Database.php";
+ if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user = new User($conn);
+    $user->username = $_POST["username"];
+    $user->password = $_POST["userpassword"];
+     if ($user->login()) {
+        header("location: dashboard.php");
+        exit;
+    } else {
+        $error = "Invalid username or password.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -35,16 +54,21 @@
 							</div>
 						</div>
 						<div class="card-body p-5">
+						<?php
+                                if (isset($error)) {
+                                    echo '<div class="alert alert-danger">' . $error . '</div>';
+                                }
+                                ?>
 							<h4 class="text-dark mb-5">Sign In</h4>
 							
-							<form action="/index.html">
+							<form method="POST" class="form-horizontal auth-form my-4" action="login.php">
 								<div class="row">
 									<div class="form-group col-md-12 mb-4">
-										<input type="email" class="form-control" id="email" placeholder="Username">
+										<input type="text" class="form-control" id="email" name="username" placeholder="Username">
 									</div>
 									
 									<div class="form-group col-md-12 ">
-										<input type="password" class="form-control" id="password" placeholder="Password">
+										<input type="password" class="form-control" id="password" name="userpassword" placeholder="Password">
 									</div>
 									
 									<div class="col-md-12">

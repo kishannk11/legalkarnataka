@@ -66,7 +66,7 @@ require_once "Database.php";
 							<div class="ec-brand">
 							<div class="rounded-image">
 								<a href="#" title="Legal Karnataka">
-									<img src="assets/img/logo/logo-login.jpeg" alt="">
+									<img src="assets/img/logo/logo-login.png" alt="">
 								</a>
 								</div>
 							</div>

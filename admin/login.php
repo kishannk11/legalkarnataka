@@ -25,7 +25,7 @@ require_once "Database.php";
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content="Ekka - Admin Dashboard HTML Template.">
 
-		<title>Ekka - Admin Dashboard HTML Template.</title>
+		<title>Legal Karnataka - Admin login</title>
 		
 		<!-- GOOGLE FONTS -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">

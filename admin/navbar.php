@@ -45,7 +45,7 @@
 				<div class="ec-brand">
 					<a href="index.html" title="Ekka">
 						<img class="ec-brand-icon" src="assets/img/logo/logo-login.jpeg" alt="" />
-						<span class="ec-brand-name text-truncate">Legal Karnataka</span>
+						<!-- <span class="ec-brand-name text-truncate">Legal Karnataka</span> -->
 					</a>
 				</div>
 

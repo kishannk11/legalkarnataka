@@ -44,8 +44,10 @@
 
 				<div class="ec-brand">
 					<a href="index.html" title="Ekka">
-						<img class="ec-brand-icon" src="assets/img/logo/logo-login.jpeg" alt="" />
-						<!-- <span class="ec-brand-name text-truncate">Legal Karnataka</span> -->
+						<img class="ec-brand-icon" src="assets/img/logo/legal.png" alt="" />
+						&nbsp;
+						&nbsp;
+						 <h4><span class="">Legal Karnataka</span></h4>
 					</a>
 				</div>
 
@@ -59,7 +61,7 @@
 								<i class="mdi mdi-view-dashboard-outline"></i>
 								<span class="nav-text">Dashboard</span>
 							</a>
-							<hr>
+							
 						</li>
 
 						<!-- Vendors -->
@@ -78,10 +80,20 @@
 											<span class="nav-text">User List</span>
 										</a>
 									</li>
+									<li>
+										<a class="sidenav-item-link" href="user-card.php">
+											<span class="nav-text">User Grid</span>
+										</a>
+									</li>
+									<li class="">
+										<a class="sidenav-item-link" href="user-profile.php">
+											<span class="nav-text">Users Profile</span>
+										</a>
+									</li>
 									
 								</ul>
 							</div>
-							<hr>
+							
 						</li>
 
 						<!-- Category -->

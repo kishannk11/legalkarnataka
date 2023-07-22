@@ -1,289 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="description" content="Ekka - Admin Dashboard HTML Template.">
-
-	<title>Ekka - Admin Dashboard HTML Template.</title>
-
-	<!-- GOOGLE FONTS -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-
-	<link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
-
-	<!-- PLUGINS CSS STYLE -->
-	<link href="assets/plugins/simplebar/simplebar.css" rel="stylesheet" />
-	<link href='assets/plugins/slick/slick.min.css' rel='stylesheet'>
-	<link href='assets/plugins/swiper/swiper-bundle.min.css' rel='stylesheet'>
-
-	<!-- ekka CSS -->
-	<link id="ekka-css" rel="stylesheet" href="assets/css/ekka.css" />
-
-	<!-- FAVICON -->
-	<link href="assets/img/favicon.png" rel="shortcut icon" />
-
-</head>
-
-<body class="ec-header-fixed ec-sidebar-fixed ec-sidebar-dark ec-header-light" id="body">
-	<!-- WRAPPER -->
-	<div class="wrapper">
-
-		<!-- LEFT MAIN SIDEBAR -->
-		<div class="ec-left-sidebar ec-bg-sidebar">
-			<div id="sidebar" class="sidebar ec-sidebar-footer">
-
-				<div class="ec-brand">
-					<a href="index.html" title="Ekka">
-						<img class="ec-brand-icon" src="assets/img/logo/ec-site-logo.png" alt="" />
-						<span class="ec-brand-name text-truncate">Ekka</span>
-					</a>
-				</div>
-
-				<!-- begin sidebar scrollbar -->
-				<div class="ec-navigation" data-simplebar>
-					<!-- sidebar menu -->
-					<ul class="nav sidebar-inner" id="sidebar-menu">
-						<!-- Dashboard -->
-						<li>
-							<a class="sidenav-item-link" href="index.html">
-								<i class="mdi mdi-view-dashboard-outline"></i>
-								<span class="nav-text">Dashboard</span>
-							</a>
-							<hr>
-						</li>
-
-						<!-- Vendors -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-account-group-outline"></i>
-								<span class="nav-text">Vendors</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="vendors" data-parent="#sidebar-menu">
-									<li class="">
-										<a class="sidenav-item-link" href="vendor-card.html">
-											<span class="nav-text">Vendor Grid</span>
-										</a>
-									</li>
-
-									<li class="">
-										<a class="sidenav-item-link" href="vendor-list.html">
-											<span class="nav-text">Vendor List</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="vendor-profile.html">
-											<span class="nav-text">Vendors Profile</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Users -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-account-group"></i>
-								<span class="nav-text">Users</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="users" data-parent="#sidebar-menu">
-									<li>
-										<a class="sidenav-item-link" href="user-card.html">
-											<span class="nav-text">User Grid</span>
-										</a>
-									</li>
-
-									<li class="">
-										<a class="sidenav-item-link" href="user-list.html">
-											<span class="nav-text">User List</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="user-profile.html">
-											<span class="nav-text">Users Profile</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<hr>
-						</li>
-
-						<!-- Category -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-dns-outline"></i>
-								<span class="nav-text">Categories</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="categorys" data-parent="#sidebar-menu">
-									<li class="">
-										<a class="sidenav-item-link" href="main-category.html">
-											<span class="nav-text">Main Category</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="sub-category.html">
-											<span class="nav-text">Sub Category</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Products -->
-						<li class="has-sub active expand">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-palette-advanced"></i>
-								<span class="nav-text">Products</span> <b class="caret"></b>
-							</a>
-							<div class="collapse show">
-								<ul class="sub-menu" id="products" data-parent="#sidebar-menu">
-									<li class="">
-										<a class="sidenav-item-link" href="product-add.html">
-											<span class="nav-text">Add Product</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="product-list.html">
-											<span class="nav-text">List Product</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="product-grid.html">
-											<span class="nav-text">Grid Product</span>
-										</a>
-									</li>
-									<li class="active">
-										<a class="sidenav-item-link" href="product-detail.html">
-											<span class="nav-text">Product Detail</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Orders -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-cart"></i>
-								<span class="nav-text">Orders</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="orders" data-parent="#sidebar-menu">
-									<li class="">
-										<a class="sidenav-item-link" href="new-order.html">
-											<span class="nav-text">New Order</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="order-history.html">
-											<span class="nav-text">Order History</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="order-detail.html">
-											<span class="nav-text">Order Detail</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="invoice.html">
-											<span class="nav-text">Invoice</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Reviews -->
-						<li>
-							<a class="sidenav-item-link" href="review-list.html">
-								<i class="mdi mdi-star-half"></i>
-								<span class="nav-text">Reviews</span>
-							</a>
-						</li>
-
-						<!-- Brands -->
-						<li>
-							<a class="sidenav-item-link" href="brand-list.html">
-								<i class="mdi mdi-tag-faces"></i>
-								<span class="nav-text">Brands</span>
-							</a>
-							<hr>
-						</li>
-
-						<!-- Authentication -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-login"></i>
-								<span class="nav-text">Authentication</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="authentication" data-parent="#sidebar-menu">
-									<li class="">
-										<a href="sign-in.html">
-											<span class="nav-text">Sign In</span>
-										</a>
-									</li>
-									<li class="">
-										<a href="sign-up.html">
-											<span class="nav-text">Sign Up</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Icons -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-diamond-stone"></i>
-								<span class="nav-text">Icons</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="icons" data-parent="#sidebar-menu">
-									<li class="">
-										<a class="sidenav-item-link" href="material-icon.html">
-											<span class="nav-text">Material Icon</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="font-awsome-icons.html">
-											<span class="nav-text">Font Awsome Icon</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="flag-icon.html">
-											<span class="nav-text">Flag Icon</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Other Pages -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-image-filter-none"></i>
-								<span class="nav-text">Other Pages</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="otherpages" data-parent="#sidebar-menu">
-									<li class="has-sub">
-										<a href="404.html">404 Page</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
+<?php
+require 'navbar.php';
+?>
 
 		<!-- PAGE WRAPPER -->
 		<div class="ec-page-wrapper">
@@ -356,7 +73,7 @@
 									</div>
 
 									<div class="card-body px-0 py-0">
-										<ul class="nav nav-tabs nav-style-border p-0 justify-content-between" id="myNotificationTab"
+										<ul class="nav nav-tabs nav-style-border p-0 justify-content-between" id="myTab"
 											role="tablist">
 											<li class="nav-item mx-3 my-0 py-0">
 												<a href="#" class="nav-link active pb-3" id="home2-tab"
@@ -378,7 +95,8 @@
 										</ul>
 
 										<div class="tab-content" id="myTabContent3">
-											<div class="tab-pane fade show active" id="home2" role="tabpanel">
+											<div class="tab-pane fade show active" id="home2" role="tabpanel"
+												aria-labelledby="home2-tab">
 												<ul class="list-unstyled" data-simplebar style="height: 360px">
 													<li>
 														<a href="javscript:void(0)"
@@ -594,7 +312,8 @@
 												</ul>
 											</div>
 
-											<div class="tab-pane fade" id="profile2" role="tabpanel">
+											<div class="tab-pane fade" id="profile2" role="tabpanel"
+												aria-labelledby="profile2-tab">
 												<ul class="list-unstyled" data-simplebar style="height: 360px">
 													<li>
 														<a href="javscript:void(0)"
@@ -724,7 +443,8 @@
 												</ul>
 											</div>
 
-											<div class="tab-pane fade" id="contact2" role="tabpanel">
+											<div class="tab-pane fade" id="contact2" role="tabpanel"
+												aria-labelledby="contact2-tab">
 												<ul class="list-unstyled" data-simplebar style="height: 360px">
 													<li>
 														<a href="javscript:void(0)"
@@ -920,300 +640,138 @@
 			<!-- CONTENT WRAPPER -->
 			<div class="ec-content-wrapper">
 				<div class="content">
-					<div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
-						<div>
-							<h1>Product Detail</h1>
-							<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
-								<span><i class="mdi mdi-chevron-right"></i></span>Product
-							</p>
-						</div>
-						<div>
-							<a href="product-list.html" class="btn btn-primary"> Edit
-							</a>
-						</div>
+					<div class="breadcrumb-wrapper breadcrumb-wrapper-2">
+						<h1>Invoice</h1>
+						<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
+							<span><i class="mdi mdi-chevron-right"></i></span>Invoice
+						</p>
 					</div>
-					<div class="row">
-						<div class="col-12">
-							<div class="card card-default">
-								<div class="card-header card-header-border-bottom">
-									<h2>Product Detail</h2>
-								</div>
+					<div class="card invoice-wrapper border-radius border bg-white p-4">
+						<div class="d-flex justify-content-between">
+							<h3 class="text-dark font-weight-medium">Invoice #125</h3>
 
-								<div class="card-body product-detail">
-									<div class="row">
-										<div class="col-xl-4 col-lg-6">
-											<div class="row">
-												<div class="single-pro-img">
-													<div class="single-product-scroll">
-														<div class="single-product-cover">
-															<div class="single-slide zoom-image-hover">
-																<img class="img-responsive"
-																	src="assets/img/products/pd_1.jpg" alt="">
-															</div>
-															<div class="single-slide zoom-image-hover">
-																<img class="img-responsive"
-																	src="assets/img/products/pd_2.jpg" alt="">
-															</div>
-															<div class="single-slide zoom-image-hover">
-																<img class="img-responsive"
-																	src="assets/img/products/pd_3.jpg" alt="">
-															</div>
-															<div class="single-slide zoom-image-hover">
-																<img class="img-responsive"
-																	src="assets/img/products/pd_4.jpg" alt="">
-															</div>
-															<div class="single-slide zoom-image-hover">
-																<img class="img-responsive"
-																	src="assets/img/products/pd_5.jpg" alt="">
-															</div>
-														</div>
-														<div class="single-nav-thumb">
-															<div class="single-slide">
-																<img class="img-responsive"
-																	src="assets/img/products/pd_1.jpg" alt="">
-															</div>
-															<div class="single-slide">
-																<img class="img-responsive"
-																	src="assets/img/products/pd_2.jpg" alt="">
-															</div>
-															<div class="single-slide">
-																<img class="img-responsive"
-																	src="assets/img/products/pd_3.jpg" alt="">
-															</div>
-															<div class="single-slide">
-																<img class="img-responsive"
-																	src="assets/img/products/pd_4.jpg" alt="">
-															</div>
-															<div class="single-slide">
-																<img class="img-responsive"
-																	src="assets/img/products/pd_5.jpg" alt="">
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-xl-5 col-lg-6">
-											<div class="row product-overview">
-												<div class="col-12">
-													<h5 class="product-title">Pure Leather Purse for Woman</h5>
-													<p class="product-rate">
-														<i class="mdi mdi-star is-rated"></i>
-														<i class="mdi mdi-star is-rated"></i>
-														<i class="mdi mdi-star is-rated"></i>
-														<i class="mdi mdi-star is-rated"></i>
-														<i class="mdi mdi-star"></i>
-													</p>
-													<p class="product-desc">Lorem Ipsum is simply dummy text of the
-														printing and typesetting industry. Lorem Ipsum has been the
-														industry's standard dummy text ever since the 1990.</p>
-													<p class="product-desc">Lorem Ipsum is simply dummy text of the
-														printing and typesetting industry. Lorem Ipsum has been the
-														industry's standard dummy text ever since the 1990. Lorem Ipsum
-														is simply dummy text of the printing and typesetting industry.
-													</p>
-													<div class="ec-ofr">
-														<h6>Available offers</h6>
-														<ul>
-															<li><b>Special Price :</b> Get extra 16% off (price
-																inclusive of discount) <a href="#">T&C</a> </li>
-															<li><b>Bank Offer :</b> 10% off on XYZ Bank Cards, up to
-																$12. On orders of $200 and above <a href="#">T&C</a>
-															</li>
-															<li><b>Bank Offer :</b> 5% Unlimited Cashback on Ekka XYZ
-																Bank Credit Card <a href="#">T&C</a></li>
-															<li><b>Bank Offer :</b> Flat $50 off on first Ekka Pay Later
-																order of $200 and above <a href="#">T&C</a></li>
-														</ul>
-													</div>
-													<p class="product-price">Price: $120</p>
-													<p class="product-sku">SKU#: WH12</p>
-													<ul class="product-size">
-														<li class="size"><span>S</span></li>
-														<li class="size"><span>M</span></li>
-														<li class="size"><span>L</span></li>
-														<li class="size"><span>XL</span></li>
-													</ul>
-													<ul class="product-color">
-														<li class="color"><span
-																style="background-color:#90cdf7;"></span></li>
-														<li class="color"><span
-																style="background-color:#ff3b66;"></span></li>
-														<li class="color"><span
-																style="background-color:#ffc476;"></span></li>
-														<li class="color"><span
-																style="background-color:#1af0ba;"></span></li>
-														<li class="color"><span
-																style="background-color:#f887d6;"></span></li>
-													</ul>
+							<div class="btn-group">
+								<button class="btn btn-sm btn-primary">
+									<i class="mdi mdi-content-save"></i> Save
+								</button>
 
-													<div class="product-stock">
-														<div class="stock">
-															<p class="title">Available</p>
-															<p class="text">180</p>
-														</div>
-														<div class="stock">
-															<p class="title">Pending</p>
-															<p class="text">50</p>
-														</div>
-														<div class="stock">
-															<p class="title">InOrder</p>
-															<p class="text">20</p>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-xl-3 col-lg-12 u-card">
-											<div class="card card-default seller-card">
-												<div class="card-body text-center">
-													<a href="javascript:0" class="text-secondary d-inline-block">
-														<div class="image mb-3">
-															<img src="assets/img/user/u-xl-4.jpg"
-																class="img-fluid rounded-circle" alt="Avatar Image">
-														</div>
+								<button class="btn btn-sm btn-primary">
+									<i class="mdi mdi-printer"></i> Print
+								</button>
+							</div>
+						</div>
 
-														<h5 class="text-dark">John Karter</h5>
-														<p class="product-rate">
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star"></i>
-														</p>
+						<div class="row pt-5">
+							<div class="col-xl-3 col-lg-4 col-sm-6">
+								<p class="text-dark mb-2">From</p>
 
-														<ul class="list-unstyled">
-															<li class="d-flex mb-1">
-																<i class="mdi mdi-map mr-1"></i>
-																<span>321/2, rio street, usa.</span>
-															</li>
-															<li class="d-flex mb-1">
-																<i class="mdi mdi-email mr-1"></i>
-																<span>example@email.com</span>
-															</li>
-															<li class="d-flex">
-																<i class="mdi mdi-whatsapp mr-1"></i>
-																<span>+00 987-654-3210</span>
-															</li>
-														</ul>
-													</a>
-												</div>
-											</div>
-										</div>
-									</div>
+								<address>
+									<span>Ekka</span>
+									<br> 47 Elita Squre, VIP Chowk,
+									<br> <span>Email:</span> example@gmail.com
+									<br> <span>Phone:</span> +91 5264 251 325
+								</address>
+							</div>
+							<div class="col-xl-3 col-lg-4 col-sm-6">
+								<p class="text-dark mb-2">To</p>
 
-									<div class="row review-rating mt-4">
-										<div class="col-12">
-											<ul class="nav nav-tabs" id="myRatingTab" role="tablist">
-												<li class="nav-item">
-													<a class="nav-link active"
-														id="product-detail-tab" data-bs-toggle="tab"
-														data-bs-target="#productdetail" href="#productdetail" role="tab"
-														aria-selected="true">
-														<i class="mdi mdi-library-books mr-1"></i> Detail</a>
-												</li>
+								<address>
+									<span>John Marle</span>
+									<br> 58 Jamie Ways, North Faye, Q5 5ZP
+									<br> <span>Email</span>: example@gmail.com
+									<br> <span>Phone:</span> +91 5264 521 943
+								</address>
+							</div>
+							<div class="col-xl-4 disp-none"></div>
+							<div class="col-xl-2 col-lg-4 col-sm-6">
+								<p class="text-dark mb-2">Details</p>
 
-												<li class="nav-item">
-													<a class="nav-link"
-														id="product-information-tab" data-bs-toggle="tab"
-														data-bs-target="#productinformation" href="#productinformation"
-														role="tab" aria-selected="false">
-														<i class="mdi mdi-information mr-1"></i>Info</a>
-												</li>
+								<address>
+									<span>Invoice ID:</span>
+									<span class="text-dark">#2365546</span>
+									<br><span>Date :</span> March 25, 2018
+									<br> <span>VAT:</span> PL6541215450
+								</address>
+							</div>
+						</div>
 
-												<li class="nav-item">
-													<a class="nav-link"
-														id="product-reviews-tab" data-bs-toggle="tab"
-														data-bs-target="#productreviews" href="#productreviews"
-														role="tab" aria-selected="false">
-														<i class="mdi mdi-star-half mr-1"></i> Reviews</a>
-												</li>
-											</ul>
-											<div class="tab-content" id="myTabContent2">
-												<div class="tab-pane pt-3 fade show active" id="productdetail"
-													role="tabpanel">
-													<p>Lorem Ipsum is simply dummy text of the printing and typesetting
-														industry.
-														Lorem Ipsum has been the industry's standard dummy text ever
-														since the
-														1500s, when an unknown printer took a galley of type and
-														scrambled it to
-														make a type specimen book. It has survived not only five
-														centuries, but also
-														the leap into electronic typesetting, remaining essentially
-														unchanged.
-													</p>
-													<ul class="features">
-														<li>Any Product types that You want - Simple, Configurable</li>
-														<li>Downloadable/Digital Products, Virtual Products</li>
-														<li>Inventory Management with Backordered items</li>
-														<li>Flatlock seams throughout.</li>
-													</ul>
-												</div>
+						<div class="table-responsive">
+							<table class="table mt-3 table-striped table-responsive table-responsive-large inv-tbl"
+								style="width:100%">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Image</th>
+										<th>Item</th>
+										<th>Description</th>
+										<th>Quantity</th>
+										<th>Unit_Cost</th>
+										<th>Total</th>
+									</tr>
+								</thead>
 
-												<div class="tab-pane pt-3 fade" id="productinformation" role="tabpanel">
-													<ul>
-														<li><span>Weight</span> 1000 g</li>
-														<li><span>Dimensions</span> 35 × 30 × 7 cm</li>
-														<li><span>Color</span> Black, Pink, Red, White</li>
-													</ul>
-												</div>
+								<tbody>
+									<tr>
+										<td>1</td>
+										<td><img class="invoice-item-img" src="assets/img/products/p1.jpg" alt="product-image" /></td>
+										<td>Baby Pink Shoese</td>
+										<td>Amazing shoes with 10 day's replacement warrenty</td>
+										<td>4</td>
+										<td>$50.00</td>
+										<td>$200.00</td>
+									</tr>
 
-												<div class="tab-pane pt-3 fade" id="productreviews" role="tabpanel">
-													<div class="ec-t-review-wrapper">
-														<div class="ec-t-review-item">
-															<div class="ec-t-review-avtar">
-																<img src="assets/img/review-image/1.jpg" alt="">
-															</div>
-															<div class="ec-t-review-content">
-																<div class="ec-t-review-top">
-																	<p class="ec-t-review-name">Jeny Doe</p>
-																	<div class="ec-t-rate">
-																		<i class="mdi mdi-star is-rated"></i>
-																		<i class="mdi mdi-star is-rated"></i>
-																		<i class="mdi mdi-star is-rated"></i>
-																		<i class="mdi mdi-star is-rated"></i>
-																		<i class="mdi mdi-star"></i>
-																	</div>
-																</div>
-																<div class="ec-t-review-bottom">
-																	<p>Lorem Ipsum is simply dummy text of the printing
-																		and
-																		typesetting industry.
-																	</p>
-																</div>
-															</div>
-														</div>
-														<div class="ec-t-review-item">
-															<div class="ec-t-review-avtar">
-																<img src="assets/img/review-image/2.jpg" alt="">
-															</div>
-															<div class="ec-t-review-content">
-																<div class="ec-t-review-top">
-																	<p class="ec-t-review-name">Linda Morgus</p>
-																	<div class="ec-t-rate">
-																		<i class="mdi mdi-star is-rated"></i>
-																		<i class="mdi mdi-star is-rated"></i>
-																		<i class="mdi mdi-star is-rated"></i>
-																		<i class="mdi mdi-star is-rated"></i>
-																		<i class="mdi mdi-star"></i>
-																	</div>
-																</div>
-																<div class="ec-t-review-bottom">
-																	<p>Lorem Ipsum is simply dummy text of the printing
-																		and
-																		typesetting industry.
-																	</p>
-																</div>
-															</div>
-														</div>
+									<tr>
+										<td>2</td>
+										<td><img class="invoice-item-img" src="assets/img/products/p2.jpg" alt="product-image"></td>
+										<td>Man T-Shirt with Cap Style</td>
+										<td>Long Sleeve men T-shirt with cap in Dark Blue Color</td>
+										<td>10</td>
+										<td>$50.00</td>
+										<td>$500.00</td>
+									</tr>
 
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+									<tr>
+										<td>3</td>
+										<td><img class="invoice-item-img" src="assets/img/products/p3.jpg" alt="product-image"></td>
+										<td>Full Sleeve T-Shirt for men</td>
+										<td>Amazing T-shirt in pure Cotton for both</td>
+										<td>10</td>
+										<td>$20.00</td>
+										<td>$200.00</td>
+									</tr>
+
+									<tr>
+										<td>4</td>
+										<td><img class="invoice-item-img" src="assets/img/products/p4.jpg" alt="product-image"></td>
+										<td>Round Hat for Men</td>
+										<td>Pure Leather Hat for men with black round tap</td>
+										<td>6</td>
+										<td>$50.00</td>
+										<td>$300.00</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<div class="row justify-content-end inc-total">
+							<div class="col-lg-3 col-xl-3 col-xl-3 ml-sm-auto">
+								<ul class="list-unstyled mt-3">
+									<li class="mid pb-3 text-dark"> Subtotal
+										<span class="d-inline-block float-right text-default">$1200.00</span>
+									</li>
+
+									<li class="mid pb-3 text-dark">Vat(10%)
+										<span class="d-inline-block float-right text-default">$100.00</span>
+									</li>
+
+									<li class="pb-3 text-dark">Total
+										<span class="d-inline-block float-right">$1300.00</span>
+									</li>
+								</ul>
+
+								<a href="javascript:void(0)" class="btn btn-block mt-2 btn-primary btn-pill"> Procced to
+									Payment</a>
 							</div>
 						</div>
 					</div>
@@ -1240,13 +798,13 @@
 	<script src="assets/plugins/simplebar/simplebar.min.js"></script>
 	<script src="assets/plugins/jquery-zoom/jquery.zoom.min.js"></script>
 	<script src="assets/plugins/slick/slick.min.js"></script>
-	<script src="assets/plugins/swiper/swiper-bundle.min.js"></script>
 
 	<!-- Option Switcher -->
 	<script src="assets/plugins/options-sidebar/optionswitcher.js"></script>
 
 	<!-- Ekka Custom -->
 	<script src="assets/js/ekka.js"></script>
+
 </body>
 
 </html>

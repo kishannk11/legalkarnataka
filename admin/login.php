@@ -1,3 +1,22 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require_once 'config/config.php';
+require_once "Database.php";
+ if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user = new User($conn);
+    $user->username = $_POST["username"];
+    $user->password = $_POST["userpassword"];
+     if ($user->login()) {
+        header("location: dashboard.php");
+        exit;
+    } else {
+        $error = "Invalid username or password.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -20,6 +39,21 @@
 		
 		<!-- FAVICON -->
 		<link href="assets/img/favicon.png" rel="shortcut icon" />
+		<style>
+			.ec-brand {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 10vh; /* adjust the height as needed */
+			}
+
+			.rounded-image {
+				width: 100px; /* adjust the size as needed */
+				height: 100px;
+				border-radius: 80%;
+				overflow: hidden;
+			}
+			</style>
 	</head>
 	
 	<body class="sign-inup" id="body">
@@ -28,23 +62,32 @@
 				<div class="col-lg-6 col-md-10">
 					<div class="card">
 						<div class="card-header bg-primary">
+						
 							<div class="ec-brand">
-								<a href="index.html" title="Ekka">
-									<img class="ec-brand-icon" src="assets/img/logo/logo-login.png" alt="" />
+							<div class="rounded-image">
+								<a href="#" title="Legal Karnataka">
+									<img src="assets/img/logo/logo-login.jpeg" alt="">
 								</a>
+								</div>
 							</div>
+							
 						</div>
 						<div class="card-body p-5">
+						<?php
+						if (isset($error)) {
+							echo '<div class="alert alert-danger">' . $error . '</div>';
+						}
+						?>
 							<h4 class="text-dark mb-5">Sign In</h4>
 							
-							<form action="/index.html">
+							<form method="POST" class="form-horizontal auth-form my-4" action="login.php">
 								<div class="row">
 									<div class="form-group col-md-12 mb-4">
-										<input type="email" class="form-control" id="email" placeholder="Username">
+										<input type="text" class="form-control" id="email" name="username" placeholder="Username">
 									</div>
 									
 									<div class="form-group col-md-12 ">
-										<input type="password" class="form-control" id="password" placeholder="Password">
+										<input type="password" class="form-control" id="password" name="userpassword" placeholder="Password">
 									</div>
 									
 									<div class="col-md-12">

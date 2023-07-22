@@ -1,291 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="description" content="Ekka - Admin Dashboard HTML Template.">
-
-	<title>Ekka - Admin Dashboard HTML Template.</title>
-
-	<!-- GOOGLE FONTS -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-
-	<link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
-
-	<!-- PLUGINS CSS STYLE -->
-	<link href="assets/plugins/simplebar/simplebar.css" rel="stylesheet" />
-
-	<!-- Data-Tables -->
-	<link href='assets/plugins/data-tables/datatables.bootstrap5.min.css' rel='stylesheet'>
-	<link href='assets/plugins/data-tables/responsive.datatables.min.css' rel='stylesheet'>
-
-	<!-- Ekka CSS -->
-	<link id="ekka-css" rel="stylesheet" href="assets/css/ekka.css" />
-
-	<!-- FAVICON -->
-	<link href="assets/img/favicon.png" rel="shortcut icon" />
-</head>
-
-<body class="ec-header-fixed ec-sidebar-fixed ec-sidebar-dark ec-header-light" id="body">
-
-	<!-- WRAPPER -->
-	<div class="wrapper">
-
-		<!-- LEFT MAIN SIDEBAR -->
-		<div class="ec-left-sidebar ec-bg-sidebar">
-			<div id="sidebar" class="sidebar ec-sidebar-footer">
-
-				<div class="ec-brand">
-					<a href="index.html" title="Ekka">
-						<img class="ec-brand-icon" src="assets/img/logo/ec-site-logo.png" alt="" />
-						<span class="ec-brand-name text-truncate">Ekka</span>
-					</a>
-				</div>
-
-				<!-- begin sidebar scrollbar -->
-				<div class="ec-navigation" data-simplebar>
-					<!-- sidebar menu -->
-					<ul class="nav sidebar-inner" id="sidebar-menu">
-						<!-- Dashboard -->
-						<li>
-							<a class="sidenav-item-link" href="index.html">
-								<i class="mdi mdi-view-dashboard-outline"></i>
-								<span class="nav-text">Dashboard</span>
-							</a>
-							<hr>
-						</li>
-
-						<!-- Vendors -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-account-group-outline"></i>
-								<span class="nav-text">Vendors</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="vendors" data-parent="#sidebar-menu">
-									<li class="">
-										<a class="sidenav-item-link" href="vendor-card.html">
-											<span class="nav-text">Vendor Grid</span>
-										</a>
-									</li>
-
-									<li class="">
-										<a class="sidenav-item-link" href="vendor-list.html">
-											<span class="nav-text">Vendor List</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="vendor-profile.html">
-											<span class="nav-text">Vendors Profile</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Users -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-account-group"></i>
-								<span class="nav-text">Users</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="users" data-parent="#sidebar-menu">
-									<li>
-										<a class="sidenav-item-link" href="user-card.html">
-											<span class="nav-text">User Grid</span>
-										</a>
-									</li>
-
-									<li class="">
-										<a class="sidenav-item-link" href="user-list.html">
-											<span class="nav-text">User List</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="user-profile.html">
-											<span class="nav-text">Users Profile</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<hr>
-						</li>
-
-						<!-- Category -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-dns-outline"></i>
-								<span class="nav-text">Categories</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="categorys" data-parent="#sidebar-menu">
-									<li class="">
-										<a class="sidenav-item-link" href="main-category.html">
-											<span class="nav-text">Main Category</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="sub-category.html">
-											<span class="nav-text">Sub Category</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Products -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-palette-advanced"></i>
-								<span class="nav-text">Products</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="products" data-parent="#sidebar-menu">
-									<li class="">
-										<a class="sidenav-item-link" href="product-add.html">
-											<span class="nav-text">Add Product</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="product-list.html">
-											<span class="nav-text">List Product</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="product-grid.html">
-											<span class="nav-text">Grid Product</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="product-detail.html">
-											<span class="nav-text">Product Detail</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Orders -->
-						<li class="has-sub active expand">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-cart"></i>
-								<span class="nav-text">Orders</span> <b class="caret"></b>
-							</a>
-							<div class="collapse show">
-								<ul class="sub-menu" id="orders" data-parent="#sidebar-menu">
-									<li class="active">
-										<a class="sidenav-item-link" href="new-order.html">
-											<span class="nav-text">New Order</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="order-history.html">
-											<span class="nav-text">Order History</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="order-detail.html">
-											<span class="nav-text">Order Detail</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="invoice.html">
-											<span class="nav-text">Invoice</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Reviews -->
-						<li>
-							<a class="sidenav-item-link" href="review-list.html">
-								<i class="mdi mdi-star-half"></i>
-								<span class="nav-text">Reviews</span>
-							</a>
-						</li>
-
-						<!-- Brands -->
-						<li>
-							<a class="sidenav-item-link" href="brand-list.html">
-								<i class="mdi mdi-tag-faces"></i>
-								<span class="nav-text">Brands</span>
-							</a>
-							<hr>
-						</li>
-
-						<!-- Authentication -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-login"></i>
-								<span class="nav-text">Authentication</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="authentication" data-parent="#sidebar-menu">
-									<li class="">
-										<a href="sign-in.html">
-											<span class="nav-text">Sign In</span>
-										</a>
-									</li>
-									<li class="">
-										<a href="sign-up.html">
-											<span class="nav-text">Sign Up</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Icons -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-diamond-stone"></i>
-								<span class="nav-text">Icons</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="icons" data-parent="#sidebar-menu">
-									<li class="">
-										<a class="sidenav-item-link" href="material-icon.html">
-											<span class="nav-text">Material Icon</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="font-awsome-icons.html">
-											<span class="nav-text">Font Awsome Icon</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="flag-icon.html">
-											<span class="nav-text">Flag Icon</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Other Pages -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-image-filter-none"></i>
-								<span class="nav-text">Other Pages</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="otherpages" data-parent="#sidebar-menu">
-									<li class="has-sub">
-										<a href="404.html">404 Page</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
+<?php
+require 'navbar.php';
+?>
 
 		<!-- PAGE WRAPPER -->
 		<div class="ec-page-wrapper">
@@ -925,355 +640,252 @@
 			<!-- CONTENT WRAPPER -->
 			<div class="ec-content-wrapper">
 				<div class="content">
-					<div class="breadcrumb-wrapper breadcrumb-wrapper-2">
-						<h1>New Orders</h1>
-						<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
-							<span><i class="mdi mdi-chevron-right"></i></span>Orders
-						</p>
+					<div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
+						<div>
+							<h1>Add Product</h1>
+							<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
+								<span><i class="mdi mdi-chevron-right"></i></span>Product</p>
+						</div>
+						<div>
+							<a href="product-list.html" class="btn btn-primary"> View All
+							</a>
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-12">
 							<div class="card card-default">
+								<div class="card-header card-header-border-bottom">
+									<h2>Add Product</h2>
+								</div>
+
 								<div class="card-body">
-									<div class="table-responsive">
-										<table id="responsive-data-table" class="table" style="width:100%">
-											<thead>
-												<tr>
-													<th>ID</th>
-													<th>Item</th>
-													<th>Name</th>
-													<th>Customer</th>
-													<th>Items</th>
-													<th>Price</th>
-													<th>Payment</th>
-													<th>Status</th>
-													<th>Date</th>
-													<th>Action</th>
-												</tr>
-											</thead>
-
-											<tbody>
-												<tr>
-													<td>1050</td>
-													<td><img class="product-img tbl-img" src="assets/img/products/p1.jpg" alt="product"></td>
-													<td>Baby Pink Shoes</td>
-													<td><strong>John Deo</strong><br>
-														johny@example.com
-													</td>
-													<td>3</td>
-													<td>$80</td>
-													<td>PAID</td>
-													<td><span class="mb-2 mr-2 badge badge-secondary">Pending</span>
-													</td>
-													<td>2021-10-30</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Detail</a>
-																<a class="dropdown-item" href="#">Track</a>
-																<a class="dropdown-item" href="#">Cancel</a>
+									<div class="row ec-vendor-uploads">
+										<div class="col-lg-4">
+											<div class="ec-vendor-img-upload">
+												<div class="ec-vendor-main-img">
+													<div class="avatar-upload">
+														<div class="avatar-edit">
+															<input type='file' id="imageUpload" class="ec-image-upload"
+																accept=".png, .jpg, .jpeg" />
+															<label for="imageUpload"><img
+																	src="assets/img/icons/edit.svg"
+																	class="svg_img header_svg" alt="edit" /></label>
+														</div>
+														<div class="avatar-preview ec-preview">
+															<div class="imagePreview ec-div-preview">
+																<img class="ec-image-preview"
+																	src="assets/img/products/vender-upload-preview.jpg"
+																	alt="edit" />
 															</div>
 														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>1049</td>
-													<td><img class="product-img tbl-img" src="assets/img/products/p2.jpg" alt="product"></td>
-													<td>Tee-Shirt For Men</td>
-													<td><strong>Kethan Komary</strong><br>
-														ktn@example.com
-													</td>
-													<td>10</td>
-													<td>$280</td>
-													<td>COD</td>
-													<td><span class="mb-2 mr-2 badge badge-warning">Redy To Ship</span>
-													</td>
-													<td>2021-10-30</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Detail</a>
-																<a class="dropdown-item" href="#">Track</a>
-																<a class="dropdown-item" href="#">Cancel</a>
+													</div>
+													<div class="thumb-upload-set colo-md-12">
+														<div class="thumb-upload">
+															<div class="thumb-edit">
+																<input type='file' id="thumbUpload01"
+																	class="ec-image-upload"
+																	accept=".png, .jpg, .jpeg" />
+																<label for="imageUpload"><img
+																		src="assets/img/icons/edit.svg"
+																		class="svg_img header_svg" alt="edit" /></label>
+															</div>
+															<div class="thumb-preview ec-preview">
+																<div class="image-thumb-preview">
+																	<img class="image-thumb-preview ec-image-preview"
+																		src="assets/img/products/vender-upload-thumb-preview.jpg"
+																		alt="edit" />
+																</div>
 															</div>
 														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>1048</td>
-													<td><img class="product-img tbl-img" src="assets/img/products/p3.jpg" alt="product"></td>
-													<td>Tee-Shirt For Girl</td>
-													<td><strong>Mehul Markue</strong><br>
-														mehul@example.com
-													</td>
-													<td>5</td>
-													<td>$100</td>
-													<td>COD</td>
-													<td><span class="mb-2 mr-2 badge badge-info">On The Way</span></td>
-													<td>2021-10-30</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Detail</a>
-																<a class="dropdown-item" href="#">Track</a>
-																<a class="dropdown-item" href="#">Cancel</a>
+														<div class="thumb-upload">
+															<div class="thumb-edit">
+																<input type='file' id="thumbUpload02"
+																	class="ec-image-upload"
+																	accept=".png, .jpg, .jpeg" />
+																<label for="imageUpload"><img
+																		src="assets/img/icons/edit.svg"
+																		class="svg_img header_svg" alt="edit" /></label>
+															</div>
+															<div class="thumb-preview ec-preview">
+																<div class="image-thumb-preview">
+																	<img class="image-thumb-preview ec-image-preview"
+																		src="assets/img/products/vender-upload-thumb-preview.jpg"
+																		alt="edit" />
+																</div>
 															</div>
 														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>1047</td>
-													<td><img class="product-img tbl-img" src="assets/img/products/p4.jpg" alt="product"></td>
-													<td>Cowboy Hat</td>
-													<td><strong>Bhavesh Markue</strong><br>
-														Bhavesh@example.com
-													</td>
-													<td>8</td>
-													<td>$140</td>
-													<td>PAID</td>
-													<td><span class="mb-2 mr-2 badge badge-success">Delivered</span>
-													</td>
-													<td>2021-10-30</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Detail</a>
-																<a class="dropdown-item" href="#">Track</a>
-																<a class="dropdown-item" href="#">Cancel</a>
+														<div class="thumb-upload">
+															<div class="thumb-edit">
+																<input type='file' id="thumbUpload03"
+																	class="ec-image-upload"
+																	accept=".png, .jpg, .jpeg" />
+																<label for="imageUpload"><img
+																		src="assets/img/icons/edit.svg"
+																		class="svg_img header_svg" alt="edit" /></label>
+															</div>
+															<div class="thumb-preview ec-preview">
+																<div class="image-thumb-preview">
+																	<img class="image-thumb-preview ec-image-preview"
+																		src="assets/img/products/vender-upload-thumb-preview.jpg"
+																		alt="edit" />
+																</div>
 															</div>
 														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>1046</td>
-													<td><img class="product-img tbl-img" src="assets/img/products/p5.jpg" alt="product"></td>
-													<td>Womens Purse</td>
-													<td><strong>Morgus Markue</strong><br>
-														morgus@example.com
-													</td>
-													<td>3</td>
-													<td>$80</td>
-													<td>PAID</td>
-													<td><span class="mb-2 mr-2 badge badge-secondary">Pending</span>
-													</td>
-													<td>2021-10-30</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Detail</a>
-																<a class="dropdown-item" href="#">Track</a>
-																<a class="dropdown-item" href="#">Cancel</a>
+														<div class="thumb-upload">
+															<div class="thumb-edit">
+																<input type='file' id="thumbUpload04"
+																	class="ec-image-upload"
+																	accept=".png, .jpg, .jpeg" />
+																<label for="imageUpload"><img
+																		src="assets/img/icons/edit.svg"
+																		class="svg_img header_svg" alt="edit" /></label>
+															</div>
+															<div class="thumb-preview ec-preview">
+																<div class="image-thumb-preview">
+																	<img class="image-thumb-preview ec-image-preview"
+																		src="assets/img/products/vender-upload-thumb-preview.jpg"
+																		alt="edit" />
+																</div>
 															</div>
 														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>1045</td>
-													<td><img class="product-img tbl-img" src="assets/img/products/p6.jpg" alt="product"></td>
-													<td>Baby toy doctor kit</td>
-													<td><strong>Merry Donesk</strong><br>
-														Merry07@example.com
-													</td>
-													<td>10</td>
-													<td>$280</td>
-													<td>COD</td>
-													<td><span class="mb-2 mr-2 badge badge-warning">Redy To Ship</span>
-													</td>
-													<td>2021-10-30</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Detail</a>
-																<a class="dropdown-item" href="#">Track</a>
-																<a class="dropdown-item" href="#">Cancel</a>
+														<div class="thumb-upload">
+															<div class="thumb-edit">
+																<input type='file' id="thumbUpload05"
+																	class="ec-image-upload"
+																	accept=".png, .jpg, .jpeg" />
+																<label for="imageUpload"><img
+																		src="assets/img/icons/edit.svg"
+																		class="svg_img header_svg" alt="edit" /></label>
+															</div>
+															<div class="thumb-preview ec-preview">
+																<div class="image-thumb-preview">
+																	<img class="image-thumb-preview ec-image-preview"
+																		src="assets/img/products/vender-upload-thumb-preview.jpg"
+																		alt="edit" />
+																</div>
 															</div>
 														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>1095</td>
-													<td><img class="product-img tbl-img" src="assets/img/products/p7.jpg" alt="product"></td>
-													<td>Mens Shirt</td>
-													<td><strong>Sin Cinaty</strong><br>
-														cinaty@example.com
-													</td>
-													<td>10</td>
-													<td>$280</td>
-													<td>COD</td>
-													<td><span class="mb-2 mr-2 badge badge-warning">Redy To Ship</span>
-													</td>
-													<td>2021-10-30</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Detail</a>
-																<a class="dropdown-item" href="#">Track</a>
-																<a class="dropdown-item" href="#">Cancel</a>
+														<div class="thumb-upload">
+															<div class="thumb-edit">
+																<input type='file' id="thumbUpload06"
+																	class="ec-image-upload"
+																	accept=".png, .jpg, .jpeg" />
+																<label for="imageUpload"><img
+																		src="assets/img/icons/edit.svg"
+																		class="svg_img header_svg" alt="edit" /></label>
+															</div>
+															<div class="thumb-preview ec-preview">
+																<div class="image-thumb-preview">
+																	<img class="image-thumb-preview ec-image-preview"
+																		src="assets/img/products/vender-upload-thumb-preview.jpg"
+																		alt="edit" />
+																</div>
 															</div>
 														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>354</td>
-													<td><img class="product-img tbl-img" src="assets/img/products/p8.jpg" alt="product"></td>
-													<td>Smart Watch</td>
-													<td><strong>Tokyo Naikra</strong><br>
-														naikra@example.com
-													</td>
-													<td>10</td>
-													<td>$280</td>
-													<td>COD</td>
-													<td><span class="mb-2 mr-2 badge badge-warning">Redy To Ship</span>
-													</td>
-													<td>2021-10-30</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Detail</a>
-																<a class="dropdown-item" href="#">Track</a>
-																<a class="dropdown-item" href="#">Cancel</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-8">
+											<div class="ec-vendor-upload-detail">
+												<form class="row g-3">
+													<div class="col-md-6">
+														<label for="inputEmail4" class="form-label">Product name</label>
+														<input type="text" class="form-control slug-title" id="inputEmail4">
+													</div>
+													<div class="col-md-6">
+														<label class="form-label">Select Categories</label>
+														<select name="categories" id="Categories" class="form-select">
+															<optgroup label="Fashion">
+																<option value="t-shirt">T-shirt</option>
+																<option value="dress">Dress</option>
+															</optgroup>
+															<optgroup label="Furniture">
+																<option value="table">Table</option>
+																<option value="sofa">Sofa</option>
+															</optgroup>
+															<optgroup label="Electronic">
+																<option value="phone">I Phone</option>
+																<option value="laptop">Laptop</option>
+															</optgroup>
+														</select>
+													</div>
+													<div class="col-md-12">
+														<label for="slug" class="col-12 col-form-label">Slug</label> 
+														<div class="col-12">
+															<input id="slug" name="slug" class="form-control here set-slug" type="text">
+														</div>
+													</div>
+													<div class="col-md-12">
+														<label class="form-label">Sort Description</label>
+														<textarea class="form-control" rows="2"></textarea>
+													</div>
+													<div class="col-md-4 mb-25">
+														<label class="form-label">Colors</label>
+														<input type="color" class="form-control form-control-color"
+															id="exampleColorInput1" value="#ff6191"
+															title="Choose your color">
+														<input type="color" class="form-control form-control-color"
+															id="exampleColorInput2" value="#33317d"
+															title="Choose your color">
+														<input type="color" class="form-control form-control-color"
+															id="exampleColorInput3" value="#56d4b7"
+															title="Choose your color">
+														<input type="color" class="form-control form-control-color"
+															id="exampleColorInput4" value="#009688"
+															title="Choose your color">
+													</div>
+													<div class="col-md-8 mb-25">
+														<label class="form-label">Size</label>
+														<div class="form-checkbox-box">
+															<div class="form-check form-check-inline">
+																<input type="checkbox" name="size1" value="size">
+																<label>S</label>
+															</div>
+															<div class="form-check form-check-inline">
+																<input type="checkbox" name="size1" value="size">
+																<label>M</label>
+															</div>
+															<div class="form-check form-check-inline">
+																<input type="checkbox" name="size1" value="size">
+																<label>L</label>
+															</div>
+															<div class="form-check form-check-inline">
+																<input type="checkbox" name="size1" value="size">
+																<label>XL</label>
+															</div>
+															<div class="form-check form-check-inline">
+																<input type="checkbox" name="size1" value="size">
+																<label>XXL</label>
 															</div>
 														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>654</td>
-													<td><img class="product-img tbl-img" src="assets/img/products/p9.jpg" alt="product"></td>
-													<td>Tee-Shirt For Men</td>
-													<td><strong>Hardik Patel</strong><br>
-														patel000777@example.com
-													</td>
-													<td>2</td>
-													<td>$50</td>
-													<td>PAID</td>
-													<td><span class="mb-2 mr-2 badge badge-info">On The Way</span>
-													</td>
-													<td>2021-10-30</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Detail</a>
-																<a class="dropdown-item" href="#">Track</a>
-																<a class="dropdown-item" href="#">Cancel</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>785</td>
-													<td><img class="product-img tbl-img" src="assets/img/products/p10.jpg" alt="product"></td>
-													<td>Men casual shoes</td>
-													<td><strong>Pintos Martino</strong><br>
-														martino0777@example.com
-													</td>
-													<td>10</td>
-													<td>$280</td>
-													<td>COD</td>
-													<td><span class="mb-2 mr-2 badge badge-success">Delivered</span>
-													</td>
-													<td>2021-10-30</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Detail</a>
-																<a class="dropdown-item" href="#">Track</a>
-																<a class="dropdown-item" href="#">Cancel</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-											</tbody>
-										</table>
+													</div>
+													<div class="col-md-6">
+														<label class="form-label">Price <span>( In USD
+																)</span></label>
+														<input type="number" class="form-control" id="price1">
+													</div>
+													<div class="col-md-6">
+														<label class="form-label">Quantity</label>
+														<input type="number" class="form-control" id="quantity1">
+													</div>
+													<div class="col-md-12">
+														<label class="form-label">Ful Detail</label>
+														<textarea class="form-control" rows="4"></textarea>
+													</div>
+													<div class="col-md-12">
+														<label class="form-label">Product Tags <span>( Type and
+																make comma to separate tags )</span></label>
+														<input type="text" class="form-control" id="group_tag"
+															name="group_tag" value="" placeholder=""
+															data-role="tagsinput" />
+													</div>
+													<div class="col-md-12">
+														<button type="submit" class="btn btn-primary">Submit</button>
+													</div>
+												</form>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -1287,9 +899,8 @@
 				<div class="copyright bg-white">
 					<p>
 						Copyright &copy; <span id="ec-year"></span><a class="text-primary"
-							href="https://themeforest.net/user/ashishmaraviya" target="_blank"> Ekka Admin
-							Dashboard</a>. All Rights Reserved.
-					</p>
+						href="https://themeforest.net/user/ashishmaraviya" target="_blank"> Ekka Admin Dashboard</a>. All Rights Reserved.
+					  </p>
 				</div>
 			</footer>
 
@@ -1299,14 +910,10 @@
 	<!-- Common Javascript -->
 	<script src="assets/plugins/jquery/jquery-3.5.1.min.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/plugins/tags-input/bootstrap-tagsinput.js"></script>
 	<script src="assets/plugins/simplebar/simplebar.min.js"></script>
 	<script src="assets/plugins/jquery-zoom/jquery.zoom.min.js"></script>
 	<script src="assets/plugins/slick/slick.min.js"></script>
-
-	<!-- Data-Tables -->
-	<script src='assets/plugins/data-tables/jquery.datatables.min.js'></script>
-	<script src='assets/plugins/data-tables/datatables.bootstrap5.min.js'></script>
-	<script src='assets/plugins/data-tables/datatables.responsive.min.js'></script>
 
 	<!-- Option Switcher -->
 	<script src="assets/plugins/options-sidebar/optionswitcher.js"></script>

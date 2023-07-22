@@ -1,291 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="description" content="Ekka - Admin Dashboard HTML Template.">
-
-	<title>Ekka - Admin Dashboard HTML Template.</title>
-
-	<!-- GOOGLE FONTS -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-
-	<link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
-
-	<!-- PLUGINS CSS STYLE -->
-	<link href="assets/plugins/simplebar/simplebar.css" rel="stylesheet" />
-
-	<!-- Data Tables -->
-	<link href='assets/plugins/data-tables/datatables.bootstrap5.min.css' rel='stylesheet'>
-	<link href='assets/plugins/data-tables/responsive.datatables.min.css' rel='stylesheet'>
-
-	<!-- ekka CSS -->
-	<link id="ekka-css" rel="stylesheet" href="assets/css/ekka.css" />
-
-	<!-- FAVICON -->
-	<link href="assets/img/favicon.png" rel="shortcut icon" />
-</head>
-
-<body class="ec-header-fixed ec-sidebar-fixed ec-sidebar-dark ec-header-light" id="body">
-
-	<!-- WRAPPER -->
-	<div class="wrapper">
-
-		<!-- LEFT MAIN SIDEBAR -->
-		<div class="ec-left-sidebar ec-bg-sidebar">
-			<div id="sidebar" class="sidebar ec-sidebar-footer">
-
-				<div class="ec-brand">
-					<a href="index.html" title="Ekka">
-						<img class="ec-brand-icon" src="assets/img/logo/ec-site-logo.png" alt="" />
-						<span class="ec-brand-name text-truncate">Ekka</span>
-					</a>
-				</div>
-
-				<!-- begin sidebar scrollbar -->
-				<div class="ec-navigation" data-simplebar>
-					<!-- sidebar menu -->
-					<ul class="nav sidebar-inner" id="sidebar-menu">
-						<!-- Dashboard -->
-						<li>
-							<a class="sidenav-item-link" href="index.html">
-								<i class="mdi mdi-view-dashboard-outline"></i>
-								<span class="nav-text">Dashboard</span>
-							</a>
-							<hr>
-						</li>
-
-						<!-- Vendors -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-account-group-outline"></i>
-								<span class="nav-text">Vendors</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="vendors" data-parent="#sidebar-menu">
-									<li class="">
-										<a class="sidenav-item-link" href="vendor-card.html">
-											<span class="nav-text">Vendor Grid</span>
-										</a>
-									</li>
-
-									<li class="">
-										<a class="sidenav-item-link" href="vendor-list.html">
-											<span class="nav-text">Vendor List</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="vendor-profile.html">
-											<span class="nav-text">Vendors Profile</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Users -->
-						<li class="has-sub active expand">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-account-group"></i>
-								<span class="nav-text">Users</span> <b class="caret"></b>
-							</a>
-							<div class="collapse show">
-								<ul class="sub-menu" id="users" data-parent="#sidebar-menu">
-									<li>
-										<a class="sidenav-item-link" href="user-card.html">
-											<span class="nav-text">User Grid</span>
-										</a>
-									</li>
-
-									<li class="active">
-										<a class="sidenav-item-link" href="user-list.html">
-											<span class="nav-text">User List</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="user-profile.html">
-											<span class="nav-text">Users Profile</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<hr>
-						</li>
-
-						<!-- Category -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-dns-outline"></i>
-								<span class="nav-text">Categories</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="categorys" data-parent="#sidebar-menu">
-									<li class="">
-										<a class="sidenav-item-link" href="main-category.html">
-											<span class="nav-text">Main Category</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="sub-category.html">
-											<span class="nav-text">Sub Category</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Products -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-palette-advanced"></i>
-								<span class="nav-text">Products</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="products" data-parent="#sidebar-menu">
-									<li class="">
-										<a class="sidenav-item-link" href="product-add.html">
-											<span class="nav-text">Add Product</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="product-list.html">
-											<span class="nav-text">List Product</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="product-grid.html">
-											<span class="nav-text">Grid Product</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="product-detail.html">
-											<span class="nav-text">Product Detail</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Orders -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-cart"></i>
-								<span class="nav-text">Orders</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="orders" data-parent="#sidebar-menu">
-									<li class="">
-										<a class="sidenav-item-link" href="new-order.html">
-											<span class="nav-text">New Order</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="order-history.html">
-											<span class="nav-text">Order History</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="order-detail.html">
-											<span class="nav-text">Order Detail</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="invoice.html">
-											<span class="nav-text">Invoice</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Reviews -->
-						<li>
-							<a class="sidenav-item-link" href="review-list.html">
-								<i class="mdi mdi-star-half"></i>
-								<span class="nav-text">Reviews</span>
-							</a>
-						</li>
-
-						<!-- Brands -->
-						<li>
-							<a class="sidenav-item-link" href="brand-list.html">
-								<i class="mdi mdi-tag-faces"></i>
-								<span class="nav-text">Brands</span>
-							</a>
-							<hr>
-						</li>
-
-						<!-- Authentication -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-login"></i>
-								<span class="nav-text">Authentication</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="authentication" data-parent="#sidebar-menu">
-									<li class="">
-										<a href="sign-in.html">
-											<span class="nav-text">Sign In</span>
-										</a>
-									</li>
-									<li class="">
-										<a href="sign-up.html">
-											<span class="nav-text">Sign Up</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Icons -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-diamond-stone"></i>
-								<span class="nav-text">Icons</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="icons" data-parent="#sidebar-menu">
-									<li class="">
-										<a class="sidenav-item-link" href="material-icon.html">
-											<span class="nav-text">Material Icon</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="font-awsome-icons.html">
-											<span class="nav-text">Font Awsome Icon</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="flag-icon.html">
-											<span class="nav-text">Flag Icon</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- Other Pages -->
-						<li class="has-sub">
-							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-image-filter-none"></i>
-								<span class="nav-text">Other Pages</span> <b class="caret"></b>
-							</a>
-							<div class="collapse">
-								<ul class="sub-menu" id="otherpages" data-parent="#sidebar-menu">
-									<li class="has-sub">
-										<a href="404.html">404 Page</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
+<?php
+require 'navbar.php';
+?>
 
 		<!-- PAGE WRAPPER -->
 		<div class="ec-page-wrapper">
@@ -925,45 +640,45 @@
 			<!-- CONTENT WRAPPER -->
 			<div class="ec-content-wrapper">
 				<div class="content">
-					<div class="breadcrumb-wrapper breadcrumb-contacts">
+					<div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
 						<div>
-							<h1>User List</h1>
+							<h1>Product</h1>
 							<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
-								<span><i class="mdi mdi-chevron-right"></i></span>User
-							</p>
+								<span><i class="mdi mdi-chevron-right"></i></span>Product</p>
 						</div>
 						<div>
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-								data-bs-target="#addUser"> Add User
-							</button>
+							<a href="product-list.html" class="btn btn-primary"> Add Porduct</a>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<div class="ec-vendor-list card card-default">
+							<div class="card card-default">
 								<div class="card-body">
 									<div class="table-responsive">
-										<table id="responsive-data-table" class="table">
+										<table id="responsive-data-table" class="table"
+											style="width:100%">
 											<thead>
 												<tr>
-													<th>Profile</th>
+													<th>Product</th>
 													<th>Name</th>
-													<th>Email</th>
-													<th>Phone</th>
-													<th>Total Buy</th>
+													<th>Price</th>
+													<th>Offer</th>
+													<th>Purchased</th>
+													<th>Stock</th>
 													<th>Status</th>
-													<th>Join On</th>
+													<th>Date</th>
 													<th>Action</th>
 												</tr>
 											</thead>
 
 											<tbody>
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u1.jpg" alt="user profile" /></td>
-													<td>Marlee Rena</td>
-													<td>marleerena@gmail.com</td>
-													<td>+1-256-325-8652</td>
-													<td>2161</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p1.jpg" alt="Product Image" /></td>
+													<td>Baby shoes</td>
+													<td>$20</td>
+													<td>25% OFF</td>
+													<td>61</td>
+													<td>5421</td>
 													<td>ACTIVE</td>
 													<td>2021-10-30</td>
 													<td>
@@ -984,194 +699,14 @@
 														</div>
 													</td>
 												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u2.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
 
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u3.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u4.jpg" alt="user profile" /></td>
-													<td>Mohini Marlo</td>
-													<td>mohinimarlo@gmail.com</td>
-													<td>+91-154-325-8652</td>
-													<td>1561</td>
-													<td>ACTIVE</td>
-													<td>2021-10-21</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u5.jpg" alt="user profile" /></td>
-													<td>Nitilo Kathilo</td>
-													<td>nitilokathilo@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>1061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-18</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u6.jpg" alt="user profile" /></td>
-													<td>Hardi Sandhu</td>
-													<td>hardisandhu@gmail.com</td>
-													<td>+1-789-325-6589</td>
-													<td>10061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-14</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u7.jpg" alt="user profile" /></td>
-													<td>Bhavlo Malvia</td>
-													<td>bhavlomalvia@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>3061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-05</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u8.jpg" alt="user profile" /></td>
-													<td>Jeni Dusuja</td>
-													<td>jenidusuja@gmail.com</td>
-													<td>+1-967-325-1122</td>
-													<td>6061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-01</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u1.jpg" alt="user profile" /></td>
-													<td>Marlee Rena</td>
-													<td>marleerena@gmail.com</td>
-													<td>+1-256-325-8652</td>
-													<td>2161</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p2.jpg" alt="Product Image" /></td>
+													<td>Full Sleeve Cap T-Shirt</td>
+													<td>$40</td>
+													<td>30% OFF</td>
+													<td>80</td>
+													<td>621</td>
 													<td>ACTIVE</td>
 													<td>2021-10-30</td>
 													<td>
@@ -1192,194 +727,14 @@
 														</div>
 													</td>
 												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u2.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
 
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u3.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u4.jpg" alt="user profile" /></td>
-													<td>Mohini Marlo</td>
-													<td>mohinimarlo@gmail.com</td>
-													<td>+91-154-325-8652</td>
-													<td>1561</td>
-													<td>ACTIVE</td>
-													<td>2021-10-21</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u5.jpg" alt="user profile" /></td>
-													<td>Nitilo Kathilo</td>
-													<td>nitilokathilo@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>1061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-18</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u6.jpg" alt="user profile" /></td>
-													<td>Hardi Sandhu</td>
-													<td>hardisandhu@gmail.com</td>
-													<td>+1-789-325-6589</td>
-													<td>10061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-14</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u7.jpg" alt="user profile" /></td>
-													<td>Bhavlo Malvia</td>
-													<td>bhavlomalvia@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>3061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-05</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u8.jpg" alt="user profile" /></td>
-													<td>Jeni Dusuja</td>
-													<td>jenidusuja@gmail.com</td>
-													<td>+1-967-325-1122</td>
-													<td>6061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-01</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u1.jpg" alt="user profile" /></td>
-													<td>Marlee Rena</td>
-													<td>marleerena@gmail.com</td>
-													<td>+1-256-325-8652</td>
-													<td>2161</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p3.jpg" alt="Product Image" /></td>
+													<td>Full Sleeve T-Shirt</td>
+													<td>$30</td>
+													<td>30% OFF</td>
+													<td>100</td>
+													<td>621</td>
 													<td>ACTIVE</td>
 													<td>2021-10-30</td>
 													<td>
@@ -1400,194 +755,14 @@
 														</div>
 													</td>
 												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u2.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
 
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u3.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u4.jpg" alt="user profile" /></td>
-													<td>Mohini Marlo</td>
-													<td>mohinimarlo@gmail.com</td>
-													<td>+91-154-325-8652</td>
-													<td>1561</td>
-													<td>ACTIVE</td>
-													<td>2021-10-21</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u5.jpg" alt="user profile" /></td>
-													<td>Nitilo Kathilo</td>
-													<td>nitilokathilo@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>1061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-18</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u6.jpg" alt="user profile" /></td>
-													<td>Hardi Sandhu</td>
-													<td>hardisandhu@gmail.com</td>
-													<td>+1-789-325-6589</td>
-													<td>10061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-14</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u7.jpg" alt="user profile" /></td>
-													<td>Bhavlo Malvia</td>
-													<td>bhavlomalvia@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>3061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-05</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u8.jpg" alt="user profile" /></td>
-													<td>Jeni Dusuja</td>
-													<td>jenidusuja@gmail.com</td>
-													<td>+1-967-325-1122</td>
-													<td>6061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-01</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u1.jpg" alt="user profile" /></td>
-													<td>Marlee Rena</td>
-													<td>marleerena@gmail.com</td>
-													<td>+1-256-325-8652</td>
-													<td>2161</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p4.jpg" alt="Product Image" /></td>
+													<td>Round Cap with Belt</td>
+													<td>$10</td>
+													<td>30% OFF</td>
+													<td>250</td>
+													<td>621</td>
 													<td>ACTIVE</td>
 													<td>2021-10-30</td>
 													<td>
@@ -1608,194 +783,14 @@
 														</div>
 													</td>
 												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u2.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
 
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u3.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u4.jpg" alt="user profile" /></td>
-													<td>Mohini Marlo</td>
-													<td>mohinimarlo@gmail.com</td>
-													<td>+91-154-325-8652</td>
-													<td>1561</td>
-													<td>ACTIVE</td>
-													<td>2021-10-21</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u5.jpg" alt="user profile" /></td>
-													<td>Nitilo Kathilo</td>
-													<td>nitilokathilo@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>1061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-18</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u6.jpg" alt="user profile" /></td>
-													<td>Hardi Sandhu</td>
-													<td>hardisandhu@gmail.com</td>
-													<td>+1-789-325-6589</td>
-													<td>10061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-14</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u7.jpg" alt="user profile" /></td>
-													<td>Bhavlo Malvia</td>
-													<td>bhavlomalvia@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>3061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-05</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u8.jpg" alt="user profile" /></td>
-													<td>Jeni Dusuja</td>
-													<td>jenidusuja@gmail.com</td>
-													<td>+1-967-325-1122</td>
-													<td>6061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-01</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u1.jpg" alt="user profile" /></td>
-													<td>Marlee Rena</td>
-													<td>marleerena@gmail.com</td>
-													<td>+1-256-325-8652</td>
-													<td>2161</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p5.jpg" alt="Product Image" /></td>
+													<td>Purse For Woman</td>
+													<td>$20</td>
+													<td>30% OFF</td>
+													<td>220</td>
+													<td>621</td>
 													<td>ACTIVE</td>
 													<td>2021-10-30</td>
 													<td>
@@ -1816,194 +811,14 @@
 														</div>
 													</td>
 												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u2.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
 
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u3.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u4.jpg" alt="user profile" /></td>
-													<td>Mohini Marlo</td>
-													<td>mohinimarlo@gmail.com</td>
-													<td>+91-154-325-8652</td>
-													<td>1561</td>
-													<td>ACTIVE</td>
-													<td>2021-10-21</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u5.jpg" alt="user profile" /></td>
-													<td>Nitilo Kathilo</td>
-													<td>nitilokathilo@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>1061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-18</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u6.jpg" alt="user profile" /></td>
-													<td>Hardi Sandhu</td>
-													<td>hardisandhu@gmail.com</td>
-													<td>+1-789-325-6589</td>
-													<td>10061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-14</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u7.jpg" alt="user profile" /></td>
-													<td>Bhavlo Malvia</td>
-													<td>bhavlomalvia@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>3061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-05</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u8.jpg" alt="user profile" /></td>
-													<td>Jeni Dusuja</td>
-													<td>jenidusuja@gmail.com</td>
-													<td>+1-967-325-1122</td>
-													<td>6061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-01</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u1.jpg" alt="user profile" /></td>
-													<td>Marlee Rena</td>
-													<td>marleerena@gmail.com</td>
-													<td>+1-256-325-8652</td>
-													<td>2161</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p6.jpg" alt="Product Image" /></td>
+													<td>Doctor Kit for Kids</td>
+													<td>$30</td>
+													<td>20% OFF</td>
+													<td>120</td>
+													<td>621</td>
 													<td>ACTIVE</td>
 													<td>2021-10-30</td>
 													<td>
@@ -2024,194 +839,14 @@
 														</div>
 													</td>
 												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u2.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
 
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u3.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u4.jpg" alt="user profile" /></td>
-													<td>Mohini Marlo</td>
-													<td>mohinimarlo@gmail.com</td>
-													<td>+91-154-325-8652</td>
-													<td>1561</td>
-													<td>ACTIVE</td>
-													<td>2021-10-21</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u5.jpg" alt="user profile" /></td>
-													<td>Nitilo Kathilo</td>
-													<td>nitilokathilo@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>1061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-18</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u6.jpg" alt="user profile" /></td>
-													<td>Hardi Sandhu</td>
-													<td>hardisandhu@gmail.com</td>
-													<td>+1-789-325-6589</td>
-													<td>10061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-14</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u7.jpg" alt="user profile" /></td>
-													<td>Bhavlo Malvia</td>
-													<td>bhavlomalvia@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>3061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-05</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u8.jpg" alt="user profile" /></td>
-													<td>Jeni Dusuja</td>
-													<td>jenidusuja@gmail.com</td>
-													<td>+1-967-325-1122</td>
-													<td>6061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-01</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u1.jpg" alt="user profile" /></td>
-													<td>Marlee Rena</td>
-													<td>marleerena@gmail.com</td>
-													<td>+1-256-325-8652</td>
-													<td>2161</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p7.jpg" alt="Product Image" /></td>
+													<td>Shirt For Men</td>
+													<td>$40</td>
+													<td>30% OFF</td>
+													<td>550</td>
+													<td>621</td>
 													<td>ACTIVE</td>
 													<td>2021-10-30</td>
 													<td>
@@ -2232,194 +867,14 @@
 														</div>
 													</td>
 												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u2.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
 
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u3.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u4.jpg" alt="user profile" /></td>
-													<td>Mohini Marlo</td>
-													<td>mohinimarlo@gmail.com</td>
-													<td>+91-154-325-8652</td>
-													<td>1561</td>
-													<td>ACTIVE</td>
-													<td>2021-10-21</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u5.jpg" alt="user profile" /></td>
-													<td>Nitilo Kathilo</td>
-													<td>nitilokathilo@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>1061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-18</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u6.jpg" alt="user profile" /></td>
-													<td>Hardi Sandhu</td>
-													<td>hardisandhu@gmail.com</td>
-													<td>+1-789-325-6589</td>
-													<td>10061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-14</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u7.jpg" alt="user profile" /></td>
-													<td>Bhavlo Malvia</td>
-													<td>bhavlomalvia@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>3061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-05</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u8.jpg" alt="user profile" /></td>
-													<td>Jeni Dusuja</td>
-													<td>jenidusuja@gmail.com</td>
-													<td>+1-967-325-1122</td>
-													<td>6061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-01</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u1.jpg" alt="user profile" /></td>
-													<td>Marlee Rena</td>
-													<td>marleerena@gmail.com</td>
-													<td>+1-256-325-8652</td>
-													<td>2161</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p8.jpg" alt="Product Image" /></td>
+													<td>Digital Watch</td>
+													<td>$120</td>
+													<td>80% OFF</td>
+													<td>250</td>
+													<td>621</td>
 													<td>ACTIVE</td>
 													<td>2021-10-30</td>
 													<td>
@@ -2440,194 +895,14 @@
 														</div>
 													</td>
 												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u2.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
 
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u3.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u4.jpg" alt="user profile" /></td>
-													<td>Mohini Marlo</td>
-													<td>mohinimarlo@gmail.com</td>
-													<td>+91-154-325-8652</td>
-													<td>1561</td>
-													<td>ACTIVE</td>
-													<td>2021-10-21</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u5.jpg" alt="user profile" /></td>
-													<td>Nitilo Kathilo</td>
-													<td>nitilokathilo@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>1061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-18</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u6.jpg" alt="user profile" /></td>
-													<td>Hardi Sandhu</td>
-													<td>hardisandhu@gmail.com</td>
-													<td>+1-789-325-6589</td>
-													<td>10061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-14</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u7.jpg" alt="user profile" /></td>
-													<td>Bhavlo Malvia</td>
-													<td>bhavlomalvia@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>3061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-05</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u8.jpg" alt="user profile" /></td>
-													<td>Jeni Dusuja</td>
-													<td>jenidusuja@gmail.com</td>
-													<td>+1-967-325-1122</td>
-													<td>6061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-01</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u1.jpg" alt="user profile" /></td>
-													<td>Marlee Rena</td>
-													<td>marleerena@gmail.com</td>
-													<td>+1-256-325-8652</td>
-													<td>2161</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p9.jpg" alt="Product Image" /></td>
+													<td>Full Sleeve Cap T-Shirt</td>
+													<td>$20</td>
+													<td>10% OFF</td>
+													<td>650</td>
+													<td>621</td>
 													<td>ACTIVE</td>
 													<td>2021-10-30</td>
 													<td>
@@ -2648,194 +923,14 @@
 														</div>
 													</td>
 												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u2.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
 
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u3.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u4.jpg" alt="user profile" /></td>
-													<td>Mohini Marlo</td>
-													<td>mohinimarlo@gmail.com</td>
-													<td>+91-154-325-8652</td>
-													<td>1561</td>
-													<td>ACTIVE</td>
-													<td>2021-10-21</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u5.jpg" alt="user profile" /></td>
-													<td>Nitilo Kathilo</td>
-													<td>nitilokathilo@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>1061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-18</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u6.jpg" alt="user profile" /></td>
-													<td>Hardi Sandhu</td>
-													<td>hardisandhu@gmail.com</td>
-													<td>+1-789-325-6589</td>
-													<td>10061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-14</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u7.jpg" alt="user profile" /></td>
-													<td>Bhavlo Malvia</td>
-													<td>bhavlomalvia@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>3061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-05</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u8.jpg" alt="user profile" /></td>
-													<td>Jeni Dusuja</td>
-													<td>jenidusuja@gmail.com</td>
-													<td>+1-967-325-1122</td>
-													<td>6061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-01</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u1.jpg" alt="user profile" /></td>
-													<td>Marlee Rena</td>
-													<td>marleerena@gmail.com</td>
-													<td>+1-256-325-8652</td>
-													<td>2161</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p10.jpg" alt="Product Image" /></td>
+													<td>Green shoes for Men</td>
+													<td>$30</td>
+													<td>50% OFF</td>
+													<td>350</td>
+													<td>621</td>
 													<td>ACTIVE</td>
 													<td>2021-10-30</td>
 													<td>
@@ -2856,194 +951,14 @@
 														</div>
 													</td>
 												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u2.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
 
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u3.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
-													<td>ACTIVE</td>
-													<td>2021-10-25</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u4.jpg" alt="user profile" /></td>
-													<td>Mohini Marlo</td>
-													<td>mohinimarlo@gmail.com</td>
-													<td>+91-154-325-8652</td>
-													<td>1561</td>
-													<td>ACTIVE</td>
-													<td>2021-10-21</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u5.jpg" alt="user profile" /></td>
-													<td>Nitilo Kathilo</td>
-													<td>nitilokathilo@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>1061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-18</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u6.jpg" alt="user profile" /></td>
-													<td>Hardi Sandhu</td>
-													<td>hardisandhu@gmail.com</td>
-													<td>+1-789-325-6589</td>
-													<td>10061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-14</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u7.jpg" alt="user profile" /></td>
-													<td>Bhavlo Malvia</td>
-													<td>bhavlomalvia@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>3061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-05</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u8.jpg" alt="user profile" /></td>
-													<td>Jeni Dusuja</td>
-													<td>jenidusuja@gmail.com</td>
-													<td>+1-967-325-1122</td>
-													<td>6061</td>
-													<td>ACTIVE</td>
-													<td>2021-10-01</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u1.jpg" alt="user profile" /></td>
-													<td>Marlee Rena</td>
-													<td>marleerena@gmail.com</td>
-													<td>+1-256-325-8652</td>
-													<td>2161</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p11.jpg" alt="Product Image" /></td>
+													<td>Purpule woman Purse</td>
+													<td>$30</td>
+													<td>30% OFF</td>
+													<td>900</td>
+													<td>621</td>
 													<td>ACTIVE</td>
 													<td>2021-10-30</td>
 													<td>
@@ -3064,14 +979,16 @@
 														</div>
 													</td>
 												</tr>
+
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u2.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p12.jpg" alt="Product Image" /></td>
+													<td>Schendle For Girl</td>
+													<td>$60</td>
+													<td>40% OFF</td>
+													<td>500</td>
+													<td>621</td>
 													<td>ACTIVE</td>
-													<td>2021-10-25</td>
+													<td>2021-10-30</td>
 													<td>
 														<div class="btn-group mb-1">
 															<button type="button"
@@ -3090,14 +1007,16 @@
 														</div>
 													</td>
 												</tr>
+
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u3.jpg" alt="user profile" /></td>
-													<td>Johnee Bolbi</td>
-													<td>johneebolbi@gmail.com</td>
-													<td>+5-256-325-8652</td>
-													<td>5161</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p13.jpg" alt="Product Image" /></td>
+													<td>Full Purse Green</td>
+													<td>$60</td>
+													<td>40% OFF</td>
+													<td>500</td>
+													<td>621</td>
 													<td>ACTIVE</td>
-													<td>2021-10-25</td>
+													<td>2021-10-30</td>
 													<td>
 														<div class="btn-group mb-1">
 															<button type="button"
@@ -3116,14 +1035,16 @@
 														</div>
 													</td>
 												</tr>
+
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u4.jpg" alt="user profile" /></td>
-													<td>Mohini Marlo</td>
-													<td>mohinimarlo@gmail.com</td>
-													<td>+91-154-325-8652</td>
-													<td>1561</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p14.jpg" alt="Product Image" /></td>
+													<td>White shoes</td>
+													<td>$60</td>
+													<td>40% OFF</td>
+													<td>500</td>
+													<td>621</td>
 													<td>ACTIVE</td>
-													<td>2021-10-21</td>
+													<td>2021-10-30</td>
 													<td>
 														<div class="btn-group mb-1">
 															<button type="button"
@@ -3142,14 +1063,16 @@
 														</div>
 													</td>
 												</tr>
+
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u5.jpg" alt="user profile" /></td>
-													<td>Nitilo Kathilo</td>
-													<td>nitilokathilo@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>1061</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p15.jpg" alt="Product Image" /></td>
+													<td>Pink Baby shoes</td>
+													<td>$80</td>
+													<td>30% OFF</td>
+													<td>250</td>
+													<td>621</td>
 													<td>ACTIVE</td>
-													<td>2021-10-18</td>
+													<td>2021-10-30</td>
 													<td>
 														<div class="btn-group mb-1">
 															<button type="button"
@@ -3168,14 +1091,16 @@
 														</div>
 													</td>
 												</tr>
+
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u6.jpg" alt="user profile" /></td>
-													<td>Hardi Sandhu</td>
-													<td>hardisandhu@gmail.com</td>
-													<td>+1-789-325-6589</td>
-													<td>10061</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p16.jpg" alt="Product Image" /></td>
+													<td>Big Basket Bag</td>
+													<td>$60</td>
+													<td>40% OFF</td>
+													<td>1250</td>
+													<td>621</td>
 													<td>ACTIVE</td>
-													<td>2021-10-14</td>
+													<td>2021-10-30</td>
 													<td>
 														<div class="btn-group mb-1">
 															<button type="button"
@@ -3194,14 +1119,16 @@
 														</div>
 													</td>
 												</tr>
+
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u7.jpg" alt="user profile" /></td>
-													<td>Bhavlo Malvia</td>
-													<td>bhavlomalvia@gmail.com</td>
-													<td>+91-989-325-8652</td>
-													<td>3061</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p17.jpg" alt="Product Image" /></td>
+													<td>Wireless Buds</td>
+													<td>$90</td>
+													<td>30% OFF</td>
+													<td>950</td>
+													<td>621</td>
 													<td>ACTIVE</td>
-													<td>2021-10-05</td>
+													<td>2021-10-30</td>
 													<td>
 														<div class="btn-group mb-1">
 															<button type="button"
@@ -3220,14 +1147,1108 @@
 														</div>
 													</td>
 												</tr>
+
 												<tr>
-													<td><img class="vendor-thumb" src="assets/img/vendor/u8.jpg" alt="user profile" /></td>
-													<td>Jeni Dusuja</td>
-													<td>jenidusuja@gmail.com</td>
-													<td>+1-967-325-1122</td>
-													<td>6061</td>
+													<td><img class="tbl-thumb" src="assets/img/products/p1.jpg" alt="Product Image" /></td>
+													<td>Baby shoes</td>
+													<td>$20</td>
+													<td>25% OFF</td>
+													<td>61</td>
 													<td>ACTIVE</td>
-													<td>2021-10-01</td>
+													<td>5421</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p2.jpg" alt="Product Image" /></td>
+													<td>Full Sleeve Cap T-Shirt</td>
+													<td>$40</td>
+													<td>30% OFF</td>
+													<td>80</td>
+													<td>ACTIVE</td>
+													<td>2521</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p3.jpg" alt="Product Image" /></td>
+													<td>Full Sleeve T-Shirt</td>
+													<td>$30</td>
+													<td>30% OFF</td>
+													<td>100</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p4.jpg" alt="Product Image" /></td>
+													<td>Round Cap with Belt</td>
+													<td>$10</td>
+													<td>30% OFF</td>
+													<td>250</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p5.jpg" alt="Product Image" /></td>
+													<td>Purse For Woman</td>
+													<td>$20</td>
+													<td>30% OFF</td>
+													<td>220</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p6.jpg" alt="Product Image" /></td>
+													<td>Doctor Kit for Kids</td>
+													<td>$30</td>
+													<td>20% OFF</td>
+													<td>120</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p7.jpg" alt="Product Image" /></td>
+													<td>Shirt For Men</td>
+													<td>$40</td>
+													<td>30% OFF</td>
+													<td>550</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p8.jpg" alt="Product Image" /></td>
+													<td>Digital Watch</td>
+													<td>$120</td>
+													<td>80% OFF</td>
+													<td>250</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p9.jpg" alt="Product Image" /></td>
+													<td>Full Sleeve Cap T-Shirt</td>
+													<td>$20</td>
+													<td>10% OFF</td>
+													<td>650</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p10.jpg" alt="Product Image" /></td>
+													<td>Green shoes for Men</td>
+													<td>$30</td>
+													<td>50% OFF</td>
+													<td>350</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p11.jpg" alt="Product Image" /></td>
+													<td>Purpule woman Purse</td>
+													<td>$30</td>
+													<td>30% OFF</td>
+													<td>900</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p12.jpg" alt="Product Image" /></td>
+													<td>Schendle For Girl</td>
+													<td>$60</td>
+													<td>40% OFF</td>
+													<td>500</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p13.jpg" alt="Product Image" /></td>
+													<td>Full Purse Green</td>
+													<td>$60</td>
+													<td>40% OFF</td>
+													<td>500</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p14.jpg" alt="Product Image" /></td>
+													<td>White shoes</td>
+													<td>$60</td>
+													<td>40% OFF</td>
+													<td>500</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p15.jpg" alt="Product Image" /></td>
+													<td>Pink Baby shoes</td>
+													<td>$80</td>
+													<td>30% OFF</td>
+													<td>250</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p16.jpg" alt="Product Image" /></td>
+													<td>Big Basket Bag</td>
+													<td>$60</td>
+													<td>40% OFF</td>
+													<td>1250</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p17.jpg" alt="Product Image" /></td>
+													<td>Wireless Buds</td>
+													<td>$90</td>
+													<td>30% OFF</td>
+													<td>950</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p1.jpg" alt="Product Image" /></td>
+													<td>Baby shoes</td>
+													<td>$20</td>
+													<td>25% OFF</td>
+													<td>61</td>
+													<td>ACTIVE</td>
+													<td>5421</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p2.jpg" alt="Product Image" /></td>
+													<td>Full Sleeve Cap T-Shirt</td>
+													<td>$40</td>
+													<td>30% OFF</td>
+													<td>80</td>
+													<td>ACTIVE</td>
+													<td>2521</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p3.jpg" alt="Product Image" /></td>
+													<td>Full Sleeve T-Shirt</td>
+													<td>$30</td>
+													<td>30% OFF</td>
+													<td>100</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p4.jpg" alt="Product Image" /></td>
+													<td>Round Cap with Belt</td>
+													<td>$10</td>
+													<td>30% OFF</td>
+													<td>250</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p5.jpg" alt="Product Image" /></td>
+													<td>Purse For Woman</td>
+													<td>$20</td>
+													<td>30% OFF</td>
+													<td>220</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p6.jpg" alt="Product Image" /></td>
+													<td>Doctor Kit for Kids</td>
+													<td>$30</td>
+													<td>20% OFF</td>
+													<td>120</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p7.jpg" alt="Product Image" /></td>
+													<td>Shirt For Men</td>
+													<td>$40</td>
+													<td>30% OFF</td>
+													<td>550</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p8.jpg" alt="Product Image" /></td>
+													<td>Digital Watch</td>
+													<td>$120</td>
+													<td>80% OFF</td>
+													<td>250</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p9.jpg" alt="Product Image" /></td>
+													<td>Full Sleeve Cap T-Shirt</td>
+													<td>$20</td>
+													<td>10% OFF</td>
+													<td>650</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p10.jpg" alt="Product Image" /></td>
+													<td>Green shoes for Men</td>
+													<td>$30</td>
+													<td>50% OFF</td>
+													<td>350</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p11.jpg" alt="Product Image" /></td>
+													<td>Purpule woman Purse</td>
+													<td>$30</td>
+													<td>30% OFF</td>
+													<td>900</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p12.jpg" alt="Product Image" /></td>
+													<td>Schendle For Girl</td>
+													<td>$60</td>
+													<td>40% OFF</td>
+													<td>500</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p13.jpg" alt="Product Image" /></td>
+													<td>Full Purse Green</td>
+													<td>$60</td>
+													<td>40% OFF</td>
+													<td>500</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p14.jpg" alt="Product Image" /></td>
+													<td>White shoes</td>
+													<td>$60</td>
+													<td>40% OFF</td>
+													<td>500</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p15.jpg" alt="Product Image" /></td>
+													<td>Pink Baby shoes</td>
+													<td>$80</td>
+													<td>30% OFF</td>
+													<td>250</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p16.jpg" alt="Product Image" /></td>
+													<td>Big Basket Bag</td>
+													<td>$60</td>
+													<td>40% OFF</td>
+													<td>1250</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p17.jpg" alt="Product Image" /></td>
+													<td>Wireless Buds</td>
+													<td>$90</td>
+													<td>30% OFF</td>
+													<td>950</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p1.jpg" alt="Product Image" /></td>
+													<td>Baby shoes</td>
+													<td>$20</td>
+													<td>25% OFF</td>
+													<td>61</td>
+													<td>ACTIVE</td>
+													<td>5421</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p2.jpg" alt="Product Image" /></td>
+													<td>Full Sleeve Cap T-Shirt</td>
+													<td>$40</td>
+													<td>30% OFF</td>
+													<td>80</td>
+													<td>ACTIVE</td>
+													<td>2521</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p3.jpg" alt="Product Image" /></td>
+													<td>Full Sleeve T-Shirt</td>
+													<td>$30</td>
+													<td>30% OFF</td>
+													<td>100</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p4.jpg" alt="Product Image" /></td>
+													<td>Round Cap with Belt</td>
+													<td>$10</td>
+													<td>30% OFF</td>
+													<td>250</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p5.jpg" alt="Product Image" /></td>
+													<td>Purse For Woman</td>
+													<td>$20</td>
+													<td>30% OFF</td>
+													<td>220</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
+													<td>
+														<div class="btn-group mb-1">
+															<button type="button"
+																class="btn btn-outline-success">Info</button>
+															<button type="button"
+																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false" data-display="static">
+																<span class="sr-only">Info</span>
+															</button>
+
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="#">Edit</a>
+																<a class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+												<tr>
+													<td><img class="tbl-thumb" src="assets/img/products/p6.jpg" alt="Product Image" /></td>
+													<td>Doctor Kit for Kids</td>
+													<td>$30</td>
+													<td>20% OFF</td>
+													<td>120</td>
+													<td>621</td>
+													<td>ACTIVE</td>
+													<td>2021-10-30</td>
 													<td>
 														<div class="btn-group mb-1">
 															<button type="button"
@@ -3254,102 +2275,17 @@
 							</div>
 						</div>
 					</div>
-					<!-- Add User Modal  -->
-					<div class="modal fade modal-add-contact" id="addUser" tabindex="-1" role="dialog"
-						aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-							<div class="modal-content">
-								<form>
-									<div class="modal-header px-4">
-										<h5 class="modal-title" id="exampleModalCenterTitle">Add New User</h5>
-									</div>
-
-									<div class="modal-body px-4">
-										<div class="form-group row mb-6">
-											<label for="coverImage" class="col-sm-4 col-lg-2 col-form-label">User
-												Image</label>
-
-											<div class="col-sm-8 col-lg-10">
-												<div class="custom-file mb-1">
-													<input type="file" class="custom-file-input" id="coverImage"
-														required>
-													<label class="custom-file-label" for="coverImage">Choose
-														file...</label>
-													<div class="invalid-feedback">Example invalid custom file feedback
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="row mb-2">
-											<div class="col-lg-6">
-												<div class="form-group">
-													<label for="firstName">First name</label>
-													<input type="text" class="form-control" id="firstName" value="John">
-												</div>
-											</div>
-
-											<div class="col-lg-6">
-												<div class="form-group">
-													<label for="lastName">Last name</label>
-													<input type="text" class="form-control" id="lastName" value="Deo">
-												</div>
-											</div>
-
-											<div class="col-lg-6">
-												<div class="form-group mb-4">
-													<label for="userName">User name</label>
-													<input type="text" class="form-control" id="userName"
-														value="johndoe">
-												</div>
-											</div>
-
-											<div class="col-lg-6">
-												<div class="form-group mb-4">
-													<label for="email">Email</label>
-													<input type="email" class="form-control" id="email"
-														value="johnexample@gmail.com">
-												</div>
-											</div>
-
-											<div class="col-lg-6">
-												<div class="form-group mb-4">
-													<label for="Birthday">Birthday</label>
-													<input type="text" class="form-control" id="Birthday"
-														value="10-12-1991">
-												</div>
-											</div>
-
-											<div class="col-lg-6">
-												<div class="form-group mb-4">
-													<label for="event">Address</label>
-													<input type="text" class="form-control" id="event"
-														value="Address here">
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="modal-footer px-4">
-										<button type="button" class="btn btn-secondary btn-pill"
-											data-bs-dismiss="modal">Cancel</button>
-										<button type="button" class="btn btn-primary btn-pill">Save Contact</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
 				</div> <!-- End Content -->
 			</div> <!-- End Content Wrapper -->
+
 
 			<!-- Footer -->
 			<footer class="footer mt-auto">
 				<div class="copyright bg-white">
 					<p>
 						Copyright &copy; <span id="ec-year"></span><a class="text-primary"
-							href="https://themeforest.net/user/ashishmaraviya" target="_blank"> Ekka Admin
-							Dashboard</a>. All Rights Reserved.
-					</p>
+						href="https://themeforest.net/user/ashishmaraviya" target="_blank"> Ekka Admin Dashboard</a>. All Rights Reserved.
+					  </p>
 				</div>
 			</footer>
 
@@ -3363,7 +2299,7 @@
 	<script src="assets/plugins/jquery-zoom/jquery.zoom.min.js"></script>
 	<script src="assets/plugins/slick/slick.min.js"></script>
 
-	<!-- Data Tables -->
+	<!-- Datatables -->
 	<script src='assets/plugins/data-tables/jquery.datatables.min.js'></script>
 	<script src='assets/plugins/data-tables/datatables.bootstrap5.min.js'></script>
 	<script src='assets/plugins/data-tables/datatables.responsive.min.js'></script>

@@ -39,6 +39,21 @@ require_once "Database.php";
 		
 		<!-- FAVICON -->
 		<link href="assets/img/favicon.png" rel="shortcut icon" />
+		<style>
+			.ec-brand {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 10vh; /* adjust the height as needed */
+			}
+
+			.rounded-image {
+				width: 100px; /* adjust the size as needed */
+				height: 100px;
+				border-radius: 80%;
+				overflow: hidden;
+			}
+			</style>
 	</head>
 	
 	<body class="sign-inup" id="body">
@@ -47,18 +62,22 @@ require_once "Database.php";
 				<div class="col-lg-6 col-md-10">
 					<div class="card">
 						<div class="card-header bg-primary">
+						
 							<div class="ec-brand">
-								<a href="index.html" title="Ekka">
-									<img class="ec-brand-icon" src="assets/img/logo/logo-login.png" alt="" />
+							<div class="rounded-image">
+								<a href="#" title="Legal Karnataka">
+									<img src="assets/img/logo/logo-login.jpeg" alt="">
 								</a>
+								</div>
 							</div>
+							
 						</div>
 						<div class="card-body p-5">
 						<?php
-                                if (isset($error)) {
-                                    echo '<div class="alert alert-danger">' . $error . '</div>';
-                                }
-                                ?>
+						if (isset($error)) {
+							echo '<div class="alert alert-danger">' . $error . '</div>';
+						}
+						?>
 							<h4 class="text-dark mb-5">Sign In</h4>
 							
 							<form method="POST" class="form-horizontal auth-form my-4" action="login.php">

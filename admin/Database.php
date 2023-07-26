@@ -33,4 +33,72 @@ class User {
         }
     }
 }
+
+class MainCategory {
+    private $conn;
+    
+    public function __construct($conn) {
+        $this->conn = $conn;
+    }
+    
+    public function addMainCategory($mainCategory) {
+        try {
+            $stmt = $this->conn->prepare("INSERT INTO main_category (name) VALUES (:mainCategory)");
+            $stmt->bindParam(':mainCategory', $mainCategory, PDO::PARAM_STR);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+    public function getMainCategories() {
+        $categories = array();
+    
+        $sql = "SELECT id, name FROM main_category";
+        $result = $this->conn->query($sql);
+    
+        if ($result->rowCount() > 0) {
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $categories[] = $row;
+            }
+        }
+    
+        return $categories;
+    }
+}
+
+class SubCategory {
+    private $conn;
+    
+    public function __construct($conn) {
+        $this->conn = $conn;
+    }
+    
+    public function addSubCategory($name, $parentCategory) {
+        // Sanitize and validate input to prevent SQL injection and other security vulnerabilities
+        $name = $this->sanitizeInput($name);
+        $parentCategory = $this->sanitizeInput($parentCategory);
+        
+        // Prepare the SQL statement
+        $sql = "INSERT INTO sub_category (name, parent_category) VALUES (:name, :parentCategory)";
+        $stmt = $this->conn->prepare($sql);
+        
+        // Bind the parameters
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':parentCategory', $parentCategory);
+        
+        // Execute the statement
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    private function sanitizeInput($input) {
+        // Sanitize the input using appropriate sanitization functions or techniques
+        // For example, you can use htmlspecialchars() or mysqli_real_escape_string() functions
+        $sanitizedInput = htmlspecialchars($input);
+        return $sanitizedInput;
+    }
+}
 ?>

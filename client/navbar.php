@@ -59,7 +59,7 @@
                         <!-- Ec Header Logo Start -->
                         <div class="align-self-center">
                             <div class="header-logo">
-                                <a href="#"><img src="assets/images/logo/legalkarnataka.jpeg" alt="Site Logo" /></a>
+                                <a href="#"><img src="assets/images/logo/legal-karnataka-logo.png" alt="Site Logo" /></a>
                             </div>
                         </div>
                         <!-- Ec Header Logo End -->

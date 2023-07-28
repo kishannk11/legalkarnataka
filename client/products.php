@@ -117,7 +117,7 @@ require 'navbar.php';
                                 <div class="single-pro-desc">
                                     <div class="single-pro-content">
                                         <h5 class="ec-single-title">Stamp Paper</h5>
-                                        <div class="ec-single-rating-wrap">
+                                        <!-- <div class="ec-single-rating-wrap">
                                             <div class="ec-single-rating">
                                                 <i class="ecicon eci-star fill"></i>
                                                 <i class="ecicon eci-star fill"></i>
@@ -127,8 +127,8 @@ require 'navbar.php';
                                             </div>
                                             <span class="ec-read-review"><a href="#ec-spt-nav-review">Be the first to
                                                     review this product</a></span>
-                                        </div>
-                                        <div class="ec-single-desc">Lorem Ipsum is simply dummy text of the printing and
+                                        </div> -->
+                                        <!-- <div class="ec-single-desc">Lorem Ipsum is simply dummy text of the printing and
                                             typesetting industry. Lorem Ipsum has been the industry's standard dummy
                                             text ever since the 1990</div>
 
@@ -148,7 +148,7 @@ require 'navbar.php';
                                                     <div class="ec-single-count-desc">Time is Running Out!</div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="ec-single-price-stoke">
                                             <div class="ec-single-price">
                                                 <span class="ec-single-ps-title">As low as</span>

@@ -2,6 +2,22 @@
 require 'navbar.php';
 ?>
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require_once('config/config.php');
+require('Database.php');
+if (isset($_GET['id'])) {
+    $templateId = $_GET['id'];
+    $templates = new Templates($conn);
+    $template = $templates->getTemplatebyID($templateId);
+
+    // Use the retrieved template details as needed
+    // For example, you can access $template['template_name'], $template['template_fields'], etc.
+}
+
+?>
+<?php
 if (isset($_GET['success'])) {
     $success = $_GET['success'];
     echo '<script>
@@ -39,27 +55,30 @@ if (isset($_GET['error'])) {
                 </p>
             </div>
             <div>
-                <a href="product-list.html" class="btn btn-primary"> Add Template</a>
+                <a href="product-list.html" class="btn btn-primary"> Update Template</a>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
                 <div class="card card-default">
                     <div class="card-header card-header-border-bottom">
-                        <h2>Add Template</h2>
+                        <h2>Update Template</h2>
                     </div>
-                    <form class="row g-3" method="POST" action="template.php">
+                    <form class="row g-3" method="POST" action="update_template.php">
                         <div class="card-body">
                             <div class="row">
                                 <div class="table-responsive">
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label class="form-label">Template Name</label>
-                                            <input type="text" class="form-control" name="template_name">
+                                            <input type="text" class="form-control" name="template_name"
+                                                value="<?php echo $template['template_name']; ?>">
+                                            <input type="hidden" name="id" value="<?php echo $template['id']; ?>">
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Template Code</label>
-                                            <textarea class="form-control" name="details" rows="4"></textarea>
+                                            <textarea class="form-control" name="details"
+                                                rows="4"><?php echo $template['template_fields']; ?></textarea>
                                         </div>
                                     </div>
                                 </div>

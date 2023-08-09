@@ -220,4 +220,130 @@ class Product
 
 
 }
+
+class Templates
+{
+    private $conn;
+
+    public function __construct($conn)
+    {
+        $this->conn = $conn;
+    }
+
+    public function saveTemplate($templateName, $templateFields)
+    {
+        // Validate the template name and fields
+        if (empty($templateName)) {
+            return "Template name is required.";
+        }
+
+        if (empty($templateFields)) {
+            return "Template fields are required.";
+        }
+        $stmt = $this->conn->prepare("INSERT INTO form_templates (template_name, template_fields) VALUES (?, ?)");
+        $stmt->bindParam(1, $templateName);
+        $stmt->bindParam(2, $templateFields);
+
+        try {
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            return "Error saving the template: " . $e->getMessage();
+        }
+    }
+
+    public function getAllTemplates()
+    {
+        $stmt = $this->conn->query("SELECT * FROM form_templates");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function deleteTemplate($templatetId)
+    {
+        $stmt = $this->conn->prepare("DELETE FROM form_templates WHERE id = ?");
+        $stmt->bindParam(1, $templatetId);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getTemplatebyID($id)
+    {
+        $template = array();
+
+        $sql = "SELECT * FROM form_templates WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $template = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
+        return $template;
+    }
+
+    public function updateTemplate($templateName, $templateFields, $id)
+    {
+        $stmt = $this->conn->prepare("UPDATE form_templates SET template_name = ?, template_fields = ? WHERE id = ?");
+        $stmt->bindParam(1, $templateName);
+        $stmt->bindParam(2, $templateFields);
+        $stmt->bindParam(3, $id);
+
+        try {
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            return "Error updating the template: " . $e->getMessage();
+        }
+    }
+    public function getTemplate($ids)
+    {
+
+        $stmt = $this->conn->prepare('SELECT * FROM form_templates WHERE id IN (' . implode(',', $ids) . ')');
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
+    public function saveProdTemplate($prodName, $selectedIDs)
+    {
+        // Sanitize and validate input if needed
+        $prodName = $this->sanitizeInput($prodName);
+
+        // Convert $selectedIDs to an array if it's a string
+        if (!is_array($selectedIDs)) {
+            $selectedIDs = [$selectedIDs];
+        }
+
+        $selectedIDs = array_map([$this, 'sanitizeInput'], $selectedIDs);
+
+        // Prepare the SQL statement
+        $sql = "INSERT INTO product_templates (prod_name, template_id) VALUES (:prodName, :templateID)";
+        $stmt = $this->conn->prepare($sql);
+
+        // Bind the parameters
+        $stmt->bindParam(':prodName', $prodName);
+
+        // Execute the statement for each selected ID
+        foreach ($selectedIDs as $templateID) {
+            $stmt->bindParam(':templateID', $templateID);
+            $stmt->execute(); // Execute the statement
+
+            if ($stmt->rowCount() === 0) {
+                return false; // Return false if the execution fails
+            }
+        }
+
+        return true; // Return true if all executions are successful
+    }
+    private function sanitizeInput($input)
+    {
+        return htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
+    }
+
+}
+
 ?>

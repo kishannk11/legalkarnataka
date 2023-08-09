@@ -9,11 +9,8 @@ $mainCategorySql = "SELECT name FROM main_category";
 $mainCategoryStmt = $conn->prepare($mainCategorySql);
 $mainCategoryStmt->execute();
 $categories = $mainCategoryStmt->fetchAll(PDO::FETCH_COLUMN);
-
-// Prepare the sub-categories query
 $subCategorySql = "SELECT name FROM sub_category WHERE parent_category = :category";
 $subCategoryStmt = $conn->prepare($subCategorySql);
-
 ?>
 
 <?php

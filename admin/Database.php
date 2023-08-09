@@ -1,5 +1,5 @@
 <?php
-class User
+class admin
 {
     private $conn;
     private $table_name = "admin";
@@ -344,6 +344,61 @@ class Templates
         return htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
     }
 
+}
+
+class User
+{
+    private $conn;
+
+    public function __construct($conn)
+    {
+        $this->conn = $conn;
+    }
+
+    public function registerUser($firstname, $lastname, $email, $phonenumber, $password)
+    {
+        // Hash the password for security
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Prepare the SQL statement
+        $sql = "INSERT INTO users (firstname, lastname, email, phonenumber, password) VALUES (:firstname, :lastname, :email, :phonenumber, :password)";
+        $stmt = $this->conn->prepare($sql);
+
+        // Bind the parameters
+        $stmt->bindParam(':firstname', $firstname);
+        $stmt->bindParam(':lastname', $lastname);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':phonenumber', $phonenumber);
+        $stmt->bindParam(':password', $hashedPassword);
+
+        // Execute the statement
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function loginUser($email, $password)
+    {
+        // Sanitize and validate input to prevent SQL injection and other security vulnerabilities
+        $email = $this->sanitizeInput($email);
+        $password = $this->sanitizeInput($password);
+        $sql = "SELECT * FROM users WHERE email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($user && password_verify($password, $user['password'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    private function sanitizeInput($input)
+    {
+        $sanitizedInput = htmlspecialchars($input);
+        return $sanitizedInput;
+    }
 }
 
 ?>

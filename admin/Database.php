@@ -206,6 +206,35 @@ class Product
         return $product;
     }
 
+    public function getProductData($id)
+    {
+        $productData = array();
+
+        // Retrieve data from products_template table
+        $productSql = "SELECT template_id FROM product_templates WHERE prod_name = :prod_name";
+        $productStmt = $this->conn->prepare($productSql);
+        $productStmt->bindParam(':prod_name', $id);
+        $productStmt->execute();
+        $productData = $productStmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($productData) {
+            foreach ($productData as &$product) {
+                // Retrieve data from form_templates table using template_id
+                $templateSql = "SELECT template_fields FROM form_templates WHERE id = :Id";
+                $templateStmt = $this->conn->prepare($templateSql);
+                $templateStmt->bindParam(':Id', $product['template_id']);
+                $templateStmt->execute();
+                $templateData = $templateStmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($templateData) {
+                    $product['template_fields'] = $templateData;
+                }
+            }
+        }
+
+        return $productData;
+    }
+
     public function deleteProduct($productId)
     {
         $stmt = $this->conn->prepare("DELETE FROM products WHERE id = ?");

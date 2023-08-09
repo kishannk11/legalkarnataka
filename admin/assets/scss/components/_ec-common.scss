@@ -2,49 +2,63 @@
 label {
   text-transform: capitalize;
 }
-p, li, span {
+
+p,
+li,
+span {
   letter-spacing: 0.02rem;
 }
+
 .alert {
   font-size: 15px;
   font-weight: 500;
   color: $dark;
+
   &.alert-highlighted {
     color: $white;
   }
+
   &.alert-primary {
     background-color: $highlight-primary;
     border-color: $highlight-primary;
   }
+
   &.alert-secondary {
     background-color: $highlight-secondary;
     border-color: $highlight-secondary;
   }
+
   &.alert-success {
     background-color: $highlight-success;
     border-color: $highlight-success;
   }
+
   &.alert-danger {
     background-color: $highlight-danger;
     border-color: $highlight-danger;
   }
+
   &.alert-warning {
     background-color: $highlight-warning;
     border-color: $highlight-warning;
   }
+
   &.alert-info {
     background-color: $highlight-info;
     border-color: $highlight-info;
   }
+
   &.alert-light {
     background-color: $highlight-light;
     border-color: $highlight-light;
     color: $dark;
   }
+
   &.alert-dark {
     background-color: $highlight-dark;
     border-color: $highlight-dark;
   }
+
   &.alert-outlined {
     background-color: transparent;
     color: $highlight-dark;
@@ -60,63 +74,79 @@ p, li, span {
       font-size: 0.88rem;
       padding: 0.625rem 1.25rem;
     }
+
     &:hover {
       background-color: $gray-100;
     }
   }
 }
+
 /*===== ALERT =====*/
 .bg-primary {
   background-color: $primary !important;
 }
+
 .bg-success {
   background-color: $success !important;
 }
+
 .bg-warning {
   background-color: $warning !important;
 }
+
 .bg-info {
   background-color: $info !important;
 }
+
 .bg-danger {
   background-color: $danger !important;
 }
+
 label {
   text-transform: capitalize;
   display: inline-block;
   margin-bottom: 0.5rem;
 }
+
 .text-right {
   text-align: right !important;
 }
+
 .ec-cust-card {
-  @include media-breakpoint-down(xl){
+  @include media-breakpoint-down(xl) {
     margin-bottom: 24px;
   }
+
   tbody {
     td {
       padding-top: 22px;
+
       small {
         color: #999;
       }
-  }
+    }
   }
 }
+
 .ec-card-top-prod {
   .ec-pos {
     position: relative;
   }
+
   .ec-price {
     margin-top: 10px;
-    span{
+
+    span {
       margin-right: 10px;
       font-weight: 500;
     }
+
     del {
       color: #999;
       font-size: 13px;
     }
   }
+
   .sale {
     position: absolute;
     top: 0;
@@ -125,28 +155,35 @@ label {
     font-size: 13px;
   }
 }
-.media-image img{
+
+.media-image img {
   width: 100%;
   border-radius: 15px;
 }
+
 .table {
   .tbl-thumb {
     width: 50px;
     border-radius: 15px;
   }
 }
+
 .rounded-circle {
   border-radius: 15px !important;
 }
+
 .border-right {
   border-right: 1px solid #e5e9f2;
 }
+
 .p-b-15 {
   padding-bottom: 24px;
 }
+
 .p-20 {
   padding: 20px;
 }
+
 .dash-card {
   .card-body {
     span {
@@ -163,9 +200,11 @@ label {
     }
   }
 }
-.profile-img{
+
+.profile-img {
   width: 50px !important;
 }
+
 /* ===== CARET =====*/
 .caret {
   display: inline-block;
@@ -178,22 +217,28 @@ label {
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
+
 /* ===== Form Control =====*/
 .form-control {
   border-radius: 15px;
 }
+
 /*===== CAROUSEL =====*/
 .carousel-indicators {
   bottom: 0;
+
   @include media-breakpoint-up(md) {
     bottom: -5px
   }
+
   &.indicator-success li {
     background-color: rgba($success, 0.2);
+
     &.active {
       background-color: rgba($success, 1);
     }
   }
+
   li {
     box-sizing: content-box;
     flex: 0 1 auto;
@@ -218,16 +263,19 @@ label {
 
 /* Carousel Testimonial */
 .carousel-testimonial {
+
   .carousel-control-next,
   .carousel-control-prev {
     color: red;
   }
+
   .carousel-control-prev,
   .carousel-control-next {
     width: auto;
     z-index: 55;
     color: $secondary;
   }
+
   .carousel-control-prev {
     .carousel-control-prev-icon {
       color: $secondary;
@@ -246,17 +294,20 @@ label {
   white-space: nowrap;
   border: 0;
 }
+
 /*===== CHART =====*/
 #user-acquisition {
   @include media-breakpoint-down(sm) {
     .mb-6 {
       margin-bottom: 80px !important;
-  }
+    }
   }
 }
+
 .world-data-chart {
   padding-left: 20px;
   padding-right: 20px;
+
   &.border-bottom {
     @include media-breakpoint-up(xl) {
       border-bottom: 0 !important;
@@ -264,13 +315,15 @@ label {
     }
   }
 }
+
 #regions_purchase {
-  > div{
-    > div {
+  >div {
+    >div {
       margin: 0 auto 30px auto;
     }
   }
 }
+
 #linechart {
   @include media-breakpoint-up(xl) {
     min-height: 280px;
@@ -286,9 +339,11 @@ label {
 #polar,
 #radar {
   min-height: 200px;
+
   @include media-breakpoint-up(md) {
     min-height: 230px;
   }
+
   @include media-breakpoint-up(xl) {
     min-height: 270px;
     min-width: 100%;
@@ -318,6 +373,7 @@ label {
 
 #deviceChart {
   min-height: 200px;
+
   @include media-breakpoint-up(md) {
     min-height: 230px;
   }
@@ -329,6 +385,7 @@ label {
   display: inline-block;
   margin-right: 20px;
   margin-top: 20px;
+
   span {
     display: inline-block;
     width: 12px;
@@ -337,6 +394,7 @@ label {
     border-radius: 1.56rem;
   }
 }
+
 // Chat 
 .chat {
   border-radius: 0.25rem;
@@ -348,23 +406,28 @@ label {
       padding-top: 1.5rem;
       padding-bottom: 1.5rem;
     }
- 
+
     #chat-left-content {
       height: 373px !important;
-      @include media-breakpoint-up(lg){
+
+      @include media-breakpoint-up(lg) {
         height: calc(100vh - 320px) !important;
       }
+
       @include media-breakpoint-up(xl) {
         height: calc(100vh - 350px) !important;
       }
-    }    
+    }
+
     .last-msg {
       @include media-breakpoint-up(md) {
         width: 300px;
       }
+
       @include media-breakpoint-up(lg) {
         width: 125px;
       }
+
       @include media-breakpoint-up(xxl) {
         width: 220px;
       }
@@ -377,42 +440,44 @@ label {
     .chat-right-content {
       padding: 1.5rem;
     }
- 
+
     #chat-right-content {
-      height: 373px !important;      
+      height: 373px !important;
+
       @include media-breakpoint-up(lg) {
         height: calc(100vh - 395px) !important;
       }
+
       @include media-breakpoint-up(xl) {
         height: calc(100vh - 405px) !important;
       }
-    }    
-  }  
-  
+    }
+  }
+
 }
 
 pre {
   border-left: 4px solid $primary;
   padding: 1.25rem 0.94rem;
-  background: rgba(0,0,0,.05);
+  background: rgba(0, 0, 0, .05);
   border-radius: 0.19rem;
 
-  code{
-      background: transparent;
-      font-size: 1rem;
-      color: $dark;
+  code {
+    background: transparent;
+    font-size: 1rem;
+    color: $dark;
   }
 
 }
 
 .pre-code,
-code{
-    font-family: Menlo,Monaco,"Courier New",Courier,monospace;
-    font-size: 1rem;
-    background: rgba(0,0,0,.05);
-    padding: 0.19rem 0.625rem;
-    margin: 0 0.125rem;
-    color: $dark;
+code {
+  font-family: Menlo, Monaco, "Courier New", Courier, monospace;
+  font-size: 1rem;
+  background: rgba(0, 0, 0, .05);
+  padding: 0.19rem 0.625rem;
+  margin: 0 0.125rem;
+  color: $dark;
 }
 
 .pre-code {
@@ -431,79 +496,96 @@ code{
     position: relative;
     z-index: 2;
   }
+
   .form-height {
     height: 100vh;
-    @include media-breakpoint-down(sm) { 
+
+    @include media-breakpoint-down(sm) {
       height: 100%;
     }
-    @media (max-height: 600px){
+
+    @media (max-height: 600px) {
       height: 100%;
     }
   }
+
   .form-height-login {
     height: 100vh;
-    @include media-breakpoint-down(sm) { 
+
+    @include media-breakpoint-down(sm) {
       height: 100%;
     }
-    @media (max-height: 480px){
+
+    @media (max-height: 480px) {
       height: 100%;
     }
   }
 }
+
 /*===== REGISTRATION =====*/
 .sign-inup {
   .card {
     overflow: hidden;
+
     @include media-breakpoint-down(lg) {
       max-width: 430px;
     }
+
     .p-5 {
       @include media-breakpoint-down(md) {
         padding: 20px 15px 15px 15px !important;
       }
     }
+
     .ec-brand {
       border: none;
     }
+
     form {
       .control {
         color: $text-color-777;
       }
-      button{
+
+      button {
         width: 130px;
         margin: auto;
       }
     }
   }
+
   .text-dark {
     text-align: center;
     margin-bottom: 25px !important;
   }
 
-  .ec-brand {  
+  .ec-brand {
     a {
-      width: 100%;
+      width: 65%;
       padding: 0;
       display: block;
       text-align: center;
       border: none;
+
       img {
         margin-bottom: 0;
       }
     }
-  }  
+  }
+
   .sign-upp {
     text-align: center;
   }
+
   .ec-brand {
     a {
-      img{
-        width: 100px;
-        max-width: 100px;
+      img {
+        width: 65px;
+        max-width: 50px;
       }
     }
   }
 }
+
 .sign-upp {
   text-align: center;
 }

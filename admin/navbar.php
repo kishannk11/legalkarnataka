@@ -169,16 +169,16 @@
 											<span class="nav-text">Order History</span>
 										</a>
 									</li>
-									<li class="">
+									<!-- <li class="">
 										<a class="sidenav-item-link" href="order-detail.php">
 											<span class="nav-text">Order Detail</span>
 										</a>
-									</li>
-									<li class="">
+									</li> -->
+									<!-- <li class="">
 										<a class="sidenav-item-link" href="invoice.php">
 											<span class="nav-text">Invoice</span>
 										</a>
-									</li>
+									</li> -->
 								</ul>
 							</div>
 						</li>

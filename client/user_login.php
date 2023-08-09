@@ -26,14 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['email'] = $email;
 
             // Login successful, redirect to the dashboard or home page
-            header("Location: dashboard.php");
+            header("Location: product-left-sidebar.php");
             exit();
         } else {
             $errors[] = "Invalid email or password.";
-            header("Location: login.php?error=" . urlencode(implode(", ", $errors)));
+            header("Location: index.php?error=" . urlencode(implode(", ", $errors)));
         }
     } else {
-        header("Location: login.php?error=" . urlencode(implode(", ", $errors)));
+        header("Location: index.php?error=" . urlencode(implode(", ", $errors)));
     }
 }
 ?>

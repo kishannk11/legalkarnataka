@@ -115,13 +115,13 @@ if (isset($_GET['error'])) {
             <div class="col-12">
                 <div class="row ec_breadcrumb_inner">
                     <div class="col-md-6 col-sm-12">
-                        <h2 class="ec-breadcrumb-title">Login</h2>
+                        <h2 class="ec-breadcrumb-title">Register</h2>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <!-- ec-breadcrumb-list start -->
                         <ul class="ec-breadcrumb-list">
                             <li class="ec-breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="ec-breadcrumb-item active">Login</li>
+                            <li class="ec-breadcrumb-item active">Register</li>
                         </ul>
                         <!-- ec-breadcrumb-list end -->
                     </div>
@@ -132,35 +132,61 @@ if (isset($_GET['error'])) {
 </div>
 <!-- Ec breadcrumb end -->
 
-<!-- Ec login page -->
+<!-- Start Register -->
 <section class="ec-page-content section-space-p">
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
                 <div class="section-title">
-                    <h2 class="ec-bg-title">Log In</h2>
-                    <h2 class="ec-title">Log In</h2>
-                    <p class="sub-title mb-3">Best place to buy and sell digital products</p>
+                    <h2 class="ec-bg-title">Register</h2>
+                    <h2 class="ec-title">Register</h2>
+                    <p class="sub-title mb-3"></p>
                 </div>
             </div>
-            <div class="ec-login-wrapper">
-                <div class="ec-login-container">
-                    <div class="ec-login-form">
-                        <form action="user_login.php" method="POST">
-                            <span class="ec-login-wrap">
-                                <label>Email Address*</label>
-                                <input type="text" name="email" placeholder="Enter your email add..." />
+            <div class="ec-register-wrapper">
+                <div class="ec-register-container">
+                    <div class="ec-register-form">
+                        <form action="user_resgiter.php" method="POST">
+                            <span class="ec-register-wrap ec-register-half">
+                                <label>First Name*</label>
+                                <input type="text" name="firstname" placeholder="Enter your first name" required />
                             </span>
-                            <span class="ec-login-wrap">
+                            <span class="ec-register-wrap ec-register-half">
+                                <label>Last Name*</label>
+                                <input type="text" name="lastname" placeholder="Enter your last name" required />
+                            </span>
+                            <span class="ec-register-wrap ec-register-half">
+                                <label>Email*</label>
+                                <input type="email" name="email" placeholder="Enter your email add..." required />
+                            </span>
+                            <span class="ec-register-wrap ec-register-half">
+                                <label>Phone Number*</label>
+                                <input type="text" name="phonenumber" placeholder="Enter your phone number" required />
+                            </span>
+                            <span class="ec-register-wrap ec-register-half">
                                 <label>Password*</label>
-                                <input type="password" name="password" placeholder="Enter your password" />
+                                <div class="password-field">
+                                    <input type="password" name="password" id="password" placeholder="Enter password"
+                                        required />
+                                    <button type="button" id="togglePassword" class="toggle-password">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </button>
+                                </div>
                             </span>
-                            <span class=" ec-login-wrap ec-login-fp">
-                                <label><a href="#">Forgot Password?</a></label>
+                            <span class="ec-register-wrap ec-register-half">
+                                <label>Confirm Password*</label>
+                                <div class="password-field">
+                                    <input type="password" name="confirmpassword" id="confirmpassword"
+                                        placeholder="Enter password" required />
+                                    <button type="button" id="toggleConfirmPassword" class="toggle-password">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </button>
+                                </div>
                             </span>
-                            <span class="ec-login-wrap ec-login-btn">
-                                <button class="btn btn-primary" type="submit">Login</button>
-                                <a href="register.php" class="btn btn-secondary">Register</a>
+
+
+                            <span class="ec-register-wrap ec-register-btn">
+                                <button class="btn btn-primary" type="submit">Register</button>
                             </span>
                         </form>
                     </div>
@@ -169,6 +195,7 @@ if (isset($_GET['error'])) {
         </div>
     </div>
 </section>
+<!-- End Register -->
 
 <!-- Footer Start -->
 <footer class="ec-footer section-space-mt">
@@ -590,6 +617,31 @@ if (isset($_GET['error'])) {
 
 <script src="assets/js/plugins/sweetalert2.min.js"></script>
 <script src="assets/js/plugins/jquery.sweet-alert.init.js"></script>
+
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        var passwordInput = document.getElementById('password');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            this.innerHTML = '<i class="fas fa-eye-slash" aria-hidden="true"></i>';
+        } else {
+            passwordInput.type = 'password';
+            this.innerHTML = '<i class="fas fa-eye" aria-hidden="true"></i>';
+        }
+    });
+
+    document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
+        var confirmPasswordInput = document.getElementById('confirmpassword');
+        if (confirmPasswordInput.type === 'password') {
+            confirmPasswordInput.type = 'text';
+            this.innerHTML = '<i class="fas fa-eye-slash" aria-hidden="true"></i>';
+        } else {
+            confirmPasswordInput.type = 'password';
+            this.innerHTML = '<i class="fas fa-eye" aria-hidden="true"></i>';
+        }
+    });
+</script>
+
 
 </body>
 

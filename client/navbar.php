@@ -171,18 +171,18 @@
                             <ul>
                                 <li><a href="#">Home</a></li>
 
-                                <li class="dropdown"><a href="javascript:void(0)">Products</a>
+                                <li class="dropdown"><a href="javascript:void(0)">Categories</a>
                                     <ul class="sub-menu">
-                                        <li class="dropdown position-static"><a href="javascript:void(0)">Product page
+                                        <li class="dropdown position-static"><a href="javascript:void(0)">Category List
                                                 <i class="ecicon eci-angle-right"></i></a>
                                             <ul class="sub-menu sub-menu-child">
-                                                <li><a href="#">Product left sidebar</a></li>
-                                                <li><a href="#">Product right sidebar</a></li>
+                                                <li><a href="#">Category 1</a></li>
+                                                <li><a href="#">Category 2</a></li>
                                             </ul>
                                         </li>
 
                                 </li>
-                                <li><a href="product-full-width.html">Product full width</a></li>
+
 
                             </ul>
                             </li>
@@ -191,22 +191,22 @@
                                     <li><a href="#">My Orders</a></li>
                                     <li><a href="#">Track Orders</a></li>
 
-                                    <li><a href="#">Checkout</a></li>
 
-                                    <li><a href="#">Track Order</a></li>
+
+
 
                                 </ul>
                             </li>
 
                             <li class="dropdown"><a href="javascript:void(0)">Contact</a>
                                 <ul class="sub-menu">
-                                    <li><a href="#">Conatact Admin</a></li>
+                                    <li><a href="#">Contact Admin</a></li>
 
                                 </ul>
                             </li>
 
 
-                            <li><a href="index.php">Login</a></li>
+                            <li><a href="#">Logout</a></li>
 
                             </ul>
                         </div>
@@ -224,14 +224,14 @@
             <div class="ec-menu-inner">
                 <div class="ec-menu-content">
                     <ul>
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="https://www.legalkarnataka.com">Home</a></li>
 
                         <li><a href="javascript:void(0)">Products</a>
                             <ul class="sub-menu">
                                 <li><a href="javascript:void(0)">Product page</a>
                                     <ul class="sub-menu">
-                                        <li><a href="product-left-sidebar.html">Product </a></li>
-                                        <li><a href="product-right-sidebar.html">Product </a></li>
+                                        <li><a href="#">Product </a></li>
+                                        <li><a href="#">Product </a></li>
                                     </ul>
                                 </li>
 
@@ -248,7 +248,7 @@
                         </li>
                         <li class="dropdown"><a href="javascript:void(0)">Contact</a>
                             <ul class="sub-menu">
-                                <li><a href="blog-left-sidebar.html">Contact Admin</a></li>
+                                <li><a href="#">Contact Admin</a></li>
 
 
                             </ul>

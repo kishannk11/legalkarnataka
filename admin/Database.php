@@ -428,6 +428,13 @@ class User
         $sanitizedInput = htmlspecialchars($input);
         return $sanitizedInput;
     }
+    public function getAllEmployees()
+    {
+        $sql = "SELECT * FROM users";
+        $stmt = $this->conn->query($sql);
+        $employees = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $employees;
+    }
 }
 
 ?>

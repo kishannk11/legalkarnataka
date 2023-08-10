@@ -5,28 +5,28 @@ require 'navbar.php';
 if (isset($_GET['success'])) {
     $success = $_GET['success'];
     echo '<script>
-	document.addEventListener("DOMContentLoaded", function() {
-			Swal.fire({
-				title: "Success!",
-				text: "' . htmlspecialchars($success) . '",
-				icon: "success",
-				confirmButtonText: "OK"
-			});
-		});
-	</script>';
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                title: "Success!",
+                text: "' . htmlspecialchars($success) . '",
+                icon: "success",
+                confirmButtonText: "OK"
+            });
+        });
+    </script>';
 }
 
 if (isset($_GET['error'])) {
     $error = $_GET['error'];
     echo '<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		Swal.fire({
-			icon: "error",
-			title: "Oops...",
-			text: "' . htmlspecialchars($error, ENT_QUOTES, 'UTF-8') . '",
-		});
-	});
-</script>';
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "' . htmlspecialchars($error, ENT_QUOTES, 'UTF-8') . '",
+            });
+        });
+    </script>';
 }
 ?>
 
@@ -67,6 +67,7 @@ $products = $product->getProduct();
                             <div class="row">
                                 <div class="table-responsive">
                                     <div class="col-md-6">
+                                        <span>Select Product</span>
                                         <select class="form-select" name="prod_name">
                                             <option value="">Select</option>
                                             <?php foreach ($products as $prod): ?>
@@ -77,37 +78,37 @@ $products = $product->getProduct();
                                     </div>
                                     &nbsp;
                                     <div class="col-md-6">
-                                        <label class="form-label" for="input-number">Select Number of inputs</label>
-                                        <select id="input-number" class="form-select">
-                                            <option>Select</option>
+                                        <label class="form-label">Select Form Number</label>
+                                        <select name="select-number" id="select-number" class="form-select">
+                                            <option value="">Select</option>
                                             <?php for ($i = 1; $i <= 10; $i++): ?>
                                                 <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                             <?php endfor; ?>
                                         </select>
                                     </div>
                                     &nbsp;
-                                    &nbsp;
-                                    <div class="col-md-6" id="form-names-section" style="display: none;">
-                                        <label class="form-label" id="input-number">Select Form Names</label>
+                                    <div class="col-md-6" id="form-names-section">
+                                        <label class="form-label">Select Form Names</label>
                                         <?php for ($i = 1; $i <= 10; $i++): ?>
+
                                             <select name="categories<?php echo $i; ?>" id="Categories<?php echo $i; ?>"
-                                                class="form-select">
-                                                <option value="">Select</option> <!-- Add a default option -->
+                                                class="form-select" style="display: none;">
+
+                                                <option value="">Select</option>
                                                 <?php foreach ($temp as $template): ?>
                                                     <option value="<?php echo $template['id']; ?>"><?php echo $template['template_name']; ?></option>
                                                 <?php endforeach; ?>
                                             </select>
+                                            &nbsp;
                                         <?php endfor; ?>
                                     </div>
                                 </div>
-                                &nbsp;
                                 &nbsp;
                                 <div class="col-md-12">
                                     <div class="col-md-12">
                                         <button name="preview" class="btn btn-primary">Preview</button>
                                         <button type="submit" class="btn btn-primary">Save</button>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -118,68 +119,37 @@ $products = $product->getProduct();
         <footer class="footer mt-auto">
             <div class="copyright bg-white">
                 <p>
-                    Copyright &copy; <span id="ec-year"></span><a class="text-primary"
-                        href="https://themeforest.net/user/ashishmaraviya" target="_blank"> Ekka Admin Dashboard</a>.
-                    All Rights
-                    Reserved.
+                    &copy; <span id="ec-year"></span> <a class="text-primary"
+                        href="https://themeforest.net/user/ashishmaraviya" target="_blank">Ekka Admin Dashboard</a>. All
+                    Rights Reserved.
                 </p>
             </div>
         </footer>
-
-    </div> <!-- End Page Wrapper -->
+    </div>
 </div>
+
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var selectedNumber = parseInt(document.getElementById('input-number').value);
+    document.getElementById('select-number').addEventListener('change', function () {
+        var selectedValue = parseInt(this.value);
         var formNamesSection = document.getElementById('form-names-section');
 
-        if (selectedNumber > 0) {
-            formNamesSection.style.display = 'block';
+        // Hide all dropdown boxes
+        var dropdowns = formNamesSection.getElementsByTagName('select');
+        for (var i = 0; i < dropdowns.length; i++) {
+            dropdowns[i].style.display = 'none';
         }
 
-        document.getElementById('input-number').addEventListener('change', function () {
-            selectedNumber = parseInt(this.value);
-
-            // Hide all dropdown boxes
-            var allDropdowns = document.querySelectorAll('#form-names-section select');
-            for (var i = 0; i < allDropdowns.length; i++) {
-                allDropdowns[i].style.display = 'none';
-            }
-
-            // Show selected number of dropdown boxes
-            for (var i = 1; i <= selectedNumber; i++) {
-                var dropdown = document.getElementById('Categories' + i);
+        // Show the selected number of dropdown boxes
+        for (var i = 1; i <= selectedValue; i++) {
+            var dropdown = document.getElementById('Categories' + i);
+            if (dropdown) {
                 dropdown.style.display = 'block';
             }
-        });
+        }
     });
 </script>
-<!-- <script>
-    document.querySelector('button[name="preview"]').addEventListener('click', function () {
-        var selectedIds = [];
-        var dropdowns = document.querySelectorAll('select[name="categories"]');
 
-        dropdowns.forEach(function (dropdown) {
-            if (dropdown.value !== 'Select') {
-                selectedIds.push(dropdown.value);
-            }
-        });
 
-        // Send AJAX request
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'fetc_data.php', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-                // Handle the response and display the data in a pop-up box or any other desired format
-                console.log(response);
-            }
-        };
-        xhr.send('ids=' + JSON.stringify(selectedIds));
-    });
-
-</script> -->
 <script src="assets/plugins/jquery/jquery-3.5.1.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/plugins/simplebar/simplebar.min.js"></script>

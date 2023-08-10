@@ -27,7 +27,7 @@
 	<link id="ekka-css" href="assets/css/ekka.css" rel="stylesheet" />
 
 	<!-- FAVICON -->
-	<link href="assets/img/favicon.png" rel="shortcut icon" />
+	<link href="https://legalkarnataka.com/admin/assets/img/logo/legal.png" rel="shortcut icon" />
 	<style>
 		.ec-brand-name {
 			font-size: 100px;

@@ -168,7 +168,7 @@ require 'navbar.php';
 				<!-- World Chart -->
 				<div class="card card-default" id="analytics-country">
 					<div class="card-header justify-content-between">
-						<h2>Purchased by Country</h2>
+						<h2>Purchased by Country coming soon</h2>
 						<div class="date-range-report ">
 							<span></span>
 						</div>
@@ -263,11 +263,11 @@ require 'navbar.php';
 								<tr>
 									<td>24541</td>
 									<td>
-										<a class="text-dark" href=""> Coach Swagger</a>
+										<a class="text-dark" href=""> Test Data</a>
 									</td>
 									<td class="d-none d-lg-table-cell">1 Unit</td>
-									<td class="d-none d-lg-table-cell">Oct 20, 2018</td>
-									<td class="d-none d-lg-table-cell">$230</td>
+									<td class="d-none d-lg-table-cell">Oct 20, 2022</td>
+									<td class="d-none d-lg-table-cell">230</td>
 									<td>
 										<span class="badge badge-success">Completed</span>
 									</td>
@@ -330,15 +330,15 @@ require 'navbar.php';
 											</div>
 											<div class="media-body align-self-center">
 												<a href="profile.html">
-													<h6 class="mt-0 text-dark font-weight-medium">Selena
-														Wagner</h6>
+													<h6 class="mt-0 text-dark font-weight-medium">Test
+													</h6>
 												</a>
 												<small>@selena.oi</small>
 											</div>
 										</div>
 									</td>
 									<td>2 Orders</td>
-									<td class="text-dark d-none d-md-block">$150</td>
+									<td class="text-dark d-none d-md-block">150</td>
 								</tr>
 
 							</tbody>
@@ -375,14 +375,13 @@ require 'navbar.php';
 							</div>
 							<div class="col-lg-9 col-md-9 col-10 media-body align-self-center ec-pos">
 								<a href="#">
-									<h6 class="mb-10px text-dark font-weight-medium">Baby cotton shoes</h6>
+									<h6 class="mb-10px text-dark font-weight-medium">E-Stamp</h6>
 								</a>
 								<p class="float-md-right sale"><span class="mr-2">58</span>Sales</p>
-								<p class="d-none d-md-block">Statement belting with double-turnlock hardware
-									adds “swagger” to a simple.</p>
+								<p class="d-none d-md-block">Sample description for E stamp</p>
 								<p class="mb-0 ec-price">
-									<span class="text-dark">$520</span>
-									<del>$580</del>
+									<span class="text-dark">520</span>
+									<del>580</del>
 								</p>
 							</div>
 						</div>

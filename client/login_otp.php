@@ -93,8 +93,12 @@ if (isset($_GET['error'])) {
                         <form method="POST" class="form-horizontal auth-form my-4" action="">
                             <div class="row">
                                 <div class="form-group col-md-12 mb-4">
-                                    <input type="tel" class="form-control" id="email" name="phonenumber"
-                                        placeholder="Enter Phone Number">
+                                    <div class="input-group">
+                                        <input type="tel" class="form-control" id="email" name="phonenumber"
+                                            placeholder="Enter Phone Number">
+                                        <button type="button" class="btn btn-primary ml-2" id="sendOTP">Send
+                                            OTP</button>
+                                    </div>
                                 </div>
 
                                 <div class="form-group col-md-12 ">

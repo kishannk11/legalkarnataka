@@ -25,70 +25,46 @@ require 'navbar.php';
 							<table id="responsive-data-table" class="table">
 								<thead>
 									<tr>
-										<th>Profile</th>
+
 										<th>Name</th>
 										<th>Email</th>
 										<th>Phone</th>
-										<th>Total Buy</th>
-										<th>Status</th>
-										<th>Join On</th>
 										<th>Action</th>
 									</tr>
 								</thead>
 
 								<tbody>
-									<tr>
-										<td><img class="vendor-thumb" src="assets/img/vendor/u1.jpg"
-												alt="user profile" /></td>
-										<td>Marlee Rena</td>
-										<td>marleerena@gmail.com</td>
-										<td>+1-256-325-8652</td>
-										<td>2161</td>
-										<td>ACTIVE</td>
-										<td>2021-10-30</td>
-										<td>
-											<div class="btn-group mb-1">
-												<button type="button" class="btn btn-outline-success">Info</button>
-												<button type="button"
-													class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-													data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-													data-display="static">
-													<span class="sr-only">Info</span>
-												</button>
+									<?php
+									ini_set('display_errors', 1);
+									ini_set('display_startup_errors', 1);
+									error_reporting(E_ALL);
+									require_once('config/config.php');
+									require_once('Database.php');
+									$userObj = new User($conn);
+									$employees = $userObj->getAllEmployees();
+									foreach ($employees as $employee) {
+										echo '<tr>';
+										//echo '<td><img class="vendor-thumb" src="assets/img/vendor/u1.jpg" alt="user profile" /></td>';
+										echo '<td>' . $employee['firstname'] . ' ' . $employee['lastname'] . '</td>';
+										echo '<td>' . $employee['email'] . '</td>';
+										echo '<td>' . $employee['phonenumber'] . '</td>';
 
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="#">Edit</a>
-													<a class="dropdown-item" href="#">Delete</a>
-												</div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td><img class="vendor-thumb" src="assets/img/vendor/u2.jpg"
-												alt="user profile" /></td>
-										<td>Johnee Bolbi</td>
-										<td>johneebolbi@gmail.com</td>
-										<td>+5-256-325-8652</td>
-										<td>5161</td>
-										<td>ACTIVE</td>
-										<td>2021-10-25</td>
-										<td>
-											<div class="btn-group mb-1">
-												<button type="button" class="btn btn-outline-success">Info</button>
-												<button type="button"
-													class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-													data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-													data-display="static">
-													<span class="sr-only">Info</span>
-												</button>
+										echo '<td>';
+										echo '<div class="btn-group mb-1">';
+										echo '<button type="button" class="btn btn-outline-success">Info</button>';
+										echo '<button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">';
+										echo '<span class="sr-only">Info</span>';
+										echo '</button>';
+										echo '<div class="dropdown-menu">';
+										echo '<a class="dropdown-item" href="#">Edit</a>';
+										echo '<a class="dropdown-item" href="#">Delete</a>';
+										echo '</div>';
+										echo '</div>';
+										echo '</td>';
+										echo '</tr>';
+									}
+									?>
 
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="#">Edit</a>
-													<a class="dropdown-item" href="#">Delete</a>
-												</div>
-											</div>
-										</td>
-									</tr>
 
 
 								</tbody>

@@ -53,7 +53,7 @@
 						<img class="ec-brand-icon" src="assets/img/logo/legal.png" alt="" />
 						&nbsp;
 						&nbsp;
-						<h4><span class="">Legal Karnataka</span></h4>
+						<h4><span style="color: #BA110C">Legal Karnataka</span></h4>
 					</a>
 				</div>
 
@@ -121,6 +121,11 @@
 											<span class="nav-text">Sub Category</span>
 										</a>
 									</li>
+									<li class="">
+										<a class="sidenav-item-link" href="#">
+											<span class="nav-text">View All Category</span>
+										</a>
+									</li>
 								</ul>
 							</div>
 						</li>
@@ -171,22 +176,18 @@
 											<span class="nav-text">Order History</span>
 										</a>
 									</li>
-									<!-- <li class="">
-										<a class="sidenav-item-link" href="order-detail.php">
-											<span class="nav-text">Order Detail</span>
+									<li class="">
+										<a class="sidenav-item-link" href="new-order.php">
+											<span class="nav-text">Pending Order</span>
 										</a>
-									</li> -->
-									<!-- <li class="">
-										<a class="sidenav-item-link" href="invoice.php">
-											<span class="nav-text">Invoice</span>
-										</a>
-									</li> -->
+									</li>
+
 								</ul>
 							</div>
 						</li>
 						<li class="has-sub">
 							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-cart"></i>
+								<i class="mdi mdi-apps-box"></i>
 								<span class="nav-text">Templates</span> <b class="caret"></b>
 							</a>
 							<div class="collapse">
@@ -251,11 +252,7 @@
 									<li class="dropdown-header">
 										<img src="assets/img/user/user.png" class="img-circle" alt="User Image" />
 										<div class="d-inline-block">
-											John Deo <small class="pt-1">john.example@gmail.com</small>
-										</div>
-									</li>
-									<li>
-										<a href="user-profile.html">
+
 											<i class="mdi mdi-account"></i> My Profile
 										</a>
 									</li>
@@ -264,14 +261,9 @@
 											<i class="mdi mdi-email"></i> Message
 										</a>
 									</li>
-									<li>
-										<a href="#"> <i class="mdi mdi-diamond-stone"></i> Projects </a>
-									</li>
-									<li class="right-sidebar-in">
-										<a href="javascript:0"> <i class="mdi mdi-settings-outline"></i> Setting </a>
-									</li>
+
 									<li class="dropdown-footer">
-										<a href="index.html"> <i class="mdi mdi-logout"></i> Log Out </a>
+										<a href="#"> <i class="mdi mdi-logout"></i> Log Out </a>
 									</li>
 								</ul>
 							</li>

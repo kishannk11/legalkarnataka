@@ -186,7 +186,7 @@
 						</li>
 						<li class="has-sub">
 							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-cart"></i>
+								<i class="mdi mdi-apps-box"></i>
 								<span class="nav-text">Templates</span> <b class="caret"></b>
 							</a>
 							<div class="collapse">
@@ -251,11 +251,11 @@
 									<li class="dropdown-header">
 										<img src="assets/img/user/user.png" class="img-circle" alt="User Image" />
 										<div class="d-inline-block">
-											John Deo <small class="pt-1">john.example@gmail.com</small>
+											Admin<small class="pt-1">admin@gmail.com</small>
 										</div>
 									</li>
 									<li>
-										<a href="user-profile.html">
+										<a href="#">
 											<i class="mdi mdi-account"></i> My Profile
 										</a>
 									</li>
@@ -271,7 +271,7 @@
 										<a href="javascript:0"> <i class="mdi mdi-settings-outline"></i> Setting </a>
 									</li>
 									<li class="dropdown-footer">
-										<a href="index.html"> <i class="mdi mdi-logout"></i> Log Out </a>
+										<a href="#"> <i class="mdi mdi-logout"></i> Log Out </a>
 									</li>
 								</ul>
 							</li>

@@ -43,6 +43,7 @@
 	<!--  WRAPPER  -->
 	<div class="wrapper">
 
+
 		<!-- LEFT MAIN SIDEBAR -->
 		<div class="ec-left-sidebar ec-bg-sidebar">
 			<div id="sidebar" class="sidebar ec-sidebar-footer">
@@ -58,7 +59,8 @@
 
 				<!-- begin sidebar scrollbar -->
 				<div class="ec-navigation" data-simplebar>
-					<!-- sidebar menu -->
+					<!-- sidebar menu udate-->
+
 					<ul class="nav sidebar-inner" id="sidebar-menu">
 						<!-- Dashboard -->
 						<li class="active">

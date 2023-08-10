@@ -187,7 +187,7 @@
 						</li>
 						<li class="has-sub">
 							<a class="sidenav-item-link" href="javascript:void(0)">
-								<i class="mdi mdi-cart"></i>
+								<i class="mdi mdi-apps-box"></i>
 								<span class="nav-text">Templates</span> <b class="caret"></b>
 							</a>
 							<div class="collapse">
@@ -252,11 +252,7 @@
 									<li class="dropdown-header">
 										<img src="assets/img/user/user.png" class="img-circle" alt="User Image" />
 										<div class="d-inline-block">
-											Admin <small class="pt-1">admin@gmail.com</small>
-										</div>
-									</li>
-									<li>
-										<a href="user-profile.php">
+
 											<i class="mdi mdi-account"></i> My Profile
 										</a>
 									</li>

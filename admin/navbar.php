@@ -121,6 +121,11 @@
 											<span class="nav-text">Sub Category</span>
 										</a>
 									</li>
+									<li class="">
+										<a class="sidenav-item-link" href="#">
+											<span class="nav-text">View All Category</span>
+										</a>
+									</li>
 								</ul>
 							</div>
 						</li>
@@ -171,16 +176,12 @@
 											<span class="nav-text">Order History</span>
 										</a>
 									</li>
-									<!-- <li class="">
-										<a class="sidenav-item-link" href="order-detail.php">
-											<span class="nav-text">Order Detail</span>
+									<li class="">
+										<a class="sidenav-item-link" href="new-order.php">
+											<span class="nav-text">Pending Order</span>
 										</a>
-									</li> -->
-									<!-- <li class="">
-										<a class="sidenav-item-link" href="invoice.php">
-											<span class="nav-text">Invoice</span>
-										</a>
-									</li> -->
+									</li>
+
 								</ul>
 							</div>
 						</li>
@@ -251,11 +252,7 @@
 									<li class="dropdown-header">
 										<img src="assets/img/user/user.png" class="img-circle" alt="User Image" />
 										<div class="d-inline-block">
-											Admin<small class="pt-1">admin@gmail.com</small>
-										</div>
-									</li>
-									<li>
-										<a href="#">
+
 											<i class="mdi mdi-account"></i> My Profile
 										</a>
 									</li>
@@ -264,12 +261,7 @@
 											<i class="mdi mdi-email"></i> Message
 										</a>
 									</li>
-									<li>
-										<a href="#"> <i class="mdi mdi-diamond-stone"></i> Projects </a>
-									</li>
-									<li class="right-sidebar-in">
-										<a href="javascript:0"> <i class="mdi mdi-settings-outline"></i> Setting </a>
-									</li>
+
 									<li class="dropdown-footer">
 										<a href="#"> <i class="mdi mdi-logout"></i> Log Out </a>
 									</li>

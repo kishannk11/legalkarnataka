@@ -150,30 +150,22 @@ $productData = $productObj->getProductData($id);
                                     </div>
                                     <div class="ec-single-price-stoke">
                                         <div class="ec-single-price">
-                                            <span class="ec-single-ps-title">As low as</span>
-                                            <span class="new-price">₹
-                                                <?php echo $products[0]['price']; ?>
+                                            <span class="ec-single-ps-title"></span>
+                                            <span class="new-price">
+
                                             </span>
                                         </div>
-                                        <div class="ec-single-stoke">
-                                            <span class="ec-single-ps-title">IN STOCK</span>
 
-                                        </div>
                                     </div>
 
 
                                     <div class="ec-single-qty">
-                                        <div class="qty-plus-minus">
-                                            <input class="qty-input" type="text" name="ec_qtybtn" value="1" />
-                                        </div>
+
                                         <div class="ec-single-cart">
-                                            <button class="btn btn-primary">Checkout</button>
+                                            <button class="btn btn-primary">Save and Preview</button>
 
                                         </div>
-                                        <div class="ec-single-cart">
 
-                                            <button class="btn btn-primary">Preview</button>
-                                        </div>
                                     </div>
 
                                 </div>
@@ -193,7 +185,7 @@ $productData = $productObj->getProductData($id);
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-info"
-                                        role="tablist">More Information</a>
+                                        role="tablist">Note</a>
                                 </li>
                                 <!-- <li class="nav-item">
                                         <a class="nav-link" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-review"

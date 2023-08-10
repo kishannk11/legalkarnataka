@@ -12,7 +12,9 @@
 	<!-- GOOGLE FONTS -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"> 
+	<link
+		href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap"
+		rel="stylesheet">
 
 	<link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
 
@@ -27,19 +29,20 @@
 	<!-- FAVICON -->
 	<link href="assets/img/favicon.png" rel="shortcut icon" />
 	<style>
-  .ec-brand-name {
-    font-size: 100px; /* adjust the font size as needed */
-  }
-</style>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		.ec-brand-name {
+			font-size: 100px;
+			/* adjust the font size as needed */
+		}
+	</style>
+	<!--<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="ec-header-fixed ec-sidebar-fixed ec-sidebar-light ec-header-light" id="body">
 
 	<!--  WRAPPER  -->
 	<div class="wrapper">
-		
+
 		<!-- LEFT MAIN SIDEBAR -->
 		<div class="ec-left-sidebar ec-bg-sidebar">
 			<div id="sidebar" class="sidebar ec-sidebar-footer">
@@ -49,7 +52,7 @@
 						<img class="ec-brand-icon" src="assets/img/logo/legal.png" alt="" />
 						&nbsp;
 						&nbsp;
-						 <h4><span class="">Legal Karnataka</span></h4>
+						<h4><span class="">Legal Karnataka</span></h4>
 					</a>
 				</div>
 
@@ -63,11 +66,11 @@
 								<i class="mdi mdi-view-dashboard-outline"></i>
 								<span class="nav-text">Dashboard</span>
 							</a>
-							
+
 						</li>
 
 						<!-- Vendors -->
-						
+
 
 						<!-- Users -->
 						<li class="has-sub">
@@ -76,7 +79,7 @@
 								<span class="nav-text">Users</span> <b class="caret"></b>
 							</a>
 							<div class="collapse">
-								<ul class="sub-menu" id="users" data-parent="#sidebar-menu">									
+								<ul class="sub-menu" id="users" data-parent="#sidebar-menu">
 									<li class="">
 										<a class="sidenav-item-link" href="user-list.php">
 											<span class="nav-text">User List</span>
@@ -92,10 +95,10 @@
 											<span class="nav-text">Users Profile</span>
 										</a>
 									</li>
-									
+
 								</ul>
 							</div>
-							
+
 						</li>
 
 						<!-- Category -->
@@ -138,7 +141,7 @@
 											<span class="nav-text">List Product</span>
 										</a>
 									</li>
-									
+
 									<li class="">
 										<a class="sidenav-item-link" href="product-detail.php">
 											<span class="nav-text">Product Detail</span>
@@ -166,28 +169,46 @@
 											<span class="nav-text">Order History</span>
 										</a>
 									</li>
-									<li class="">
+									<!-- <li class="">
 										<a class="sidenav-item-link" href="order-detail.php">
 											<span class="nav-text">Order Detail</span>
 										</a>
-									</li>
-									<li class="">
+									</li> -->
+									<!-- <li class="">
 										<a class="sidenav-item-link" href="invoice.php">
 											<span class="nav-text">Invoice</span>
+										</a>
+									</li> -->
+								</ul>
+							</div>
+						</li>
+						<li class="has-sub">
+							<a class="sidenav-item-link" href="javascript:void(0)">
+								<i class="mdi mdi-cart"></i>
+								<span class="nav-text">Templates</span> <b class="caret"></b>
+							</a>
+							<div class="collapse">
+								<ul class="sub-menu" id="orders" data-parent="#sidebar-menu">
+									<li class="">
+										<a class="sidenav-item-link" href="create_template.php">
+											<span class="nav-text">Add Templates</span>
+										</a>
+									</li>
+									<li class="">
+										<a class="sidenav-item-link" href="template_list.php">
+											<span class="nav-text">Template List</span>
+										</a>
+									</li>
+
+									<li class="">
+										<a class="sidenav-item-link" href="product_template.php">
+											<span class="nav-text">Add Templates for Product</span>
 										</a>
 									</li>
 								</ul>
 							</div>
 						</li>
 
-						<!-- Authentication -->
-						
-
-						<!-- Icons -->
-						
-
-						<!-- Other Pages -->
-						
 					</ul>
 				</div>
 			</div>
@@ -263,8 +284,8 @@
 									</div>
 
 									<div class="card-body px-0 py-0">
-										<ul class="nav nav-tabs nav-style-border p-0 justify-content-between" id="myNotificationTab"
-											role="tablist">
+										<ul class="nav nav-tabs nav-style-border p-0 justify-content-between"
+											id="myNotificationTab" role="tablist">
 											<li class="nav-item mx-3 my-0 py-0">
 												<a href="#" class="nav-link active pb-3" id="home2-tab"
 													data-bs-toggle="tab" data-bs-target="#home2" role="tab"

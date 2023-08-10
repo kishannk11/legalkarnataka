@@ -9,11 +9,37 @@ $mainCategorySql = "SELECT name FROM main_category";
 $mainCategoryStmt = $conn->prepare($mainCategorySql);
 $mainCategoryStmt->execute();
 $categories = $mainCategoryStmt->fetchAll(PDO::FETCH_COLUMN);
-
-// Prepare the sub-categories query
 $subCategorySql = "SELECT name FROM sub_category WHERE parent_category = :category";
 $subCategoryStmt = $conn->prepare($subCategorySql);
+?>
 
+<?php
+if (isset($_GET['success'])) {
+	$success = $_GET['success'];
+	echo '<script>
+	document.addEventListener("DOMContentLoaded", function() {
+			Swal.fire({
+				title: "Success!",
+				text: "' . htmlspecialchars($success) . '",
+				icon: "success",
+				confirmButtonText: "OK"
+			});
+		});
+	</script>';
+}
+
+if (isset($_GET['error'])) {
+	$error = $_GET['error'];
+	echo '<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		Swal.fire({
+			icon: "error",
+			title: "Oops...",
+			text: "' . htmlspecialchars($error, ENT_QUOTES, 'UTF-8') . '",
+		});
+	});
+</script>';
+}
 ?>
 <!-- CONTENT WRAPPER -->
 <div class="ec-content-wrapper">
@@ -40,7 +66,7 @@ $subCategoryStmt = $conn->prepare($subCategorySql);
 					<div class="card-body">
 						<div class="row">
 							<div class="col-md-6">
-								<form>
+								<form class="row g-3" method="POST" action="product.php" enctype="multipart/form-data">
 									<div class="mb-3">
 										<label class="form-label">Product Name</label>
 										<input type="text" class="form-control" name="prod_name">
@@ -79,7 +105,7 @@ $subCategoryStmt = $conn->prepare($subCategorySql);
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div class="col-md-6">
 						<div class="col-md-12">
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</div>
@@ -121,6 +147,8 @@ $subCategoryStmt = $conn->prepare($subCategorySql);
 
 <!-- Option Switcher -->
 <script src="assets/plugins/options-sidebar/optionswitcher.js"></script>
+<script src="assets/plugins/sweet-alert2/sweetalert2.min.js"></script>
+<script src="assets/pages/jquery.sweet-alert.init.js"></script>
 
 <!-- Ekka Custom -->
 <script src="assets/js/ekka.js"></script>

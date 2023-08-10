@@ -4,19 +4,27 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 require_once('config/config.php');
 require('Database.php');
-if (isset($_POST['submit'])) {
-    $productObj = new Product($conn);
-    $prodName = $_POST['prod_name'];
+$product = new Product($conn);
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the form data
+    $prod_name = $_POST['prod_name'];
     $category = $_POST['categories'];
     $price = $_POST['price'];
     $details = $_POST['details'];
+    $image = $_FILES['image'];
 
-    $result = $productObj->addProduct($prodName, $category, $price, $details);
+    // Save the product and handle any errors
+    $result = $product->saveProduct($prod_name, $category, $price, $details, $image);
 
-    if ($result) {
-        echo "Product added successfully.";
-    } else {
-        echo "Error: Unable to add product.";
+    // Redirect with error message if necessary
+    if ($result === true) {
+        $success = "Product saved successfully";
+        header('Location: product-add.php?success=' . urlencode($success));
+        exit();
+    } elseif (!empty($result)) {
+        header('Location: product-add.php?error=' . urlencode($result));
+        exit();
     }
 }
 ?>

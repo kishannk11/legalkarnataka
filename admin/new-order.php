@@ -38,12 +38,12 @@ require 'navbar.php';
 										<td>1050</td>
 										<td><img class="product-img tbl-img" src="assets/img/products/p1.jpg"
 												alt="product"></td>
-										<td>Baby Pink Shoes</td>
+										<td>E Stamp</td>
 										<td><strong>John Deo</strong><br>
 											johny@example.com
 										</td>
 										<td>3</td>
-										<td>$80</td>
+										<td>80</td>
 										<td>PAID</td>
 										<td><span class="mb-2 mr-2 badge badge-secondary">Pending</span>
 										</td>

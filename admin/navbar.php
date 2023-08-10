@@ -53,7 +53,7 @@
 						<img class="ec-brand-icon" src="assets/img/logo/legal.png" alt="" />
 						&nbsp;
 						&nbsp;
-						<h4><span class="">Legal Karnataka</span></h4>
+						<h4><span style="color: #BA110C">Legal Karnataka</span></h4>
 					</a>
 				</div>
 

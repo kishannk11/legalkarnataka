@@ -66,12 +66,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<div class="row justify-content-center">
 			<div class="col-lg-6 col-md-10">
 				<div class="card">
-					<div class="card-header bg-primary">
+					<div class="card-header" style="background-color: #242425">
 
 						<div class="ec-brand">
 							<div class="rounded-image">
 								<a href="#" title="Legal Karnataka">
-									<img src="assets/img/logo/logo-login.png" alt="">
+									<img src="assets/img/logo/legal-logo.png" alt="">
 								</a>
 							</div>
 						</div>
@@ -109,12 +109,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 										<p><a class="text-blue" href="#">Forgot Password?</a></p>
 									</div>
 
-									<button type="submit" class="btn btn-primary btn-block mb-4">Sign In</button>
+									<button type="submit" class="btn btn-primary btn-block mb-4" style="background-color: #242425">Sign In</button>
 
 									<p class="sign-upp">Don't have an account yet ?
 										<a class="text-blue" href="sign-up.html">Sign Up</a>
 									</p>
-									<button type="submit" class="btn btn-primary btn-block mb-4">Sign In</button>
+									<!-- <button type="submit" class="btn btn-primary btn-block mb-4" style="background-color: #242425">Sign In</button> -->
 								</div>
 							</div>
 						</form>

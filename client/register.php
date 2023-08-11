@@ -96,10 +96,10 @@ if (isset($_GET['error'])) {
         <div class="row justify-content-center">
             <div class="col-lg-4 col-md-10">
                 <div class="card">
-                    <div class="card-header bg-primary">
+                    <div class="card-header" style="background-color: #242425" >
                         <div class="ec-brand">
                             <a href="index.html" title="Ekka">
-                                <img class="ec-brand-icon" src="../admin/assets/img/logo/legal.png" alt="" />
+                                <img class="ec-brand-icon" src="assets/images/logo/legal-logo.png" alt="" />
                             </a>
                         </div>
                     </div>
@@ -143,7 +143,7 @@ if (isset($_GET['error'])) {
 
                                 <div class="col-md-12">
 
-                                    <button type="submit" class="btn btn-primary btn-block mb-4">Sign Up</button>
+                                    <button type="submit" class="btn btn-primary btn-block mb-4" style="background-color: #242425">Sign Up</button>
 
                                     <p class="sign-upp">Already have an account?
                                         <a class="text-blue" href="index.php">Sign in</a>

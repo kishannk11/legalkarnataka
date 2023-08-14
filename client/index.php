@@ -114,7 +114,8 @@ if (isset($_GET['error'])) {
                                         <p><a class="text-blue" href="#">Forgot Password?</a></p>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary btn-block mb-4" style="background-color: #242425">Sign In</button>
+                                    <button type="submit" class="btn btn-primary btn-block mb-4"
+                                        style="background-color: #242425">Sign In</button>
 
                                     <p class="sign-upp">Don't have an account yet ?
                                         <a class="text-blue" href="register.php">Sign Up</a>

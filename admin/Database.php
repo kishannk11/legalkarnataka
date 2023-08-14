@@ -435,6 +435,16 @@ class User
         $employees = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $employees;
     }
+    public function getUserByPhone($phone)
+    {
+        $sql = "SELECT * FROM users WHERE phonenumber = :phone";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':phone', $phone);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user;
+    }
+
 }
 
 ?>

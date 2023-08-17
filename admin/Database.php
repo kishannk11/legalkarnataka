@@ -1,5 +1,5 @@
 <?php
-class admin
+class Admin
 {
     private $conn;
     private $table_name = "admin";
@@ -22,15 +22,69 @@ class admin
                 session_start();
                 $_SESSION["loggedin"] = true;
                 $_SESSION["id"] = $row["id"];
-                $_SESSION["username"] = $row["username"];
-                if (isset($_POST['remember_me'])) {
-                    setcookie("username", $this->username, time() + (86400 * 30), "/");
-                    setcookie("password", $this->password, time() + (86400 * 30), "/");
-                }
+                $_SESSION["email"] = $row["email"];
+                $_SESSION["role"] = $row["role"];
+
                 return true;
             } else {
                 return false;
             }
+        } else {
+            return false;
+        }
+    }
+    public function getAdminInfo()
+    {
+        $sql = "SELECT * FROM admin";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+
+        $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $admin;
+
+    }
+    public function updateAdmin($data)
+    {
+        $sql = "UPDATE admin SET  
+            name = :name,  
+            email = :email,
+            password = :password,
+            image = :image  
+            WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+
+        // Bind parameters
+        $stmt->bindParam(':name', $data['name']);
+        $stmt->bindParam(':email', $data['email']);
+        $stmt->bindParam(':password', $data['password']);
+        $stmt->bindParam(':image', $data['image']);
+        $stmt->bindParam(':id', $data['id']);
+
+        // Execute query
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function updateAdminWithoutPassword($data)
+    {
+        $sql = "UPDATE admin SET  
+        name = :name,  
+        email = :email,
+        image = :image  
+        WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+
+        // Bind parameters
+        $stmt->bindParam(':name', $data['name']);
+        $stmt->bindParam(':email', $data['email']);
+        $stmt->bindParam(':image', $data['image']);
+        $stmt->bindParam(':id', $data['id']);
+
+        // Execute query
+        if ($stmt->execute()) {
+            return true;
         } else {
             return false;
         }
@@ -386,6 +440,18 @@ class User
 
     public function registerUser($firstname, $lastname, $email, $phonenumber, $password)
     {
+        // Check if the user is already registered
+        $sql = "SELECT COUNT(*) FROM users WHERE email = :email OR phonenumber = :phonenumber";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':phonenumber', $phonenumber);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+
+        if ($count > 0) {
+            return false; // User is already registered
+        }
+
         // Hash the password for security
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
@@ -402,9 +468,9 @@ class User
 
         // Execute the statement
         if ($stmt->execute()) {
-            return true;
+            return true; // User is successfully registered
         } else {
-            return false;
+            return false; // Failed to register user
         }
     }
     public function loginUser($email, $password)
@@ -418,6 +484,10 @@ class User
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($user && password_verify($password, $user['password'])) {
+            session_start();
+            $_SESSION["loggedin"] = true;
+            $_SESSION["email"] = $user["email"];
+            $_SESSION["role"] = $user["role"];
             return true;
         } else {
             return false;

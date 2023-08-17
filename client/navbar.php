@@ -1,3 +1,6 @@
+<?php
+include 'config/session.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,7 +64,7 @@
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li><a class="dropdown-item" href="#">Profile</a></li>
 
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                     </ul>
                 </div>
                 <!-- Header Cart End -->
@@ -117,7 +120,7 @@
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li><a class="dropdown-item" href="#">Profile</a></li>
 
-                                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                                        <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                                     </ul>
                                 </div>
                                 <!-- Header User End -->

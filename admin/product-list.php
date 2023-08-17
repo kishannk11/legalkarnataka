@@ -2,8 +2,7 @@
 require 'navbar.php';
 ?>
 <?php
-require_once('config/config.php');
-require('Database.php');
+
 $product = new Product($conn);
 $products = $product->getProduct();
 ?>

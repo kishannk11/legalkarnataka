@@ -1,3 +1,15 @@
+<?php
+include 'config/session.php';
+?>
+<?php
+include 'config/config.php';
+include 'Database.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+$admin = new Admin($conn);
+$adminInfo = $admin->getAdminInfo();
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -49,7 +61,7 @@
 			<div id="sidebar" class="sidebar ec-sidebar-footer">
 
 				<div class="ec-brand">
-					<a href="index.html" title="Ekka">
+					<a href="index.html" title="Legal Karnataka">
 						<img class="ec-brand-icon" src="assets/img/logo/legal.png" alt="" />
 						&nbsp;
 						&nbsp;
@@ -63,7 +75,8 @@
 
 					<ul class="nav sidebar-inner" id="sidebar-menu">
 						<!-- Dashboard -->
-						<li class="active">
+						<li class="<?php if ($page == 'dashboard')
+							echo 'active'; ?>">
 							<a class="sidenav-item-link" href="dashboard.php">
 								<i class="mdi mdi-view-dashboard-outline"></i>
 								<span class="nav-text">Dashboard</span>
@@ -75,7 +88,7 @@
 
 
 						<!-- Users -->
-						<li class="has-sub">
+						<li class="has-sub ">
 							<a class="sidenav-item-link" href="javascript:void(0)">
 								<i class="mdi mdi-account-group"></i>
 								<span class="nav-text">Users</span> <b class="caret"></b>
@@ -122,7 +135,7 @@
 										</a>
 									</li>
 									<li class="">
-										<a class="sidenav-item-link" href="#">
+										<a class="sidenav-item-link" href="view-all-category.php">
 											<span class="nav-text">View All Category</span>
 										</a>
 									</li>
@@ -245,15 +258,23 @@
 							<li class="dropdown user-menu">
 								<button class="dropdown-toggle nav-link ec-drop" data-bs-toggle="dropdown"
 									aria-expanded="false">
-									<img src="assets/img/user/user.png" class="user-image" alt="User Image" />
+									<img src="<?php echo $adminInfo['image']; ?>" class="user-image" alt="User Image" />
 								</button>
 								<ul class="dropdown-menu dropdown-menu-right ec-dropdown-menu">
 									<!-- User image -->
 									<li class="dropdown-header">
-										<img src="assets/img/user/user.png" class="img-circle" alt="User Image" />
+										<img src="<?php echo $adminInfo['image']; ?>" class="img-circle"
+											alt="User Image" />
 										<div class="d-inline-block">
+											<a>
+												<i class="mdi mdi-account"></i>
+												<?php echo $adminInfo['username']; ?>
+											</a>
 
-											<i class="mdi mdi-account"></i> My Profile
+									</li>
+									<li>
+										<a href="profile.php">
+											<i class="mdi mdi-account"></i> Profile
 										</a>
 									</li>
 									<li>
@@ -263,7 +284,7 @@
 									</li>
 
 									<li class="dropdown-footer">
-										<a href="#"> <i class="mdi mdi-logout"></i> Log Out </a>
+										<a href="logout.php"> <i class="mdi mdi-logout"></i> Log Out </a>
 									</li>
 								</ul>
 							</li>

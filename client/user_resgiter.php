@@ -51,7 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: register.php?success=User Registered");
             exit();
         } else {
-            echo "Error: Unable to register user.";
+
+            header("Location: register.php?error=Error: User Already exist.");
+            exit();
         }
     } else {
         // Send errors to the register.php page using GET method

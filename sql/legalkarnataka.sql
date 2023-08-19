@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 10, 2023 at 02:05 AM
+-- Generation Time: Aug 19, 2023 at 07:11 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -29,16 +29,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `username` varchar(20) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `role` varchar(10) NOT NULL,
+  `image` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id`, `username`, `password`) VALUES
-(1, 'admin', '$2a$12$UHUXXw/HUfM464KFT.GbEemtCFiSOMMuJKlp3Su8DqCsdJwzEzoai');
+INSERT INTO `admin` (`id`, `Name`, `email`, `username`, `password`, `role`, `image`) VALUES
+(1, 'LegalKarnatakaUpdate2', 'legalupdate2@legalkarnataka.com', 'admin', '$2a$12$AuJo7tOUIalkjs05OVnj1uR6QY7vxYe7HuBcjlcNiygKLcisuUfT.', 'admin', 'upload/2033222631advocates-photo(1).jpeg');
 
 -- --------------------------------------------------------
 
@@ -60,7 +64,7 @@ INSERT INTO `form_templates` (`id`, `template_name`, `template_fields`) VALUES
 (6, 'Name', '<div class=\"mb-3\">\r\n                                            <label class=\"form-label\">Change Name</label>\r\n                                            <input type=\"text\" class=\"form-control\" name=\"template_name\">\r\n                                        </div>'),
 (7, 'Adhar card number', '<div class=\"mb-3\">\r\n                                            <label class=\"form-label\">Template Name</label>\r\n                                            <input type=\"text\" class=\"form-control\" name=\"template_name\">\r\n                                        </div>'),
 (8, 'Phone', '<div class=\"mb-3\">\r\n                                            <label class=\"form-label\">Change Name</label>\r\n                                            <input type=\"text\" class=\"form-control\" name=\"template_name\">\r\n                                        </div>'),
-(9, 'Adhar card ', '<div class=\"mb-3\">\r\n                                            <label class=\"form-label\">Change Name</label>\r\n                                            <input type=\"text\" class=\"form-control\" name=\"template_name\">\r\n                                        </div>');
+(9, 'Adhar card ', '<div class=\"mb-3\">\r\n                                            <label class=\"form-label\">Adhar card</label>\r\n                                            <input type=\"text\" class=\"form-control\" name=\"template_name\">\r\n                                        </div>');
 
 -- --------------------------------------------------------
 
@@ -122,7 +126,13 @@ CREATE TABLE `product_templates` (
 
 INSERT INTO `product_templates` (`id`, `prod_name`, `template_id`) VALUES
 (24, '6', '6'),
-(25, '6', '7');
+(25, '6', '7'),
+(26, '6', '6'),
+(27, '6', '7'),
+(28, '6', '8'),
+(31, '6', '6'),
+(32, '6', '7'),
+(33, '6', '8');
 
 -- --------------------------------------------------------
 
@@ -157,16 +167,16 @@ CREATE TABLE `users` (
   `lastname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `phonenumber` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `role` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `phonenumber`, `password`) VALUES
-(1, 'Ranjith', 'Chandran', 'ranjith@mail.com', '8105897579', '$2y$10$sn3aVmFUCK5euoVDkQ3S8u7VYecSYzR2AUI0q70EDwPGDaLHsZlCG'),
-(2, 'Test', 'Name', 'ranjith@mail.com', '8105897579', '$2y$10$iir7H4Osy5JqG5BG5A2nTuMYMNMGfMTutbjf3Qsib3DZjh4DwLtPu');
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `phonenumber`, `password`, `role`) VALUES
+(1, 'Ranjith', 'Chandran', 'ranjith@mail.com', '8105897579', '$2y$10$sn3aVmFUCK5euoVDkQ3S8u7VYecSYzR2AUI0q70EDwPGDaLHsZlCG', 'client');
 
 --
 -- Indexes for dumped tables
@@ -246,7 +256,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `product_templates`
 --
 ALTER TABLE `product_templates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `sub_category`
@@ -258,7 +268,7 @@ ALTER TABLE `sub_category`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

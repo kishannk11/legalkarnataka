@@ -21,10 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $userObj->loginUser($email, $password);
 
         if ($result) {
-            // Start a session and store the email ID
-            session_start();
-            $_SESSION['email'] = $email;
-
             // Login successful, redirect to the dashboard or home page
             header("Location: product-left-sidebar.php");
             exit();

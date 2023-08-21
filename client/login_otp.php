@@ -90,33 +90,28 @@ if (isset($_GET['error'])) {
                     <div class="card-body p-5">
                         <h4 class="text-dark mb-5">Login With OTP</h4>
 
-                        <form method="POST" class="form-horizontal auth-form my-4" action="">
+                        <form method="POST" class="form-horizontal auth-form my-4" action="check_otp.php">
                             <div class="row">
                                 <div class="form-group col-md-12 mb-4">
                                     <div class="input-group">
-                                        <input type="tel" class="form-control" id="email" name="phonenumber"
-                                            placeholder="Enter Phone Number">
-                                        <button type="button" class="btn btn-primary ml-2" id="sendOTP" style="background-color: #242425">Send
-                                            OTP</button>
+                                        <input type="tel" class="form-control" id="phone" name="phone"
+                                            placeholder="Enter Phone Number" aria-describedby="button-addon2">
+                                        <button type="button" class="btn btn-primary ml-2" id="sendOTP"
+                                            style="background-color: #242425">Send OTP</button>
                                     </div>
                                 </div>
-
                                 <div class="form-group col-md-12 ">
-                                    <input type="password" class="form-control" id="password" name="password"
+                                    <input type="tel" class="form-control" id="password" name="otp"
                                         placeholder="Enter OTP">
                                 </div>
-
                                 <div class="col-md-12">
                                     <div class="d-flex my-2 justify-content-between">
                                         <div class="d-inline-block mr-3">
 
                                         </div>
-
-
                                     </div>
-
-                                    <button type="submit" class="btn btn-primary btn-block mb-4" style="background-color: #242425">Sign In</button>
-
+                                    <button type="submit" class="btn btn-primary btn-block mb-4"
+                                        style="background-color: #242425">Sign In</button>
                                     <p class="sign-upp">Don't have an account yet ?
                                         <a class="text-blue" href="register.php">Sign Up</a>
                                     </p>
@@ -133,5 +128,78 @@ if (isset($_GET['error'])) {
 </body>
 <script src="assets/js/plugins/sweetalert2.min.js"></script>
 <script src="assets/js/plugins/jquery.sweet-alert.init.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Include SweetAlert library -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            $('#sendOTP').click(function () {
+                // Get the phone number from the form
+                var phone = $('#phone').val();
+                // Disable the "Send OTP" button
+                $('#sendOTP').prop('disabled', true);
+                // Send an AJAX request to the server
+                $.ajax({
+                    type: "POST",
+                    url: "send_otp.php",
+                    data: { phone: phone },
+                    success: function (response) {
+                        // Check the response from the PHP code
+                        if (response === "present") {
+                            // Display success message using SweetAlert
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'OTP sent successfully!',
+                                showConfirmButton: true,
+                                confirmButtonText: 'Okay',
+
+                            });
+                        } else if (response === "not_present") {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Account is not registered. Please register first.',
+                                showConfirmButton: true,
+                                confirmButtonText: 'Okay',
+
+                                willClose: () => {
+                                    // Redirect to register.php
+                                    window.location.href = "register.php";
+                                }
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Display error message using SweetAlert
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed to send OTP',
+                            text: error,
+                            confirmButtonText: 'Okay'
+                        });
+                    }
+                });
+
+                // Disable the "Send OTP" button for 30 seconds
+                var remainingTime = 30;
+                var countdownInterval = setInterval(function () {
+                    remainingTime--;
+                    if (remainingTime === 0) {
+                        clearInterval(countdownInterval);
+                        // Enable the "Send OTP" button
+                        $('#sendOTP').prop('disabled', false);
+                        // Reset the button text
+                        $('#sendOTP').text('Send OTP');
+                    } else {
+                        // Update the button text with remaining time
+                        $('#sendOTP').text('Resend in ' + remainingTime + 's');
+                    }
+                }, 1000);
+            });
+        });
+    })(jQuery);
+</script>
 
 </html>

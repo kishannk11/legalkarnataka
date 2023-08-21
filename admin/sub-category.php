@@ -3,7 +3,6 @@ require 'navbar.php';
 ?>
 <?php
 require_once('config/config.php');
-require('Database.php');
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -70,7 +69,8 @@ if (isset($_GET['error'])) {
 								<div class="form-group row">
 									<label for="text" class="col-12 col-form-label">Name</label>
 									<div class="col-12">
-										<input id="text" name="sub_category" class="form-control here slug-title" type="text">
+										<input id="text" name="sub_category" class="form-control here slug-title"
+											type="text">
 									</div>
 								</div>
 
@@ -117,13 +117,13 @@ if (isset($_GET['error'])) {
 <script src="assets/plugins/slick/slick.min.js"></script>
 
 <script>
-    document.getElementById('submit-button').addEventListener('click', function(event) {
-        var parentCategory = document.getElementById('parent-category').value;
-        if (parentCategory === '') {
-            event.preventDefault(); // Prevent form submission
-            alert('Please select a category.'); // Display alert message
-        }
-    });
+	document.getElementById('submit-button').addEventListener('click', function (event) {
+		var parentCategory = document.getElementById('parent-category').value;
+		if (parentCategory === '') {
+			event.preventDefault(); // Prevent form submission
+			alert('Please select a category.'); // Display alert message
+		}
+	});
 </script>
 
 <!-- Data Tables -->

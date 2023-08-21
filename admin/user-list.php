@@ -1,7 +1,10 @@
 <?php
 require 'navbar.php';
 ?>
-
+<?php
+$page = 'users';
+$subpage = 'list';
+?>
 <!-- CONTENT WRAPPER -->
 <div class="ec-content-wrapper">
 	<div class="content">

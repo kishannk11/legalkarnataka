@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 require_once 'config/config.php';
 require_once "Database.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$user = new User($conn);
+	$user = new admin($conn);
 	$user->username = $_POST["username"];
 	$user->password = $_POST["userpassword"];
 	if ($user->login()) {
@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 											<p><a class="text-blue" href="#">Forgot Password?</a></p>
 										</div>
 
-										<button type="submit" class="btn btn-primary btn-block mb-4" style="background-color: #242425">Sign In</button>
+									<button type="submit" class="btn btn-primary btn-block mb-4" style="background-color: #242425">Sign In</button>
 
 										<p class="sign-upp">Don't have an account yet ?
 											<a class="text-blue" href="sign-up.html">Sign Up</a>

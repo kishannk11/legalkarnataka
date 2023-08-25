@@ -59,7 +59,6 @@ if (isset($_GET['error'])) {
 									<tr>
 										<th>Product</th>
 										<th>Name</th>
-										<th>Price</th>
 										<th>Category</th>
 										<th>Action</th>
 									</tr>
@@ -73,9 +72,7 @@ if (isset($_GET['error'])) {
 											<td>
 												<?php echo $product['prod_name']; ?>
 											</td>
-											<td>
-												<?php echo $product['price']; ?>
-											</td>
+
 											<td>
 												<?php echo $product['category']; ?>
 											</td>

@@ -19,6 +19,7 @@ include 'config/session.php';
     <link rel="icon" href="https://legalkarnataka.com/admin/assets/img/logo/legal.png" sizes="32x32" />
     <link rel="apple-touch-icon" href="https://legalkarnataka.com/admin/assets/img/logo/legal.png" />
     <meta name="msapplication-TileImage" content="https://legalkarnataka.com/admin/assets/img/logo/legal.png" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- css Icon Font -->
     <link rel="stylesheet" href="assets/css/vendor/ecicons.min.css" />

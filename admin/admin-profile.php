@@ -42,13 +42,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $old_image = $admin->getAdminInfo();
         $target_file = $old_image['image'];
     }
-
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     // Update admin info
     if (!empty($password)) {
         $result = $admin->updateAdmin([
             'name' => $name,
             'email' => $email,
-            'password' => $password,
+            'password' => $hashedPassword,
             'id' => $id,
             'image' => $target_file
         ]);

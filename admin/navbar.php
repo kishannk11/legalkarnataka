@@ -130,13 +130,18 @@ $adminInfo = $admin->getAdminInfo();
 										</a>
 									</li>
 									<li class="">
+										<a class="sidenav-item-link" href="view-all-main-category.php">
+											<span class="nav-text">View All Main Category</span>
+										</a>
+									</li>
+									<li class="">
 										<a class="sidenav-item-link" href="sub-category.php">
 											<span class="nav-text">Sub Category</span>
 										</a>
 									</li>
 									<li class="">
-										<a class="sidenav-item-link" href="view-all-category.php">
-											<span class="nav-text">View All Category</span>
+										<a class="sidenav-item-link" href="view-all-sub-category.php">
+											<span class="nav-text">View All Sub Category</span>
 										</a>
 									</li>
 								</ul>
@@ -219,6 +224,11 @@ $adminInfo = $admin->getAdminInfo();
 									<li class="">
 										<a class="sidenav-item-link" href="product_template.php">
 											<span class="nav-text">Add Templates for Product</span>
+										</a>
+									</li>
+									<li class="">
+										<a class="sidenav-item-link" href="product_template_list.php">
+											<span class="nav-text">Product Template list</span>
 										</a>
 									</li>
 								</ul>

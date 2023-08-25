@@ -75,21 +75,24 @@ if (isset($_GET['error'])) {
 										<label class="form-label">Select Categories</label>
 										<select name="categories" id="Categories" class="form-select">
 											<?php foreach ($categories as $category): ?>
-												<optgroup label="<?php echo $category; ?>">
+												<optgroup name="optgroup" label="<?php echo $category; ?>">
 													<?php
 													$subCategoryStmt->bindParam(':category', $category);
 													$subCategoryStmt->execute();
 													$subCategories = $subCategoryStmt->fetchAll(PDO::FETCH_COLUMN);
 													foreach ($subCategories as $subCategory) {
-														echo "<option value=\"$subCategory\">$subCategory</option>";
+														echo "<option value=\"$category|$subCategory\">$subCategory</option>";
 													}
 													?>
 												</optgroup>
 											<?php endforeach; ?>
 										</select>
+
+
+
 									</div>
 									<div class="mb-3">
-										<label class="form-label">Price</label>
+										<label class="form-label">GST</label>
 										<input type="text" class="form-control" name="price">
 									</div>
 							</div>

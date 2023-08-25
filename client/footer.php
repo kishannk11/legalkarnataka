@@ -158,6 +158,135 @@
 </div>
 <!-- Feature tools end -->
 
+
+<!-- Include the Fabric.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+
+<script>
+    document.getElementById('previewButton').addEventListener('click', function () {
+        var previewContent = '';
+        var inputElements = document.querySelectorAll('.ec-single-sales input');
+        inputElements.forEach(function (input) {
+            var label = input.previousElementSibling.textContent;
+            var value = input.value;
+            previewContent += '<p>' + label + ': ' + value + '</p>';
+        });
+
+        // Create a Fabric.js canvas instance
+        var canvas = new fabric.Canvas('canvas');
+
+        // Load the user-defined image
+        var image = new fabric.Image.fromURL('assets/images/image-write/preview.png', function (img) {
+            // Set the dimensions of the canvas to match the image
+            canvas.setWidth(img.width);
+            canvas.setHeight(img.height);
+
+            // Add the image to the canvas
+            canvas.add(img);
+
+            // Set the font style for the text
+            var textOptions = {
+                fontFamily: 'Arial',
+                fontSize: 35,
+                fill: 'black',
+                textAlign: 'left', // Align the text to the left
+                editable: false,
+            };
+
+            // Write the preview content on the canvas
+            var lines = previewContent.split('<p>');
+            lines.shift(); // Remove the first empty line
+            var lineHeight = 40; // Adjust the line height as needed
+            var startX = 100; // Set the X position for left alignment
+            var startY = 330; // Set the Y position for top alignment
+            lines.forEach(function (line, index) {
+                var y = startY + (index * lineHeight);
+                var text = new fabric.Text(line.replace('</p>', ''), {
+                    ...textOptions,
+                    top: y,
+                    left: startX,
+                    width: canvas.getWidth(), // Set the width of the textbox to match the canvas width
+                });
+                canvas.add(text);
+            });
+
+            // Render the canvas to generate the image data
+            canvas.renderAll();
+
+            // Get the data URL of the canvas as an image
+            var imageDataUrl = canvas.toDataURL('png');
+
+            // Create the SweetAlert popup
+            swal({
+                title: 'Preview',
+                content: {
+                    element: 'img',
+                    attributes: {
+                        src: imageDataUrl,
+                        style: 'max-width: 100%;'
+                    }
+                },
+                buttons: {
+                    cancel: {
+                        text: 'Cancel',
+                        value: null,
+                        visible: true,
+                        className: '',
+                        closeModal: true,
+                    },
+                    confirm: {
+                        text: 'Proceed',
+                        value: true,
+                        visible: true,
+                        className: '',
+                        closeModal: true
+                    }
+                },
+                closeOnClickOutside: false,
+                dangerMode: true
+            }).then(function (result) {
+                // Handle the result of the SweetAlert popup
+                if (result) {
+                    var data = {
+                        label: label,
+                        value: value
+                    };
+
+                    // Make an AJAX request to send the data to the server
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'save_data.php', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                // Request successful
+                                var response = JSON.parse(xhr.responseText);
+                                if (response.success) {
+                                    // Data saved successfully
+                                    // Add your logic here if needed
+                                } else {
+                                    // Data saving failed
+                                    // Add your logic here if needed
+                                }
+                            } else {
+                                // Request failed
+                                // Add your logic here if needed
+                            }
+                        }
+                    };
+                    xhr.send(JSON.stringify(data));
+                } else {
+                    // Cancel button clicked
+                    // Add your logic here if needed
+                }
+            });
+        });
+        event.preventDefault();
+    });
+</script>
+
+<!-- Create a canvas element -->
+
 <!-- Vendor JS -->
 <script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
 <script src="assets/js/vendor/popper.min.js"></script>
@@ -176,14 +305,11 @@
 <script src="assets/js/plugins/jquery.sticky-sidebar.js"></script>
 <!-- Google translate Js -->
 <script src="assets/js/vendor/google-translate.js"></script>
-<script>
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
-    }
-</script>
+
 <!-- Main Js -->
 <script src="assets/js/vendor/index.js"></script>
 <script src="assets/js/main.js"></script>
+
 
 </body>
 

@@ -174,44 +174,18 @@ include 'config/session.php';
                             </a>
                             <ul>
                                 <li><a href="#">Home</a></li>
-
-                                <li class="dropdown"><a href="javascript:void(0)">Categories</a>
-                                    <ul class="sub-menu">
-                                        <li class="dropdown position-static"><a href="javascript:void(0)">Category List
-                                                <i class="ecicon eci-angle-right"></i></a>
-                                            <ul class="sub-menu sub-menu-child">
-                                                <li><a href="#">Category 1</a></li>
-                                                <li><a href="#">Category 2</a></li>
-                                            </ul>
-                                        </li>
-
-                                </li>
-
-
-                            </ul>
-                            </li>
-                            <li class="dropdown"><a href="javascript:void(0)">Orders</a>
+                                <li><a href="services.php">Services</a></li>
+                                <li class="dropdown"><a href="javascript:void(0)">Orders</a>
                                 <ul class="sub-menu">
                                     <li><a href="#">My Orders</a></li>
                                     <li><a href="#">Track Orders</a></li>
-
-
-
-
-
                                 </ul>
-                            </li>
-
-                            <li class="dropdown"><a href="javascript:void(0)">Contact</a>
+                                <li class="dropdown"><a href="javascript:void(0)">Contact</a>
                                 <ul class="sub-menu">
                                     <li><a href="#">Contact Admin</a></li>
 
                                 </ul>
-                            </li>
-
-
-                            <li><a href="#">Logout</a></li>
-
+                                <li><a href="#">Logout</a></li>
                             </ul>
                         </div>
                     </div>

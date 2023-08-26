@@ -176,15 +176,15 @@ include 'config/session.php';
                                 <li><a href="#">Home</a></li>
                                 <li><a href="services.php">Services</a></li>
                                 <li class="dropdown"><a href="javascript:void(0)">Orders</a>
-                                <ul class="sub-menu">
-                                    <li><a href="#">My Orders</a></li>
-                                    <li><a href="#">Track Orders</a></li>
-                                </ul>
+                                    <ul class="sub-menu">
+                                        <li><a href="#">My Orders</a></li>
+                                        <li><a href="#">Track Orders</a></li>
+                                    </ul>
                                 <li class="dropdown"><a href="javascript:void(0)">Contact</a>
-                                <ul class="sub-menu">
-                                    <li><a href="#">Contact Admin</a></li>
+                                    <ul class="sub-menu">
+                                        <li><a href="#">Contact Admin</a></li>
 
-                                </ul>
+                                    </ul>
                                 <li><a href="#">Logout</a></li>
                             </ul>
                         </div>

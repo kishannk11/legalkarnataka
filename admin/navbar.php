@@ -186,17 +186,7 @@ $adminInfo = $admin->getAdminInfo();
 								<ul class="sub-menu" id="orders" data-parent="#sidebar-menu">
 									<li class="">
 										<a class="sidenav-item-link" href="new-order.php">
-											<span class="nav-text">New Order</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="order-history.php">
-											<span class="nav-text">Order History</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="new-order.php">
-											<span class="nav-text">Pending Order</span>
+											<span class="nav-text">Orders</span>
 										</a>
 									</li>
 

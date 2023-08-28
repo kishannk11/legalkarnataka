@@ -379,6 +379,24 @@ class Product
         return $product;
     }
 
+    public function getPreview($id)
+    {
+        $product = array();
+
+        $sql = "SELECT * FROM preview_data where order_id=?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(1, $id);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $product[] = $row;
+            }
+        }
+
+        return $product;
+    }
+
 
 }
 
@@ -579,6 +597,7 @@ class User
             $_SESSION["loggedin"] = true;
             $_SESSION["email"] = $user["email"];
             $_SESSION["role"] = $user["role"];
+            $_SESSION['id'] = $user['id'];
             return true;
         } else {
             return false;
@@ -682,6 +701,124 @@ class User
         }
     }
 
+}
+class Payment
+{
+    private $conn;
+
+    public function __construct($conn)
+    {
+        $this->conn = $conn;
+    }
+
+    public function saveTransaction($txnid, $amount, $status, $prodid, $orderid)
+    {
+        try {
+            $sql = "INSERT INTO transactions (txnid, amount, status,prod_id,order_id) VALUES (:txnid, :amount, :status, :prod_id, :order_id)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':txnid', $txnid);
+            $stmt->bindParam(':amount', $amount);
+            $stmt->bindParam(':status', $status);
+            $stmt->bindParam(':prod_id', $prodid);
+            $stmt->bindParam(':order_id', $orderid);
+
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+}
+
+class Order
+{
+    private $conn;
+
+    public function __construct($conn)
+    {
+        $this->conn = $conn;
+    }
+
+    public function saveOrder($firstname, $lastname, $address, $city, $postalcode, $country, $state, $order, $email, $prod_id, $price)
+    {
+        // Validate and sanitize the input data
+        $firstname = filter_var($firstname, FILTER_SANITIZE_STRING);
+        $lastname = filter_var($lastname, FILTER_SANITIZE_STRING);
+        $address = filter_var($address, FILTER_SANITIZE_STRING);
+        $city = filter_var($city, FILTER_SANITIZE_STRING);
+        $postalcode = filter_var($postalcode, FILTER_SANITIZE_STRING);
+        $country = filter_var($country, FILTER_SANITIZE_STRING);
+        $state = filter_var($state, FILTER_SANITIZE_STRING);
+
+        // Insert the order details into the order_details table
+        $sql = "INSERT INTO order_details (firstname, lastname, address, city, postalcode, country, state, order_id, email, prod_id, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(1, $firstname);
+        $stmt->bindParam(2, $lastname);
+        $stmt->bindParam(3, $address);
+        $stmt->bindParam(4, $city);
+        $stmt->bindParam(5, $postalcode);
+        $stmt->bindParam(6, $country);
+        $stmt->bindParam(7, $state);
+        $stmt->bindParam(8, $order);
+        $stmt->bindParam(9, $email);
+        $stmt->bindParam(10, $prod_id);
+        $stmt->bindParam(11, $price);
+
+        if ($stmt->execute()) {
+            // Order saved successfully
+            return true;
+        } else {
+            // Error occurred while saving the order
+            echo "Error: " . $stmt->errorInfo()[2];
+        }
+    }
+    public function getOrderDetails()
+    {
+        $orderDetails = array();
+
+        $sql = "SELECT * FROM order_details";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $orderDetails;
+    }
+    public function getOrderDetailsbyID($id)
+    {
+        $orderDetails = array();
+        $sql = "SELECT * FROM order_details WHERE email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':email', $id);
+        $stmt->execute();
+        $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $orderDetails;
+    }
+
+    public function getOrderFiles($orderid)
+    {
+        $orderDetails = array();
+
+        $sql = "SELECT * FROM files WHERE order_id = :order_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':order_id', $orderid);
+        $stmt->execute();
+        $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $orderDetails;
+    }
+    public function getPreviewData($orderid)
+    {
+        $orderDetails = array();
+
+        $sql = "SELECT label,value FROM preview_data WHERE order_id = :order_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':order_id', $orderid);
+        $stmt->execute();
+        $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $orderDetails;
+    }
 }
 
 ?>

@@ -60,8 +60,8 @@ if (!isset($requestCounts[$requestIdentifier]) || $requestCounts[$requestIdentif
         );
         $data = array(
             "route" => "dlt",
-            "sender_id" => "EEMBYS",
-            "message" => "156367",
+            "sender_id" => "LGLKTK",
+            "message" => "158887",
             "variables_values" => "$firstname | $otp",
             "flash" => 0,
             "numbers" => "$phone"

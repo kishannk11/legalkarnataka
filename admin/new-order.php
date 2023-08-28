@@ -1,7 +1,14 @@
 <?php
 require 'navbar.php';
 ?>
-
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+include 'config/config.php';
+$email = $_SESSION['email'];
+$orderDetailsObj = new Order($conn);
+$orderDetails = $orderDetailsObj->getOrderDetails();
+?>
 
 <!-- CONTENT WRAPPER -->
 <div class="ec-content-wrapper">
@@ -20,52 +27,96 @@ require 'navbar.php';
 							<table id="responsive-data-table" class="table" style="width:100%">
 								<thead>
 									<tr>
-										<th>ID</th>
-										<th>Item</th>
-										<th>Name</th>
-										<th>Customer</th>
-										<th>Items</th>
+										<th>SL No</th>
+										<th>Order ID</th>
+										<th>Product</th>
+										<th>Product Name</th>
+
 										<th>Price</th>
-										<th>Payment</th>
-										<th>Status</th>
-										<th>Date</th>
+										<th>Files</th>
+										<th>Description</th>
 										<th>Action</th>
 									</tr>
 								</thead>
 
 								<tbody>
-									<tr>
-										<td>1050</td>
-										<td><img class="product-img tbl-img" src="assets/img/products/p1.jpg"
-												alt="product"></td>
-										<td>E Stamp</td>
-										<td><strong>John Deo</strong><br>
-											johny@example.com
-										</td>
-										<td>3</td>
-										<td>80</td>
-										<td>PAID</td>
-										<td><span class="mb-2 mr-2 badge badge-secondary">Pending</span>
-										</td>
-										<td>2021-10-30</td>
-										<td>
-											<div class="btn-group mb-1">
-												<button type="button" class="btn btn-outline-success">Info</button>
-												<button type="button"
-													class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-													data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-													data-display="static">
-													<span class="sr-only">Info</span>
-												</button>
+									<?php
+									$slno = 1;
+									foreach ($orderDetails as $order):
+										$productObj = new Product($conn);
+										$products = $productObj->getProductwithId($order['prod_id']);
+										//print_r($products);
+										foreach ($products as $proddata):
+											?>
+											<tr>
+												<td>
+													<?php echo $slno ?>
+												</td>
+												<td>
+													<?php echo $order['order_id']; ?>
+												</td>
 
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="#">Detail</a>
-													<a class="dropdown-item" href="#">Track</a>
-													<a class="dropdown-item" href="#">Cancel</a>
-												</div>
-											</div>
-										</td>
-									</tr>
+												<td><img class="product-img tbl-img"
+														src="upload/<?php echo $proddata['image']; ?>" alt="product"></td>
+												<td>
+													<?php echo $proddata['prod_name']; ?>
+												</td>
+												<td>
+													<?php echo $proddata['price']; ?>
+												</td>
+												<td>
+													<?php
+													error_reporting(E_ALL);
+													ini_set('display_errors', 1);
+													include 'config/config.php';
+													$order_file = new Order($conn);
+													$orderId = $order['order_id'];
+													$orderFiles = $order_file->getOrderFiles($orderId);
+													foreach ($orderFiles as $file) {
+														$fileName = $file['file_name'];
+														$filePath = 'upload/' . $fileName; // Update the file path accordingly
+														echo '<a href="' . $filePath . '" target="_blank">' . $fileName . '</a><br>';
+													}
+													?>
+												</td>
+												<td>
+													<?php
+													$order_preview = new Order($conn);
+													$orderId = $order['order_id'];
+													$orderpreview = $order_preview->getPreviewData($orderId);
+													//print_r($orderpreview);
+													foreach ($orderpreview as $filepreview) {
+
+														echo $filepreview['label'] . ' : ' . $filepreview['value'] . "<br>";
+														//SELECT * FROM preview_data WHERE order_id =  	483397 
+													}
+													?>
+												</td>
+
+												<td>
+													<div class="btn-group mb-1">
+														<button type="button" class="btn btn-outline-success">Info</button>
+														<button type="button"
+															class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+															data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+															data-display="static">
+															<span class="sr-only">Info</span>
+														</button>
+														<div class="dropdown-menu">
+															<a class="dropdown-item" href="#">Detail</a>
+															<a class="dropdown-item" href="#">Track</a>
+															<a class="dropdown-item" href="#">Cancel</a>
+														</div>
+													</div>
+												</td>
+
+											</tr>
+											<?php
+
+										endforeach;
+										$slno += 1;
+									endforeach;
+									?>
 
 								</tbody>
 							</table>

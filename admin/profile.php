@@ -370,34 +370,10 @@ if (isset($_GET['error'])) {
 </div> <!-- End Content Wrapper -->
 
 <!-- Footer -->
-<footer class="footer mt-auto">
-    <div class="copyright bg-white">
-        <p>
-            Copyright &copy; <span id="ec-year"></span><a class="text-primary"
-                href="https://themeforest.net/user/ashishmaraviya" target="_blank"> Ekka Admin
-                Dashboard</a>. All Rights Reserved.
-        </p>
-    </div>
-</footer>
+<?php
+include 'footer.php';
+?>
 
-</div> <!-- End Page Wrapper -->
-</div> <!-- End Wrapper -->
-
-
-<!-- Common Javascript -->
-<script src="assets/plugins/jquery/jquery-3.5.1.min.js"></script>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/plugins/simplebar/simplebar.min.js"></script>
-<script src="assets/plugins/jquery-zoom/jquery.zoom.min.js"></script>
-<script src="assets/plugins/slick/slick.min.js"></script>
-
-<!-- Option Switcher -->
-<script src="assets/plugins/options-sidebar/optionswitcher.js"></script>
-<script src="assets/plugins/sweet-alert2/sweetalert2.min.js"></script>
-<script src="assets/pages/jquery.sweet-alert.init.js"></script>
-
-<!-- Ekka Custom -->
-<script src="assets/js/ekka.js"></script>
 
 </body>
 

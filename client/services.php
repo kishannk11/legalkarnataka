@@ -7,23 +7,25 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include 'config/config.php';
 include '../admin/Database.php';
-
-$mainCategorySql = "SELECT name FROM main_category";
-$mainCategoryStmt = $conn->prepare($mainCategorySql);
-$mainCategoryStmt->execute();
-$categories = $mainCategoryStmt->fetchAll(PDO::FETCH_COLUMN);
-$subCategorySql = "SELECT name FROM sub_category WHERE parent_category = :category";
-$subCategoryStmt = $conn->prepare($subCategorySql);
 $product = new Product($conn);
 $products = $product->getProduct();
-//$products = array_slice($products, 0, 4);
-
 $productObj = new Product($conn);
 $id = $products[0]['id']; // Replace with the actual ID
 $productData = $productObj->getProductData($id);
 ?>
 <?php
+$productsPerPage = 12;
+$totalProducts = count($products);
+$totalPages = ceil($totalProducts / $productsPerPage);
 
+if (isset($_GET['page'])) {
+	$currentPage = $_GET['page'];
+} else {
+	$currentPage = 1;
+}
+
+$startIndex = ($currentPage - 1) * $productsPerPage;
+$displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 ?>
 <!-- Header End  -->
 
@@ -40,7 +42,7 @@ $productData = $productObj->getProductData($id);
 						<!-- ec-breadcrumb-list start -->
 						<ul class="ec-breadcrumb-list">
 							<li class="ec-breadcrumb-item"><a href="index.html">Home</a></li>
-							<li class="ec-breadcrumb-item active">Dashboard</li>
+							<li class="ec-breadcrumb-item active">Services</li>
 						</ul>
 						<!-- ec-breadcrumb-list end -->
 					</div>
@@ -50,88 +52,122 @@ $productData = $productObj->getProductData($id);
 	</div>
 </div>
 <!-- Ec breadcrumb end -->
-
-<!-- Sart Single product -->
 <section class="ec-page-content section-space-p">
-	<div class="container">
-		<div class="row">
-			<div class="ec-pro-rightside ec-common-rightside col-lg-9 order-lg-last col-md-12 order-md-first">
-
-				<div class="container">
-					<div class="row">
-
-
-						<!-- START single card -->
-						<?php
-						foreach ($products as $product) {
-							echo '<div class="col-lg-4 col-md-6 col-sm-6">';
-							echo '<div class="ec-product-tp">';
-							echo '<div class="ec-product-image">';
-							echo '<a href="product-info.php?id=' . $product['id'] . '"><img src="../admin/upload/' . $product['image'] . '" class="img-center" alt=""></a>';
-							echo '<span class="ec-product-ribbon"></span>';
-							echo '<div class="ec-link-icon">';
-
-							echo '</div>';
-							echo '</div>';
-							echo '<div class="ec-product-body">';
-							echo '<h3 class="ec-title"><a href="product-info.php?id=' . $product['id'] . '">' . $product['prod_name'] . '</a></h3>';
-							echo '<p class="ec-description">' . $product['details'] . '</p>';
-							echo '<div class="ec-price"><span>' . $product['price'] . '</span> </div>';
-							echo '<div class="ec-link-btn">';
-							echo '<a class="ec-add-to-cart" href="product-info.php?id=' . $product['id'] . '">Checkout</a>';
-							echo '</div>';
-							echo '</div>';
-							echo '</div>';
-							echo '</div>';
-						}
-						?>
-						<!-- START single card -->
-
-					</div>
-				</div>
-			</div>
-			<!-- Sidebar Area Start -->
-
-			<div class="ec-pro-leftside ec-common-leftside col-lg-3 order-lg-first col-md-12 order-md-last">
-				<div class="ec-sidebar-wrap">
-					<!-- Sidebar Category Block -->
-					<div class="ec-sidebar-block">
-						<div class="ec-sb-title">
-							<h3 class="ec-sidebar-title">Category</h3>
+	<div class="shop_page">
+		<div class="container">
+			<div class="row">
+				<div class="ec-shop-rightside">
+					<!-- Shop Top Start -->
+					<div class="ec-pro-list-top d-flex">
+						<div class="ec-grid-list">
+							<div class="ec-gl-btn">
+								<button class="btn sidebar-toggle-icon"><i class="fi-rr-filter"></i></button>
+								<button class="btn btn-grid-50 active"><i class="fi-rr-apps"></i></button>
+							</div>
 						</div>
-						<div class="ec-sb-block-content">
-							<ul>
-								<li>
-									<?php foreach ($categories as $category): ?>
-										<div class="ec-sidebar-block-item">
-											<?php echo $category; ?>
-										</div>
-										<?php
-										$subCategoryStmt->bindParam(':category', $category);
-										$subCategoryStmt->execute();
-										$subCategories = $subCategoryStmt->fetchAll(PDO::FETCH_COLUMN);
-										foreach ($subCategories as $subCategory) {
-											echo '<ul style="display: block;">';
-											echo '<li>';
-											echo '<div class="ec-sidebar-sub-item"><a href="product-left-sidebar.php?id=5">' . $subCategory . '</a></div>';
-											echo '</li>';
-											echo '</ul>';
-										}
+						<div class="ec-sort-select">
+							<span class="sort-by">Filter by</span>
+							<div class="ec-select-inner">
+								<select name="ec-select" id="ec-select">
+									<option selected disabled>Select</option>
+									<option value="all">All</option>
+									<?php
+									foreach ($products as $allproduct) {
 										?>
-									<?php endforeach; ?>
-								</li>
+										<option value="<?php echo $allproduct['main_category']; ?>">
+											<?php echo $allproduct['main_category']; ?>
+										</option>
+										<?php
+									}
+									?>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Shop Top End -->
+
+					<!-- Shop content Start -->
+					<div class="shop-pro-content">
+						<div class="shop-pro-inner">
+							<div class="row" id="filtered-products">
+								<?php foreach ($displayedProducts as $allproduct): ?>
+									<div class="col-lg-3 col-md-4 col-sm-6 mb-4 pro-gl-content"
+										data-category="<?php echo $allproduct['main_category']; ?>">
+										<div class="ec-product-inner">
+											<div class="ec-pro-image-outer">
+												<div class="ec-pro-image">
+													<a href="product-left-sidebar.html" class="image">
+														<img class="main-image"
+															src="../admin/upload/<?php echo $allproduct['image']; ?>"
+															alt="Product" width="700" height="350" />
+														<img class="hover-image"
+															src="../admin/upload/<?php echo $allproduct['image']; ?>"
+															alt="Product" width="700" height="350" />
+													</a>
+												</div>
+											</div>
+											<div class="ec-pro-content">
+												<h5 class="ec-pro-title">
+													<a href="product-info.php?id=<?php echo $allproduct['id'] ?>">
+														<b>
+															<?php echo htmlspecialchars($allproduct['prod_name'], ENT_QUOTES, 'UTF-8'); ?>
+														</b>
+													</a>
+												</h5>
+												<span class="ec-price">
+													<span class="new-price">₹
+														<?php echo $allproduct['price']; ?>
+													</span>
+												</span>
+												<div class="scrollable-div">
+													<?php echo htmlspecialchars($allproduct['details'], ENT_QUOTES, 'UTF-8'); ?>
+												</div>
+											</div>
+										</div>
+									</div>
+								<?php endforeach; ?>
+							</div>
+						</div>
+
+						<!-- Ec Pagination Start -->
+						<div class="ec-pro-pagination">
+							<span>Showing
+								<?php echo $startIndex + 1; ?>-
+								<?php echo min($startIndex + $productsPerPage, $totalProducts); ?> of
+								<?php echo $totalProducts; ?> item(s)
+							</span>
+							<ul class="ec-pro-pagination-inner">
+								<?php for ($i = 1; $i <= $totalPages; $i++) { ?>
+									<li><a <?php if ($i == $currentPage)
+										echo 'class="active"'; ?>
+											href="services.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+								<?php } ?>
+								<li><a class="next"
+										href="services.php?page=<?php echo min($currentPage + 1, $totalPages); ?>">Next
+										<i class="ecicon eci-angle-right"></i></a></li>
 							</ul>
 						</div>
-
+						<!-- Ec Pagination End -->
 					</div>
-					<!-- Sidebar Category Block -->
+					<!--Shop content End -->
 				</div>
 			</div>
-			<!-- Sidebar Area Start -->
 		</div>
 	</div>
 </section>
-<!-- End Single product -->
+<script>
+	document.getElementById('ec-select').addEventListener('change', function () {
+		var selectedCategory = this.value;
+		var productElements = document.querySelectorAll('#filtered-products .pro-gl-content');
+		productElements.forEach(function (element) {
+			if (selectedCategory === 'all' || element.getAttribute('data-category') === selectedCategory) {
+				element.style.display = 'block';
+			} else {
+				element.style.display = 'none';
+			}
+		});
+	});
+</script>
 
 <?php
 include('footer.php');

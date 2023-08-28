@@ -10,7 +10,15 @@ include '../admin/Database.php';
 $productObj = new Product($conn);
 $id = $_POST['id'];
 $price = $_POST['price'];
-$product = $productObj->getProductwithId($id);
+if (empty($price)) {
+    // Get the price from the getProductwithId() method
+    $product = $productObj->getProductwithId($id);
+    $price = $product[0]['price']; // Assuming the price column name is 'price' in the product table
+} else {
+    // Add the price from $_POST['price'] to the price obtained from getProductwithId()
+    $product = $productObj->getProductwithId($id);
+    $price += $product[0]['price']; // Assuming the price column name is 'price' in the product table
+}
 ?>
 <?php include 'delivery.php'; ?>
 <div class="ec-side-cart-overlay"></div>
@@ -189,7 +197,8 @@ $product = $productObj->getProductwithId($id);
                                                 </div>
                                             </div>
                                             <div class="ec-pro-content">
-                                                <h5 class="ec-pro-title"><a href="#">
+                                                <h5 class="ec-pro-title"><a
+                                                        href="product-info.php?id=<?php echo $product[0]['id'] ?>">
                                                         <?php echo $product[0]['prod_name']; ?>
                                                     </a></h5>
 

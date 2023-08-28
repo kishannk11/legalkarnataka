@@ -156,8 +156,196 @@
         </div>
     </div>
 </div>
+<script>
+    var stampPriceElement = document.getElementById('stampPrice');
+    var displayPriceElement = document.getElementById('displayPrice');
+    if (!stampPriceElement) {
+        displayPriceElement.style.display = 'none';
+        document.getElementById('displayPrice1').value = ''; // Set empty value
+    } else {
+        stampPriceElement.addEventListener('input', function () {
+            var price = document.getElementById('stampPrice').value;
+            document.getElementById('displayPrice1').value = price;
+        });
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    var id = <?php echo json_encode($id); ?>;
+    var order_id = <?php echo json_encode($_SESSION['order_id']); ?>;
+    document.getElementById('previewButton').addEventListener('click', function () {
+        var inputElements = document.querySelectorAll('.ec-single-sales input');
+        var isEmpty = false;
+        inputElements.forEach(function (input) {
+            if (input.value.trim() === '') {
+                isEmpty = true;
+            }
+        });
+        if (isEmpty) {
+            swal({
+                title: 'Validation Error',
+                text: 'All fields are required.',
+                icon: 'error',
+            });
+        } else {
+            var previewContent = '';
+            var inputElements = document.querySelectorAll('.ec-single-sales input');
+            var data = [];
+            inputElements.forEach(function (input) {
+                label = input.previousElementSibling.textContent;
+                value = input.value;
+                previewContent += '<p>' + label + ': ' + value + '</p>';
+                data.push({
+                    label: label,
+                    value: value
+                });
+            });
+            // Create a Fabric.js canvas instance 
+            var canvas = new fabric.Canvas('canvas');
+            // Load the user-defined image 
+            image = new fabric.Image.fromURL('assets/images/image-write/preview.png', function (img) {
+                // Set the dimensions of the canvas to match the image 
+                canvas.setWidth(img.width);
+                canvas.setHeight(img.height);
+                // Add the image to the canvas 
+                canvas.add(img);
+                // Set the font style for the text 
+                var textOptions = {
+                    fontFamily: 'Arial',
+                    fontSize: 35,
+                    fill: 'black',
+                    textAlign: 'left', // Align the text to the left 
+                    editable: false,
+                };
+                // Write the preview content on the canvas 
+                var lines = previewContent.split('<p>');
+                lines.shift(); // Remove the first empty line 
+                var lineHeight = 40; // Adjust the line height as needed 
+                var startX = 100; // Set the X position for left alignment 
+                var startY = 330; // Set the Y position for top alignment 
+                lines.forEach(function (line, index) {
+                    var y = startY + (index * lineHeight);
+                    var text = new fabric.Text(line.replace('</p>', ''), {
+                        ...textOptions,
+                        top: y,
+                        left: startX,
+                        width: canvas.getWidth(), // Set the width of the textbox to match the canvas width 
+                    });
+                    canvas.add(text);
+                });
+                // Render the canvas to generate the image data 
+                canvas.renderAll();
+                // Get the data URL of the canvas as an image 
+                var imageDataUrl = canvas.toDataURL('png');
+                // Create the SweetAlert popup 
+                swal({
+                    title: 'Preview',
+                    content: {
+                        element: 'img',
+                        attributes: {
+                            src: imageDataUrl,
+                            style: 'max-width: 100%;'
+                        }
+                    },
+                    buttons: {
+                        cancel: {
+                            text: 'Cancel',
+                            value: null,
+                            visible: true,
+                            className: '',
+                            closeModal: true,
+                        },
+                        confirm: {
+                            text: 'Save',
+                            value: true,
+                            visible: true,
+                            className: '',
+                            closeModal: true
+                        }
+                    },
+                    closeOnClickOutside: false,
+                    dangerMode: true
+                }).then(function (result) {
+                    // Handle the result of the SweetAlert popup 
+                    if (result) {
+                        data.forEach(function (item) {
+                            item.id = id;
+                            item.order_id = order_id;
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('POST', 'save_data.php', true);
+                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState === XMLHttpRequest.DONE) {
+                                    if (xhr.status === 200) {
+                                        var response = JSON.parse(xhr.responseText);
+                                        if (response.success) {
+                                            swal({
+                                                title: 'Data Saved',
+                                                text: 'Your data has been saved successfully.',
+                                                icon: 'success'
+                                            });
+                                        } else {
+                                            swal({
+                                                title: 'Failed to Save Data',
+                                                text: 'There was an error processing your request. Please try again later.',
+                                                icon: 'error'
+                                            });
+                                        }
+                                    } else {
+                                        swal({
+                                            title: 'Request Failed',
+                                            text: 'There was an error processing your request. Please try again later.',
+                                            icon: 'error'
+                                        });
+                                    }
+                                }
+                            };
+                            xhr.send(JSON.stringify(item));
+                            event.preventDefault();
+                        });
+                    } else {
+                        // Cancel button clicked 
+                        // Add your logic here if needed 
+                    }
+                });
+            });
+        }
+    }); 
+</script>
 
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    // Get the file input element
+    const fileInput = document.getElementById('fileInput');
+    // Add event listener for file selection
+    fileInput.addEventListener('change', function () {
+        // Create a new FormData object
+        const formData = new FormData();
+        // Get the selected files
+        const files = fileInput.files;
+        // Append each file to the FormData object
+        for (let i = 0; i < files.length; i++) {
+            formData.append('files[]', files[i]);
+        }
+        // Create a new XMLHttpRequest object
+        const xhr = new XMLHttpRequest();
+        // Set up the request
+        xhr.open('POST', 'file_save.php', true);
+        // Set up the onload event handler
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // File(s) uploaded successfully
+                swal("Success", "File(s) uploaded successfully", "success");
+            } else {
+                // Error uploading file(s)
+                swal("Error", "Error uploading file(s)", "error");
+            }
+        };
+        // Send the request
+        xhr.send(formData);
+    });
+</script>
 <script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
 <script src="assets/js/vendor/popper.min.js"></script>
 <script src="assets/js/vendor/bootstrap.min.js"></script>

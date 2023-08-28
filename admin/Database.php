@@ -597,6 +597,7 @@ class User
             $_SESSION["loggedin"] = true;
             $_SESSION["email"] = $user["email"];
             $_SESSION["role"] = $user["role"];
+            $_SESSION['id'] = $user['id'];
             return true;
         } else {
             return false;
@@ -771,6 +772,52 @@ class Order
             // Error occurred while saving the order
             echo "Error: " . $stmt->errorInfo()[2];
         }
+    }
+    public function getOrderDetails()
+    {
+        $orderDetails = array();
+
+        $sql = "SELECT * FROM order_details";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $orderDetails;
+    }
+    public function getOrderDetailsbyID($id)
+    {
+        $orderDetails = array();
+        $sql = "SELECT * FROM order_details WHERE email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':email', $id);
+        $stmt->execute();
+        $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $orderDetails;
+    }
+
+    public function getOrderFiles($orderid)
+    {
+        $orderDetails = array();
+
+        $sql = "SELECT * FROM files WHERE order_id = :order_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':order_id', $orderid);
+        $stmt->execute();
+        $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $orderDetails;
+    }
+    public function getPreviewData($orderid)
+    {
+        $orderDetails = array();
+
+        $sql = "SELECT label,value FROM preview_data WHERE order_id = :order_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':order_id', $orderid);
+        $stmt->execute();
+        $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $orderDetails;
     }
 }
 

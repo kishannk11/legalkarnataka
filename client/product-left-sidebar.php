@@ -3,8 +3,6 @@ include('navbar.php');
 ?>
 
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 include 'config/config.php';
 include '../admin/Database.php';
 
@@ -16,7 +14,7 @@ $subCategorySql = "SELECT name FROM sub_category WHERE parent_category = :catego
 $subCategoryStmt = $conn->prepare($subCategorySql);
 $product = new Product($conn);
 $products = $product->getProduct();
-$products = array_slice($products, 0, 4);
+$products = array_slice($products, 0, 3);
 
 $productObj = new Product($conn);
 $id = $products[0]['id'];
@@ -24,6 +22,18 @@ $productData = $productObj->getProductData($id);
 ?>
 <?php
 
+?>
+<?php
+session_start();
+if (!isset($_SESSION['order_id'])) {
+    // Generate a new value for $orderId
+    $orderId = rand(100000, 999999);
+    // Set the session variable
+    $_SESSION['order_id'] = $orderId;
+} else {
+    // Retrieve the existing value from the session variable
+    $orderId = $_SESSION['order_id'];
+}
 ?>
 <!-- Header End  -->
 
@@ -83,44 +93,48 @@ $productData = $productObj->getProductData($id);
                                         <?php echo $products[0]['prod_name']; ?>
                                     </h5>
                                     <div class="ec-single-rating-wrap">
-
-
+                                        <b>
+                                            ₹
+                                            <?php echo $products[0]['price'] ?>
+                                        </b>
                                     </div>
                                     <div class="ec-single-desc">
                                         <?php echo $products[0]['details'] ?>
                                     </div>
-
                                     <div class="ec-single-sales">
-                                        <?php
-
-                                        foreach ($productData as $product) {
-
-
-                                            echo $product['template_fields']['template_fields'];
-
-                                        }
-
-                                        ?>
-                                    </div>
-                                    <div class="ec-single-price-stoke">
-                                        <div class="ec-single-price">
-                                            <span class="ec-single-ps-title"></span>
-                                            <span class="new-price">
-
-                                            </span>
-                                        </div>
+                                        <?php foreach ($productData as $product): ?>
+                                            <?php echo $product['template_fields']['template_fields']; ?>
+                                        <?php endforeach; ?>
 
                                     </div>
-
-
-
-                                    <div class="ec-single-qty">
-                                        <div class="ec-single-cart">
+                                    <div class="ec-single-desc">
+                                        <form method="POST" action="product-checkout.php">
+                                            <div id="displayPrice">
+                                                <b><label class="form-label">Stamp Paper Price</label></b>
+                                                <input type="text" class="form-control" name="price" id="displayPrice1"
+                                                    readonly>
+                                            </div>
+                                            &nbsp;
+                                            &nbsp;
+                                            <div class="ec-single-cart">
+                                                <div class="button-group">
+                                                    <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                                    <button class="btn btn-primary" type="submit">Checkout</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        &nbsp;
+                                        &nbsp;
+                                        <div class="button-group">
                                             <button class="btn btn-primary" id="previewButton">Preview</button>
                                         </div>
                                     </div>
-
                                 </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Additional Files</label>
+                                    <input type="file" class="form-control" name="files[]" id="fileInput" multiple>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -135,10 +149,7 @@ $productData = $productObj->getProductData($id);
                                     <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-details"
                                         role="tablist">Detail</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-info"
-                                        role="tablist">Note</a>
-                                </li>
+
                                 <!-- <li class="nav-item">
                                         <a class="nav-link" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-review"
                                             role="tablist">Reviews</a>
@@ -156,13 +167,7 @@ $productData = $productObj->getProductData($id);
 
                                 </div>
                             </div>
-                            <div id="ec-spt-nav-info" class="tab-pane fade">
-                                <div class="ec-single-pro-tab-moreinfo">
-                                    <ul>
 
-                                    </ul>
-                                </div>
-                            </div>
 
 
                         </div>
@@ -193,7 +198,7 @@ $productData = $productObj->getProductData($id);
                                         foreach ($subCategories as $subCategory) {
                                             echo '<ul style="display: block;">';
                                             echo '<li>';
-                                            echo '<div class="ec-sidebar-sub-item"><a href="product-left-sidebar.php?id=5">' . $subCategory . '</a></div>';
+                                            echo '<div class="ec-sidebar-sub-item"><a href="product-info.php?id=' . $products[0]['id'] . '">' . $subCategory . '</a></div>';
                                             echo '</li>';
                                             echo '</ul>';
                                         }
@@ -213,15 +218,15 @@ $productData = $productObj->getProductData($id);
                             <?php
                             foreach ($products as $product) {
                                 echo '<div class="ec-sb-pro-sl-item">';
-                                echo '<a href="product-left-sidebar.html" class="sidekka_pro_img"><img src="../admin/upload/' . $product['image'] . '" alt="product" /></a>';
+                                echo '<a href="product-info.php?id=' . $products[0]['id'] . '" class="sidekka_pro_img"><img src="../admin/upload/' . $product['image'] . '" alt="product" /></a>';
                                 echo '<div class="ec-pro-content">';
-                                echo '<h5 class="ec-pro-title"><a href="product-left-sidebar.html">' . $product['prod_name'] . '</a></h5>';
+                                echo '<h5 class="ec-pro-title"><a href="product-info.php?id=' . $products[0]['id'] . '">' . $product['prod_name'] . '</a></h5>';
                                 echo '<div class="ec-pro-rating">';
 
                                 echo '</div>';
                                 echo '<span class="ec-price">';
 
-                                echo '<span class="new-price">' . $product['price'] . '</span>';
+                                echo '<span class="new-price">₹ ' . $product['price'] . '</span>';
                                 echo '</span>';
                                 echo '</div>';
                                 echo '</div>';
@@ -237,66 +242,7 @@ $productData = $productObj->getProductData($id);
 </section>
 <!-- End Single product -->
 
-<!-- Related Product Start -->
-<section class="section ec-releted-product section-space-p">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="section-title">
-                    <h2 class="ec-bg-title">Related products</h2>
-                    <h2 class="ec-title">Related products</h2>
-                    <p class="sub-title">Browse The Collection of Top Products</p>
-                </div>
-            </div>
-        </div>
-        <div class="row margin-minus-b-30">
-            <!-- Related Product Content -->
-            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
-                <div class="ec-product-inner">
-                    <div class="ec-pro-image-outer">
-                        <div class="ec-pro-image">
-                            <a href="product-left-sidebar.html" class="image">
-                                <img class="main-image" src="assets/images/product-image/stamppaper2.jpg"
-                                    alt="Product" />
-                                <img class="hover-image" src="assets/images/product-image/stamppaper2.jpg"
-                                    alt="Product" />
-                            </a>
-                            <span class="percentage">20%</span>
-                            <!-- <a href="#" class="quickview" data-link-action="quickview" title="Quick view"
-                                    data-bs-toggle="modal" data-bs-target="#ec_quickview_modal"><i class="fi-rr-eye"></i></a> -->
-                            <div class="ec-pro-actions">
-                                <a href="compare.html" class="ec-btn-group compare" title="Compare"><i
-                                        class="fi fi-rr-arrows-repeat"></i></a>
-                                <button title="Add To Cart" class="add-to-cart"><i class="fi-rr-shopping-basket"></i>
-                                    Add To Cart</button>
-                                <a class="ec-btn-group wishlist" title="Wishlist"><i class="fi-rr-heart"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ec-pro-content">
-                        <h5 class="ec-pro-title"><a href="product-left-sidebar.html">Stamp Paper</a></h5>
-                        <div class="ec-pro-rating">
-                            <i class="ecicon eci-star fill"></i>
-                            <i class="ecicon eci-star fill"></i>
-                            <i class="ecicon eci-star fill"></i>
-                            <i class="ecicon eci-star fill"></i>
-                            <i class="ecicon eci-star"></i>
-                        </div>
-                        <div class="ec-pro-list-desc">Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum is simply dutmmy text ever since the 1500s, when an unknown printer
-                            took a galley.</div>
-                        <span class="ec-price">
-                            <span class="old-price">$27.00</span>
-                            <span class="new-price">₹1000</span>
-                        </span>
 
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
 <!-- Related Product end -->
 
 <?php

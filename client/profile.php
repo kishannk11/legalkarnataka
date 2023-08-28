@@ -100,9 +100,7 @@ $user = $userObj->getUserInfo($id);
                                                             data-bs-target="#edit_modal"><i class="fi-rr-edit"></i></a>
                                                     </h6>
                                                     <ul>
-                                                        <li><strong>Home : </strong>123, 2150 Sycamore Street, dummy
-                                                            text of
-                                                            the, San Jose, California - 95131.</li>
+                                                        <li><strong>Home : </strong>Banglore</li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -113,10 +111,7 @@ $user = $userObj->getUserInfo($id);
                                                             data-bs-toggle="modal" data-bs-target="#edit_modal"><i
                                                                 class="fi-rr-edit"></i></a></h6>
                                                     <ul>
-                                                        <li><strong>Office : </strong>123, 2150 Sycamore Street, dummy
-                                                            text
-                                                            of
-                                                            the, San Jose, California - 95131.</li>
+                                                        <li><strong>Office : </strong>Banglore</li>
                                                     </ul>
                                                 </div>
                                             </div>

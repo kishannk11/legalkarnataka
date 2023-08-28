@@ -1,7 +1,6 @@
 <?php
 session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 include 'config/config.php';
 include '../admin/Database.php';
 

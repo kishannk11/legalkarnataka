@@ -22,7 +22,7 @@ require 'navbar.php';
 
 		<div class="row">
 			<div class="col-lg-6 col-xl-4 mb-24px">
-				<div class="ec-user-card card card-default p-4">
+				<!-- <div class="ec-user-card card card-default p-4">
 					<a href="javascript:0" data-bs-toggle="modal" data-bs-target="#modalContact" class="view-detail"><i
 							class="mdi mdi-eye-plus-outline"></i>
 					</a>
@@ -44,7 +44,7 @@ require 'navbar.php';
 							</ul>
 						</div>
 					</a>
-				</div>
+				</div> -->
 			</div>
 
 
@@ -218,9 +218,9 @@ require 'navbar.php';
 <footer class="footer mt-auto">
 	<div class="copyright bg-white">
 		<p>
-			Copyright &copy; <span id="ec-year"></span><a class="text-primary"
-				href="https://themeforest.net/user/ashishmaraviya" target="_blank"> Ekka Admin
-				Dashboard</a>. All Rights Reserved.
+			<?php
+			include "footer.php";
+			?>
 		</p>
 	</div>
 </footer>

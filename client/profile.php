@@ -3,7 +3,6 @@ include 'navbar.php';
 ?>
 <?php
 include 'config/config.php';
-include '../admin/Database.php';
 $id = $_SESSION['id'];
 $userObj = new User($conn);
 $user = $userObj->getUserInfo($id);

@@ -58,7 +58,7 @@ if (isset($_GET['error'])) {
                     <div class="profile-content-left profile-left-spacing">
                         <div class="text-center widget-profile px-0 border-0">
                             <div class="card-img mx-auto rounded-circle">
-                                <img src="assets/img/user/u1.jpg" alt="user image">
+                                <img src="<?php echo $adminInfo['image']; ?>" alt="user image">
                             </div>
                             <div class="card-body">
                                 <h4 class="py-2 text-dark">Admin</h4>
@@ -71,19 +71,13 @@ if (isset($_GET['error'])) {
 
                         <div class="d-flex justify-content-between ">
                             <div class="text-center pb-4">
-                                <h6 class="text-dark pb-2">546</h6>
+                                <h6 class="text-dark pb-2">2</h6>
                                 <p>Bought</p>
                             </div>
 
-                            <div class="text-center pb-4">
-                                <h6 class="text-dark pb-2">32</h6>
-                                <p>Wish List</p>
-                            </div>
 
-                            <div class="text-center pb-4">
-                                <h6 class="text-dark pb-2">1150</h6>
-                                <p>Following</p>
-                            </div>
+
+
                         </div>
 
                         <hr class="w-100">
@@ -127,24 +121,13 @@ if (isset($_GET['error'])) {
                                                 </div>
 
                                                 <div class="media-body align-self-center">
-                                                    <h4 class="text-primary mb-2">546</h4>
+                                                    <h4 class="text-primary mb-2">2</h4>
                                                     <p>Bought</p>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-xl-4">
-                                            <div class="media widget-media p-3 bg-white border">
-                                                <div class="icon rounded-circle bg-warning mr-3">
-                                                    <i class="mdi mdi-cart-outline text-white "></i>
-                                                </div>
 
-                                                <div class="media-body align-self-center">
-                                                    <h4 class="text-primary mb-2">1953</h4>
-                                                    <p>Wish List</p>
-                                                </div>
-                                            </div>
-                                        </div>
 
                                         <div class="col-xl-4">
                                             <div class="media widget-media p-3 bg-white border">
@@ -170,7 +153,7 @@ if (isset($_GET['error'])) {
                                                     <div>
                                                         <button class="text-black-50 mr-2 font-size-20"><i
                                                                 class="mdi mdi-cached"></i></button>
-                                                        <div class="dropdown show d-inline-block widget-dropdown">
+                                                        <!-- <div class="dropdown show d-inline-block widget-dropdown">
                                                             <a class="dropdown-toggle icon-burger-mini" href="#"
                                                                 role="button" id="dropdown-notification"
                                                                 data-bs-toggle="dropdown" aria-haspopup="true"
@@ -184,7 +167,7 @@ if (isset($_GET['error'])) {
                                                                         here</a>
                                                                 </li>
                                                             </ul>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
 
                                                 </div>
@@ -198,103 +181,27 @@ if (isset($_GET['error'])) {
                                                         <div class="media-body pr-3 ">
                                                             <a class="mt-0 mb-1 font-size-15 text-dark" href="#">New
                                                                 Order</a>
-                                                            <p>Selena has placed an new order</p>
+                                                            <p>Chetana has placed an new order</p>
                                                         </div>
                                                         <span class=" font-size-12 d-inline-block"><i
                                                                 class="mdi mdi-clock-outline"></i> 10
                                                             AM</span>
                                                     </div>
-
-                                                    <div class="media py-3 align-items-center justify-content-between">
-                                                        <div
-                                                            class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-success text-white">
-                                                            <i class="mdi mdi-email-outline font-size-20"></i>
-                                                        </div>
-                                                        <div class="media-body pr-3">
-                                                            <a class="mt-0 mb-1 font-size-15 text-dark" href="#">New
-                                                                Enquiry</a>
-                                                            <p>Phileine has placed an new order</p>
-                                                        </div>
-                                                        <span class=" font-size-12 d-inline-block"><i
-                                                                class="mdi mdi-clock-outline"></i> 9
-                                                            AM</span>
-                                                    </div>
-
-
-                                                    <div class="media py-3 align-items-center justify-content-between">
-                                                        <div
-                                                            class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-warning text-white">
-                                                            <i class="mdi mdi-stack-exchange font-size-20"></i>
-                                                        </div>
-                                                        <div class="media-body pr-3">
-                                                            <a class="mt-0 mb-1 font-size-15 text-dark" href="#">Support
-                                                                Ticket</a>
-                                                            <p>Emma has placed an new order</p>
-                                                        </div>
-                                                        <span class=" font-size-12 d-inline-block"><i
-                                                                class="mdi mdi-clock-outline"></i> 10
-                                                            AM</span>
-                                                    </div>
-
-                                                    <div class="media py-3 align-items-center justify-content-between">
+                                                    <div class="media pb-3 align-items-center justify-content-between">
                                                         <div
                                                             class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-primary text-white">
                                                             <i class="mdi mdi-cart-outline font-size-20"></i>
                                                         </div>
-                                                        <div class="media-body pr-3">
+                                                        <div class="media-body pr-3 ">
                                                             <a class="mt-0 mb-1 font-size-15 text-dark" href="#">New
-                                                                order</a>
-                                                            <p>Ryan has placed an new order</p>
+                                                                Order</a>
+                                                            <p>Rakesh has placed an new order</p>
                                                         </div>
                                                         <span class=" font-size-12 d-inline-block"><i
-                                                                class="mdi mdi-clock-outline"></i> 10
+                                                                class="mdi mdi-clock-outline"></i> 11
                                                             AM</span>
                                                     </div>
 
-                                                    <div class="media py-3 align-items-center justify-content-between">
-                                                        <div
-                                                            class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-info text-white">
-                                                            <i class="mdi mdi-calendar-blank font-size-20"></i>
-                                                        </div>
-                                                        <div class="media-body pr-3">
-                                                            <a class="mt-0 mb-1 font-size-15 text-dark" href="">Comapny
-                                                                Meetup</a>
-                                                            <p>Phileine has placed an new order</p>
-                                                        </div>
-                                                        <span class=" font-size-12 d-inline-block"><i
-                                                                class="mdi mdi-clock-outline"></i> 10
-                                                            AM</span>
-                                                    </div>
-
-                                                    <div class="media py-3 align-items-center justify-content-between">
-                                                        <div
-                                                            class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-warning text-white">
-                                                            <i class="mdi mdi-stack-exchange font-size-20"></i>
-                                                        </div>
-                                                        <div class="media-body pr-3">
-                                                            <a class="mt-0 mb-1 font-size-15 text-dark" href="#">Support
-                                                                Ticket</a>
-                                                            <p>Emma has placed an new order</p>
-                                                        </div>
-                                                        <span class=" font-size-12 d-inline-block"><i
-                                                                class="mdi mdi-clock-outline"></i> 10
-                                                            AM</span>
-                                                    </div>
-
-                                                    <div class="media py-3 align-items-center justify-content-between">
-                                                        <div
-                                                            class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-success text-white">
-                                                            <i class="mdi mdi-email-outline font-size-20"></i>
-                                                        </div>
-                                                        <div class="media-body pr-3">
-                                                            <a class="mt-0 mb-1 font-size-15 text-dark" href="#">New
-                                                                Enquiry</a>
-                                                            <p>Phileine has placed an new order</p>
-                                                        </div>
-                                                        <span class=" font-size-12 d-inline-block"><i
-                                                                class="mdi mdi-clock-outline"></i> 9
-                                                            AM</span>
-                                                    </div>
 
                                                 </div>
                                                 <div class="mt-3"></div>
@@ -370,10 +277,32 @@ if (isset($_GET['error'])) {
 </div> <!-- End Content Wrapper -->
 
 <!-- Footer -->
-<?php
-include 'footer.php';
-?>
+<footer class="footer mt-auto">
+    <div class="copyright bg-white">
+        <p>
+            <?php include 'footer.php'; ?>
+        </p>
+    </div>
+</footer>
 
+</div> <!-- End Page Wrapper -->
+</div> <!-- End Wrapper -->
+
+
+<!-- Common Javascript -->
+<script src="assets/plugins/jquery/jquery-3.5.1.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/plugins/simplebar/simplebar.min.js"></script>
+<script src="assets/plugins/jquery-zoom/jquery.zoom.min.js"></script>
+<script src="assets/plugins/slick/slick.min.js"></script>
+
+<!-- Option Switcher -->
+<script src="assets/plugins/options-sidebar/optionswitcher.js"></script>
+<script src="assets/plugins/sweet-alert2/sweetalert2.min.js"></script>
+<script src="assets/pages/jquery.sweet-alert.init.js"></script>
+
+<!-- Ekka Custom -->
+<script src="assets/js/ekka.js"></script>
 
 </body>
 

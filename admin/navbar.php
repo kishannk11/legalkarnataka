@@ -105,11 +105,7 @@ $adminInfo = $admin->getAdminInfo();
 											<span class="nav-text">User Grid</span>
 										</a>
 									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="user-profile.php">
-											<span class="nav-text">Users Profile</span>
-										</a>
-									</li>
+
 
 								</ul>
 							</div>
@@ -167,11 +163,7 @@ $adminInfo = $admin->getAdminInfo();
 										</a>
 									</li>
 
-									<li class="">
-										<a class="sidenav-item-link" href="product-detail.php">
-											<span class="nav-text">Product Detail</span>
-										</a>
-									</li>
+
 								</ul>
 							</div>
 						</li>
@@ -298,7 +290,7 @@ $adminInfo = $admin->getAdminInfo();
 										<h2>Notifications</h2>
 									</div>
 
-									<div class="card-body px-0 py-0">
+									<!-- <div class="card-body px-0 py-0">
 										<ul class="nav nav-tabs nav-style-border p-0 justify-content-between"
 											id="myNotificationTab" role="tablist">
 											<li class="nav-item mx-3 my-0 py-0">
@@ -854,7 +846,7 @@ $adminInfo = $admin->getAdminInfo();
 										<a class="text-center" href="#"> View All </a>
 									</li>
 								</ul>
-							</li>
+							</li> -->
 							<li class="right-sidebar-in right-sidebar-2-menu">
 								<i class="mdi mdi-settings-outline mdi-spin"></i>
 							</li>

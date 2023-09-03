@@ -4,7 +4,6 @@ include('navbar.php');
 
 <?php
 include 'config/config.php';
-include '../admin/Database.php';
 $productObj = new Product($conn);
 $id = $_GET['id'];
 $products = $productObj->getProductwithId($id);
@@ -41,7 +40,7 @@ if (!isset($_SESSION['order_id'])) {
                     <div class="col-md-6 col-sm-12">
                         <!-- ec-breadcrumb-list start -->
                         <ul class="ec-breadcrumb-list">
-                            <li class="ec-breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="ec-breadcrumb-item"><a href="#">Home</a></li>
                             <li class="ec-breadcrumb-item active">Dashboard</li>
                         </ul>
                         <!-- ec-breadcrumb-list end -->

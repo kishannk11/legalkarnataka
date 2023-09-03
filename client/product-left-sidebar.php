@@ -4,7 +4,7 @@ include('navbar.php');
 
 <?php
 include 'config/config.php';
-include '../admin/Database.php';
+
 
 $mainCategorySql = "SELECT name FROM main_category";
 $mainCategoryStmt = $conn->prepare($mainCategorySql);
@@ -54,7 +54,7 @@ if (!isset($_SESSION['order_id'])) {
                     <div class="col-md-6 col-sm-12">
                         <!-- ec-breadcrumb-list start -->
                         <ul class="ec-breadcrumb-list">
-                            <li class="ec-breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="ec-breadcrumb-item"><a href="#">Home</a></li>
                             <li class="ec-breadcrumb-item active">Dashboard</li>
                         </ul>
                         <!-- ec-breadcrumb-list end -->

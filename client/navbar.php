@@ -1,6 +1,12 @@
 <?php
 include 'config/session.php';
 ?>
+<?php
+include 'config/config.php';
+include '../admin/Database.php';
+$userObj = new User($conn);
+$user = $userObj->getUserInfo($_SESSION['id']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -98,7 +104,7 @@ include 'config/session.php';
                         <!-- Ec Header Logo Start -->
                         <div class="align-self-center">
                             <div class="header-logo">
-                                <a href="index.html">
+                                <a href="#">
                                     <img src="https://legalkarnataka.com/admin/assets/img/logo/legal.png"
                                         alt="Site Logo" style="width: 70px; height: auto; display: inline-block;" />
                                     <span
@@ -128,11 +134,21 @@ include 'config/session.php';
 
                                 <!-- Header User Start -->
                                 <div class="ec-header-user dropdown">
-                                    <button class="dropdown-toggle" data-bs-toggle="dropdown"><i
-                                            class="fi-rr-user"></i></button>
+                                    <div class="text-center">
+                                        <button class="dropdown-toggle" data-bs-toggle="dropdown">
+                                            <i class="fi-rr-user"></i>
+
+                                        </button>
+                                    </div>
+                                    <span>
+                                        <b>
+
+                                            <?php echo $user['firstname']; ?>
+
+                                        </b>
+                                    </span>
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-
                                         <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                                     </ul>
                                 </div>

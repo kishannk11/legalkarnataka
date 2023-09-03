@@ -276,6 +276,19 @@ function sendRegistrationEmail($firstname, $lastname, $email)
                                                                                                                                         style="margin: 0; font-size: 18px; line-height: 1.8; word-break: break-word; text-align: center; mso-line-height-alt: 32px; margin-top: 0; margin-bottom: 0;">
     
                                                                                                                                     </p>
+                                                                                                                                    &nbsp;
+																																&nbsp;
+																																&nbsp;
+																																<p
+																																	style="margin: 0; font-size: 18px; line-height: 1.8; word-break: break-word; text-align: center; mso-line-height-alt: 32px; margin-top: 0; margin-bottom: 0;">
+																																	<a href="https://legalkarnataka.com/client/index.php"
+																																		style="text-decoration: none;">
+																																		<button
+																																			style="padding: 10px 20px; background-color: #007bff; color: #fff; border: none; cursor: pointer;">
+																																			Login
+																																		</button>
+																																	</a>
+																																</p>
                                                                                                                                 </div>
                                                                                                                             </div>
                                                                                                                         </td>

@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $price = $_POST['price'];
     $details = $_POST['details'];
     $image = $_FILES['image'];
-
+    print_r($image);
     // Split the categories value to extract the optgroup and selected values
     $categoryValues = explode('|', $categories);
     $optgroup = $categoryValues[0];

@@ -233,7 +233,7 @@ class Product
         $this->conn = $conn;
     }
 
-    public function saveProduct($prod_name, $category, $price, $details, $image, $optgroup)
+    public function saveProduct($prod_name, $category, $price, $details, $images, $optgroup)
     {
         // Sanitize the input data
         $prod_name = $this->sanitizeInput($prod_name);
@@ -242,32 +242,36 @@ class Product
         $details = $this->sanitizeInput($details);
         $optgroup = $this->sanitizeInput($optgroup);
 
-        // Validate and process the image file
-        $imagePath = $this->processImage($image);
-
         // Check if any field is empty
-        if (empty($prod_name) || empty($category) || empty($price) || empty($details) || empty($imagePath)) {
+        if (empty($prod_name) || empty($category) || empty($price) || empty($details) || empty($images)) {
             return 'Please fill in all the fields.';
         }
 
-        // Prepare the SQL statement
-        $stmt = $this->conn->prepare("INSERT INTO products (prod_name, category,main_category, price, details, image) VALUES (?, ?, ?, ?, ?,?)");
+        // Process and save the image files
+        $imageNames = $this->processImages($images);
 
-        // Bind the parameters
+
+        // Prepare the SQL statement for inserting product details
+        $stmt = $this->conn->prepare("INSERT INTO products (prod_name, category, main_category, price, details) VALUES (?, ?, ?, ?, ?)");
         $stmt->bindParam(1, $prod_name);
         $stmt->bindParam(2, $category);
         $stmt->bindParam(3, $optgroup);
         $stmt->bindParam(4, $price);
         $stmt->bindParam(5, $details);
-        $stmt->bindParam(6, $imagePath);
+        $stmt->execute();
 
-        // Execute the statement
-        if ($stmt->execute()) {
-            // Redirect to product-add.php
-            return true;
-        } else {
-            return 'Error saving the product.';
+        // Get the last inserted product ID
+        $productId = $this->conn->lastInsertId();
+
+        // Prepare the SQL statement for inserting image file names
+        $imageStmt = $this->conn->prepare("INSERT INTO product_images (product_id, image_name) VALUES (?, ?)");
+        foreach ($imageNames as $imageName) {
+            $imageStmt->bindParam(1, $productId, PDO::PARAM_INT);
+            $imageStmt->bindParam(2, $imageName, PDO::PARAM_STR);
+            $imageStmt->execute();
         }
+
+        return true;
     }
 
     private function sanitizeInput($input)
@@ -279,30 +283,32 @@ class Product
         return $sanitizedInput;
     }
 
-    private function processImage($image)
+
+    private function processImages($images)
     {
         // Check if a file is uploaded
-        if (!isset($image['tmp_name']) || empty($image['tmp_name'])) {
-            return '';
+        if (!isset($images['tmp_name']) || empty($images['tmp_name'])) {
+            return [];
         }
-
         // Check if the file format is valid
         $allowedFormats = ['jpg', 'jpeg', 'png'];
-        $fileExtension = strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
-        if (!in_array($fileExtension, $allowedFormats)) {
-            return '';
+        $imageNames = [];
+        foreach ($images['tmp_name'] as $key => $tmpName) {
+            $fileExtension = strtolower(pathinfo($images['name'][$key], PATHINFO_EXTENSION));
+            if (!in_array($fileExtension, $allowedFormats)) {
+                continue; // Skip invalid file formats
+            }
+            // Generate a unique filename for the image
+            $filename = uniqid() . '.' . $fileExtension;
+            // Move the uploaded file to the desired directory
+            $targetDir = 'upload/';
+            $targetFile = $targetDir . $filename;
+            move_uploaded_file($tmpName, $targetFile);
+            $imageNames[] = $filename;
         }
-
-        // Generate a unique filename for the image
-        $filename = uniqid() . '.' . $fileExtension;
-
-        // Move the uploaded file to the desired directory
-        $targetDir = 'upload/';
-        $targetFile = $targetDir . $filename;
-        move_uploaded_file($image['tmp_name'], $targetFile);
-
-        return $filename;
+        return $imageNames;
     }
+
     public function getProduct()
     {
         $product = array();
@@ -317,6 +323,20 @@ class Product
         }
 
         return $product;
+    }
+
+    public function getProductImage($id)
+    {
+        $imageNames = array();
+        $stmt = $this->conn->prepare("SELECT image_name FROM product_images WHERE product_id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $imageNames[] = $row['image_name'];
+            }
+        }
+        return $imageNames;
     }
 
 

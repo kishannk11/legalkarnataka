@@ -105,11 +105,7 @@ $adminInfo = $admin->getAdminInfo();
 											<span class="nav-text">User Grid</span>
 										</a>
 									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="user-profile.php">
-											<span class="nav-text">Users Profile</span>
-										</a>
-									</li>
+
 
 								</ul>
 							</div>
@@ -130,13 +126,18 @@ $adminInfo = $admin->getAdminInfo();
 										</a>
 									</li>
 									<li class="">
+										<a class="sidenav-item-link" href="view-all-main-category.php">
+											<span class="nav-text">View All Main Category</span>
+										</a>
+									</li>
+									<li class="">
 										<a class="sidenav-item-link" href="sub-category.php">
 											<span class="nav-text">Sub Category</span>
 										</a>
 									</li>
 									<li class="">
-										<a class="sidenav-item-link" href="view-all-category.php">
-											<span class="nav-text">View All Category</span>
+										<a class="sidenav-item-link" href="view-all-sub-category.php">
+											<span class="nav-text">View All Sub Category</span>
 										</a>
 									</li>
 								</ul>
@@ -162,11 +163,7 @@ $adminInfo = $admin->getAdminInfo();
 										</a>
 									</li>
 
-									<li class="">
-										<a class="sidenav-item-link" href="product-detail.php">
-											<span class="nav-text">Product Detail</span>
-										</a>
-									</li>
+
 								</ul>
 							</div>
 						</li>
@@ -181,17 +178,7 @@ $adminInfo = $admin->getAdminInfo();
 								<ul class="sub-menu" id="orders" data-parent="#sidebar-menu">
 									<li class="">
 										<a class="sidenav-item-link" href="new-order.php">
-											<span class="nav-text">New Order</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="order-history.php">
-											<span class="nav-text">Order History</span>
-										</a>
-									</li>
-									<li class="">
-										<a class="sidenav-item-link" href="new-order.php">
-											<span class="nav-text">Pending Order</span>
+											<span class="nav-text">Orders</span>
 										</a>
 									</li>
 
@@ -219,6 +206,11 @@ $adminInfo = $admin->getAdminInfo();
 									<li class="">
 										<a class="sidenav-item-link" href="product_template.php">
 											<span class="nav-text">Add Templates for Product</span>
+										</a>
+									</li>
+									<li class="">
+										<a class="sidenav-item-link" href="product_template_list.php">
+											<span class="nav-text">Product Template list</span>
 										</a>
 									</li>
 								</ul>
@@ -298,7 +290,7 @@ $adminInfo = $admin->getAdminInfo();
 										<h2>Notifications</h2>
 									</div>
 
-									<div class="card-body px-0 py-0">
+									<!-- <div class="card-body px-0 py-0">
 										<ul class="nav nav-tabs nav-style-border p-0 justify-content-between"
 											id="myNotificationTab" role="tablist">
 											<li class="nav-item mx-3 my-0 py-0">
@@ -854,7 +846,7 @@ $adminInfo = $admin->getAdminInfo();
 										<a class="text-center" href="#"> View All </a>
 									</li>
 								</ul>
-							</li>
+							</li> -->
 							<li class="right-sidebar-in right-sidebar-2-menu">
 								<i class="mdi mdi-settings-outline mdi-spin"></i>
 							</li>

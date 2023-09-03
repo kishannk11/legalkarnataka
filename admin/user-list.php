@@ -5,6 +5,34 @@ require 'navbar.php';
 $page = 'users';
 $subpage = 'list';
 ?>
+<?php
+if (isset($_GET['success'])) {
+	$success = $_GET['success'];
+	echo '<script>
+	document.addEventListener("DOMContentLoaded", function() {
+			Swal.fire({
+				title: "Success!",
+				text: "' . htmlspecialchars($success) . '",
+				icon: "success",
+				confirmButtonText: "OK"
+			});
+		});
+	</script>';
+}
+
+if (isset($_GET['error'])) {
+	$error = $_GET['error'];
+	echo '<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		Swal.fire({
+			icon: "error",
+			title: "Oops...",
+			text: "' . htmlspecialchars($error, ENT_QUOTES, 'UTF-8') . '",
+		});
+	});
+</script>';
+}
+?>
 <!-- CONTENT WRAPPER -->
 <div class="ec-content-wrapper">
 	<div class="content">
@@ -59,8 +87,8 @@ $subpage = 'list';
 										echo '<span class="sr-only">Info</span>';
 										echo '</button>';
 										echo '<div class="dropdown-menu">';
-										echo '<a class="dropdown-item" href="#">Edit</a>';
-										echo '<a class="dropdown-item" href="#">Delete</a>';
+										echo '<a class="dropdown-item" href="user-edit.php?id=' . $employee["id"] . '">Edit</a>';
+										echo '<a class="dropdown-item" onclick="confirmDelete(' . $employee["id"] . ')">Delete</a>';
 										echo '</div>';
 										echo '</div>';
 										echo '</td>';
@@ -165,16 +193,32 @@ $subpage = 'list';
 <footer class="footer mt-auto">
 	<div class="copyright bg-white">
 		<p>
-			Copyright &copy; <span id="ec-year"></span><a class="text-primary"
-				href="https://themeforest.net/user/ashishmaraviya" target="_blank"> Ekka Admin
-				Dashboard</a>. All Rights Reserved.
+			<?php
+			include "footer.php";
+			?>
 		</p>
 	</div>
 </footer>
 
 </div> <!-- End Page Wrapper -->
 </div> <!-- End Wrapper -->
-
+<script>
+	function confirmDelete(userId) {
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		}).then((result) => {
+			if (result.value) {
+				window.location.replace("delete_user.php?id=" + userId);
+			}
+		});
+	}
+</script>
 <!-- Common Javascript -->
 <script src="assets/plugins/jquery/jquery-3.5.1.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
@@ -189,6 +233,8 @@ $subpage = 'list';
 
 <!-- Option Switcher -->
 <script src="assets/plugins/options-sidebar/optionswitcher.js"></script>
+<script src="assets/plugins/sweet-alert2/sweetalert2.min.js"></script>
+<script src="assets/pages/jquery.sweet-alert.init.js"></script>
 
 <!-- Ekka Custom -->
 <script src="assets/js/ekka.js"></script>

@@ -59,7 +59,6 @@ if (isset($_GET['error'])) {
 									<tr>
 										<th>Product</th>
 										<th>Name</th>
-										<th>Price</th>
 										<th>Category</th>
 										<th>Action</th>
 									</tr>
@@ -73,9 +72,7 @@ if (isset($_GET['error'])) {
 											<td>
 												<?php echo $product['prod_name']; ?>
 											</td>
-											<td>
-												<?php echo $product['price']; ?>
-											</td>
+
 											<td>
 												<?php echo $product['category']; ?>
 											</td>
@@ -115,9 +112,9 @@ if (isset($_GET['error'])) {
 <footer class="footer mt-auto">
 	<div class="copyright bg-white">
 		<p>
-			Copyright &copy; <span id="ec-year"></span><a class="text-primary"
-				href="https://themeforest.net/user/ashishmaraviya" target="_blank"> Ekka Admin Dashboard</a>. All Rights
-			Reserved.
+			<?php
+			include "footer.php";
+			?>
 		</p>
 	</div>
 </footer>

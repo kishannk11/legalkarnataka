@@ -9,13 +9,18 @@ $product = new Product($conn);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the form data
     $prod_name = $_POST['prod_name'];
-    $category = $_POST['categories'];
+    $categories = $_POST['categories'];
     $price = $_POST['price'];
     $details = $_POST['details'];
     $image = $_FILES['image'];
 
+    // Split the categories value to extract the optgroup and selected values
+    $categoryValues = explode('|', $categories);
+    $optgroup = $categoryValues[0];
+    $selectedValue = $categoryValues[1];
+
     // Save the product and handle any errors
-    $result = $product->saveProduct($prod_name, $category, $price, $details, $image);
+    $result = $product->saveProduct($prod_name, $selectedValue, $price, $details, $image, $optgroup);
 
     // Redirect with error message if necessary
     if ($result === true) {
@@ -27,4 +32,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 }
+
 ?>

@@ -1,6 +1,12 @@
 <?php
 include 'config/session.php';
 ?>
+<?php
+include 'config/config.php';
+include '../admin/Database.php';
+$userObj = new User($conn);
+$user = $userObj->getUserInfo($_SESSION['id']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,6 +25,7 @@ include 'config/session.php';
     <link rel="icon" href="https://legalkarnataka.com/admin/assets/img/logo/legal.png" sizes="32x32" />
     <link rel="apple-touch-icon" href="https://legalkarnataka.com/admin/assets/img/logo/legal.png" />
     <meta name="msapplication-TileImage" content="https://legalkarnataka.com/admin/assets/img/logo/legal.png" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- css Icon Font -->
     <link rel="stylesheet" href="assets/css/vendor/ecicons.min.css" />
@@ -42,6 +49,18 @@ include 'config/session.php';
             display: inline-block;
             margin-right: 10px;
         }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+    <style>
+        .scrollable-div {
+            height: 200px;
+            /* Adjust the height as per your requirement */
+            overflow-y: auto;
+        }
     </style>
 </head>
 
@@ -62,7 +81,7 @@ include 'config/session.php';
                 <div class="ec-header-user dropdown">
                     <button class="dropdown-toggle" data-bs-toggle="dropdown"><i class="fi-rr-user"></i></button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="profile.php">Profile</a></li>
 
                         <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                     </ul>
@@ -85,7 +104,7 @@ include 'config/session.php';
                         <!-- Ec Header Logo Start -->
                         <div class="align-self-center">
                             <div class="header-logo">
-                                <a href="index.html">
+                                <a href="#">
                                     <img src="https://legalkarnataka.com/admin/assets/img/logo/legal.png"
                                         alt="Site Logo" style="width: 70px; height: auto; display: inline-block;" />
                                     <span
@@ -115,11 +134,21 @@ include 'config/session.php';
 
                                 <!-- Header User Start -->
                                 <div class="ec-header-user dropdown">
-                                    <button class="dropdown-toggle" data-bs-toggle="dropdown"><i
-                                            class="fi-rr-user"></i></button>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <div class="text-center">
+                                        <button class="dropdown-toggle" data-bs-toggle="dropdown">
+                                            <i class="fi-rr-user"></i>
 
+                                        </button>
+                                    </div>
+                                    <span>
+                                        <b>
+
+                                            <?php echo $user['firstname']; ?>
+
+                                        </b>
+                                    </span>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a class="dropdown-item" href="profile.php">Profile</a></li>
                                         <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                                     </ul>
                                 </div>
@@ -172,19 +201,19 @@ include 'config/session.php';
                                 <i class="fi fi-rr-apps"></i>
                             </a>
                             <ul>
-                                <li><a href="#">Home</a></li>
+                                <li><a href="product-left-sidebar.php">Home</a></li>
                                 <li><a href="services.php">Services</a></li>
                                 <li class="dropdown"><a href="javascript:void(0)">Orders</a>
-                                <ul class="sub-menu">
-                                    <li><a href="#">My Orders</a></li>
-                                    <li><a href="#">Track Orders</a></li>
-                                </ul>
+                                    <ul class="sub-menu">
+                                        <li><a href="my-orders.php">My Orders</a></li>
+                                        <li><a href="#">Track Orders</a></li>
+                                    </ul>
                                 <li class="dropdown"><a href="javascript:void(0)">Contact</a>
-                                <ul class="sub-menu">
-                                    <li><a href="#">Contact Admin</a></li>
+                                    <ul class="sub-menu">
+                                        <li><a href="#">Contact Admin</a></li>
 
-                                </ul>
-                                <li><a href="#">Logout</a></li>
+                                    </ul>
+                                <li><a href="logout.php">Logout</a></li>
                             </ul>
                         </div>
                     </div>
@@ -218,7 +247,7 @@ include 'config/session.php';
 
                         <li><a href="javascript:void(0)">Orders</a>
                             <ul class="sub-menu">
-                                <li><a href="#">My Orders</a></li>
+                                <li><a href="my-orders.php">My Orders</a></li>
                                 <li><a href="#">Track Orders</a></li>
 
                             </ul>

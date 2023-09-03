@@ -7,7 +7,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 require_once('config/config.php');
-require('Database.php');
 $templates = new Templates($conn);
 $temp = $templates->getAllTemplates();
 ?>
@@ -123,9 +122,9 @@ if (isset($_GET['error'])) {
 <footer class="footer mt-auto">
     <div class="copyright bg-white">
         <p>
-            Copyright &copy; <span id="ec-year"></span><a class="text-primary"
-                href="https://themeforest.net/user/ashishmaraviya" target="_blank"> Ekka Admin Dashboard</a>. All Rights
-            Reserved.
+            <?php
+            include "footer.php";
+            ?>
         </p>
     </div>
 </footer>

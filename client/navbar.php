@@ -213,6 +213,9 @@ $user = $userObj->getUserInfo($_SESSION['id']);
                                         <li><a href="#">Contact Admin</a></li>
 
                                     </ul>
+                                </li>
+                                <li><a href="cart.php">Cart</a></li>
+
                                 <li><a href="logout.php">Logout</a></li>
                             </ul>
                         </div>

@@ -51,7 +51,7 @@ $orderDetails = $orderDetailsObj->getOrderDetailsbyID($email);
                                     <tr>
                                         <th scope="col">SL NO</th>
                                         <th scope="col">ID</th>
-                                        <th scope="col">Image</th>
+
                                         <th scope="col">Name</th>
 
                                         <th scope="col">Total</th>
@@ -60,38 +60,55 @@ $orderDetails = $orderDetailsObj->getOrderDetailsbyID($email);
                                 <tbody>
                                     <?php
                                     $slno = 1;
+                                    $currentOrderID = '';
+                                    $totalPriceDisplayed = false; // Variable to track if total price has been displayed
                                     foreach ($orderDetails as $order):
                                         $productObj = new Product($conn);
                                         $products = $productObj->getProductwithId($order['prod_id']);
                                         foreach ($products as $proddata):
-
-
-                                            ?>
-
-                                            <tr>
-                                                <th scope="row"><span>
-                                                        <?php echo $slno; ?>
-                                                    </span></th>
-                                                <th scope="row"><span>
-                                                        <?php echo $order['order_id']; ?>
-                                                    </span></th>
-                                                <td><img class="prod-img"
-                                                        src="../admin/upload/<?php echo $proddata['image']; ?>"
-                                                        alt="product image"></td>
-                                                <td><span>
-                                                        <?php echo $proddata['prod_name']; ?>
-                                                    </span></td>
-
-
-                                                <td><span>
-                                                        <?php echo $order['price']; ?>
-                                                    </span></td>
-                                            </tr>
-
-                                            <?php
+                                            if ($currentOrderID != $order['order_id']) {
+                                                // Display a new row for a different order ID
+                                                if ($currentOrderID != '') {
+                                                    // Display the total price for the previous order if not already displayed
+                                                    if (!$totalPriceDisplayed) {
+                                                        echo '<tr>';
+                                                        echo '<th scope="row"></th>';
+                                                        echo '<th scope="row"></th>';
+                                                        echo '<td><b></b></td>';
+                                                        //echo '<td>' . $orderDetails[$slno - 1]['price'] . '</td>';
+                                                        echo '</tr>';
+                                                        $totalPriceDisplayed = true;
+                                                    }
+                                                }
+                                                echo '<tr>';
+                                                echo '<th scope="row"><span>' . $slno . '</span></th>';
+                                                echo '<th scope="row"><a href="order-details.php?order_id=' . $order['order_id'] . '">' . $order['order_id'] . '</a></th>';
+                                                echo '<td><span>' . $proddata['prod_name'] . '</span></td>';
+                                                echo '<td><span>' . $order['price'] . '</span></td>';
+                                                echo '</tr>';
+                                                $currentOrderID = $order['order_id'];
+                                                $slno += 1;
+                                            } else {
+                                                // Display additional products for the same order ID
+                                                echo '<tr>';
+                                                echo '<th scope="row"></th>';
+                                                echo '<th scope="row"></th>';
+                                                echo '<td><span>' . $proddata['prod_name'] . '</span></td>';
+                                                // echo '<td><span>' . $order['price'] . '</span></td>';
+                                                echo '</tr>';
+                                            }
                                         endforeach;
-                                        $slno += 1;
                                     endforeach;
+
+                                    // Display the total price for the last order if not already displayed
+                                    if ($currentOrderID != '' && !$totalPriceDisplayed) {
+                                        echo '<tr>';
+                                        echo '<th scope="row"></th>';
+                                        echo '<th scope="row"></th>';
+                                        echo '<td><b>Total Price</b></td>';
+                                        echo '<td>' . $orderDetails[$slno - 1]['price'] . '</td>';
+                                        echo '</tr>';
+                                    }
                                     ?>
                                 </tbody>
                             </table>

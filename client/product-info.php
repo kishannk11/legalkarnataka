@@ -106,7 +106,7 @@ if (!isset($_SESSION['order_id'])) {
 
                                         </div>
                                         <div class="ec-single-desc">
-                                            <form method="POST" action="product-checkout.php">
+                                            <form method="POST" action="add-to-cart.php">
                                                 <div id="displayPrice">
                                                     <b><label class="form-label">Stamp Paper Price</label></b>
                                                     <input type="text" class="form-control" name="price"
@@ -117,7 +117,8 @@ if (!isset($_SESSION['order_id'])) {
                                                 <div class="ec-single-cart">
                                                     <div class="button-group">
                                                         <input type="hidden" name="id" value="<?php echo $id; ?>">
-                                                        <button class="btn btn-primary" type="submit">Add to
+                                                        <button class="btn btn-primary" name="submit" type="submit">Add
+                                                            to
                                                             cart</button>
                                                     </div>
                                                 </div>

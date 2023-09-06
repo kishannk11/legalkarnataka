@@ -182,10 +182,7 @@
 <script src="assets/js/plugins/infiniteslidev2.js"></script>
 <script src="assets/js/vendor/jquery.magnific-popup.min.js"></script>
 <script src="assets/js/plugins/jquery.sticky-sidebar.js"></script>
-<!-- Google translate Js -->
-<script src="assets/js/vendor/google-translate.js"></script>
 
-<!-- Main Js -->
 <script src="assets/js/vendor/index.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/script.js"></script>

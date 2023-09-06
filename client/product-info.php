@@ -347,6 +347,19 @@ if (!isset($_SESSION['order_id'])) {
         xhr.send(formData);
     });
 </script>
+<script>
+    var stampPriceElement = document.getElementById('stampPrice');
+    var displayPriceElement = document.getElementById('displayPrice');
+    if (!stampPriceElement) {
+        displayPriceElement.style.display = 'none';
+        document.getElementById('displayPrice1').value = ''; // Set empty value
+    } else {
+        stampPriceElement.addEventListener('input', function () {
+            var price = document.getElementById('stampPrice').value;
+            document.getElementById('displayPrice1').value = price;
+        });
+    }
+</script>
 <?php
 include('footer.php');
 ?>

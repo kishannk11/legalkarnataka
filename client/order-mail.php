@@ -2,7 +2,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-include '../admin/Database.php';
+//include '../admin/Database.php';
 require_once('config/config.php');
 require_once('smtp_credentails.php');
 require 'PHPMailer/src/Exception.php';

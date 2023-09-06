@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     curl_setopt($shipmentCh, CURLOPT_POSTFIELDS, $payload);
 
     $shipmentResponse = curl_exec($shipmentCh);
-    // echo $shipmentResponse;
+    echo $shipmentResponse;
     if ($shipmentResponse === false) {
         die('Error: ' . curl_error($shipmentCh));
     }
@@ -213,6 +213,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo '</form>';
 
     // Automatically submit the form when the page loads
-    echo '<script>document.addEventListener("DOMContentLoaded", function () {document.getElementById("payuForm").submit();});</script>';
+    // echo '<script>document.addEventListener("DOMContentLoaded", function () {document.getElementById("payuForm").submit();});</script>';
 }
 ?>

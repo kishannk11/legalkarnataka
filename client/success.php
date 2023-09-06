@@ -9,11 +9,10 @@ $payment = new Payment($conn);
 $txnid = $_POST['txnid'];
 $amount = $_POST['amount'];
 $status = $_POST['status'];
-$prodid = $_POST['udf1'];
+$prodids = $_POST['udf1'];
 $orderid = $_POST['udf2'];
-
 if ($status === "success") {
-    if ($payment->saveTransaction($txnid, $amount, $status, $prodid, $orderid)) {
+    if ($payment->saveTransaction($txnid, $amount, $status, $prodids, $orderid)) {
         $success = "Payment Successful! Transaction ID: " . $txnid;
         echo $success;
         header("Location: payment-success.php?txnid=" . $success);
@@ -23,7 +22,7 @@ if ($status === "success") {
         header("Location: payment-success.php?txnid=" . $success);
     }
 } elseif ($status === "failure") {
-    if ($payment->saveTransaction($txnid, $amount, $status, $prodid, $orderid)) {
+    if ($payment->saveTransaction($txnid, $amount, $status, $prodids, $orderid)) {
         $error = "Payment Failed! Transaction ID: " . $txnid;
         header("Location: payment-success.php?txnid=" . $error);
     } else {

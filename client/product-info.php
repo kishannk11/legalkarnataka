@@ -106,7 +106,7 @@ if (!isset($_SESSION['order_id'])) {
 
                                         </div>
                                         <div class="ec-single-desc">
-                                            <form method="POST" action="product-checkout.php">
+                                            <form method="POST" action="add-to-cart.php">
                                                 <div id="displayPrice">
                                                     <b><label class="form-label">Stamp Paper Price</label></b>
                                                     <input type="text" class="form-control" name="price"
@@ -117,7 +117,8 @@ if (!isset($_SESSION['order_id'])) {
                                                 <div class="ec-single-cart">
                                                     <div class="button-group">
                                                         <input type="hidden" name="id" value="<?php echo $id; ?>">
-                                                        <button class="btn btn-primary" type="submit">Add to
+                                                        <button class="btn btn-primary" name="submit" type="submit">Add
+                                                            to
                                                             cart</button>
                                                     </div>
                                                 </div>
@@ -345,6 +346,19 @@ if (!isset($_SESSION['order_id'])) {
 
         xhr.send(formData);
     });
+</script>
+<script>
+    var stampPriceElement = document.getElementById('stampPrice');
+    var displayPriceElement = document.getElementById('displayPrice');
+    if (!stampPriceElement) {
+        displayPriceElement.style.display = 'none';
+        document.getElementById('displayPrice1').value = ''; // Set empty value
+    } else {
+        stampPriceElement.addEventListener('input', function () {
+            var price = document.getElementById('stampPrice').value;
+            document.getElementById('displayPrice1').value = price;
+        });
+    }
 </script>
 <?php
 include('footer.php');

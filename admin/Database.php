@@ -731,18 +731,24 @@ class Payment
         $this->conn = $conn;
     }
 
-    public function saveTransaction($txnid, $amount, $status, $prodid, $orderid)
+    public function saveTransaction($txnid, $amount, $status, $prodids, $orderid)
     {
         try {
-            $sql = "INSERT INTO transactions (txnid, amount, status,prod_id,order_id) VALUES (:txnid, :amount, :status, :prod_id, :order_id)";
+            $sql = "INSERT INTO transactions (txnid, amount, status, prod_id, order_id) VALUES (:txnid, :amount, :status, :prod_id, :order_id)";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bindParam(':txnid', $txnid);
-            $stmt->bindParam(':amount', $amount);
-            $stmt->bindParam(':status', $status);
-            $stmt->bindParam(':prod_id', $prodid);
-            $stmt->bindParam(':order_id', $orderid);
 
-            $stmt->execute();
+            // Convert the comma-separated values of $prodids to an array
+            $prodidsArray = explode(',', $prodids);
+
+            foreach ($prodidsArray as $prodid) {
+                $stmt->bindParam(':txnid', $txnid);
+                $stmt->bindParam(':amount', $amount);
+                $stmt->bindParam(':status', $status);
+                $stmt->bindParam(':prod_id', $prodid);
+                $stmt->bindParam(':order_id', $orderid);
+                $stmt->execute();
+            }
+
             return true;
         } catch (PDOException $e) {
             return false;
@@ -759,7 +765,7 @@ class Order
         $this->conn = $conn;
     }
 
-    public function saveOrder($firstname, $lastname, $address, $city, $postalcode, $country, $state, $order, $email, $prod_id, $price)
+    public function saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $email, $productIds, $price)
     {
         // Validate and sanitize the input data
         $firstname = filter_var($firstname, FILTER_SANITIZE_STRING);
@@ -767,30 +773,30 @@ class Order
         $address = filter_var($address, FILTER_SANITIZE_STRING);
         $city = filter_var($city, FILTER_SANITIZE_STRING);
         $postalcode = filter_var($postalcode, FILTER_SANITIZE_STRING);
-        $country = filter_var($country, FILTER_SANITIZE_STRING);
         $state = filter_var($state, FILTER_SANITIZE_STRING);
 
-        // Insert the order details into the order_details table
-        $sql = "INSERT INTO order_details (firstname, lastname, address, city, postalcode, country, state, order_id, email, prod_id, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(1, $firstname);
-        $stmt->bindParam(2, $lastname);
-        $stmt->bindParam(3, $address);
-        $stmt->bindParam(4, $city);
-        $stmt->bindParam(5, $postalcode);
-        $stmt->bindParam(6, $country);
-        $stmt->bindParam(7, $state);
-        $stmt->bindParam(8, $order);
-        $stmt->bindParam(9, $email);
-        $stmt->bindParam(10, $prod_id);
-        $stmt->bindParam(11, $price);
+        // Convert the comma-separated values of $productIds to an array
+        $productIdsArray = explode(',', $productIds);
 
-        if ($stmt->execute()) {
-            // Order saved successfully
-            return true;
-        } else {
-            // Error occurred while saving the order
-            echo "Error: " . $stmt->errorInfo()[2];
+        // Insert the order details into the order_details table for each product ID
+        foreach ($productIdsArray as $productId) {
+            $sql = "INSERT INTO order_details (firstname, lastname, address, city, postalcode, state, order_id, email, prod_id, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(1, $firstname);
+            $stmt->bindParam(2, $lastname);
+            $stmt->bindParam(3, $address);
+            $stmt->bindParam(4, $city);
+            $stmt->bindParam(5, $postalcode);
+            $stmt->bindParam(6, $state);
+            $stmt->bindParam(7, $order);
+            $stmt->bindParam(8, $email);
+            $stmt->bindParam(9, $productId);
+            $stmt->bindParam(10, $price);
+            if (!$stmt->execute()) {
+                // Error occurred while saving the order
+                echo "Error: " . $stmt->errorInfo()[2];
+                return false;
+            }
         }
     }
     public function getOrderDetails()
@@ -810,6 +816,16 @@ class Order
         $sql = "SELECT * FROM order_details WHERE email = :email";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':email', $id);
+        $stmt->execute();
+        $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $orderDetails;
+    }
+    public function getOrderDetailsbyOrderID($id)
+    {
+        $orderDetails = array();
+        $sql = "SELECT * FROM order_details WHERE order_id = :order_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':order_id', $id);
         $stmt->execute();
         $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $orderDetails;
@@ -841,4 +857,42 @@ class Order
     }
 }
 
+class Cart
+{
+    private $conn;
+
+    public function __construct($conn)
+    {
+        $this->conn = $conn;
+    }
+
+    public function addToCart($productId, $price, $email, $StamPrice)
+    {
+        // Prepare the SQL statement
+        $sql = "INSERT INTO cart (product_id, price, email,stamp_price) VALUES (?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+
+        // Bind the parameters
+        $stmt->bindParam(1, $productId);
+        $stmt->bindParam(2, $price);
+        $stmt->bindParam(3, $email);
+        $stmt->bindParam(4, $StamPrice);
+
+        // Execute the statement
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function getCartDetails($email)
+    {
+        $sql = "SELECT * FROM cart WHERE email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $cartDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $cartDetails;
+    }
+}
 ?>

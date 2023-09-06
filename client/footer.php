@@ -76,7 +76,7 @@
     <!-- Start Right Floating Button-->
     <div class="ec-right-bottom">
         <div class="ec-box">
-            <a href="https://api.whatsapp.com/send?phone=8884449627&text=Hi" target="_blank" rel="noopener noreferrer">
+            <a href="https://api.whatsapp.com/send?phone=9844240966&text=Hi" target="_blank" rel="noopener noreferrer">
                 <div class=" ">
                     <img class="whatsapp" src="assets/images/common/whatsapp.png" alt="whatsapp icon" />
                 </div>
@@ -182,10 +182,7 @@
 <script src="assets/js/plugins/infiniteslidev2.js"></script>
 <script src="assets/js/vendor/jquery.magnific-popup.min.js"></script>
 <script src="assets/js/plugins/jquery.sticky-sidebar.js"></script>
-<!-- Google translate Js -->
-<script src="assets/js/vendor/google-translate.js"></script>
 
-<!-- Main Js -->
 <script src="assets/js/vendor/index.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/script.js"></script>

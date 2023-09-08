@@ -8,7 +8,7 @@ include 'config/config.php';
 $email = $_SESSION['email'];
 $orderDetailsObj = new Order($conn);
 $orderDetails = $orderDetailsObj->getOrderDetailsbyID($email);
-
+//print_r($orderDetails);
 
 ?>
 <div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
@@ -65,6 +65,7 @@ $orderDetails = $orderDetailsObj->getOrderDetailsbyID($email);
                                     foreach ($orderDetails as $order):
                                         $productObj = new Product($conn);
                                         $products = $productObj->getProductwithId($order['prod_id']);
+                                        // print_r($products);
                                         foreach ($products as $proddata):
                                             if ($currentOrderID != $order['order_id']) {
                                                 // Display a new row for a different order ID

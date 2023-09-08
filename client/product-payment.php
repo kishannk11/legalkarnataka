@@ -38,14 +38,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_email = $_SESSION['email'];
 
     // Set your PayU credentials
-    $merchantKey = "Z5LxwB";
-    $salt = "BvrZHvmeBjkEdQxJrxlBIiVhVyjirOac";
+    $merchantKey = "vfiulB";
+    $salt = "HLk3ltGCqExDiJbADdFUBtS8G9ePX9v3";
     $baseUrl = "https://test.payu.in/_payment"; // Sandbox URL, replace with production URL when ready
 
     // Prepare data for the payment
     $txnid = uniqid(); // Generate a unique transaction ID
     $productInfo = "Sample Product";
-    $phone = "1234567890";
+    $phone = $userinfo['phonenumber'];
     $udf1 = implode(',', $productIds);
     // print_r($udf1); // Convert the array of product_ids to a comma-separated string
     $udf2 = $order;
@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $shipmentData['order_items'][] = array(
             'name' => $product1[0]['prod_name'],
-            'sku' => 'SKU001',
+            'sku' => $product1[0]['id'],
             'units' => 1,
             'selling_price' => $product1[0]['price'],
             'discount' => 0,
@@ -208,11 +208,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Create a form to submit payment data to PayU
     echo '<form method="post" action="' . $baseUrl . '" name="payuForm" id="payuForm">';
     foreach ($data as $key => $value) {
-        echo '<input type="hidden" name="' . $key . '" value="' . $value . '">';
+        echo '<input type="text" name="' . $key . '" value="' . $value . '">';
     }
     echo '</form>';
 
     // Automatically submit the form when the page loads
-    // echo '<script>document.addEventListener("DOMContentLoaded", function () {document.getElementById("payuForm").submit();});</script>';
+    echo '<script>document.addEventListener("DOMContentLoaded", function () {document.getElementById("payuForm").submit();});</script>';
 }
 ?>

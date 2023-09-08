@@ -162,7 +162,7 @@
 
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -185,7 +185,6 @@
 
 <script src="assets/js/vendor/index.js"></script>
 <script src="assets/js/main.js"></script>
-<script src="assets/js/script.js"></script>
 </body>
 
 </html>

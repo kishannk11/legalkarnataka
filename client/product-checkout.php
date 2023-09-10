@@ -91,13 +91,11 @@ if (empty($price)) {
                                                     <label>Post Code</label>
                                                     <input type="text" name="postalcode" placeholder="Post Code" />
                                                 </span>
-                                                <span class="ec-bill-wrap ec-bill-half">
-                                                    <label>Country *</label>
-                                                    <input type="text" name="country" placeholder="Address Line 1" />
-                                                </span>
+
                                                 <span class="ec-bill-wrap ec-bill-half">
                                                     <label>State</label>
-                                                    <input type="text" name="state" placeholder="Address Line 1" />
+                                                    <input type="text" name="state" placeholder="Address Line 1"
+                                                        value="Karnataka" />
                                                 </span>
                                                 <div class="ec-sidebar-wrap ec-checkout-del-wrap">
                                                     <!-- Sidebar Summary Block -->

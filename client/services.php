@@ -8,9 +8,6 @@ ini_set('display_errors', 1);
 include 'config/config.php';
 $product = new Product($conn);
 $products = $product->getProduct();
-$productObj = new Product($conn);
-$id = $products[0]['id']; // Replace with the actual ID
-$productData = $productObj->getProductData($id);
 ?>
 <?php
 $productsPerPage = 12;
@@ -89,19 +86,27 @@ $displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 					<div class="shop-pro-content">
 						<div class="shop-pro-inner">
 							<div class="row" id="filtered-products">
-								<?php foreach ($displayedProducts as $allproduct): ?>
+								<?php foreach ($displayedProducts as $allproduct):
+									$productimage = new Product($conn);
+									$productId = $allproduct['id'];
+									$productImages = $productimage->getProductImage($productId);
+									?>
 									<div class="col-lg-3 col-md-4 col-sm-6 mb-4 pro-gl-content"
 										data-category="<?php echo $allproduct['main_category']; ?>">
 										<div class="ec-product-inner">
 											<div class="ec-pro-image-outer">
 												<div class="ec-pro-image">
 													<a href="product-left-sidebar.html" class="image">
-														<img class="main-image"
-															src="../admin/upload/<?php echo $allproduct['image']; ?>"
-															alt="Product" width="700" height="350" />
-														<img class="hover-image"
-															src="../admin/upload/<?php echo $allproduct['image']; ?>"
-															alt="Product" width="700" height="350" />
+														<?php foreach ($productImages as $imageName): ?>
+															<div class="product-image">
+																<img class="main-image"
+																	src="../admin/upload/<?php echo $imageName; ?>"
+																	alt="Product" width="700" height="350" />
+																<img class="hover-image"
+																	src="../admin/upload/<?php echo $imageName; ?>"
+																	alt="Product" width="700" height="350" />
+															</div>
+														<?php endforeach; ?>
 													</a>
 												</div>
 											</div>
@@ -166,6 +171,32 @@ $displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 			}
 		});
 	});
+</script>
+<script>
+	var images = document.querySelectorAll('.product-image');
+	var currentIndex = 0;
+
+	function rotateImages() {
+		// Hide all images
+		for (var i = 0; i < images.length; i++) {
+			images[i].style.display = 'none';
+		}
+
+		// Show the current image
+		images[currentIndex].style.display = 'block';
+
+		// Increment the current index
+		currentIndex++;
+		if (currentIndex >= images.length) {
+			currentIndex = 0;
+		}
+
+		// Call the rotateImages function again after a certain time interval (e.g., 3 seconds)
+		setTimeout(rotateImages, 3000);
+	}
+
+	// Start rotating the images
+	rotateImages();
 </script>
 
 <?php

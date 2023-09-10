@@ -233,7 +233,7 @@ class Product
         $this->conn = $conn;
     }
 
-    public function saveProduct($prod_name, $category, $price, $details, $image, $optgroup)
+    public function saveProduct($prod_name, $category, $price, $details, $images, $optgroup)
     {
         // Sanitize the input data
         $prod_name = $this->sanitizeInput($prod_name);
@@ -242,32 +242,36 @@ class Product
         $details = $this->sanitizeInput($details);
         $optgroup = $this->sanitizeInput($optgroup);
 
-        // Validate and process the image file
-        $imagePath = $this->processImage($image);
-
         // Check if any field is empty
-        if (empty($prod_name) || empty($category) || empty($price) || empty($details) || empty($imagePath)) {
+        if (empty($prod_name) || empty($category) || empty($price) || empty($details) || empty($images)) {
             return 'Please fill in all the fields.';
         }
 
-        // Prepare the SQL statement
-        $stmt = $this->conn->prepare("INSERT INTO products (prod_name, category,main_category, price, details, image) VALUES (?, ?, ?, ?, ?,?)");
+        // Process and save the image files
+        $imageNames = $this->processImages($images);
 
-        // Bind the parameters
+
+        // Prepare the SQL statement for inserting product details
+        $stmt = $this->conn->prepare("INSERT INTO products (prod_name, category, main_category, price, details) VALUES (?, ?, ?, ?, ?)");
         $stmt->bindParam(1, $prod_name);
         $stmt->bindParam(2, $category);
         $stmt->bindParam(3, $optgroup);
         $stmt->bindParam(4, $price);
         $stmt->bindParam(5, $details);
-        $stmt->bindParam(6, $imagePath);
+        $stmt->execute();
 
-        // Execute the statement
-        if ($stmt->execute()) {
-            // Redirect to product-add.php
-            return true;
-        } else {
-            return 'Error saving the product.';
+        // Get the last inserted product ID
+        $productId = $this->conn->lastInsertId();
+
+        // Prepare the SQL statement for inserting image file names
+        $imageStmt = $this->conn->prepare("INSERT INTO product_images (product_id, image_name) VALUES (?, ?)");
+        foreach ($imageNames as $imageName) {
+            $imageStmt->bindParam(1, $productId, PDO::PARAM_INT);
+            $imageStmt->bindParam(2, $imageName, PDO::PARAM_STR);
+            $imageStmt->execute();
         }
+
+        return true;
     }
 
     private function sanitizeInput($input)
@@ -279,30 +283,32 @@ class Product
         return $sanitizedInput;
     }
 
-    private function processImage($image)
+
+    private function processImages($images)
     {
         // Check if a file is uploaded
-        if (!isset($image['tmp_name']) || empty($image['tmp_name'])) {
-            return '';
+        if (!isset($images['tmp_name']) || empty($images['tmp_name'])) {
+            return [];
         }
-
         // Check if the file format is valid
         $allowedFormats = ['jpg', 'jpeg', 'png'];
-        $fileExtension = strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
-        if (!in_array($fileExtension, $allowedFormats)) {
-            return '';
+        $imageNames = [];
+        foreach ($images['tmp_name'] as $key => $tmpName) {
+            $fileExtension = strtolower(pathinfo($images['name'][$key], PATHINFO_EXTENSION));
+            if (!in_array($fileExtension, $allowedFormats)) {
+                continue; // Skip invalid file formats
+            }
+            // Generate a unique filename for the image
+            $filename = uniqid() . '.' . $fileExtension;
+            // Move the uploaded file to the desired directory
+            $targetDir = 'upload/';
+            $targetFile = $targetDir . $filename;
+            move_uploaded_file($tmpName, $targetFile);
+            $imageNames[] = $filename;
         }
-
-        // Generate a unique filename for the image
-        $filename = uniqid() . '.' . $fileExtension;
-
-        // Move the uploaded file to the desired directory
-        $targetDir = 'upload/';
-        $targetFile = $targetDir . $filename;
-        move_uploaded_file($image['tmp_name'], $targetFile);
-
-        return $filename;
+        return $imageNames;
     }
+
     public function getProduct()
     {
         $product = array();
@@ -317,6 +323,20 @@ class Product
         }
 
         return $product;
+    }
+
+    public function getProductImage($id)
+    {
+        $imageNames = array();
+        $stmt = $this->conn->prepare("SELECT image_name FROM product_images WHERE product_id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $imageNames[] = $row['image_name'];
+            }
+        }
+        return $imageNames;
     }
 
 
@@ -711,18 +731,24 @@ class Payment
         $this->conn = $conn;
     }
 
-    public function saveTransaction($txnid, $amount, $status, $prodid, $orderid)
+    public function saveTransaction($txnid, $amount, $status, $prodids, $orderid)
     {
         try {
-            $sql = "INSERT INTO transactions (txnid, amount, status,prod_id,order_id) VALUES (:txnid, :amount, :status, :prod_id, :order_id)";
+            $sql = "INSERT INTO transactions (txnid, amount, status, prod_id, order_id) VALUES (:txnid, :amount, :status, :prod_id, :order_id)";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bindParam(':txnid', $txnid);
-            $stmt->bindParam(':amount', $amount);
-            $stmt->bindParam(':status', $status);
-            $stmt->bindParam(':prod_id', $prodid);
-            $stmt->bindParam(':order_id', $orderid);
 
-            $stmt->execute();
+            // Convert the comma-separated values of $prodids to an array
+            $prodidsArray = explode(',', $prodids);
+
+            foreach ($prodidsArray as $prodid) {
+                $stmt->bindParam(':txnid', $txnid);
+                $stmt->bindParam(':amount', $amount);
+                $stmt->bindParam(':status', $status);
+                $stmt->bindParam(':prod_id', $prodid);
+                $stmt->bindParam(':order_id', $orderid);
+                $stmt->execute();
+            }
+
             return true;
         } catch (PDOException $e) {
             return false;
@@ -739,7 +765,7 @@ class Order
         $this->conn = $conn;
     }
 
-    public function saveOrder($firstname, $lastname, $address, $city, $postalcode, $country, $state, $order, $email, $prod_id, $price)
+    public function saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $email, $productIds, $price)
     {
         // Validate and sanitize the input data
         $firstname = filter_var($firstname, FILTER_SANITIZE_STRING);
@@ -747,30 +773,30 @@ class Order
         $address = filter_var($address, FILTER_SANITIZE_STRING);
         $city = filter_var($city, FILTER_SANITIZE_STRING);
         $postalcode = filter_var($postalcode, FILTER_SANITIZE_STRING);
-        $country = filter_var($country, FILTER_SANITIZE_STRING);
         $state = filter_var($state, FILTER_SANITIZE_STRING);
 
-        // Insert the order details into the order_details table
-        $sql = "INSERT INTO order_details (firstname, lastname, address, city, postalcode, country, state, order_id, email, prod_id, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(1, $firstname);
-        $stmt->bindParam(2, $lastname);
-        $stmt->bindParam(3, $address);
-        $stmt->bindParam(4, $city);
-        $stmt->bindParam(5, $postalcode);
-        $stmt->bindParam(6, $country);
-        $stmt->bindParam(7, $state);
-        $stmt->bindParam(8, $order);
-        $stmt->bindParam(9, $email);
-        $stmt->bindParam(10, $prod_id);
-        $stmt->bindParam(11, $price);
+        // Convert the comma-separated values of $productIds to an array
+        $productIdsArray = explode(',', $productIds);
 
-        if ($stmt->execute()) {
-            // Order saved successfully
-            return true;
-        } else {
-            // Error occurred while saving the order
-            echo "Error: " . $stmt->errorInfo()[2];
+        // Insert the order details into the order_details table for each product ID
+        foreach ($productIdsArray as $productId) {
+            $sql = "INSERT INTO order_details (firstname, lastname, address, city, postalcode, state, order_id, email, prod_id, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(1, $firstname);
+            $stmt->bindParam(2, $lastname);
+            $stmt->bindParam(3, $address);
+            $stmt->bindParam(4, $city);
+            $stmt->bindParam(5, $postalcode);
+            $stmt->bindParam(6, $state);
+            $stmt->bindParam(7, $order);
+            $stmt->bindParam(8, $email);
+            $stmt->bindParam(9, $productId);
+            $stmt->bindParam(10, $price);
+            if (!$stmt->execute()) {
+                // Error occurred while saving the order
+                echo "Error: " . $stmt->errorInfo()[2];
+                return false;
+            }
         }
     }
     public function getOrderDetails()
@@ -790,6 +816,16 @@ class Order
         $sql = "SELECT * FROM order_details WHERE email = :email";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':email', $id);
+        $stmt->execute();
+        $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $orderDetails;
+    }
+    public function getOrderDetailsbyOrderID($id)
+    {
+        $orderDetails = array();
+        $sql = "SELECT * FROM order_details WHERE order_id = :order_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':order_id', $id);
         $stmt->execute();
         $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $orderDetails;
@@ -821,4 +857,42 @@ class Order
     }
 }
 
+class Cart
+{
+    private $conn;
+
+    public function __construct($conn)
+    {
+        $this->conn = $conn;
+    }
+
+    public function addToCart($productId, $price, $email, $StamPrice)
+    {
+        // Prepare the SQL statement
+        $sql = "INSERT INTO cart (product_id, price, email,stamp_price) VALUES (?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+
+        // Bind the parameters
+        $stmt->bindParam(1, $productId);
+        $stmt->bindParam(2, $price);
+        $stmt->bindParam(3, $email);
+        $stmt->bindParam(4, $StamPrice);
+
+        // Execute the statement
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function getCartDetails($email)
+    {
+        $sql = "SELECT * FROM cart WHERE email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $cartDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $cartDetails;
+    }
+}
 ?>

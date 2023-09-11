@@ -8,6 +8,8 @@ ini_set('display_errors', 1);
 include 'config/config.php';
 $product = new Product($conn);
 $products = $product->getProduct();
+$mainCategoryObj = new MainCategory($conn);
+$mainCategories = $mainCategoryObj->getMainCategories();
 ?>
 <?php
 $productsPerPage = 12;
@@ -68,10 +70,10 @@ $displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 									<option selected disabled>Select</option>
 									<option value="all">All</option>
 									<?php
-									foreach ($products as $allproduct) {
+									foreach ($mainCategories as $mainCategory) {
 										?>
-										<option value="<?php echo $allproduct['main_category']; ?>">
-											<?php echo $allproduct['main_category']; ?>
+										<option value="<?php echo $mainCategory['name']; ?>">
+											<?php echo $mainCategory['name']; ?>
 										</option>
 										<?php
 									}

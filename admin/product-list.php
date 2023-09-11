@@ -67,8 +67,14 @@ if (isset($_GET['error'])) {
 								<tbody>
 									<?php foreach ($products as $product) { ?>
 										<tr>
-											<td><img class="tbl-thumb" src="upload/<?php echo $product['image']; ?>"
-													alt="Product Image" /></td>
+											<?php
+											$productbestimage = new Product($conn);
+											$productId = $product['id'];
+											$productImagesbest = $productbestimage->getProductImage($productId);
+											?>
+											<td><img class="tbl-thumb" src="upload/<?php echo $productImagesbest[0]; ?>"
+													alt="Product Image" />
+											</td>
 											<td>
 												<?php echo $product['prod_name']; ?>
 											</td>

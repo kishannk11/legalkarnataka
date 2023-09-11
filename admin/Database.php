@@ -222,6 +222,17 @@ class SubCategory
             return false;
         }
     }
+    public function deleteSub($Id)
+    {
+        $stmt = $this->conn->prepare("DELETE FROM sub_category WHERE id = ?");
+        $stmt->bindParam(1, $Id);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 class Product

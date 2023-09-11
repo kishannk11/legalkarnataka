@@ -92,7 +92,7 @@ if (isset($_GET['error'])) {
 
 									</div>
 									<div class="mb-3">
-										<label class="form-label">GST</label>
+										<label class="form-label">Price</label>
 										<input type="text" class="form-control" name="price">
 									</div>
 							</div>

@@ -29,7 +29,7 @@ $orderDetails = $orderDetailsObj->getOrderDetails();
 									<tr>
 										<th>SL No</th>
 										<th>Order ID</th>
-										<th>Product</th>
+
 										<th>Product Name</th>
 
 										<th>Price</th>
@@ -45,7 +45,6 @@ $orderDetails = $orderDetailsObj->getOrderDetails();
 									foreach ($orderDetails as $order):
 										$productObj = new Product($conn);
 										$products = $productObj->getProductwithId($order['prod_id']);
-										//print_r($products);
 										foreach ($products as $proddata):
 											?>
 											<tr>
@@ -55,14 +54,11 @@ $orderDetails = $orderDetailsObj->getOrderDetails();
 												<td>
 													<?php echo $order['order_id']; ?>
 												</td>
-
-												<td><img class="product-img tbl-img"
-														src="upload/<?php echo $proddata['image']; ?>" alt="product"></td>
 												<td>
 													<?php echo $proddata['prod_name']; ?>
 												</td>
 												<td>
-													<?php echo $proddata['price']; ?>
+													<?php echo $order['price']; ?>
 												</td>
 												<td>
 													<?php
@@ -72,10 +68,14 @@ $orderDetails = $orderDetailsObj->getOrderDetails();
 													$order_file = new Order($conn);
 													$orderId = $order['order_id'];
 													$orderFiles = $order_file->getOrderFiles($orderId);
-													foreach ($orderFiles as $file) {
-														$fileName = $file['file_name'];
-														$filePath = 'upload/' . $fileName; // Update the file path accordingly
-														echo '<a href="' . $filePath . '" target="_blank">' . $fileName . '</a><br>';
+													if (empty($orderFiles)) {
+														echo "No data";
+													} else {
+														foreach ($orderFiles as $file) {
+															$fileName = $file['file_name'];
+															$filePath = 'upload/' . $fileName; // Update the file path accordingly
+															echo '<a href="' . $filePath . '" target="_blank">' . $fileName . '</a><br>';
+														}
 													}
 													?>
 												</td>
@@ -84,15 +84,15 @@ $orderDetails = $orderDetailsObj->getOrderDetails();
 													$order_preview = new Order($conn);
 													$orderId = $order['order_id'];
 													$orderpreview = $order_preview->getPreviewData($orderId);
-													//print_r($orderpreview);
-													foreach ($orderpreview as $filepreview) {
-
-														echo $filepreview['label'] . ' : ' . $filepreview['value'] . "<br>";
-														//SELECT * FROM preview_data WHERE order_id =  	483397 
+													if (empty($orderpreview)) {
+														echo "No data";
+													} else {
+														foreach ($orderpreview as $filepreview) {
+															echo $filepreview['label'] . ' : ' . $filepreview['value'] . "<br>";
+														}
 													}
 													?>
 												</td>
-
 												<td>
 													<div class="btn-group mb-1">
 														<button type="button" class="btn btn-outline-success">Info</button>
@@ -103,16 +103,15 @@ $orderDetails = $orderDetailsObj->getOrderDetails();
 															<span class="sr-only">Info</span>
 														</button>
 														<div class="dropdown-menu">
-															<a class="dropdown-item" href="#">Detail</a>
+															<a class="dropdown-item"
+																href="detail-page.php?order_id=<?php echo $order['order_id']; ?>">Detail</a>
 															<a class="dropdown-item" href="#">Track</a>
 															<a class="dropdown-item" href="#">Cancel</a>
 														</div>
 													</div>
 												</td>
-
 											</tr>
 											<?php
-
 										endforeach;
 										$slno += 1;
 									endforeach;

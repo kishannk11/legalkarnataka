@@ -385,13 +385,7 @@ function sendRegistrationEmail($firstname, $lastname, $email)
                                                                                                                                             2023
                                                                                                                                             <strong>Legal
                                                                                                                                                 Karnataka</strong>|
-                                                                                                                                            123
-                                                                                                                                            Main
-                                                                                                                                            St.
-                                                                                                                                            City,
-                                                                                                                                            State,
-                                                                                                                                            Country
-                                                                                                                                            12345</span>
+                                                                                                                                                Bangalore, Karnataka, BHARATH</span>
                                                                                                                                     </p>
                                                                                                                                 </div>
                                                                                                                             </div>

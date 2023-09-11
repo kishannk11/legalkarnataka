@@ -8,6 +8,8 @@ ini_set('display_errors', 1);
 include 'config/config.php';
 $product = new Product($conn);
 $products = $product->getProduct();
+$mainCategoryObj = new MainCategory($conn);
+$mainCategories = $mainCategoryObj->getMainCategories();
 ?>
 <?php
 $productsPerPage = 12;
@@ -68,10 +70,10 @@ $displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 									<option selected disabled>Select</option>
 									<option value="all">All</option>
 									<?php
-									foreach ($products as $allproduct) {
+									foreach ($mainCategories as $mainCategory) {
 										?>
-										<option value="<?php echo $allproduct['main_category']; ?>">
-											<?php echo $allproduct['main_category']; ?>
+										<option value="<?php echo $mainCategory['name']; ?>">
+											<?php echo $mainCategory['name']; ?>
 										</option>
 										<?php
 									}
@@ -90,6 +92,7 @@ $displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 									$productimage = new Product($conn);
 									$productId = $allproduct['id'];
 									$productImages = $productimage->getProductImage($productId);
+									//print_r($productImages);
 									?>
 									<div class="col-lg-3 col-md-4 col-sm-6 mb-4 pro-gl-content"
 										data-category="<?php echo $allproduct['main_category']; ?>">
@@ -97,16 +100,16 @@ $displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 											<div class="ec-pro-image-outer">
 												<div class="ec-pro-image">
 													<a href="product-left-sidebar.html" class="image">
-														<?php foreach ($productImages as $imageName): ?>
-															<div class="product-image">
-																<img class="main-image"
-																	src="../admin/upload/<?php echo $imageName; ?>"
-																	alt="Product" width="700" height="350" />
-																<img class="hover-image"
-																	src="../admin/upload/<?php echo $imageName; ?>"
-																	alt="Product" width="700" height="350" />
-															</div>
-														<?php endforeach; ?>
+
+														<div class="product-image">
+															<img class="main-image"
+																src="../admin/upload/<?php echo $productImages[0]; ?>"
+																alt="Product" width="700" height="350" />
+															<img class="hover-image"
+																src="../admin/upload/<?php echo $productImages[0]; ?>"
+																alt="Product" width="700" height="350" />
+														</div>
+
 													</a>
 												</div>
 											</div>
@@ -172,32 +175,7 @@ $displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 		});
 	});
 </script>
-<script>
-	var images = document.querySelectorAll('.product-image');
-	var currentIndex = 0;
 
-	function rotateImages() {
-		// Hide all images
-		for (var i = 0; i < images.length; i++) {
-			images[i].style.display = 'none';
-		}
-
-		// Show the current image
-		images[currentIndex].style.display = 'block';
-
-		// Increment the current index
-		currentIndex++;
-		if (currentIndex >= images.length) {
-			currentIndex = 0;
-		}
-
-		// Call the rotateImages function again after a certain time interval (e.g., 3 seconds)
-		setTimeout(rotateImages, 3000);
-	}
-
-	// Start rotating the images
-	rotateImages();
-</script>
 
 <?php
 include('footer.php');

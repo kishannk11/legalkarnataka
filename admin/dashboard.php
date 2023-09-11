@@ -46,9 +46,9 @@ require 'navbar.php';
 			</div>
 		</div>
 
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col-xl-8 col-md-12 p-b-15">
-				<!-- Sales Graph -->
+
 				<div id="user-acquisition" class="card card-default">
 					<div class="card-header">
 						<h2>Sales Report</h2>
@@ -79,52 +79,52 @@ require 'navbar.php';
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 
-			<div class="col-xl-4 col-md-12 p-b-15">
-				<!-- Doughnut Chart -->
+		<!-- <div class="col-xl-4 col-md-12 p-b-15">
+				 Doughnut Chart
 				<div class="card card-default">
 					<div class="card-header justify-content-center">
 						<h2>Orders Overview</h2>
 					</div>
 					<div class="card-body">
 						<canvas id="doChart"></canvas>
-					</div>
-					<a href="#" class="pb-5 d-block text-center text-muted"><i class="mdi mdi-download mr-2"></i>
-						Download overall report</a>
-					<div class="card-footer d-flex flex-wrap bg-white p-0">
-						<div class="col-6">
-							<div class="p-20">
-								<ul class="d-flex flex-column justify-content-between">
-									<li class="mb-2"><i class="mdi mdi-checkbox-blank-circle-outline mr-2"
-											style="color: #4c84ff"></i>Order Completed</li>
-									<li class="mb-2"><i class="mdi mdi-checkbox-blank-circle-outline mr-2"
-											style="color: #80e1c1 "></i>Order Unpaid</li>
-									<li><i class="mdi mdi-checkbox-blank-circle-outline mr-2"
-											style="color: #ff7b7b "></i>Order returned</li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-6 border-left">
-							<div class="p-20">
-								<ul class="d-flex flex-column justify-content-between">
-									<li class="mb-2"><i class="mdi mdi-checkbox-blank-circle-outline mr-2"
-											style="color: #8061ef"></i>Order Pending</li>
-									<li class="mb-2"><i class="mdi mdi-checkbox-blank-circle-outline mr-2"
-											style="color: #ffa128"></i>Order Canceled</li>
-									<li><i class="mdi mdi-checkbox-blank-circle-outline mr-2"
-											style="color: #7be6ff"></i>Order Broken</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+					</div> -->
+		<!-- <a href="#" class="pb-5 d-block text-center text-muted"><i class="mdi mdi-download mr-2"></i>
+			Download overall report</a>
+		<div class="card-footer d-flex flex-wrap bg-white p-0">
+			<div class="col-6">
+				<div class="p-20">
+					<ul class="d-flex flex-column justify-content-between">
+						<li class="mb-2"><i class="mdi mdi-checkbox-blank-circle-outline mr-2"
+								style="color: #4c84ff"></i>Order Completed</li>
+						<li class="mb-2"><i class="mdi mdi-checkbox-blank-circle-outline mr-2"
+								style="color: #80e1c1 "></i>Order Unpaid</li>
+						<li><i class="mdi mdi-checkbox-blank-circle-outline mr-2" style="color: #ff7b7b "></i>Order
+							returned</li>
+					</ul>
 				</div>
+			</div> -->
+		<!-- <div class="col-6 border-left">
+			<div class="p-20">
+				<ul class="d-flex flex-column justify-content-between">
+					<li class="mb-2"><i class="mdi mdi-checkbox-blank-circle-outline mr-2"
+							style="color: #8061ef"></i>Order Pending</li>
+					<li class="mb-2"><i class="mdi mdi-checkbox-blank-circle-outline mr-2"
+							style="color: #ffa128"></i>Order Canceled</li>
+					<li><i class="mdi mdi-checkbox-blank-circle-outline mr-2" style="color: #7be6ff"></i>Order
+						Broken</li>
+				</ul>
 			</div>
 		</div>
+	</div>
+</div>
+</div>
+</div> -->
 
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col-xl-8 col-md-12 p-b-15">
-				<!-- User activity statistics -->
+
 				<div class="card card-default" id="user-activity">
 					<div class="no-gutters">
 						<div>
@@ -165,7 +165,7 @@ require 'navbar.php';
 
 		<div class="row">
 			<div class="col-xl-8 col-12 p-b-15">
-				<!-- World Chart -->
+
 				<div class="card card-default" id="analytics-country">
 					<div class="card-header justify-content-between">
 						<h2>Purchased by Country coming soon</h2>
@@ -196,7 +196,7 @@ require 'navbar.php';
 				</div>
 			</div>
 			<div class="col-xl-4 col-12 p-b-15">
-				<!-- Top Sell Table -->
+
 				<div class="card card-default Sold-card-table">
 					<div class="card-header justify-content-between">
 						<h2>Sold by Items</h2>
@@ -234,11 +234,11 @@ require 'navbar.php';
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<div class="row">
 			<div class="col-12 p-b-15">
-				<!-- Recent Order Table -->
+
 				<div class="card card-table-border-none card-default recent-orders" id="recent-orders">
 					<div class="card-header justify-content-between">
 						<h2>Recent Orders</h2>
@@ -260,7 +260,7 @@ require 'navbar.php';
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
+								<!-- <tr>
 									<td>24541</td>
 									<td>
 										<a class="text-dark" href=""> Test Data</a>
@@ -286,7 +286,7 @@ require 'navbar.php';
 											</ul>
 										</div>
 									</td>
-								</tr>
+								</tr> -->
 
 							</tbody>
 						</table>
@@ -321,7 +321,7 @@ require 'navbar.php';
 					<div class="card-body pt-0 pb-15px">
 						<table class="table ">
 							<tbody>
-								<tr>
+								<!-- <tr>
 									<td>
 										<div class="media">
 											<div class="media-image mr-3 rounded-circle">
@@ -339,7 +339,7 @@ require 'navbar.php';
 									</td>
 									<td>2 Orders</td>
 									<td class="text-dark d-none d-md-block">150</td>
-								</tr>
+								</tr> -->
 
 							</tbody>
 						</table>
@@ -368,7 +368,7 @@ require 'navbar.php';
 							</div>
 						</div>
 					</div>
-					<div class="card-body mt-10px mb-10px py-0">
+					<!-- <div class="card-body mt-10px mb-10px py-0">
 						<div class="row media d-flex pt-15px pb-15px">
 							<div class="col-lg-3 col-md-3 col-2 media-image align-self-center rounded">
 								<a href="#"><img src="assets/img/products/p1.jpg" alt="customer image"></a>
@@ -386,7 +386,7 @@ require 'navbar.php';
 							</div>
 						</div>
 
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>

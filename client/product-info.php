@@ -65,21 +65,34 @@ if (!isset($_SESSION['order_id'])) {
                             <div class="row">
                                 <div class="single-pro-img">
                                     <div class="single-product-scroll">
-                                        <div class="single-product-cover">
-                                            <div class="single-slide zoom-image-hover">
-                                                <?php
-                                                $productimage = new Product($conn);
-                                                $productId = $products[0]['id'];
+                                        <div class="single-product-scroll">
+                                            <?php
+                                            $productimage = new Product($conn);
+                                            $productId = $products[0]['id'];
 
-                                                $productImages = $productimage->getProductImage($productId);
+                                            $productImages = $productimage->getProductImage($productId);
 
-                                                ?>
-                                                <div class="image-container">
-                                                    <?php foreach ($productImages as $imageName): ?>
-                                                        <img class="img-responsive product-image"
-                                                            src="../admin/upload/<?php echo $imageName; ?>" alt="">
-                                                    <?php endforeach; ?>
+                                            ?>
+                                            <a class="ec-header-btn ec-header-wishlist ec-video-icon"
+                                                data-link-action="quickview" title="Product Player"
+                                                data-bs-toggle="modal" data-bs-target="#ec_product_player_modal">
+                                                <div class="header-icon"><i class="fi-rr-video-camera-alt"></i></div>
+                                            </a>
+                                            <div class="single-product-cover">
+                                            <?php foreach ($productImages as $imageName): ?>
+                                                <div class="single-slide zoom-image-hover">
+                                                    <img class="img-responsive" src="../admin/upload/<?php echo $imageName;?>"
+                                                        alt="">
                                                 </div>
+                                                <?php endforeach; ?>
+                                            </div>
+                                            <div class="single-nav-thumb">
+                                                <?php foreach ($productImages as $imageName): ?>
+                                                    <div class="single-slide">
+                                                        <img class="img-responsive" src="../admin/upload/<?php echo $imageName;?>"
+                                                            alt="">
+                                                    </div>
+                                                <?php endforeach; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -106,21 +119,28 @@ if (!isset($_SESSION['order_id'])) {
 
                                         </div>
                                         <div class="ec-single-desc">
+                                        
                                             <form method="POST" action="add-to-cart.php">
-                                                <div id="displayPrice">
+                                                <div id="display">
                                                     <b><label class="form-label">Stamp Paper Price</label></b>
                                                     <input type="text" class="form-control" name="price"
                                                         id="displayPrice1" readonly>
                                                 </div>
                                                 &nbsp;
                                                 &nbsp;
+                                                <div class="mb-3">
+                                        <label class="form-label">Additional Files</label>
+                                        <input type="file" class="form-control" name="files[]" id="fileInput" multiple>
+                                    </div>
                                                 <div class="ec-single-cart">
                                                     <div class="button-group">
                                                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                                                         <button class="btn btn-primary" name="submit" type="submit">Add
                                                             to
                                                             cart</button>
+                                                            
                                                     </div>
+                                                    
                                                 </div>
                                             </form>
                                             &nbsp;
@@ -128,12 +148,10 @@ if (!isset($_SESSION['order_id'])) {
                                             <div class="button-group">
                                                 <button class="btn btn-primary" id="previewButton">Preview</button>
                                             </div>
+                                            
                                         </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Additional Files</label>
-                                        <input type="file" class="form-control" name="files[]" id="fileInput" multiple>
-                                    </div>
+                                    
 
                                 </div>
 
@@ -205,7 +223,7 @@ if (!isset($_SESSION['order_id'])) {
             inputElements.forEach(function (input) {
                 label = input.previousElementSibling.textContent;
                 value = input.value;
-                previewContent += '<p>' + label + ': ' + value + '</p>';
+                previewContent += '<p>' + label + ' -  ' + value + '</p>';
                 data.push({
                     label: label,
                     value: value
@@ -214,7 +232,7 @@ if (!isset($_SESSION['order_id'])) {
             // Create a Fabric.js canvas instance 
             var canvas = new fabric.Canvas('canvas');
             // Load the user-defined image 
-            image = new fabric.Image.fromURL('assets/images/image-write/preview.png', function (img) {
+            image = new fabric.Image.fromURL('assets/images/image-write/preview.jpeg', function (img) {
                 // Set the dimensions of the canvas to match the image 
                 canvas.setWidth(img.width);
                 canvas.setHeight(img.height);
@@ -223,17 +241,18 @@ if (!isset($_SESSION['order_id'])) {
                 // Set the font style for the text 
                 var textOptions = {
                     fontFamily: 'Arial',
-                    fontSize: 35,
+                    fontSize: 23,
                     fill: 'black',
                     textAlign: 'left', // Align the text to the left 
                     editable: false,
+                    fontWeight: 'bold',
                 };
                 // Write the preview content on the canvas 
                 var lines = previewContent.split('<p>');
                 lines.shift(); // Remove the first empty line 
-                var lineHeight = 40; // Adjust the line height as needed 
-                var startX = 100; // Set the X position for left alignment 
-                var startY = 330; // Set the Y position for top alignment 
+                var lineHeight = 45; // Adjust the line height as needed 
+                var startX = 157; // Set the X position for left alignment 
+                var startY = 560; // Set the Y position for top alignment 
                 lines.forEach(function (line, index) {
                     var y = startY + (index * lineHeight);
                     var text = new fabric.Text(line.replace('</p>', ''), {
@@ -349,9 +368,11 @@ if (!isset($_SESSION['order_id'])) {
 </script>
 <script>
     var stampPriceElement = document.getElementById('stampPrice');
-    var displayPriceElement = document.getElementById('displayPrice');
+    var displayPriceElement = document.getElementById('displayPrice1');
+    var display = document.getElementById('display');
     if (!stampPriceElement) {
         displayPriceElement.style.display = 'none';
+        display.style.display = 'none';
         document.getElementById('displayPrice1').value = ''; // Set empty value
     } else {
         stampPriceElement.addEventListener('input', function () {
@@ -360,6 +381,7 @@ if (!isset($_SESSION['order_id'])) {
         });
     }
 </script>
+
 <?php
 include('footer.php');
 ?>

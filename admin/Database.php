@@ -644,6 +644,16 @@ class User
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user;
     }
+
+    public function getUserByEmail($phone)
+    {
+        $sql = "SELECT * FROM users WHERE email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':email', $phone);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user;
+    }
     public function deleteUser($usertId)
     {
         $stmt = $this->conn->prepare("DELETE FROM users WHERE id = ?");
@@ -768,12 +778,12 @@ class Order
     public function saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $email, $productIds, $price)
     {
         // Validate and sanitize the input data
-        $firstname = filter_var($firstname, FILTER_SANITIZE_STRING);
-        $lastname = filter_var($lastname, FILTER_SANITIZE_STRING);
-        $address = filter_var($address, FILTER_SANITIZE_STRING);
-        $city = filter_var($city, FILTER_SANITIZE_STRING);
-        $postalcode = filter_var($postalcode, FILTER_SANITIZE_STRING);
-        $state = filter_var($state, FILTER_SANITIZE_STRING);
+        $firstname = filter_var($firstname, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $lastname = filter_var($lastname, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $address = filter_var($address, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $city = filter_var($city, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $postalcode = filter_var($postalcode, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $state = filter_var($state, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         // Convert the comma-separated values of $productIds to an array
         $productIdsArray = explode(',', $productIds);
@@ -855,6 +865,44 @@ class Order
 
         return $orderDetails;
     }
+    public function savePdfToDb($order_id, $email, $pdf_name)
+    {
+        $sql = "INSERT INTO pdf_details (order_id, email, pdf_name) VALUES (?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+
+        // Bind the parameters and execute the statement
+        $stmt->bindValue(1, $order_id);
+        $stmt->bindValue(2, $email);
+        $stmt->bindValue(3, $pdf_name);
+
+        $stmt->execute();
+    }
+    function saveSoftcopy($orderId, $email, $file)
+    {
+
+        if ($file['error'] === UPLOAD_ERR_OK) {
+            $fileName = $file['name'];
+            $fileTmpPath = $file['tmp_name'];
+
+            $uploadDir = 'upload/';
+            $uploadPath = $uploadDir . $fileName;
+
+            if (move_uploaded_file($fileTmpPath, $uploadPath)) {
+                $sql = "INSERT INTO softcopy (orderid, email, filename) VALUES (?, ?, ?)";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->bindValue(1, $orderId);
+                $stmt->bindValue(2, $email);
+                $stmt->bindValue(3, $fileName);
+                $stmt->execute();
+
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }
 
 class Cart
@@ -893,6 +941,18 @@ class Cart
         $stmt->execute();
         $cartDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $cartDetails;
+    }
+    public function removeAllCartItems()
+    {
+        $sql = "DELETE FROM cart";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        // Optional: Check if the delete operation was successful
+        if ($stmt->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 ?>

@@ -74,19 +74,22 @@ if (isset($_GET['error'])) {
                                     <div class="mb-3">
                                         <label class="form-label">Product Name</label>
                                         <input type="text" class="form-control" name="prod_name"
-                                            value="<?php echo $prodinfo[0]['prod_name']; ?>">
+                                            value="<?php echo htmlspecialchars($prodinfo[0]['prod_name'], ENT_QUOTES, 'UTF-8'); ?>">
+                                        <input type="hidden" class="form-control" name="prod_id"
+                                            value="<?php echo htmlspecialchars($id, ENT_QUOTES, 'UTF-8'); ?>">
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Select Categories</label>
                                         <select name="categories" id="Categories" class="form-select">
                                             <?php foreach ($categories as $category): ?>
-                                                <optgroup label="<?php echo $category; ?>">
+                                                <optgroup
+                                                    label="<?php echo htmlspecialchars($category, ENT_QUOTES, 'UTF-8'); ?>">
                                                     <?php
                                                     $subCategoryStmt->bindParam(':category', $category);
                                                     $subCategoryStmt->execute();
                                                     $subCategories = $subCategoryStmt->fetchAll(PDO::FETCH_COLUMN);
                                                     foreach ($subCategories as $subCategory) {
-                                                        echo "<option value=\"$subCategory\">$subCategory</option>";
+                                                        echo "<option value=\"" . htmlspecialchars($subCategory, ENT_QUOTES, 'UTF-8') . "\">" . htmlspecialchars($subCategory, ENT_QUOTES, 'UTF-8') . "</option>";
                                                     }
                                                     ?>
                                                 </optgroup>
@@ -96,7 +99,7 @@ if (isset($_GET['error'])) {
                                     <div class="mb-3">
                                         <label class="form-label">Price</label>
                                         <input type="text" class="form-control" name="price"
-                                            value="<?php echo $prodinfo[0]['price']; ?>">
+                                            value="<?php echo htmlspecialchars($prodinfo[0]['price'], ENT_QUOTES, 'UTF-8'); ?>">
                                     </div>
                             </div>
                         </div>
@@ -104,19 +107,23 @@ if (isset($_GET['error'])) {
                             <div class="mb-3">
                                 <label class="form-label">Full Detail</label>
                                 <textarea class="form-control" name="details"
-                                    rows="4"><?php echo $prodinfo[0]['details']; ?></textarea>
+                                    rows="4"><?php echo htmlspecialchars($prodinfo[0]['details'], ENT_QUOTES, 'UTF-8'); ?></textarea>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Image</label>
-                                <input type="file" class="form-control" name="image">
+                                <label class="form-label">Full Detail</label>
+                                <textarea class="form-control" name="additionalfiles"
+                                    rows="4"><?php echo htmlspecialchars($prodinfo[0]['additionalfiles'], ENT_QUOTES, 'UTF-8'); ?></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Images</label>
+                                <input type="file" class="form-control" name="images[]" multiple>
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
+
                     </form>
                 </div>
             </div>

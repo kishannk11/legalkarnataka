@@ -65,7 +65,7 @@ $orderDetails = $orderDetailsObj->getOrderDetailsbyID($email);
                                     foreach ($orderDetails as $order):
                                         $productObj = new Product($conn);
                                         $products = $productObj->getProductwithId($order['prod_id']);
-                                        // print_r($products);
+                                        //print_r($products);
                                         foreach ($products as $proddata):
                                             if ($currentOrderID != $order['order_id']) {
                                                 // Display a new row for a different order ID
@@ -107,7 +107,7 @@ $orderDetails = $orderDetailsObj->getOrderDetailsbyID($email);
                                         echo '<th scope="row"></th>';
                                         echo '<th scope="row"></th>';
                                         echo '<td><b>Total Price</b></td>';
-                                        echo '<td>' . $orderDetails[$slno - 1]['price'] . '</td>';
+                                        // echo '<td>' . $orderDetails['price'] . '</td>';
                                         echo '</tr>';
                                     }
                                     ?>

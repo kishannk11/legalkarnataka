@@ -38,7 +38,7 @@ if (isset($_GET['order_id'])) {
     $orderid = $_GET['order_id'];
     $email = $_SESSION['email'];
     $orderDetailsObj = new Order($conn);
-    $orderDetails = $orderDetailsObj->getOrderDetailsbyOrderID($orderid);
+    $orderDetails = $orderDetailsObj->getOrderDetailsbyOrderID($orderid, $email);
     // print_r($orderDetails);
 }
 ?>
@@ -81,13 +81,15 @@ if (isset($_GET['order_id'])) {
                                             <tr>
 
                                                 <td>
-                                                    <?php echo $order['order_id']; ?>
+                                                    <?php echo htmlspecialchars($order['order_id'], ENT_QUOTES, 'UTF-8'); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $proddata['prod_name']; ?>
+                                                    <?php echo htmlspecialchars($proddata['prod_name'], ENT_QUOTES, 'UTF-8'); ?>
+
                                                 </td>
                                                 <td>
-                                                    <?php echo $order['price']; ?>
+                                                    <?php echo htmlspecialchars($order['price'], ENT_QUOTES, 'UTF-8'); ?>
+
                                                 </td>
                                                 <td>
                                                     <?php
@@ -102,8 +104,8 @@ if (isset($_GET['order_id'])) {
                                                     } else {
                                                         foreach ($orderFiles as $file) {
                                                             $fileName = $file['file_name'];
-                                                            $filePath = 'upload/' . $fileName; // Update the file path accordingly
-                                                            echo '<a href="' . $filePath . '" target="_blank">' . $fileName . '</a><br>';
+                                                            $filePath = 'upload/' . htmlspecialchars($fileName, ENT_QUOTES, 'UTF-8'); // Update the file path accordingly
+                                                            echo '<a href="' . $filePath . '" target="_blank">' . htmlspecialchars($fileName, ENT_QUOTES, 'UTF-8') . '</a><br>';
                                                         }
                                                     }
                                                     ?>
@@ -117,7 +119,9 @@ if (isset($_GET['order_id'])) {
                                                         echo "No data";
                                                     } else {
                                                         foreach ($orderpreview as $filepreview) {
-                                                            echo $filepreview['label'] . ' : ' . $filepreview['value'] . "<br>";
+                                                            $label = htmlspecialchars($filepreview['label'], ENT_QUOTES, 'UTF-8');
+                                                            $value = htmlspecialchars($filepreview['value'], ENT_QUOTES, 'UTF-8');
+                                                            echo $label . ' : ' . $value . "<br>";
                                                         }
                                                     }
                                                     ?>
@@ -175,18 +179,18 @@ if (isset($_GET['order_id'])) {
                                         <tr>
 
                                             <td>
-                                                <?php echo $order['firstname']; ?>
-                                                <?php echo $order['lastname']; ?>
+                                                <?php echo htmlspecialchars($order['firstname'], ENT_QUOTES, 'UTF-8'); ?>
+                                                <?php echo htmlspecialchars($order['lastname'], ENT_QUOTES, 'UTF-8'); ?>
                                             </td>
                                             <td>
-                                                <?php echo $order['email']; ?>
+                                                <?php echo htmlspecialchars($order['email'], ENT_QUOTES, 'UTF-8'); ?>
                                             </td>
                                             <td>
-                                                <?php echo $order['address']; ?>
-                                                <?php echo $order['city']; ?>
+                                                <?php echo htmlspecialchars($order['address'], ENT_QUOTES, 'UTF-8'); ?>
+                                                <?php echo htmlspecialchars($order['city'], ENT_QUOTES, 'UTF-8'); ?>
 
-                                                <?php echo $order['postalcode']; ?>
-                                                <?php echo $order['state']; ?>
+                                                <?php echo htmlspecialchars($order['postalcode'], ENT_QUOTES, 'UTF-8'); ?>
+                                                <?php echo htmlspecialchars($order['state'], ENT_QUOTES, 'UTF-8'); ?>
                                             </td>
                                             <td>
                                                 <?php
@@ -198,7 +202,7 @@ if (isset($_GET['order_id'])) {
                                             
                                                 ?>
 
-                                                <?php echo $userinfo['phonenumber']; ?>
+                                                <?php echo htmlspecialchars($userinfo['phonenumber'], ENT_QUOTES, 'UTF-8'); ?>
 
                                             </td>
 
@@ -233,9 +237,9 @@ if (isset($_GET['order_id'])) {
                             <div class="mb-3">
                                 <label class="form-label">Image</label>
                                 <input type="hidden" class="form-control" name="orderid"
-                                    value="<?php echo $order['order_id']; ?>">
+                                    value="<?php echo htmlspecialchars($order['order_id'], ENT_QUOTES, 'UTF-8'); ?>">
                                 <input type="hidden" class="form-control" name="email"
-                                    value="<?php echo $order['email'] ?>">
+                                    value="<?php echo htmlspecialchars($order['email'], ENT_QUOTES, 'UTF-8'); ?>">
                                 <input type="file" class="form-control" name="image">
                             </div>
                             <div class="col-md-6">

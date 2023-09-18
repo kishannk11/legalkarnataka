@@ -78,9 +78,11 @@ $categories = $mainCategoryObj->getMainCategories();
                                 <div class="form-group row">
                                     <label for="text" class="col-12 col-form-label">Name</label>
                                     <div class="col-12">
-                                        <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                        <input type="hidden" name="id"
+                                            value="<?php echo htmlspecialchars($id, ENT_QUOTES, 'UTF-8'); ?>">
                                         <input id="text" name="sub_category" class="form-control here slug-title"
-                                            type="text" value="<?php echo $subCategory[0]['name']; ?>">
+                                            type="text"
+                                            value="<?php echo htmlspecialchars($subCategory[0]['name'], ENT_QUOTES, 'UTF-8'); ?>">
                                     </div>
                                 </div>
                                 <div class="row">

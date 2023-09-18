@@ -5,28 +5,11 @@ error_reporting(E_ALL);
 session_start();
 include 'config/config.php';
 include '../admin/Database.php';
-include 'order-mail.php';
 $orderObj = new Order($conn);
 $cartObj = new Cart($conn);
 $productObj = new Product($conn);
 $userObj = new User($conn);
-$cartDetails = $cartObj->getCartDetails($_SESSION['email']);
-$userinfo = $userObj->getUserInfo($_SESSION['id']);
-$total = 0;
-$productIds = []; // Array to store the product_ids
-foreach ($cartDetails as $cartItem) {
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-    $product = $productObj->getProductwithId($cartItem['product_id']);
-    $total += $product[0]['price'] + $cartItem['stamp_price'];
-    $productIds[] = $cartItem['product_id'];
-}
-$deliveryCharge = 50;
-$gstPercentage = 18;
-$totalWithDelivery = $total + $deliveryCharge;
-$gstAmount = ($totalWithDelivery * $gstPercentage) / 100;
-$price = $totalWithDelivery + $gstAmount;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
@@ -36,6 +19,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $state = $_POST['state'];
     $order = $_SESSION['order_id'];
     $user_email = $_SESSION['email'];
+    $shippingMethod = $_POST['radio-group'];
+    $cartDetails = $cartObj->getCartDetails($_SESSION['email']);
+    $userinfo = $userObj->getUserInfo($_SESSION['id']);
+    $total = 0;
+    $productIds = []; // Array to store the product_ids
+    $stampPrices = [];
+    $commissions = [];
+    foreach ($cartDetails as $cartItem) {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+        $product = $productObj->getProductwithId($cartItem['product_id']);
+
+        $stampPrice = $cartItem['stamp_price'];
+        $commission = '0'; // Default commission value
+
+        // Add commission for stamp paper prices based on the table
+        if ($stampPrice > 0) {
+            if ($stampPrice <= 20) {
+                $commission = 10;
+            } elseif ($stampPrice <= 50) {
+                $commission = 10;
+            } elseif ($stampPrice <= 100) {
+                $commission = 10;
+            } elseif ($stampPrice <= 150) {
+                $commission = 20;
+            } elseif ($stampPrice <= 200) {
+                $commission = 20;
+            } elseif ($stampPrice <= 300) {
+                $commission = 20;
+            } elseif ($stampPrice <= 500) {
+                $commission = 30;
+            } elseif ($stampPrice <= 1000) {
+                $commission = 50;
+            } elseif ($stampPrice > 1000) {
+                $commission = 100;
+            }
+            $commission += ($commission * 5) / 100; // Add 5% GST to the commission
+        }
+
+        $total += $product[0]['price'] + $stampPrice + $commission;
+        //$total += $product[0]['price'] + $cartItem['stamp_price'];
+        $productIds[] = $cartItem['product_id'];
+        $stampPrices[] = $stampPrice;
+        $commissions[] = $commission;
+    }
+    //echo $total;
+    if ($shippingMethod === '1') {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'http://localhost/legalkarnataka/client/deliverycharge.php');
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array('pincode' => $postalcode)));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $deliveryCharge = curl_exec($ch);
+        curl_close($ch);
+    } else {
+        $deliveryCharge = 50;
+    }
+    // echo $deliveryCharge;
+    //$deliveryCharge = $shippingMethod === '1' ? 10 : 50;
+    $gstPercentage = 18;
+    $totalWithDelivery = $total + $deliveryCharge;
+    $gstAmount = ($total * $gstPercentage) / 100;
+    $price = $totalWithDelivery + $gstAmount;
+    //echo $price;
+
+    $stampPriceValue = implode(',', $stampPrices);
+    $commissionValue = implode(',', $commissions);
 
     // Set your PayU credentials
     $merchantKey = "vfiulB";
@@ -49,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $udf1 = implode(',', $productIds);
     // print_r($udf1); // Convert the array of product_ids to a comma-separated string
     $udf2 = $order;
-    $udf3 = "";
+    $udf3 = $deliveryCharge;
     $udf4 = "";
     $udf5 = "";
 
@@ -159,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     curl_setopt($shipmentCh, CURLOPT_POSTFIELDS, $payload);
 
     $shipmentResponse = curl_exec($shipmentCh);
-    echo $shipmentResponse;
+    //echo $shipmentResponse;
     if ($shipmentResponse === false) {
         die('Error: ' . curl_error($shipmentCh));
     }
@@ -200,15 +251,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "hash" => $hash,
     ];
 
-    // print_r($data['udf1']);
-    // Save order details to the database
-    $orderObj->saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $user_email, $udf1, $price); // Pass the array of product_ids
-    sendOrderEmail($firstname, $lastname, $user_email, $table);
+    //echo $commissionValue;
+    //echo $stampPriceValue;
+    //print_r($data['udf1']);
+    //Save order details to the database
+    $orderObj->saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $user_email, $udf1, $price, $deliveryCharge, $gstAmount, $stampPriceValue, $commissionValue); // Pass the array of product_ids
+
 
     // Create a form to submit payment data to PayU
     echo '<form method="post" action="' . $baseUrl . '" name="payuForm" id="payuForm">';
     foreach ($data as $key => $value) {
-        echo '<input type="text" name="' . $key . '" value="' . $value . '">';
+        echo '<input type="hidden" name="' . htmlspecialchars($key, ENT_QUOTES, 'UTF-8') . '" value="' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8') . '">';
     }
     echo '</form>';
 

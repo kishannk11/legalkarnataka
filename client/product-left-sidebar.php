@@ -168,7 +168,7 @@ if (!isset($_SESSION['order_id'])) {
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">
                                     <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-details"
-                                        role="tablist">Detail</a>
+                                        role="tablist">Additional Files Required</a>
                                 </li>
 
                                 <!-- <li class="nav-item">
@@ -179,14 +179,20 @@ if (!isset($_SESSION['order_id'])) {
                         </div>
                         <div class="tab-content  ec-single-pro-tab-content">
                             <div id="ec-spt-nav-details" class="tab-pane fade show active">
-                                <div class="ec-single-pro-tab-desc">
-                                    <p>
-                                        <?php echo $products[0]['details'] ?>
-                                    </p>
-                                    <ul>
-                                        <li></li>
+                            <div class="ec-single-pro-tab-desc">
+                                <p>
 
-                                </div>
+                                </p>
+                                <ul>
+                                <?php
+                                    $details = explode("\n", $products[0]['additionalfiles']);
+                                    foreach ($details as $detail) {
+                                        echo '<li>' . $detail . '</li>';
+                                    }
+                                    ?>
+                                </ul>
+
+                            </div>
                             </div>
 
 

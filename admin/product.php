@@ -13,14 +13,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $price = $_POST['price'];
     $details = $_POST['details'];
     $image = $_FILES['image'];
-    print_r($image);
+    $additionalfiles = $_POST['additionalfiles']; // Get the additional files from the form data
+    //print_r($image);
     // Split the categories value to extract the optgroup and selected values
     $categoryValues = explode('|', $categories);
     $optgroup = $categoryValues[0];
     $selectedValue = $categoryValues[1];
 
     // Save the product and handle any errors
-    $result = $product->saveProduct($prod_name, $selectedValue, $price, $details, $image, $optgroup);
+    $result = $product->saveProduct($prod_name, $selectedValue, $price, $details, $image, $additionalfiles, $optgroup);
 
     // Redirect with error message if necessary
     if ($result === true) {

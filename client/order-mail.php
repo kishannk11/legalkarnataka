@@ -13,12 +13,108 @@ require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 session_start();
-include('config/config.php');
-$orderID = $_SESSION['order_id'];
-$cartObj = new Cart($conn);
-$productObj = new Product($conn);
-$cartDetails = $cartObj->getCartDetails($_SESSION['email']);
-$table = '<table
+
+
+echo $deliveryCharge = '';
+//sendDeliveryCharge($deliveryCharge);
+
+/* $table = '<table style="border-collapse: collapse; border: 1px solid black;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid black;">Product Name</th>
+                    <th style="border: 1px solid black;">Price</th>
+                    <th style="border: 1px solid black;">Stamp Price</th>
+                </tr>
+            </thead>
+            <tbody>';
+$total = 0;
+foreach ($cartDetails as $cartItem) {
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    $product = $productObj->getProductwithId($cartItem['product_id']);
+    $total += $product[0]['price'] + $cartItem['stamp_price'];
+    $productIds[] = $cartItem['product_id'];
+    // Add each product to the table
+    $table .= '<tr>
+                    <td style="border: 1px solid black;">' . $product[0]['prod_name'] . '</td>
+                    <td style="border: 1px solid black;">' . $product[0]['price'] . '</td>
+                    <td style="border: 1px solid black;">' . $cartItem['stamp_price'] . '</td>
+                </tr>';
+}
+$deliveryCharge = 50;
+$gstPercentage = 18;
+$totalWithDelivery = $total + $deliveryCharge;
+$gstAmount = ($totalWithDelivery * $gstPercentage) / 100;
+$price = $totalWithDelivery + $gstAmount;
+// Close the table
+$table .= '<tr>
+                <td style="border: 1px solid black;">Total GST Price</td>
+                <td style="border: 1px solid black;">' . $gstAmount . '</td>
+            </tr>
+     ';
+$table .= '<tr>
+                <td style="border: 1px solid black;">Total Delivery Price</td>
+                <td style="border: 1px solid black;">' . $deliveryCharge . '</td>
+            </tr>
+       ';
+$table .= '<tr>
+                <td style="border: 1px solid black;">Total Price</td>
+                <td style="border: 1px solid black;">' . $price . '</td>
+            </tr>
+        </tbody>
+    </table>'; */
+//echo $table;
+//$firstname = "test";
+//$lastname = "lastname";
+//$email = "ranjithchandran220@gmail.com";
+
+/* require_once('TCPDF-main/tcpdf.php');
+
+
+$pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+
+$pdf->SetCreator(PDF_CREATOR);
+$pdf->SetAuthor('Your Name');
+$pdf->SetTitle('Sample PDF');
+$pdf->SetSubject('Sample PDF');
+$pdf->SetKeywords('TCPDF, PDF, example');
+
+$pdf->setPrintHeader(false);
+$pdf->setPrintFooter(false);
+
+$pdf->AddPage();
+
+$pdf->writeHTML($table, true, false, true, false, '');
+
+// Get the order ID and email from session
+$order_id = $_SESSION['order_id'];
+$email = $_SESSION['email'];
+$pdf_name = $order_id . '.pdf';
+
+// Specify the file path to save the PDF
+$file_path = 'pdf/' . $pdf_name;
+
+// Save the PDF to the specified file path
+$pdf->Output($file_path, 'F');
+
+// Save the PDF details to the database
+$savepdfObj->savePdfToDb($order_id, $email, $pdf_name); */
+
+// Output the generated PDF to the browser
+//$dompdf->stream($pdf_name, ['Attachment' => false]);
+function sendOrderEmail($email, $deliveryCharge)
+{
+    include('config/config.php');
+    $orderID = $_SESSION['order_id'];
+    $cartObj = new Cart($conn);
+    $productObj = new Product($conn);
+    $userObj = new User($conn);
+    $cartDetails = $cartObj->getCartDetails($_SESSION['email']);
+    $user = $userObj->getUserByEmail($_SESSION['email']);
+    $firstname = $user['firstname'];
+    $lastname = $user['lastname'];
+    $table = '<table
 style="table-layout: fixed; vertical-align: top; min-width: 320px; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; width: 100%; user-select: none;"
 width="100%" cellspacing="0" cellpadding="0" bgcolor="#f5eeee">
 <tbody>
@@ -170,7 +266,7 @@ width="100%" cellspacing="0" cellpadding="0" bgcolor="#f5eeee">
                                                                                                                                 style="margin: 0; font-size: 18px; line-height: 1.8; word-break: break-word; text-align: center; mso-line-height-alt: 32px; margin-top: 0; margin-bottom: 0;">
                                                                                                                                 <span
                                                                                                                                     style="font-size: 18px;">
-                                                                                                                                    Hi   
+                                                                                                                                    Hi   ' . $firstname . ' ' . $lastname . '
                                                                                                                                     
    
                                                                                                                                     
@@ -186,38 +282,69 @@ width="100%" cellspacing="0" cellpadding="0" bgcolor="#f5eeee">
                                                                                                                                             </tr>
                                                                                                                                         </thead>
                                                                                                                                         <tbody>';
-$total = 0;
-foreach ($cartDetails as $cartItem) {
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-    $product = $productObj->getProductwithId($cartItem['product_id']);
-    $total += $product[0]['price'] + $cartItem['stamp_price'];
-    $productIds[] = $cartItem['product_id'];
-    // Add each product to the table
-    $table .= '<tr>
+    $total = 0;
+    foreach ($cartDetails as $cartItem) {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+        $product = $productObj->getProductwithId($cartItem['product_id']);
+
+        $stampPrice = $cartItem['stamp_price'];
+        $commission = 0; // Default commission value
+
+        // Add commission for stamp paper prices based on the table
+        if ($stampPrice > 0) {
+            if ($stampPrice <= 20) {
+                $commission = 10;
+            } elseif ($stampPrice <= 50) {
+                $commission = 10;
+            } elseif ($stampPrice <= 100) {
+                $commission = 10;
+            } elseif ($stampPrice <= 150) {
+                $commission = 20;
+            } elseif ($stampPrice <= 200) {
+                $commission = 20;
+            } elseif ($stampPrice <= 300) {
+                $commission = 20;
+            } elseif ($stampPrice <= 500) {
+                $commission = 30;
+            } elseif ($stampPrice <= 1000) {
+                $commission = 50;
+            } elseif ($stampPrice > 1000) {
+                $commission = 100;
+            }
+            $commission += ($commission * 5) / 100; // Add 5% GST to the commission
+        }
+
+        $total += $product[0]['price'] + $stampPrice + $commission;
+
+        //$total += $product[0]['price'] + $cartItem['stamp_price'];
+        $productIds[] = $cartItem['product_id'];
+        // Add each product to the table
+        $table .= '<tr>
                     <td style="border: 1px solid black;">' . $product[0]['prod_name'] . '</td>
                     <td style="border: 1px solid black;">' . $product[0]['price'] . '</td>
                     <td style="border: 1px solid black;">' . $cartItem['stamp_price'] . '</td>
                 </tr>';
-}
-$deliveryCharge = 50;
-$gstPercentage = 18;
-$totalWithDelivery = $total + $deliveryCharge;
-$gstAmount = ($totalWithDelivery * $gstPercentage) / 100;
-$price = $totalWithDelivery + $gstAmount;
-// Close the table
-$table .= '<tr>
+    }
+
+    //$deliveryCharge = 50;
+    $gstPercentage = 18;
+    $totalWithDelivery = $total + $deliveryCharge;
+    $gstAmount = ($total * $gstPercentage) / 100;
+    $price = $totalWithDelivery + $gstAmount;
+    // Close the table
+    $table .= '<tr>
                 <td style="border: 1px solid black;">Total GST Price</td>
                 <td style="border: 1px solid black;">' . $gstAmount . '</td>
             </tr>
      ';
-$table .= '<tr>
+    $table .= '<tr>
                 <td style="border: 1px solid black;">Total Delivery Price</td>
                 <td style="border: 1px solid black;">' . $deliveryCharge . '</td>
             </tr>
        ';
-$table .= '<tr>
+    $table .= '<tr>
                 <td style="border: 1px solid black;">Total Price</td>
                 <td style="border: 1px solid black;">' . $price . '</td>
             </tr>
@@ -227,7 +354,7 @@ $table .= '<tr>
     &nbsp;
     &nbsp;
     Thank you for ordering </br>
-                                                                                                                                    Team legal Karnataka
+                                                                                                                                    Team Legal Karnataka
                                                                                                                                 </span>
                                                                                                                             </p>
                                                                                                                             <p
@@ -332,8 +459,7 @@ $table .= '<tr>
                                                                                                                                 <span
                                                                                                                                     style="font-size: 12px;">&copy;
                                                                                                                                     2023
-                                                                                                                                    <strong>Legal
-                                                                                                                                        Karnataka</strong>|
+                                                                                                                                    <strong>legalkarnataka.com</strong>
                                                                                                                                          Bangalore, Karnataka, BHARATH
                                                                                                                                     </span>
                                                                                                                             </p>
@@ -397,95 +523,6 @@ $table .= '<tr>
     </tr>
 </tbody>
 </table>';
-/* $table = '<table style="border-collapse: collapse; border: 1px solid black;">
-            <thead>
-                <tr>
-                    <th style="border: 1px solid black;">Product Name</th>
-                    <th style="border: 1px solid black;">Price</th>
-                    <th style="border: 1px solid black;">Stamp Price</th>
-                </tr>
-            </thead>
-            <tbody>';
-$total = 0;
-foreach ($cartDetails as $cartItem) {
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-    $product = $productObj->getProductwithId($cartItem['product_id']);
-    $total += $product[0]['price'] + $cartItem['stamp_price'];
-    $productIds[] = $cartItem['product_id'];
-    // Add each product to the table
-    $table .= '<tr>
-                    <td style="border: 1px solid black;">' . $product[0]['prod_name'] . '</td>
-                    <td style="border: 1px solid black;">' . $product[0]['price'] . '</td>
-                    <td style="border: 1px solid black;">' . $cartItem['stamp_price'] . '</td>
-                </tr>';
-}
-$deliveryCharge = 50;
-$gstPercentage = 18;
-$totalWithDelivery = $total + $deliveryCharge;
-$gstAmount = ($totalWithDelivery * $gstPercentage) / 100;
-$price = $totalWithDelivery + $gstAmount;
-// Close the table
-$table .= '<tr>
-                <td style="border: 1px solid black;">Total GST Price</td>
-                <td style="border: 1px solid black;">' . $gstAmount . '</td>
-            </tr>
-     ';
-$table .= '<tr>
-                <td style="border: 1px solid black;">Total Delivery Price</td>
-                <td style="border: 1px solid black;">' . $deliveryCharge . '</td>
-            </tr>
-       ';
-$table .= '<tr>
-                <td style="border: 1px solid black;">Total Price</td>
-                <td style="border: 1px solid black;">' . $price . '</td>
-            </tr>
-        </tbody>
-    </table>'; */
-//echo $table;
-$firstname = "test";
-$lastname = "lastname";
-$email = "ranjithchandran220@gmail.com";
-
-/* require_once('TCPDF-main/tcpdf.php');
-
-
-$pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
-
-$pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('Your Name');
-$pdf->SetTitle('Sample PDF');
-$pdf->SetSubject('Sample PDF');
-$pdf->SetKeywords('TCPDF, PDF, example');
-
-$pdf->setPrintHeader(false);
-$pdf->setPrintFooter(false);
-
-$pdf->AddPage();
-
-$pdf->writeHTML($table, true, false, true, false, '');
-
-// Get the order ID and email from session
-$order_id = $_SESSION['order_id'];
-$email = $_SESSION['email'];
-$pdf_name = $order_id . '.pdf';
-
-// Specify the file path to save the PDF
-$file_path = 'pdf/' . $pdf_name;
-
-// Save the PDF to the specified file path
-$pdf->Output($file_path, 'F');
-
-// Save the PDF details to the database
-$savepdfObj->savePdfToDb($order_id, $email, $pdf_name); */
-
-// Output the generated PDF to the browser
-//$dompdf->stream($pdf_name, ['Attachment' => false]);
-function sendOrderEmail($firstname, $lastname, $email, $table)
-{
-
-
     $mail = new PHPMailer(true);
 
     try {

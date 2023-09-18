@@ -1,11 +1,17 @@
 <?php
 include 'config/session.php';
+include 'ordergen.php';
 ?>
 <?php
 include 'config/config.php';
 include '../admin/Database.php';
 $userObj = new User($conn);
 $user = $userObj->getUserInfo($_SESSION['id']);
+?>
+<?php
+$cartObj = new Cart($conn);
+$email = $_SESSION['email'];
+$cartCount = $cartObj->getCartItemCount($email);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,6 +47,13 @@ $user = $userObj->getUserInfo($_SESSION['id']);
     <!-- Main Style -->
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/responsive.css" />
+    <link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
+
+    <!-- PLUGINS CSS STYLE -->
+    <link href="assets-d/plugins/simplebar/simplebar.css" rel="stylesheet" />
+
+    <!-- Ekka CSS -->
+    <link id="ekka-css" rel="stylesheet" href="asset/css/ekka.css" />
 
     <!-- Background css -->
     <link rel="stylesheet" id="bg-switcher-css" href="assets/css/backgrounds/bg-4.css">
@@ -171,7 +184,7 @@ $user = $userObj->getUserInfo($_SESSION['id']);
                     <!-- Ec Header Logo Start -->
                     <div class="col">
                         <div class="header-logo">
-                            <a href="index.html"><img src="https://legalkarnataka.com/admin/assets/img/logo/legal.png"
+                            <a href="#"><img src="https://legalkarnataka.com/admin/assets/img/logo/legal.png"
                                     alt="Site Logo" /><img class="dark-logo"
                                     src="https://legalkarnataka.com/admin/assets/img/logo/legal.png" alt="Site Logo"
                                     style="display: none;" /></a>
@@ -214,7 +227,15 @@ $user = $userObj->getUserInfo($_SESSION['id']);
 
                                     </ul>
                                 </li>
-                                <li><a href="cart.php">Cart</a></li>
+                                <li>
+                                    <a href="cart.php">Cart
+                                        <sup>
+                                            <span style="color: red;">
+                                                <?php echo $cartCount; ?>
+                                            </span>
+                                        </sup>
+                                    </a>
+                                </li>
 
                                 <li><a href="logout.php">Logout</a></li>
                             </ul>
@@ -233,19 +254,10 @@ $user = $userObj->getUserInfo($_SESSION['id']);
             <div class="ec-menu-inner">
                 <div class="ec-menu-content">
                     <ul>
-                        <li><a href="https://www.legalkarnataka.com">Home</a></li>
+                        <li><a href="product-left-sidebar.php">Home</a></li>
 
-                        <li><a href="javascript:void(0)">Products</a>
-                            <ul class="sub-menu">
-                                <li><a href="javascript:void(0)">Product page</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="#">Product </a></li>
-                                        <li><a href="#">Product </a></li>
-                                    </ul>
-                                </li>
+                        <li><a href="services.php">Services</a>
 
-
-                            </ul>
                         </li>
 
                         <li><a href="javascript:void(0)">Orders</a>

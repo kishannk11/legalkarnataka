@@ -103,16 +103,22 @@ if (isset($_GET['error'])) {
 								<textarea class="form-control" name="details" rows="4"></textarea>
 							</div>
 							<div class="mb-3">
+								<label class="form-label">Additional Files</label>
+								<textarea class="form-control" name="additionalfiles" rows="4"
+									placeholder="Please enter each value on a new line"></textarea>
+							</div>
+							<div class="mb-3">
 								<label class="form-label">Images</label>
 								<input type="file" class="form-control" name="image[]" multiple accept="image/*">
 							</div>
 						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="col-md-12">
-							<button type="submit" class="btn btn-primary">Submit</button>
+						<div class="col-md-6">
+							<div class="mb-3">
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div>
 						</div>
 					</div>
+
 					</form>
 				</div>
 			</div>

@@ -17,7 +17,9 @@ if (isset($_FILES['files']) && isset($_GET['id'])) {
         $fileError = $_FILES['files']['error'][$i];
         $targetDirectory = '../admin/upload/';
         $targetFile = $targetDirectory . $fileName;
-        move_uploaded_file($fileTmpName, $targetFile);
+        // Fix: Sanitize the file name before moving it
+        $sanitizedFileName = basename($fileName);
+        move_uploaded_file($fileTmpName, $targetDirectory . $sanitizedFileName);
 
         $email = $_SESSION['email'];
         $orderID = $_SESSION['order_id'];

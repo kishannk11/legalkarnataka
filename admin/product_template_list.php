@@ -9,7 +9,6 @@ error_reporting(E_ALL);
 require_once('config/config.php');
 $templates = new Templates($conn);
 $temp = $templates->getProductTemplates();
-print_r($temp);
 ?>
 
 <?php
@@ -70,7 +69,9 @@ if (isset($_GET['error'])) {
                                 </thead>
 
                                 <tbody>
+
                                     <?php $i = 1;
+                                    //print_r($temp);
                                     foreach ($temp as $temps) {
 
                                         ?>
@@ -80,10 +81,23 @@ if (isset($_GET['error'])) {
                                             </td>
 
                                             <td>
-                                                <?php echo $temps['prod_name']; ?>
+                                                <?php
+                                                $productObj = new Product($conn);
+
+                                                $prodname = $productObj->getProductwithId($temps['prod_name']);
+
+                                                echo $prodname[0]['prod_name'];
+                                                ?>
+
+
                                             </td>
                                             <td>
-                                                <?php echo $temps['template_id']; ?>
+                                                <?php
+                                                $tempname = $templates->getTemplatebyID($temps['template_id']);
+
+                                                echo $tempname['template_name'];
+
+                                                ?>
                                             </td>
                                             <td>
                                                 <div class="btn-group mb-1">

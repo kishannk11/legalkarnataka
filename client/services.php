@@ -25,9 +25,7 @@ if (isset($_GET['page'])) {
 $startIndex = ($currentPage - 1) * $productsPerPage;
 $displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 ?>
-<!-- Header End  -->
 
-<!-- Ec breadcrumb start -->
 <div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
 	<div class="container">
 		<div class="row">
@@ -150,7 +148,7 @@ $displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 											href="services.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
 								<?php } ?>
 								<li><a class="next"
-										href="services.php?page=<?php echo min($currentPage + 1, $totalPages); ?>">Next
+										href="services.php?page=<?php echo htmlspecialchars(min($currentPage + 1, $totalPages), ENT_QUOTES, 'UTF-8'); ?>">Next
 										<i class="ecicon eci-angle-right"></i></a></li>
 							</ul>
 						</div>

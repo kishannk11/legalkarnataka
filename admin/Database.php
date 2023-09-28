@@ -431,8 +431,15 @@ class Product
 
         // Execute the statement to update the product details
         if ($stmt->execute()) {
-            // Handle the uploaded images
+            // Delete the existing file using the ID
+
+
+            // Insert the uploaded images to the product_images table
             if (!empty($images['name'][0])) {
+                $deleteSql = "DELETE FROM product_images WHERE product_id = :prodId";
+                $deleteStmt = $this->conn->prepare($deleteSql);
+                $deleteStmt->bindParam(':prodId', $prodId);
+                $deleteStmt->execute();
                 $uploadPath = 'upload/'; // Specify the upload directory path
                 $uploadedImages = array();
 
@@ -445,15 +452,15 @@ class Product
                     if (move_uploaded_file($tempName, $targetPath)) {
                         $uploadedImages[] = $imageName;
 
-                        // Prepare the SQL statement to update the image details in the product_images table
-                        $imageSql = "UPDATE product_images SET image_name = :imageName WHERE product_id = :prodId";
+                        // Prepare the SQL statement to insert the image details into the product_images table
+                        $imageSql = "INSERT INTO product_images (product_id, image_name) VALUES (:prodId, :imageName)";
                         $imageStmt = $this->conn->prepare($imageSql);
 
                         // Bind the product ID and image name parameters
                         $imageStmt->bindParam(':prodId', $prodId);
                         $imageStmt->bindParam(':imageName', $imageName);
 
-                        // Execute the statement to update the image details
+                        // Execute the statement to insert the image details
                         $imageStmt->execute();
                     }
                 }
@@ -525,6 +532,18 @@ class Templates
     public function deleteTemplate($templatetId)
     {
         $stmt = $this->conn->prepare("DELETE FROM form_templates WHERE id = ?");
+        $stmt->bindParam(1, $templatetId);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deleteProdTemplate($templatetId)
+    {
+        $stmt = $this->conn->prepare("DELETE FROM product_templates WHERE id = ?");
         $stmt->bindParam(1, $templatetId);
 
         if ($stmt->execute()) {
@@ -796,6 +815,19 @@ class User
             return false;
         }
     }
+    public function getTotalUsersCount()
+    {
+        $stmt = $this->conn->query("SELECT COUNT(*) as total_users FROM users");
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total_users'];
+    }
+    public function getLastFiveEmployees()
+    {
+        $sql = "SELECT * FROM users ORDER BY id DESC LIMIT 5";
+        $stmt = $this->conn->query($sql);
+        $employees = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $employees;
+    }
 
 }
 class Payment
@@ -830,6 +862,19 @@ class Payment
             return false;
         }
     }
+    public function getTransDetails($orderid)
+    {
+        try {
+            $sql = "SELECT * FROM transactions WHERE order_id = :orderid";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':orderid', $orderid);
+            $stmt->execute();
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
 }
 
 class Order
@@ -841,7 +886,7 @@ class Order
         $this->conn = $conn;
     }
 
-    public function saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $email, $productIds, $price, $deliveryCharge, $gstAmount, $stampPriceValue, $commissionValue)
+    public function saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $email, $productIds, $price, $deliveryCharge, $gstAmount, $stampPriceValue, $commissionValue, $shipmentId, $ShipOrderid)
     {
         // Validate and sanitize the input data
         $firstname = filter_var($firstname, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -858,7 +903,7 @@ class Order
 
         // Insert the order details into the order_details table for each product ID
         foreach ($productIdsArray as $key => $productId) {
-            $sql = "INSERT INTO order_details (firstname, lastname, address, city, postalcode, state, order_id, email, prod_id, price, delivery_charge, gst_amount, stamp_price, commission) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO order_details (firstname, lastname, address, city, postalcode, state, order_id, email, prod_id, price, delivery_charge, gst_amount, stamp_price, commission, shipment_id, shipment_order_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(1, $firstname);
             $stmt->bindParam(2, $lastname);
@@ -874,6 +919,8 @@ class Order
             $stmt->bindParam(12, $gstAmount);
             $stmt->bindParam(13, $stampPriceValueArray[$key]);
             $stmt->bindParam(14, $commissionValueArray[$key]);
+            $stmt->bindParam(15, $shipmentId);
+            $stmt->bindParam(16, $ShipOrderid);
             if (!$stmt->execute()) {
                 // Error occurred while saving the order
                 echo "Error: " . $stmt->errorInfo()[2];
@@ -892,12 +939,12 @@ class Order
 
         return $orderDetails;
     }
-    public function getOrderDetailsbyID($id)
+    public function getOrderDetailsbyID($email)
     {
         $orderDetails = array();
         $sql = "SELECT * FROM order_details WHERE email = :email";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':email', $id);
+        $stmt->bindParam(':email', $email);
         $stmt->execute();
         $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $orderDetails;
@@ -909,6 +956,17 @@ class Order
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':order_id', $id);
         $stmt->bindParam(':email', $user);
+        $stmt->execute();
+        $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $orderDetails;
+    }
+
+    public function getOrderDetailsbyOrderIDadmin($id)
+    {
+        $orderDetails = array();
+        $sql = "SELECT * FROM order_details WHERE order_id = :order_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':order_id', $id);
         $stmt->execute();
         $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $orderDetails;
@@ -975,6 +1033,74 @@ class Order
         } else {
             return false;
         }
+    }
+    public function saveSoftcopyInfo($action, $email, $orderid)
+    {
+        try {
+
+            $sql = "INSERT INTO actions (action, email, orderid) VALUES (?, ?, ?)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindValue(1, $action);
+            $stmt->bindValue(2, $email);
+            $stmt->bindValue(3, $orderid);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+
+            return false;
+        }
+    }
+
+    public function checkEmailOrderAssociation($email, $orderid)
+    {
+        try {
+            $sql = "SELECT COUNT(*) FROM order_details WHERE email = ? AND order_id = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindValue(1, $email);
+            $stmt->bindValue(2, $orderid);
+            $stmt->execute();
+
+            $count = $stmt->fetchColumn();
+
+            return $count > 0;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+    public function getActionDetailsByOrderId($orderid)
+    {
+        try {
+            $sql = "SELECT * FROM actions WHERE orderid = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindValue(1, $orderid);
+            $stmt->execute();
+
+            $actionDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $actionDetails;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+    public function getTotalOrderCount()
+    {
+        $sql = "SELECT COUNT(DISTINCT order_id) as total_orders FROM order_details";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total_orders'];
+    }
+    public function getTotalRevenue()
+    {
+        $sql = "SELECT SUM(price) as total_revenue FROM (SELECT DISTINCT order_id, price FROM order_details) as unique_orders";
+        $stmt = $this->conn->query($sql);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total_revenue'];
     }
 }
 

@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result) {
             // File saved successfully, send email
             $to = $email;
-            $subject = "Softcopy Filefor the OrderID: " . $orderId;
+            $subject = "Softcopy File for the OrderID: " . $orderId;
             // Get the filename
             $filename = $file['name'];
             // Append the file URL
@@ -198,10 +198,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                                                                                                         <a href=' . $fileUrl . '
                                                                                                                                             style="text-decoration: none;">
                                                                                                                                             <button style="padding: 10px 20px; background-color: #007bff; color: #fff; border: none; cursor: pointer;" onclick="window.location.href=' . $fileUrl . '">
-    Download
-</button>
+                                                                                                                                                Download
+                                                                                                                                            </button>
                                                                                                                                         </a>
                                                                                                                                     </p>
+                                                                                                                                    &nbsp;
+                                                                                                                                    &nbsp;
+                                                                                                                                                                                                                                                                      
+                                                                                                                                    <p style="margin: 0; font-size: 18px; line-height: 1.8; word-break: break-word; text-align: center; mso-line-height-alt: 32px; margin-top: 0; margin-bottom: 0;">
+                                                                                                                                    <a href="http://localhost/legalkarnataka/client/handle-form.php?action=accept&email=' . $email . '&orderid=' . $orderId . '" style="text-decoration: none;">
+                                                                                                                                        <button style="padding: 10px 20px; background-color: #007bff; color: #fff; border: none; cursor: pointer;">Accept</button>
+                                                                                                                                    </a>
+                                                                                                                                    <a href="http://localhost/legalkarnataka/client/handle-form.php?action=callback&email=' . $email . '&orderid=' . $orderId . '" style="text-decoration: none;">
+                                                                                                                                        <button style="padding: 10px 20px; background-color: #007bff; color: #fff; border: none; cursor: pointer;">Call Back</button>
+                                                                                                                                    </a>
+                                                                                                                                    </p>                                                                                                                                  
+                                                                                                                                  
                                                                                                                                     </div>
                                                                                                                                 </div>
                                                                                                                             </td>
@@ -296,8 +308,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                                                                                                             <span
                                                                                                                                                 style="font-size: 12px;">&copy;
                                                                                                                                                 2023
-                                                                                                                                                <strong>Legal
-                                                                                                                                                    Karnataka</strong>|
+                                                                                                                                                <strong>LegalKarnataka.com</strong>
                                                                                                                                                     Bangalore, Karnataka, BHARATH</span>
                                                                                                                                         </p>
                                                                                                                                     </div>

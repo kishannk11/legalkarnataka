@@ -2,13 +2,16 @@
 include 'navbar.php';
 ?>
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 include 'config/config.php';
 $orderid = $_GET['order_id'];
 $cartObj = new Order($conn);
 $productObj = new Product($conn);
+$userObj = new User($conn);
 $orderDetails = $cartObj->getOrderDetailsbyOrderID($orderid, $_SESSION['email']);
+$userdetail = $userObj->getUserByEmail($_SESSION['email']);
+$transactionObj = new Payment($conn);
+$transactiondetails = $transactionObj->getTransDetails($orderid);
 ?>
 <section class="ec-page-content ec-vendor-uploads ec-user-account section-space-p">
     <div class="container">
@@ -27,7 +30,7 @@ $orderDetails = $cartObj->getOrderDetailsbyOrderID($orderid, $_SESSION['email'])
                             <div class="ec-header-btn">
                                 <a class="btn btn-lg btn-secondary" href="#"
                                     onclick="printSection('print-section')">Print</a>
-                                <a class="btn btn-lg btn-primary" href="#">Export</a>
+
                             </div>
                         </div>
                         <div class="ec-vendor-card-body padding-b-0" id="print-section">
@@ -64,7 +67,8 @@ $orderDetails = $cartObj->getOrderDetailsbyOrderID($orderid, $_SESSION['email'])
                                                             <?php echo htmlspecialchars($orderDetails[0]['postalcode']); ?>,<br>
                                                             <?php echo htmlspecialchars($orderDetails[0]['state']); ?><br>
                                                         </div>
-                                                        <div class="my-2"><b class="text-600">Phone : </b>1234567890
+                                                        <div class="my-2"><b class="text-600">Phone : </b>
+                                                            <?php echo $userdetail['phonenumber']; ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -80,11 +84,14 @@ $orderDetails = $cartObj->getOrderDetailsbyOrderID($orderid, $_SESSION['email'])
                                                             <?php echo htmlspecialchars($orderid) ?>
                                                         </div>
 
-                                                        <div class="my-2"><span class="text-600 text-90">HSN Code :
-                                                            </span> #123456</div>
+
                                                         <div class="my-2"><span class="text-600 text-90">Order Date :
                                                             </span>
                                                             <?php echo htmlspecialchars($orderDetails[0]['created_at']) ?>
+                                                        </div>
+                                                        <div class="my-2"><span class="text-600 text-90">Transaction ID :
+                                                            </span>
+                                                            <?php echo htmlspecialchars($transactiondetails[0]['txnid']) ?>
                                                         </div>
                                                     </div>
 
@@ -128,12 +135,15 @@ $orderDetails = $cartObj->getOrderDetailsbyOrderID($orderid, $_SESSION['email'])
                                                                             </span>
                                                                         </td>
                                                                         <td><span>
+                                                                                ₹
                                                                                 <?php echo htmlspecialchars($prod['price']); ?>
                                                                             </span></td>
                                                                         <td><span>
+                                                                                ₹
                                                                                 <?php echo htmlspecialchars($orderdata['stamp_price']); ?>
                                                                             </span></td>
                                                                         <td><span>
+                                                                                ₹
                                                                                 <?php echo htmlspecialchars($prod['price'] + $orderdata['stamp_price']); ?>
                                                                             </span></td>
                                                                     </tr>
@@ -154,6 +164,7 @@ $orderDetails = $cartObj->getOrderDetailsbyOrderID($orderid, $_SESSION['email'])
                                                                 </td>
                                                                 <td class="border-color">
                                                                     <span><b>
+                                                                            ₹
                                                                             <?php echo htmlspecialchars($totalAmount); ?>
                                                                         </b></span>
                                                                 </td>
@@ -167,6 +178,7 @@ $orderDetails = $cartObj->getOrderDetailsbyOrderID($orderid, $_SESSION['email'])
                                                                 </td>
                                                                 <td class="border-color">
                                                                     <span><b>
+                                                                            ₹
                                                                             <?php echo htmlspecialchars($orderdata['gst_amount']); ?>
                                                                         </b></span>
                                                                 </td>
@@ -180,6 +192,7 @@ $orderDetails = $cartObj->getOrderDetailsbyOrderID($orderid, $_SESSION['email'])
                                                                 </td>
                                                                 <td class="border-color">
                                                                     <span><b>
+                                                                            ₹
                                                                             <?php echo htmlspecialchars($orderdata['delivery_charge']); ?>
                                                                         </b></span>
                                                                 </td>
@@ -189,10 +202,11 @@ $orderDetails = $cartObj->getOrderDetailsbyOrderID($orderid, $_SESSION['email'])
                                                                     <span></span>
                                                                 </td>
                                                                 <td class="border-color" colspan="1">
-                                                                    <span><strong>Tax on Stamp(5%)</strong></span>
+                                                                    <span><strong>Stamp Paper Charges</strong></span>
                                                                 </td>
                                                                 <td class="border-color">
                                                                     <span><b>
+                                                                            ₹
                                                                             <?php echo htmlspecialchars($taxprice); ?>
                                                                         </b></span>
                                                                 </td>
@@ -207,7 +221,22 @@ $orderDetails = $cartObj->getOrderDetailsbyOrderID($orderid, $_SESSION['email'])
                                                                 </td>
                                                                 <td class="border-color m-m15">
                                                                     <span><b>
+                                                                            ₹
                                                                             <?php echo $taxprice + $orderdata['delivery_charge'] + $orderdata['gst_amount'] + $totalAmount; ?>
+                                                                        </b></span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="border-none" colspan="3">
+                                                                    <span></span>
+                                                                </td>
+                                                                <td class="border-color" colspan="1">
+                                                                    <span><strong>Payment Status</strong></span>
+                                                                </td>
+                                                                <td class="border-color">
+                                                                    <span><b>
+
+                                                                            <?php echo htmlspecialchars($transactiondetails[0]['status']); ?>
                                                                         </b></span>
                                                                 </td>
                                                             </tr>

@@ -9,6 +9,9 @@ require_once('config/config.php');
 require_once('../admin/Database.php');
 $cartObj = new Cart($conn);
 $cartDetails = $cartObj->getCartDetails($_SESSION['email']);
+$id = $_SESSION['id'];
+$userObj = new User($conn);
+$user = $userObj->getUserInfo($id);
 //print_r($cartDetails);
 ?>
 <?php
@@ -36,7 +39,9 @@ if (count($cartDetails) > 0) {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $total = 0; // Variable to store the total value
+                                                $total = 0;
+                                                $gstProduct = 0;
+                                                $stampPriceValue = 0; // Variable to store the total value
                                             
                                                 foreach ($cartDetails as $cartItem) {
                                                     $productObj = new Product($conn);
@@ -70,7 +75,9 @@ if (count($cartDetails) > 0) {
                                                         $commission += ($commission * 5) / 100; // Add 5% GST to the commission
                                                     }
 
-                                                    $total += $product[0]['price'] + $stampPrice + $commission; // Add the current row's total (including commission) to the overall total
+                                                    $total += $product[0]['price'] + $stampPrice + $commission;
+                                                    $gstProduct += $product[0]['price'];
+                                                    $stampPriceValue += $commission;
                                                     ?>
                                                     <tr>
                                                         <td data-label="Product" class="ec-cart-pro-name">
@@ -90,7 +97,7 @@ if (count($cartDetails) > 0) {
 
 
                                                         <td data-label="Total" class="ec-cart-pro-subtotal">₹
-                                                            <?php echo ($product[0]['price'] + $stampPrice + $commission); ?>
+                                                            <?php echo ($product[0]['price'] + $stampPrice); ?>
                                                         </td>
                                                         <td data-label="Remove" class="ec-cart-pro-remove">
                                                             <a href="#"
@@ -106,8 +113,9 @@ if (count($cartDetails) > 0) {
                                                 $gstPercentage = 18; // GST percentage
                                             
                                                 $totalWithDelivery = $total + $deliveryCharge;
-                                                $gstAmount = ($total * $gstPercentage) / 100;
+                                                $gstAmount = ($gstProduct * $gstPercentage) / 100;
                                                 $totalWithGST = $totalWithDelivery + $gstAmount;
+
                                                 ?>
                                                 <tr>
                                                     <td colspan="3" class="ec-cart-pro-subtotal text-right"><strong>Delivery
@@ -122,6 +130,15 @@ if (count($cartDetails) > 0) {
                                                             Amount:</strong></td>
                                                     <td class="ec-cart-pro-subtotal">₹<strong>
                                                             <?php echo intval($gstAmount); ?>
+                                                        </strong></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" class="ec-cart-pro-subtotal text-right"><strong> Stamp
+                                                            Paper Charges
+                                                            :</strong></td>
+                                                    <td class="ec-cart-pro-subtotal">₹<strong>
+                                                            <?php echo intval($stampPriceValue); ?>
                                                         </strong></td>
                                                     <td></td>
                                                 </tr>
@@ -165,12 +182,14 @@ if (count($cartDetails) > 0) {
                                                     <span class="ec-bill-wrap ec-bill-half">
                                                         <label>First Name*</label>
                                                         <input type="text" name="firstname"
-                                                            placeholder="Enter your first name" required />
+                                                            placeholder="Enter your first name"
+                                                            value="<?php echo $user['firstname'] ?>" required />
                                                     </span>
                                                     <span class="ec-bill-wrap ec-bill-half">
                                                         <label>Last Name*</label>
                                                         <input type="text" name="lastname"
-                                                            placeholder="Enter your last name" required />
+                                                            placeholder="Enter your last name"
+                                                            value="<?php echo $user['lastname'] ?>" required />
                                                     </span>
                                                     <span class="ec-bill-wrap ec-bill-half">
                                                         <label>Address</label>
@@ -307,8 +326,9 @@ if (count($cartDetails) > 0) {
         // Recalculate total with delivery and GST
         var total = <?php echo $total; ?>;
         var gstPercentage = <?php echo $gstPercentage; ?>;
-        var totalWithDelivery = total + deliveryCharge;
-        var gstAmount = Math.round((total * gstPercentage) / 100);
+        var gstProduct = <?php echo $gstProduct; ?>;
+        var totalWithDelivery = total + parseFloat(deliveryCharge);
+        var gstAmount = (gstProduct * gstPercentage) / 100;
         var totalWithGST = totalWithDelivery + gstAmount;
         // Update the total with GST
         document.getElementById('total-with-gst').textContent = totalWithGST;
@@ -326,8 +346,9 @@ if (count($cartDetails) > 0) {
                 // Recalculate total with delivery and GST
                 var total = <?php echo $total; ?>;
                 var gstPercentage = <?php echo $gstPercentage; ?>;
-                var totalWithDelivery = total + parseInt(deliveryCharge);
-                var gstAmount = Math.round((total * gstPercentage) / 100);
+                var gstProduct = <?php echo $gstProduct; ?>;
+                var totalWithDelivery = total + parseFloat(deliveryCharge);
+                var gstAmount = (gstProduct * gstPercentage) / 100;
                 var totalWithGST = totalWithDelivery + gstAmount;
                 // Update the total with GST
                 document.getElementById('total-with-gst').textContent = totalWithGST;

@@ -83,13 +83,9 @@ if (isset($_GET['error'])) {
                                             <td>
                                                 <?php
                                                 $productObj = new Product($conn);
-
                                                 $prodname = $productObj->getProductwithId($temps['prod_name']);
-
                                                 echo $prodname[0]['prod_name'];
                                                 ?>
-
-
                                             </td>
                                             <td>
                                                 <?php
@@ -110,8 +106,7 @@ if (isset($_GET['error'])) {
                                                     </button>
 
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item"
-                                                            href="template-info.php?id=<?php echo $temps['id']; ?>">Edit</a>
+
                                                         <a class="dropdown-item"
                                                             onclick="confirmDelete(<?php echo $temps['id']; ?>)">Delete</a>
                                                     </div>
@@ -159,7 +154,7 @@ if (isset($_GET['error'])) {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                window.location.replace("delete_template.php?id=" + productId);
+                window.location.replace("delete-prod-template.php?id=" + productId);
             }
         });
     }

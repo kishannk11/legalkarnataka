@@ -185,7 +185,7 @@
 
 <script src="assets/js/vendor/index.js"></script>
 <script src="assets/js/main.js"></script>
-<script src="assets-ad/js/ekka.js"></script>
+
 </body>
 
 </html>

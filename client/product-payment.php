@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $productIds = []; // Array to store the product_ids
     $stampPrices = [];
     $commissions = [];
+    $gstProduct = 0;
     foreach ($cartDetails as $cartItem) {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
@@ -34,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $stampPrice = $cartItem['stamp_price'];
         $commission = '0'; // Default commission value
+
 
         // Add commission for stamp paper prices based on the table
         if ($stampPrice > 0) {
@@ -61,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $total += $product[0]['price'] + $stampPrice + $commission;
         //$total += $product[0]['price'] + $cartItem['stamp_price'];
+        $gstProduct += $product[0]['price'];
         $productIds[] = $cartItem['product_id'];
         $stampPrices[] = $stampPrice;
         $commissions[] = $commission;
@@ -80,14 +83,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // echo $deliveryCharge;
     //$deliveryCharge = $shippingMethod === '1' ? 10 : 50;
     $gstPercentage = 18;
-    $totalWithDelivery = $total + $deliveryCharge;
-    $gstAmount = ($total * $gstPercentage) / 100;
+    $totalWithDelivery = floatval($total) + $deliveryCharge;
+    $gstAmount = ($gstProduct * $gstPercentage) / 100;
     $price = $totalWithDelivery + $gstAmount;
     //echo $price;
 
     $stampPriceValue = implode(',', $stampPrices);
     $commissionValue = implode(',', $commissions);
-
+    echo $price;
     // Set your PayU credentials
     $merchantKey = "vfiulB";
     $salt = "HLk3ltGCqExDiJbADdFUBtS8G9ePX9v3";
@@ -112,8 +115,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $shipmentEndpoint = 'https://apiv2.shiprocket.in/v1/external/orders/create/adhoc';
 
     // Sample authentication credentials
-    $email = 'ranjithc@duck.com';
-    $password = 'Fr7tqz@iWPdvNit';
+    $email = 'support@legalkarnataka.com';
+    $password = 'gDUk$!$3!3RA5J2';
 
     // Authenticate and obtain token
     $authData = array(
@@ -210,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     curl_setopt($shipmentCh, CURLOPT_POSTFIELDS, $payload);
 
     $shipmentResponse = curl_exec($shipmentCh);
-    //echo $shipmentResponse;
+    // echo $shipmentResponse;
     if ($shipmentResponse === false) {
         die('Error: ' . curl_error($shipmentCh));
     }
@@ -225,9 +228,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $shipmentId = $shipmentData['shipment_id'];
+    $ShipOrderid = $shipmentData['order_id'];
 
     // Output the response
     //echo 'Shipment ID: ' . $shipmentId;
+    //echo $ShipOrderid;
 
 
     $hashSequence = $merchantKey . "|" . $txnid . "|" . $price . "|" . $productInfo . "|" . $firstname . "|" . $user_email . "|" . $udf1 . "|" . $udf2 . "|" . $udf3 . "|" . $udf4 . "|" . $udf5 . "||||||" . $salt;
@@ -255,7 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //echo $stampPriceValue;
     //print_r($data['udf1']);
     //Save order details to the database
-    $orderObj->saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $user_email, $udf1, $price, $deliveryCharge, $gstAmount, $stampPriceValue, $commissionValue); // Pass the array of product_ids
+    $orderObj->saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $user_email, $udf1, $price, $deliveryCharge, $gstAmount, $stampPriceValue, $commissionValue, $shipmentId, $ShipOrderid); // Pass the array of product_ids
 
 
     // Create a form to submit payment data to PayU

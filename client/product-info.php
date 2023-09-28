@@ -73,7 +73,24 @@ if (isset($_GET['error'])) {
 <section class="ec-page-content section-space-p">
     <?php
     if (empty($products)) {
-        echo "No product found for this ID.";
+        ?>
+        <section class="ec-page-content section-space-p">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="section-title">
+                            <h2 class="ec-bg-title">No Product</h2>
+                            <h2 class="ec-title">No Product found</h2>
+                            <p class="sub-title mb-3">No Product Found for this ID</p>
+                        </div>
+                    </div>
+                    <div class="ec-common-wrapper">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <?php
     } else {
         ?>
         <div class="checkout_page">
@@ -133,8 +150,24 @@ if (isset($_GET['error'])) {
                                                     <?php echo htmlspecialchars($products[0]['price'], ENT_QUOTES, 'UTF-8'); ?>
                                                 </b>
                                             </div>
-                                            <div class="ec-single-desc">
-                                                <?php echo htmlspecialchars($products[0]['details'], ENT_QUOTES, 'UTF-8'); ?>
+                                            <div class="ec-single-rating-wrap">
+                                                <b> Additional Files Required</b>
+                                            </div>
+                                            <div id="ec-spt-nav-details" class="tab-pane fade show active">
+                                                <div class="ec-single-pro-tab-desc">
+                                                    <p>
+
+                                                    </p>
+                                                    <ul>
+                                                        <?php
+                                                        $details = explode("\n", $products[0]['additionalfiles']);
+                                                        foreach ($details as $detail) {
+                                                            echo '<li>' . htmlspecialchars($detail, ENT_QUOTES, 'UTF-8') . '</li>';
+                                                        }
+                                                        ?>
+                                                    </ul>
+
+                                                </div>
                                             </div>
                                             <div class="ec-single-sales">
                                                 <?php foreach ($producttemplate as $product): ?>
@@ -157,6 +190,7 @@ if (isset($_GET['error'])) {
                                                         <input type="file" class="form-control" name="files[]"
                                                             id="fileInput" multiple>
                                                     </div>
+
                                                     <div class="ec-single-cart">
                                                         <div class="button-group">
                                                             <input type="hidden" name="id"
@@ -169,11 +203,14 @@ if (isset($_GET['error'])) {
 
                                                     </div>
                                                 </form>
-                                                &nbsp;
-                                                &nbsp;
                                                 <div class="button-group">
                                                     <button class="btn btn-primary" id="previewButton">Preview</button>
                                                 </div>
+
+
+                                                &nbsp;
+                                                &nbsp;
+
 
                                             </div>
                                         </div>
@@ -204,13 +241,9 @@ if (isset($_GET['error'])) {
 
                                     </p>
                                     <ul>
-                                        <?php
-                                        $details = explode("\n", $products[0]['additionalfiles']);
-                                        foreach ($details as $detail) {
-                                            echo '<li>' . htmlspecialchars($detail, ENT_QUOTES, 'UTF-8') . '</li>';
-                                        }
-                                        ?>
+                                        <?php echo htmlspecialchars($products[0]['details'], ENT_QUOTES, 'UTF-8'); ?>
                                     </ul>
+
 
                                 </div>
                             </div>
@@ -231,6 +264,33 @@ if (isset($_GET['error'])) {
     ?>
 </section>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.querySelector(".button-group button[name='submit']").addEventListener("click", function () {
+        // Get the form element
+        var form = document.querySelector("form");
+
+        // Create a new FormData object
+        var formData = new FormData(form);
+
+        // Perform an AJAX request to submit the form data
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "add-to-cart.php");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Request was successful
+                    console.log(xhr.responseText);
+                    // You can perform additional actions here, such as displaying a success message or updating the cart UI
+                } else {
+                    // Request failed
+                    console.error("Error: " + xhr.status);
+                    // You can handle the error case here, such as displaying an error message to the user
+                }
+            }
+        };
+        xhr.send(formData);
+    });
+</script>
 <script>
     var id = <?php echo json_encode($id); ?>;
     var order_id = <?php echo json_encode($_SESSION['order_id']); ?>;

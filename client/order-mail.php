@@ -283,6 +283,8 @@ width="100%" cellspacing="0" cellpadding="0" bgcolor="#f5eeee">
                                                                                                                                         </thead>
                                                                                                                                         <tbody>';
     $total = 0;
+    $gstProduct = 0;
+    $stampPriceValue = 0;
     foreach ($cartDetails as $cartItem) {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
@@ -317,36 +319,43 @@ width="100%" cellspacing="0" cellpadding="0" bgcolor="#f5eeee">
         }
 
         $total += $product[0]['price'] + $stampPrice + $commission;
+        $gstProduct += $product[0]['price'];
+        $stampPriceValue += $commission;
 
         //$total += $product[0]['price'] + $cartItem['stamp_price'];
         $productIds[] = $cartItem['product_id'];
         // Add each product to the table
         $table .= '<tr>
                     <td style="border: 1px solid black;">' . $product[0]['prod_name'] . '</td>
-                    <td style="border: 1px solid black;">' . $product[0]['price'] . '</td>
-                    <td style="border: 1px solid black;">' . $cartItem['stamp_price'] . '</td>
+                    <td style="border: 1px solid black;">₹' . $product[0]['price'] . '</td>
+                    <td style="border: 1px solid black;">₹' . $cartItem['stamp_price'] . '</td>
                 </tr>';
     }
 
     //$deliveryCharge = 50;
     $gstPercentage = 18;
     $totalWithDelivery = $total + $deliveryCharge;
-    $gstAmount = ($total * $gstPercentage) / 100;
+    $gstAmount = ($gstProduct * $gstPercentage) / 100;
     $price = $totalWithDelivery + $gstAmount;
+
     // Close the table
     $table .= '<tr>
                 <td style="border: 1px solid black;">Total GST Price</td>
-                <td style="border: 1px solid black;">' . $gstAmount . '</td>
+                <td style="border: 1px solid black;">₹' . $gstAmount . '</td>
             </tr>
      ';
     $table .= '<tr>
                 <td style="border: 1px solid black;">Total Delivery Price</td>
-                <td style="border: 1px solid black;">' . $deliveryCharge . '</td>
+                <td style="border: 1px solid black;">₹' . $deliveryCharge . '</td>
             </tr>
        ';
     $table .= '<tr>
+                <td style="border: 1px solid black;">Stamp Paper Charges</td>
+                <td style="border: 1px solid black;">₹' . $stampPriceValue . '</td>
+            </tr>';
+    $table .= '<tr>
                 <td style="border: 1px solid black;">Total Price</td>
-                <td style="border: 1px solid black;">' . $price . '</td>
+                <td style="border: 1px solid black;">₹' . $price . '</td>
             </tr>
         </tbody>
     </table>

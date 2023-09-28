@@ -6,7 +6,7 @@ if (isset($_GET['id'])) {
     $templateId = $_GET['id'];
 
     $templateObj = new Templates($conn);
-    $result = $templateObj->deleteTemplate($templateId);
+    $result = $templateObj->deleteProdTemplate($templateId);
 
     if ($result) {
         $success = "Template Deleted";

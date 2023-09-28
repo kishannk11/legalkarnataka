@@ -38,18 +38,21 @@ if (isset($_GET['order_id'])) {
     $orderid = $_GET['order_id'];
     $email = $_SESSION['email'];
     $orderDetailsObj = new Order($conn);
-    $orderDetails = $orderDetailsObj->getOrderDetailsbyOrderID($orderid, $email);
-    // print_r($orderDetails);
+    $orderDetails = $orderDetailsObj->getOrderDetailsbyOrderIDadmin($orderid);
+    $transactionObj = new Payment($conn);
+    $transactiondetails = $transactionObj->getTransDetails($orderid);
 }
 ?>
 <div class="ec-content-wrapper">
     <div class="content">
+
         <div class="breadcrumb-wrapper breadcrumb-wrapper-2">
             <h1>Order Details </h1>
             <p class="breadcrumbs"><span><a href="index.html">Home</a></span>
                 <span><i class="mdi mdi-chevron-right"></i></span>Orders
             </p>
         </div>
+
         <div class="row">
             <div class="col-12">
                 <div class="card card-default">
@@ -63,7 +66,7 @@ if (isset($_GET['order_id'])) {
 
                                         <th>Product Name</th>
 
-                                        <th>Price</th>
+
                                         <th>Files</th>
                                         <th>Description</th>
 
@@ -72,40 +75,52 @@ if (isset($_GET['order_id'])) {
 
                                 <tbody>
                                     <?php
-
+                                    $previousOrderId = null; // Variable to store the previous order ID
+                                    
                                     foreach ($orderDetails as $order):
                                         $productObj = new Product($conn);
                                         $products = $productObj->getProductwithId($order['prod_id']);
-                                        foreach ($products as $proddata):
+                                        // Check if the current order ID is the same as the previous order ID
+                                        if ($order['order_id'] !== $previousOrderId):
                                             ?>
                                             <tr>
-
                                                 <td>
                                                     <?php echo htmlspecialchars($order['order_id'], ENT_QUOTES, 'UTF-8'); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo htmlspecialchars($proddata['prod_name'], ENT_QUOTES, 'UTF-8'); ?>
-
+                                                    <?php
+                                                    foreach ($orderDetails as $orders):
+                                                        $productObj = new Product($conn);
+                                                        $productname = $productObj->getProductwithId($orders['prod_id']);
+                                                        foreach ($productname as $product) {
+                                                            echo htmlspecialchars($product['prod_name'], ENT_QUOTES, 'UTF-8') . "<br>";
+                                                            //print_r($product);
+                                                        }
+                                                    endforeach;
+                                                    ?>
                                                 </td>
-                                                <td>
-                                                    <?php echo htmlspecialchars($order['price'], ENT_QUOTES, 'UTF-8'); ?>
 
-                                                </td>
                                                 <td>
                                                     <?php
-                                                    error_reporting(E_ALL);
-                                                    ini_set('display_errors', 1);
-                                                    include 'config/config.php';
                                                     $order_file = new Order($conn);
                                                     $orderId = $order['order_id'];
                                                     $orderFiles = $order_file->getOrderFiles($orderId);
+
+
                                                     if (empty($orderFiles)) {
                                                         echo "No data";
                                                     } else {
                                                         foreach ($orderFiles as $file) {
-                                                            $fileName = $file['file_name'];
-                                                            $filePath = 'upload/' . htmlspecialchars($fileName, ENT_QUOTES, 'UTF-8'); // Update the file path accordingly
-                                                            echo '<a href="' . $filePath . '" target="_blank">' . htmlspecialchars($fileName, ENT_QUOTES, 'UTF-8') . '</a><br>';
+                                                            $fileProductId = $file['prod_id'];
+                                                            //echo $fileProductId;
+                                                            //echo $order['prod_id'];
+                                            
+                                                            $fileProductName = $productObj->getProductwithId($fileProductId);
+                                                            if ($fileProductId == $order['prod_id']) {
+                                                                $fileName = $file['file_name'];
+                                                                $filePath = 'upload/' . htmlspecialchars($fileName, ENT_QUOTES, 'UTF-8');
+                                                                echo '<a href="' . $filePath . '" target="_blank">' . htmlspecialchars($fileName, ENT_QUOTES, 'UTF-8') . '</a><br>';
+                                                            }
                                                         }
                                                     }
                                                     ?>
@@ -115,22 +130,29 @@ if (isset($_GET['order_id'])) {
                                                     $order_preview = new Order($conn);
                                                     $orderId = $order['order_id'];
                                                     $orderpreview = $order_preview->getPreviewData($orderId);
+                                                    //print_r($orderpreview);
                                                     if (empty($orderpreview)) {
                                                         echo "No data";
                                                     } else {
                                                         foreach ($orderpreview as $filepreview) {
+                                                            //$previewProductId = $filepreview['prod_id'];
+                                                            //echo $previewProductId;
+                                                            //$previewProductName = $productObj->getProductwithId($previewProductId);
+                                                            // if ($previewProductId == $order['prod_id'] && $previewProductName == $firstProduct['prod_name']) {
+                                                            $label = htmlspecialchars($filepreview['label'], ENT_QUOTES, 'UTF-8');
                                                             $label = htmlspecialchars($filepreview['label'], ENT_QUOTES, 'UTF-8');
                                                             $value = htmlspecialchars($filepreview['value'], ENT_QUOTES, 'UTF-8');
                                                             echo $label . ' : ' . $value . "<br>";
+                                                            //}
                                                         }
                                                     }
                                                     ?>
                                                 </td>
-
                                             </tr>
                                             <?php
-                                        endforeach;
+                                        endif;
 
+                                        $previousOrderId = $order['order_id']; // Update the previous order ID
                                     endforeach;
                                     ?>
 
@@ -151,7 +173,6 @@ if (isset($_GET['order_id'])) {
 
         </div>
         <div class="row">
-
             <div class="col-12">
                 <div class="card card-default">
                     <div class="card-body">
@@ -173,48 +194,40 @@ if (isset($_GET['order_id'])) {
 
                                 <tbody>
                                     <?php
+                                    $previousEmail = null; // Variable to store the previous email
+                                    
+                                    foreach ($orderDetails as $order) {
+                                        $userInfo = new User($conn);
+                                        $userInfoByEmail = $userInfo->getUserByEmail($order['email']);
 
-                                    foreach ($orderDetails as $order):
-                                        ?>
-                                        <tr>
+                                        // Check if the current email is the same as the previous email
+                                        if ($order['email'] !== $previousEmail) {
+                                            // Display the row only if the email is different
+                                            ?>
+                                            <tr>
+                                                <td>
+                                                    <?php echo htmlspecialchars($order['firstname'], ENT_QUOTES, 'UTF-8'); ?>
+                                                    <?php echo htmlspecialchars($order['lastname'], ENT_QUOTES, 'UTF-8'); ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo htmlspecialchars($order['email'], ENT_QUOTES, 'UTF-8'); ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo htmlspecialchars($order['address'], ENT_QUOTES, 'UTF-8'); ?>
+                                                    <?php echo htmlspecialchars($order['city'], ENT_QUOTES, 'UTF-8'); ?>
+                                                    <?php echo htmlspecialchars($order['postalcode'], ENT_QUOTES, 'UTF-8'); ?>
+                                                    <?php echo htmlspecialchars($order['state'], ENT_QUOTES, 'UTF-8'); ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo htmlspecialchars($userInfoByEmail['phonenumber'], ENT_QUOTES, 'UTF-8'); ?>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        }
 
-                                            <td>
-                                                <?php echo htmlspecialchars($order['firstname'], ENT_QUOTES, 'UTF-8'); ?>
-                                                <?php echo htmlspecialchars($order['lastname'], ENT_QUOTES, 'UTF-8'); ?>
-                                            </td>
-                                            <td>
-                                                <?php echo htmlspecialchars($order['email'], ENT_QUOTES, 'UTF-8'); ?>
-                                            </td>
-                                            <td>
-                                                <?php echo htmlspecialchars($order['address'], ENT_QUOTES, 'UTF-8'); ?>
-                                                <?php echo htmlspecialchars($order['city'], ENT_QUOTES, 'UTF-8'); ?>
-
-                                                <?php echo htmlspecialchars($order['postalcode'], ENT_QUOTES, 'UTF-8'); ?>
-                                                <?php echo htmlspecialchars($order['state'], ENT_QUOTES, 'UTF-8'); ?>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                error_reporting(E_ALL);
-                                                ini_set('display_errors', 1);
-                                                $userObj = new User($conn);
-                                                $userinfo = $userObj->getUserByEmail($order['email']);
-                                                //print_r($userinfo);
-                                            
-                                                ?>
-
-                                                <?php echo htmlspecialchars($userinfo['phonenumber'], ENT_QUOTES, 'UTF-8'); ?>
-
-                                            </td>
-
-
-
-                                        </tr>
-                                        <?php
-
-
-                                    endforeach;
+                                        $previousEmail = $order['email']; // Update the previous email
+                                    }
                                     ?>
-
                                 </tbody>
                             </table>
                         </div>
@@ -223,6 +236,200 @@ if (isset($_GET['order_id'])) {
                 </div>
             </div>
         </div>
+        &nbsp;
+        &nbsp;
+        <div class="breadcrumb-wrapper breadcrumb-wrapper-2">
+            <h1>Order Bill</h1>
+
+        </div>
+        <div class="ec-odr-dtl card card-default">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-6">
+                        <address class="info-grid">
+                            <div class="info-title"><strong>Shipped To:</strong></div><br>
+                            <div class="info-content">
+                                <?php echo htmlspecialchars($orderDetails[0]['firstname']); ?><br>
+                                <?php echo htmlspecialchars($orderDetails[0]['address']); ?><br>
+                                <?php echo htmlspecialchars($orderDetails[0]['city']); ?><br>
+                                <?php echo htmlspecialchars($orderDetails[0]['postalcode']); ?>,<br>
+                                <?php echo htmlspecialchars($orderDetails[0]['state']); ?><br>
+                                <abbr title="Phone">P:</abbr>
+                                <td>
+                                    <?php echo htmlspecialchars($userInfoByEmail['phonenumber'], ENT_QUOTES, 'UTF-8'); ?>
+                                </td>
+                            </div>
+                        </address>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-6">
+                        <address class="info-grid">
+                            <div class="info-title"><strong>Order Date:</strong></div><br>
+                            <div class="info-content">
+                                <div class="my-2"><span class="text-600 text-90">ID : </span>
+                                    <?php echo htmlspecialchars($orderid) ?>
+                                </div>
+
+
+                                <div class="my-2"><span class="text-600 text-90">Order Date :
+                                    </span>
+                                    <?php echo htmlspecialchars($orderDetails[0]['created_at']) ?>
+                                </div>
+                                <div class="my-2"><span class="text-600 text-90">Transaction ID :
+                                    </span>
+                                    <?php echo htmlspecialchars($transactiondetails[0]['txnid']) ?>
+                                </div>
+                            </div>
+                        </address>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="tbl-title">PRODUCT SUMMARY</h3>
+                        <div class="table-responsive">
+                            <table class="table table-striped o-tbl">
+                                <thead>
+                                    <tr class="line">
+                                        <td class="text-center"><strong>ID</strong></td>
+                                        <td class="text-center"><strong>Name</strong></td>
+                                        <td class="text-center"><strong>Price</strong></td>
+                                        <td class="text-right"><strong>Stamp Paper Price</strong></td>
+                                        <td class="text-right"><strong>Amount</strong></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $serialNumber = 1;
+                                    $totalAmount = 0;
+                                    $taxprice = 0;
+                                    foreach ($orderDetails as $orderdata) {
+                                        $proddata = $productObj->getProductwithId($orderdata['prod_id']);
+                                        foreach ($proddata as $prod) {
+                                            ?>
+                                            <tr>
+                                                <td><span>
+                                                        <?php echo $serialNumber++; ?>
+                                                    </span></td>
+                                                <td>
+                                                    <span>
+                                                        <?php echo htmlspecialchars($prod['prod_name']); ?>
+                                                    </span>
+                                                </td>
+                                                <td><span>
+                                                        ₹
+                                                        <?php echo htmlspecialchars($prod['price']); ?>
+                                                    </span></td>
+                                                <td><span>
+                                                        ₹
+                                                        <?php echo htmlspecialchars($orderdata['stamp_price']); ?>
+                                                    </span></td>
+                                                <td><span>
+                                                        ₹
+                                                        <?php echo htmlspecialchars($prod['price'] + $orderdata['stamp_price']); ?>
+                                                    </span></td>
+                                            </tr>
+                                            <?php
+                                            $totalAmount += $prod['price'] + $orderdata['stamp_price'];
+                                            $taxprice = $taxprice + $orderdata['commission'];
+                                        }
+                                    }
+                                    ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td class="border-none" colspan="3">
+                                            <span></span>
+                                        </td>
+                                        <td class="border-color" colspan="1">
+                                            <span><strong>Sub Total</strong></span>
+                                        </td>
+                                        <td class="border-color">
+                                            <span><b>
+                                                    ₹
+                                                    <?php echo htmlspecialchars($totalAmount); ?>
+                                                </b></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-none" colspan="3">
+                                            <span></span>
+                                        </td>
+                                        <td class="border-color" colspan="1">
+                                            <span><strong>GST Amount(18%)</strong></span>
+                                        </td>
+                                        <td class="border-color">
+                                            <span><b>
+                                                    ₹
+                                                    <?php echo htmlspecialchars($orderdata['gst_amount']); ?>
+                                                </b></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-none" colspan="3">
+                                            <span></span>
+                                        </td>
+                                        <td class="border-color" colspan="1">
+                                            <span><strong>Delivery Charge</strong></span>
+                                        </td>
+                                        <td class="border-color">
+                                            <span><b>
+                                                    ₹
+                                                    <?php echo htmlspecialchars($orderdata['delivery_charge']); ?>
+                                                </b></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-none" colspan="3">
+                                            <span></span>
+                                        </td>
+                                        <td class="border-color" colspan="1">
+                                            <span><strong>Stamp Paper Charges</strong></span>
+                                        </td>
+                                        <td class="border-color">
+                                            <span><b>
+                                                    ₹
+                                                    <?php echo htmlspecialchars($taxprice); ?>
+                                                </b></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-none m-m15" colspan="3"><span class="note-text-color">Extra
+                                                note such as company or payment
+                                                information...</span></td>
+                                        <td class="border-color m-m15" colspan="1">
+                                            <span><strong>Total</strong></span>
+                                        </td>
+                                        <td class="border-color m-m15">
+                                            <span><b>
+                                                    ₹
+                                                    <?php echo $taxprice + $orderdata['delivery_charge'] + $orderdata['gst_amount'] + $totalAmount; ?>
+                                                </b></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-none" colspan="3">
+                                            <span></span>
+                                        </td>
+                                        <td class="border-color" colspan="1">
+                                            <span><strong>Payment Status</strong></span>
+                                        </td>
+                                        <td class="border-color">
+                                            <span><b>
+
+                                                    <?php echo htmlspecialchars($transactiondetails[0]['status']); ?>
+                                                </b></span>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        &nbsp;
+        &nbsp;
+
         &nbsp;
         <div class="breadcrumb-wrapper breadcrumb-wrapper-2">
             <h1>Upload Softcopy </h1>
@@ -235,7 +442,7 @@ if (isset($_GET['order_id'])) {
                     <div class="card-body">
                         <form class="row g-3" method="POST" action="upload-softcopy.php" enctype="multipart/form-data">
                             <div class="mb-3">
-                                <label class="form-label">Image</label>
+                                <label class="form-label">Upload PDF</label>
                                 <input type="hidden" class="form-control" name="orderid"
                                     value="<?php echo htmlspecialchars($order['order_id'], ENT_QUOTES, 'UTF-8'); ?>">
                                 <input type="hidden" class="form-control" name="email"
@@ -249,7 +456,48 @@ if (isset($_GET['order_id'])) {
                             </div>
                         </form>
 
-                    </div> <!-- End Content -->
+                    </div>
+                    <div class="card-body">
+                        <?php
+                        $actiondetails = $orderDetailsObj->getActionDetailsByOrderId($orderid);
+                        //print_r($actiondetails);
+                        
+
+                        ?>
+                        <div class="col-md-12">
+                            <h3 class="tbl-title">Action Details</h3>
+                            <div class="table-responsive">
+                                <table class="table table-striped o-tbl">
+                                    <thead>
+                                        <tr class="line">
+                                            <th class="text-center">Order ID</th>
+                                            <th class="text-center">Email</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($actiondetails as $action) {
+                                            ?>
+                                            <tr class="text-center">
+                                                <td>
+                                                    <?php echo htmlspecialchars($action['orderid']); ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo htmlspecialchars($action['email']); ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo htmlspecialchars($action['action']); ?>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

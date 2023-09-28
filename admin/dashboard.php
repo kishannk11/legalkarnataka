@@ -1,7 +1,16 @@
 <?php
 require 'navbar.php';
 ?>
-
+<?php
+require_once('config/config.php');
+require_once('Database.php');
+$userObj = new User($conn);
+$totalUsersCount = $userObj->getTotalUsersCount();
+$order = new Order($conn);
+$totalOrders = $order->getTotalOrderCount();
+$lastemployee = $userObj->getLastFiveEmployees();
+$totalRevenue = $order->getTotalRevenue();
+?>
 <!--  PAGE WRAPPER -->
 
 <div class="ec-content-wrapper">
@@ -11,8 +20,11 @@ require 'navbar.php';
 			<div class="col-xl-3 col-sm-6 p-b-15 lbl-card">
 				<div class="card card-mini dash-card card-1">
 					<div class="card-body">
-						<h2 class="mb-1">0</h2>
-						<p>Daily Signups</p>
+
+						<h2 class="mb-1">
+							<?php echo $totalUsersCount ?>
+						</h2>
+						<p>Total Signups</p>
 						<span class="mdi mdi-account-arrow-left"></span>
 					</div>
 				</div>
@@ -29,8 +41,10 @@ require 'navbar.php';
 			<div class="col-xl-3 col-sm-6 p-b-15 lbl-card">
 				<div class="card card-mini dash-card card-3">
 					<div class="card-body">
-						<h2 class="mb-1">0</h2>
-						<p>Daily Order</p>
+						<h2 class="mb-1">
+							<?php echo $totalOrders; ?>
+						</h2>
+						<p>Total Order</p>
 						<span class="mdi mdi-package-variant"></span>
 					</div>
 				</div>
@@ -38,8 +52,10 @@ require 'navbar.php';
 			<div class="col-xl-3 col-sm-6 p-b-15 lbl-card">
 				<div class="card card-mini dash-card card-4">
 					<div class="card-body">
-						<h2 class="mb-1">0</h2>
-						<p>Daily Revenue</p>
+						<h2 class="mb-1">
+							<?php echo $totalRevenue; ?>
+						</h2>
+						<p>Total Revenue</p>
 						<span class="mdi mdi-currency-usd"></span>
 					</div>
 				</div>
@@ -260,7 +276,7 @@ require 'navbar.php';
 								</tr>
 							</thead>
 							<tbody>
-								<!-- <tr>
+								<tr>
 									<td>24541</td>
 									<td>
 										<a class="text-dark" href=""> Test Data</a>
@@ -286,7 +302,7 @@ require 'navbar.php';
 											</ul>
 										</div>
 									</td>
-								</tr> -->
+								</tr>
 
 							</tbody>
 						</table>
@@ -302,44 +318,37 @@ require 'navbar.php';
 					<div class="card-header justify-content-between ">
 						<h2>New Customers</h2>
 						<div>
-							<button class="text-black-50 mr-2 font-size-20">
-								<i class="mdi mdi-cached"></i>
-							</button>
-							<div class="dropdown show d-inline-block widget-dropdown">
-								<a class="dropdown-toggle icon-burger-mini" href="#" role="button"
-									id="dropdown-customar" data-bs-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false" data-display="static">
-								</a>
-								<ul class="dropdown-menu dropdown-menu-right">
-									<li class="dropdown-item"><a href="#">Action</a></li>
-									<li class="dropdown-item"><a href="#">Another action</a></li>
-									<li class="dropdown-item"><a href="#">Something else here</a></li>
-								</ul>
-							</div>
+
 						</div>
 					</div>
 					<div class="card-body pt-0 pb-15px">
 						<table class="table ">
 							<tbody>
-								<!-- <tr>
-									<td>
-										<div class="media">
-											<div class="media-image mr-3 rounded-circle">
-												<a href="profile.html"><img class="profile-img rounded-circle w-45"
-														src="assets/img/user/u1.jpg" alt="customer image"></a>
-											</div>
-											<div class="media-body align-self-center">
-												<a href="profile.html">
-													<h6 class="mt-0 text-dark font-weight-medium">Test
+							<tbody>
+								<?php foreach ($lastemployee as $employee): ?>
+									<tr>
+										<td>
+											<div class="media">
+												<div class="media-body align-self-center">
+													<h6 class="mt-0 text-dark font-weight-medium">
+														<?php echo $employee['firstname'] . ' ' . $employee['lastname']; ?>
 													</h6>
-												</a>
-												<small>@selena.oi</small>
+												</div>
 											</div>
-										</div>
-									</td>
-									<td>2 Orders</td>
-									<td class="text-dark d-none d-md-block">150</td>
-								</tr> -->
+										</td>
+										<td>
+											<div class="media">
+												<div class="media-body align-self-center">
+													<h6 class="mt-0 text-dark font-weight-medium">
+														<?php echo $employee['email']; ?>
+													</h6>
+												</div>
+											</div>
+										</td>
+									</tr>
+
+								<?php endforeach; ?>
+							</tbody>
 
 							</tbody>
 						</table>

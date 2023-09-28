@@ -100,16 +100,6 @@ $orderDetails = $orderDetailsObj->getOrderDetailsbyID($email);
                                             }
                                         endforeach;
                                     endforeach;
-
-                                    // Display the total price for the last order if not already displayed
-                                    if ($currentOrderID != '' && !$totalPriceDisplayed) {
-                                        echo '<tr>';
-                                        echo '<th scope="row"></th>';
-                                        echo '<th scope="row"></th>';
-                                        echo '<td><b>Total Price</b></td>';
-                                        // echo '<td>' . $orderDetails['price'] . '</td>';
-                                        echo '</tr>';
-                                    }
                                     ?>
                                 </tbody>
                             </table>

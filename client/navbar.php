@@ -50,10 +50,6 @@ $cartCount = $cartObj->getCartItemCount($email);
     <link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
 
     <!-- PLUGINS CSS STYLE -->
-    <link href="assets-d/plugins/simplebar/simplebar.css" rel="stylesheet" />
-
-    <!-- Ekka CSS -->
-    <link id="ekka-css" rel="stylesheet" href="asset/css/ekka.css" />
 
     <!-- Background css -->
     <link rel="stylesheet" id="bg-switcher-css" href="assets/css/backgrounds/bg-4.css">

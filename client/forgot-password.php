@@ -74,7 +74,7 @@ if (isset($_GET['error'])) {
 <body class="sign-inup" id="body">
     <div class="container d-flex align-items-center justify-content-center form-height-login pt-30px pb-24px">
         <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-10">
+            <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-header" style="background-color: #242425">
 
@@ -88,41 +88,17 @@ if (isset($_GET['error'])) {
 
                     </div>
                     <div class="card-body p-5">
-                        <h4 class="text-dark mb-5">Sign In</h4>
+                        <h4 class="text-dark mb-5">Forgot Password?</h4>
 
-                        <form method="POST" class="form-horizontal auth-form my-4" action="user_login.php">
+                        <form action="" method="POST">
                             <div class="row">
                                 <div class="form-group col-md-12 mb-4">
-                                    <input type="text" class="form-control" id="email" name="email"
-                                        placeholder="Username">
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder="Email">
                                 </div>
-
-                                <div class="form-group col-md-12 ">
-                                    <input type="password" class="form-control" id="password" name="password"
-                                        placeholder="Password">
-                                </div>
-
                                 <div class="col-md-12">
-                                    <div class="d-flex my-2 justify-content-between">
-                                        <div class="d-inline-block mr-3">
-                                            <div class="control control-checkbox">Remember me
-                                                <input type="checkbox" />
-                                                <div class="control-indicator"></div>
-                                            </div>
-                                        </div>
-
-                                        <p><a class="text-blue" href="forgot-password.php">Forgot Password?</a></p>
-                                    </div>
-
                                     <button type="submit" class="btn btn-primary btn-block mb-4"
-                                        style="background-color: #242425">Sign In</button>
-
-                                    <p class="sign-upp">Don't have an account yet ?
-                                        <a class="text-blue" href="register.php">Sign Up</a>
-                                    </p>
-                                    <p class="sign-upp">Login With OTP
-                                        <a class="text-blue" href="login_otp.php">Sign In With OTP</a>
-                                    </p>
+                                        style="background-color: #242425">Reset Password</button>
                                 </div>
                             </div>
                         </form>

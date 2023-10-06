@@ -6,12 +6,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include 'config/config.php';
 $id = $_GET['id'];
-$mainCategorySql = "SELECT name FROM main_category";
-$mainCategoryStmt = $conn->prepare($mainCategorySql);
-$mainCategoryStmt->execute();
-$categories = $mainCategoryStmt->fetchAll(PDO::FETCH_COLUMN);
-$subCategorySql = "SELECT name FROM sub_category WHERE parent_category = :category";
-$subCategoryStmt = $conn->prepare($subCategorySql);
+$mainCategoryObj = new MainCategory($conn);
+$categories = $mainCategoryObj->getMainCategories();
 $productObj = new Product($conn);
 $prodinfo = $productObj->getProductwithId($id);
 ?>
@@ -83,13 +79,13 @@ if (isset($_GET['error'])) {
                                         <select name="categories" id="Categories" class="form-select">
                                             <?php foreach ($categories as $category): ?>
                                                 <optgroup
-                                                    label="<?php echo htmlspecialchars($category, ENT_QUOTES, 'UTF-8'); ?>">
+                                                    label="<?php echo htmlspecialchars($category['name'], ENT_QUOTES, 'UTF-8'); ?>">
                                                     <?php
-                                                    $subCategoryStmt->bindParam(':category', $category);
-                                                    $subCategoryStmt->execute();
-                                                    $subCategories = $subCategoryStmt->fetchAll(PDO::FETCH_COLUMN);
+                                                    $subCategoryObj = new SubCategory($conn);
+                                                    $subCategories = $subCategoryObj->getSubCategoriesByID($category['id']);
                                                     foreach ($subCategories as $subCategory) {
-                                                        echo "<option value=\"" . htmlspecialchars($subCategory, ENT_QUOTES, 'UTF-8') . "\">" . htmlspecialchars($subCategory, ENT_QUOTES, 'UTF-8') . "</option>";
+
+                                                        echo "<option value=\"{$subCategory['id']}|{$subCategory['parent_category']}\">{$subCategory['name']}</option>";
                                                     }
                                                     ?>
                                                 </optgroup>

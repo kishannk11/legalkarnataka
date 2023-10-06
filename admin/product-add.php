@@ -5,12 +5,8 @@ require 'navbar.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include 'config/config.php';
-$mainCategorySql = "SELECT name FROM main_category";
-$mainCategoryStmt = $conn->prepare($mainCategorySql);
-$mainCategoryStmt->execute();
-$categories = $mainCategoryStmt->fetchAll(PDO::FETCH_COLUMN);
-$subCategorySql = "SELECT name FROM sub_category WHERE parent_category = :category";
-$subCategoryStmt = $conn->prepare($subCategorySql);
+$mainCategoryObj = new MainCategory($conn);
+$categories = $mainCategoryObj->getMainCategories();
 ?>
 
 <?php
@@ -52,7 +48,7 @@ if (isset($_GET['error'])) {
 				</p>
 			</div>
 			<div>
-				<a href="product-list.html" class="btn btn-primary"> View All
+				<a href="product-list.php" class="btn btn-primary"> View All
 				</a>
 			</div>
 		</div>
@@ -75,21 +71,18 @@ if (isset($_GET['error'])) {
 										<label class="form-label">Select Categories</label>
 										<select name="categories" id="Categories" class="form-select">
 											<?php foreach ($categories as $category): ?>
-												<optgroup name="optgroup" label="<?php echo $category; ?>">
+												<optgroup label="<?php echo $category['name']; ?>">
 													<?php
-													$subCategoryStmt->bindParam(':category', $category);
-													$subCategoryStmt->execute();
-													$subCategories = $subCategoryStmt->fetchAll(PDO::FETCH_COLUMN);
+													$subCategoryObj = new SubCategory($conn);
+													$subCategories = $subCategoryObj->getSubCategoriesByID($category['id']);
+
 													foreach ($subCategories as $subCategory) {
-														echo "<option value=\"$category|$subCategory\">$subCategory</option>";
+														echo "<option value=\"{$subCategory['id']}|{$subCategory['parent_category']}\">{$subCategory['name']}</option>";
 													}
 													?>
 												</optgroup>
 											<?php endforeach; ?>
 										</select>
-
-
-
 									</div>
 									<div class="mb-3">
 										<label class="form-label">Price</label>

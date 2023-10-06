@@ -107,7 +107,7 @@ class MainCategory
             $stmt->bindParam(':mainCategory', $mainCategory, PDO::PARAM_STR);
             $stmt->execute();
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            error_log("Database error: " . $e->getMessage());
         }
     }
     public function getMainCategories()
@@ -125,6 +125,23 @@ class MainCategory
 
         return $categories;
     }
+
+    public function getMainCategoryById($id)
+    {
+        $category = array();
+
+        $sql = "SELECT id, name FROM main_category WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $category = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
+        return $category;
+    }
+
     public function deleteMain($Id)
     {
         $stmt = $this->conn->prepare("DELETE FROM main_category WHERE id = ?");
@@ -133,6 +150,19 @@ class MainCategory
         if ($stmt->execute()) {
             return true;
         } else {
+            return false;
+        }
+    }
+    public function updateMainCategory($id, $name)
+    {
+        try {
+            $stmt = $this->conn->prepare("UPDATE main_category SET name = :name WHERE id = :id");
+            $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            error_log("Error: " . $e->getMessage());
             return false;
         }
     }
@@ -208,6 +238,24 @@ class SubCategory
 
         return $categories;
     }
+
+    public function getSubCategoriesByID($id)
+    {
+        $categories = array();
+
+        $sql = "SELECT * FROM sub_category WHERE parent_category = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $categories[] = $row;
+            }
+        }
+
+        return $categories;
+    }
     public function updateSubCategory($id, $name, $parentCategory)
     {
         $sql = "UPDATE sub_category SET name = :name, parent_category = :parentCategory WHERE id = :id";
@@ -265,8 +313,8 @@ class Product
         // Prepare the SQL statement for inserting product details
         $stmt = $this->conn->prepare("INSERT INTO products (prod_name, category, main_category, price, details, additionalfiles) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bindParam(1, $prod_name);
-        $stmt->bindParam(2, $category);
-        $stmt->bindParam(3, $optgroup);
+        $stmt->bindParam(2, $optgroup);
+        $stmt->bindParam(3, $category);
         $stmt->bindParam(4, $price);
         $stmt->bindParam(5, $details);
         $stmt->bindParam(6, $additionalfiles);
@@ -410,7 +458,7 @@ class Product
 
         return $product;
     }
-    function updateProduct($prodId, $prodName, $category, $price, $details, $images, $additionalfiles)
+    function updateProduct($prodId, $prodName, $category, $price, $details, $images, $additionalfiles, $optgroup)
     {
         // Sanitize and validate input to prevent SQL injection and other security vulnerabilities
         $prodName = htmlspecialchars($prodName, ENT_QUOTES, 'UTF-8');
@@ -420,10 +468,11 @@ class Product
         $additionalfiles = htmlspecialchars($additionalfiles, ENT_QUOTES, 'UTF-8');
 
         // Prepare the SQL statement to update the product details
-        $sql = "UPDATE products SET prod_name = :prodName, category = :category, price = :price, details = :details, additionalfiles= :additionalfiles WHERE id = :prodId";
+        $sql = "UPDATE products SET prod_name = :prodName, category = :category, main_category = :main_category, price = :price, details = :details, additionalfiles= :additionalfiles WHERE id = :prodId";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':prodName', $prodName);
-        $stmt->bindParam(':category', $category);
+        $stmt->bindParam(':category', $optgroup);
+        $stmt->bindParam(':main_category', $category);
         $stmt->bindParam(':price', $price);
         $stmt->bindParam(':details', $details);
         $stmt->bindParam(':prodId', $prodId);
@@ -488,6 +537,20 @@ class Product
         }
 
         return $product;
+    }
+    public function searchProducts($query)
+    {
+        $sql = "SELECT * FROM products WHERE prod_name LIKE :query";
+        $stmt = $this->conn->prepare($sql);
+        $param_query = "%" . $query . "%";
+        $stmt->bindParam(':query', $param_query);
+        if ($stmt->execute()) {
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        } else {
+            error_log("Error executing query: " . $stmt->errorInfo()[2]);
+            return false;
+        }
     }
 
 
@@ -872,7 +935,8 @@ class Payment
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $data;
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            error_log("Error: " . $e->getMessage());
+            return false;
         }
     }
 }
@@ -886,7 +950,7 @@ class Order
         $this->conn = $conn;
     }
 
-    public function saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $email, $productIds, $price, $deliveryCharge, $gstAmount, $stampPriceValue, $commissionValue, $shipmentId, $ShipOrderid)
+    public function saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $email, $productIds, $price, $deliveryCharge, $gstAmount, $stampPriceValue, $commissionValue, $shipmentId, $ShipOrderid, $deliveryType, $OrderStatus)
     {
         // Validate and sanitize the input data
         $firstname = filter_var($firstname, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -903,7 +967,7 @@ class Order
 
         // Insert the order details into the order_details table for each product ID
         foreach ($productIdsArray as $key => $productId) {
-            $sql = "INSERT INTO order_details (firstname, lastname, address, city, postalcode, state, order_id, email, prod_id, price, delivery_charge, gst_amount, stamp_price, commission, shipment_id, shipment_order_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO order_details (firstname, lastname, address, city, postalcode, state, order_id, email, prod_id, price, delivery_charge, gst_amount, stamp_price, commission, shipment_id, shipment_order_id, delivery_type, order_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(1, $firstname);
             $stmt->bindParam(2, $lastname);
@@ -921,6 +985,8 @@ class Order
             $stmt->bindParam(14, $commissionValueArray[$key]);
             $stmt->bindParam(15, $shipmentId);
             $stmt->bindParam(16, $ShipOrderid);
+            $stmt->bindParam(17, $deliveryType);
+            $stmt->bindParam(18, $OrderStatus);
             if (!$stmt->execute()) {
                 // Error occurred while saving the order
                 echo "Error: " . $stmt->errorInfo()[2];
@@ -932,7 +998,29 @@ class Order
     {
         $orderDetails = array();
 
-        $sql = "SELECT * FROM order_details";
+        $sql = "SELECT * FROM order_details WHERE order_status='New'";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $orderDetails;
+    }
+    public function getOrderDetailsShipped()
+    {
+        $orderDetails = array();
+
+        $sql = "SELECT * FROM order_details WHERE order_status='Shipped' GROUP BY order_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $orderDetails;
+    }
+    public function getOrderDetailsDelivered()
+    {
+        $orderDetails = array();
+
+        $sql = "SELECT * FROM order_details WHERE order_status='Delivered' GROUP BY order_id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -972,25 +1060,27 @@ class Order
         return $orderDetails;
     }
 
-    public function getOrderFiles($orderid)
+    public function getOrderFiles($orderid, $prodid)
     {
         $orderDetails = array();
 
-        $sql = "SELECT * FROM files WHERE order_id = :order_id";
+        $sql = "SELECT * FROM files WHERE order_id = :order_id AND prod_id = :prod_id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':order_id', $orderid);
+        $stmt->bindParam(':prod_id', $prodid);
         $stmt->execute();
         $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $orderDetails;
     }
-    public function getPreviewData($orderid)
+    public function getPreviewData($orderid, $prodid)
     {
         $orderDetails = array();
 
-        $sql = "SELECT label,value FROM preview_data WHERE order_id = :order_id";
+        $sql = "SELECT label,value FROM preview_data WHERE order_id = :order_id AND product_id = :prod_id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':order_id', $orderid);
+        $stmt->bindParam(':prod_id', $prodid);
         $stmt->execute();
         $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -1102,6 +1192,29 @@ class Order
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total_revenue'];
     }
+    public function updateOrderStatus($orderId, $status)
+    {
+        $sql = "UPDATE order_details SET order_status = :status WHERE order_id = :order_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':status', $status);
+        $stmt->bindParam(':order_id', $orderId);
+
+        return $stmt->execute();
+    }
+    public function getNewOrderCount()
+    {
+        $sql = "SELECT COUNT(*) AS count FROM order_details WHERE order_status = 'New'";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            return $result['count'];
+        } else {
+            return 0;
+        }
+    }
 }
 
 class Cart
@@ -1123,7 +1236,6 @@ class Cart
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($result) {
-            // Item already exists in the cart
             return false;
         } else {
             // Prepare the SQL statement

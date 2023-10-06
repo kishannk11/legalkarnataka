@@ -77,8 +77,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $deliveryCharge = curl_exec($ch);
         curl_close($ch);
-    } else {
+        $deliveryType = "Shiprocket";
+    } else if ($shippingMethod === '2') {
         $deliveryCharge = 50;
+        $deliveryType = "Indian Post";
+    } else {
+        $deliveryCharge = 0;
+        $deliveryType = "Instant Delivery";
     }
     // echo $deliveryCharge;
     //$deliveryCharge = $shippingMethod === '1' ? 10 : 50;
@@ -90,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stampPriceValue = implode(',', $stampPrices);
     $commissionValue = implode(',', $commissions);
-    echo $price;
+    //echo $price;
     // Set your PayU credentials
     $merchantKey = "vfiulB";
     $salt = "HLk3ltGCqExDiJbADdFUBtS8G9ePX9v3";
@@ -107,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $udf4 = "";
     $udf5 = "";
 
-    $pickupLocationId = '4153676';
+    $pickupLocationId = '3220115';
     // API endpoint for authentication
     $authEndpoint = 'https://apiv2.shiprocket.in/v1/external/auth/login';
 
@@ -213,7 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     curl_setopt($shipmentCh, CURLOPT_POSTFIELDS, $payload);
 
     $shipmentResponse = curl_exec($shipmentCh);
-    // echo $shipmentResponse;
+    //echo $shipmentResponse;
     if ($shipmentResponse === false) {
         die('Error: ' . curl_error($shipmentCh));
     }
@@ -260,7 +265,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //echo $stampPriceValue;
     //print_r($data['udf1']);
     //Save order details to the database
-    $orderObj->saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $user_email, $udf1, $price, $deliveryCharge, $gstAmount, $stampPriceValue, $commissionValue, $shipmentId, $ShipOrderid); // Pass the array of product_ids
+    $OrderStatus = "New";
+    $orderObj->saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $user_email, $udf1, $price, $deliveryCharge, $gstAmount, $stampPriceValue, $commissionValue, $shipmentId, $ShipOrderid, $deliveryType, $OrderStatus); // Pass the array of product_ids
 
 
     // Create a form to submit payment data to PayU

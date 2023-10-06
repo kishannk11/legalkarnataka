@@ -13,8 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $details = $_POST['details'];
     $images = $_FILES['images'];
     $additionalfiles = $_POST['additionalfiles'];
-
-    $result = $product->updateProduct($prodId, $prodName, $category, $price, $details, $images, $additionalfiles);
+    $categoryValues = explode('|', $category);
+    $optgroup = $categoryValues[0];
+    $selectedValue = $categoryValues[1];
+    print_r($categoryValues);
+    $result = $product->updateProduct($prodId, $prodName, $selectedValue, $price, $details, $images, $additionalfiles, $optgroup);
 
     if ($result) {
         $success = "Product updated successfully.";

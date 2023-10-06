@@ -1,4 +1,13 @@
 <?php
+session_set_cookie_params([
+    'secure' => true,
+    // cookie is sent over secure connections only
+    'httponly' => true,
+    // cookie is accessible over HTTP/HTTPS only (not JavaScript)
+    'samesite' => 'None',
+    // cookie is available for cross-site usage
+]);
+
 session_start();
 include 'config/config.php';
 include '../admin/Database.php';
@@ -13,7 +22,7 @@ $orderid = $_POST['udf2'];
 $deliveryCharge = $_POST['udf3'];
 $user_email = $_SESSION['email'];
 $paymentMethod = $_POST['mode'];
-//echo $paymentMethod;
+echo $user_email;
 if ($status === "success") {
     if ($payment->saveTransaction($txnid, $amount, $status, $prodids, $orderid)) {
         sendOrderEmail($user_email, $deliveryCharge);

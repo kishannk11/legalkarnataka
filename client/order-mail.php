@@ -1,10 +1,21 @@
 <?php
+session_set_cookie_params([
+    'secure' => true,
+    // cookie is sent over secure connections only
+    'httponly' => true,
+    // cookie is accessible over HTTP/HTTPS only (not JavaScript)
+    'samesite' => 'None',
+    // cookie is available for cross-site usage
+]);
+
+session_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-//include '../admin/Database.php';
 require_once 'vendor/autoload.php';
 require_once('config/config.php');
+require_once('config/session.php');
+include 'ordergen.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -12,97 +23,9 @@ require_once('smtp_credentails.php');
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
-session_start();
 
 
 echo $deliveryCharge = '';
-//sendDeliveryCharge($deliveryCharge);
-
-/* $table = '<table style="border-collapse: collapse; border: 1px solid black;">
-            <thead>
-                <tr>
-                    <th style="border: 1px solid black;">Product Name</th>
-                    <th style="border: 1px solid black;">Price</th>
-                    <th style="border: 1px solid black;">Stamp Price</th>
-                </tr>
-            </thead>
-            <tbody>';
-$total = 0;
-foreach ($cartDetails as $cartItem) {
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-    $product = $productObj->getProductwithId($cartItem['product_id']);
-    $total += $product[0]['price'] + $cartItem['stamp_price'];
-    $productIds[] = $cartItem['product_id'];
-    // Add each product to the table
-    $table .= '<tr>
-                    <td style="border: 1px solid black;">' . $product[0]['prod_name'] . '</td>
-                    <td style="border: 1px solid black;">' . $product[0]['price'] . '</td>
-                    <td style="border: 1px solid black;">' . $cartItem['stamp_price'] . '</td>
-                </tr>';
-}
-$deliveryCharge = 50;
-$gstPercentage = 18;
-$totalWithDelivery = $total + $deliveryCharge;
-$gstAmount = ($totalWithDelivery * $gstPercentage) / 100;
-$price = $totalWithDelivery + $gstAmount;
-// Close the table
-$table .= '<tr>
-                <td style="border: 1px solid black;">Total GST Price</td>
-                <td style="border: 1px solid black;">' . $gstAmount . '</td>
-            </tr>
-     ';
-$table .= '<tr>
-                <td style="border: 1px solid black;">Total Delivery Price</td>
-                <td style="border: 1px solid black;">' . $deliveryCharge . '</td>
-            </tr>
-       ';
-$table .= '<tr>
-                <td style="border: 1px solid black;">Total Price</td>
-                <td style="border: 1px solid black;">' . $price . '</td>
-            </tr>
-        </tbody>
-    </table>'; */
-//echo $table;
-//$firstname = "test";
-//$lastname = "lastname";
-//$email = "ranjithchandran220@gmail.com";
-
-/* require_once('TCPDF-main/tcpdf.php');
-
-
-$pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
-
-$pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('Your Name');
-$pdf->SetTitle('Sample PDF');
-$pdf->SetSubject('Sample PDF');
-$pdf->SetKeywords('TCPDF, PDF, example');
-
-$pdf->setPrintHeader(false);
-$pdf->setPrintFooter(false);
-
-$pdf->AddPage();
-
-$pdf->writeHTML($table, true, false, true, false, '');
-
-// Get the order ID and email from session
-$order_id = $_SESSION['order_id'];
-$email = $_SESSION['email'];
-$pdf_name = $order_id . '.pdf';
-
-// Specify the file path to save the PDF
-$file_path = 'pdf/' . $pdf_name;
-
-// Save the PDF to the specified file path
-$pdf->Output($file_path, 'F');
-
-// Save the PDF details to the database
-$savepdfObj->savePdfToDb($order_id, $email, $pdf_name); */
-
-// Output the generated PDF to the browser
-//$dompdf->stream($pdf_name, ['Attachment' => false]);
 function sendOrderEmail($email, $deliveryCharge)
 {
     include('config/config.php');

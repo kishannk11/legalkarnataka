@@ -25,7 +25,7 @@ $cartCount = $cartObj->getCartItemCount($email);
     <meta name="keywords"
         content="apparel, catalog, clean, ecommerce, ecommerce HTML, electronics, fashion, html eCommerce, html store, minimal, multipurpose, multipurpose ecommerce, online store, responsive ecommerce template, shops" />
     <meta name="description" content="Best ecommerce html template for single and multi vendor store.">
-    <meta name="author" content="ashishmaraviya">
+
 
     <!-- site Favicon -->
     <link rel="icon" href="https://legalkarnataka.com/admin/assets/img/logo/legal.png" sizes="32x32" />
@@ -71,6 +71,47 @@ $cartCount = $cartObj->getCartItemCount($email);
             overflow-y: auto;
         }
     </style>
+    <style>
+        .search-container {
+            position: relative;
+        }
+
+        #results {
+            display: none;
+            /* Add this line */
+            position: absolute;
+            width: 100%;
+            z-index: 1;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            /* Add shadow for 3D effect */
+            padding: 12px 16px;
+            /* Add padding */
+            font-size: 16px;
+            /* Change font size */
+            border-radius: 5px;
+            /* Round the corners */
+        }
+
+        #results p {
+            margin: 0;
+            /* Remove default paragraph margins */
+        }
+
+        #results a {
+            text-decoration: none;
+            /* Remove underline from links */
+            color: black;
+            /* Change link color */
+        }
+
+        #results a:hover {
+            color: blue;
+            /* Change link color on hover */
+        }
+    </style>
+
 </head>
 
 <body class="product_page">
@@ -128,11 +169,14 @@ $cartCount = $cartObj->getCartItemCount($email);
                         <div class="align-self-center">
 
                             <div class="header-search">
-                                <form class="ec-btn-group-form" action="#">
-                                    <input class="form-control ec-search-bar" placeholder="Search products..."
-                                        type="text">
-                                    <button class="submit" type="submit"><i class="fi-rr-search"></i></button>
-                                </form>
+                                <div class="search-container">
+                                    <form id="searchForm" class="ec-btn-group-form" action="#">
+                                        <input id="search" class="form-control ec-search-bar"
+                                            placeholder="Search products..." type="text">
+                                        <button class="submit" type="submit"><i class="fi-rr-search"></i></button>
+                                    </form>
+                                    <div id="results"></div>
+                                </div>
                             </div>
                         </div>
                         <!-- Ec Header Search End -->
@@ -161,10 +205,7 @@ $cartCount = $cartObj->getCartItemCount($email);
                                         <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                                     </ul>
                                 </div>
-                                <!-- Header User End -->
-                                <!-- Header wishlist Start -->
 
-                                <!-- Header Cart End -->
                             </div>
                         </div>
                     </div>
@@ -206,21 +247,18 @@ $cartCount = $cartObj->getCartItemCount($email);
                 <div class="row">
                     <div class="col-md-12 align-self-center">
                         <div class="ec-main-menu">
-                            <a href="javascript:void(0)" class="ec-header-btn ec-sidebar-toggle">
-                                <i class="fi fi-rr-apps"></i>
-                            </a>
+
                             <ul>
                                 <li><a href="product-left-sidebar.php">Home</a></li>
                                 <li><a href="services.php">Services</a></li>
                                 <li class="dropdown"><a href="javascript:void(0)">Orders</a>
                                     <ul class="sub-menu">
                                         <li><a href="my-orders.php">My Orders</a></li>
-                                        <li><a href="#">Track Orders</a></li>
+
                                     </ul>
                                 <li class="dropdown"><a href="javascript:void(0)">Contact</a>
                                     <ul class="sub-menu">
-                                        <li><a href="#">Contact Admin</a></li>
-
+                                        <li><a href="https://wa.me/8884449627">Contact Admin</a></li>
                                     </ul>
                                 </li>
                                 <li>
@@ -259,15 +297,11 @@ $cartCount = $cartObj->getCartItemCount($email);
                         <li><a href="javascript:void(0)">Orders</a>
                             <ul class="sub-menu">
                                 <li><a href="my-orders.php">My Orders</a></li>
-                                <li><a href="#">Track Orders</a></li>
-
                             </ul>
                         </li>
                         <li class="dropdown"><a href="javascript:void(0)">Contact</a>
                             <ul class="sub-menu">
-                                <li><a href="#">Contact Admin</a></li>
-
-
+                                <li><a href="https://wa.me/8884449627">Contact Admin</a></li>
                             </ul>
                         </li>
 
@@ -277,5 +311,33 @@ $cartCount = $cartObj->getCartItemCount($email);
 
             </div>
         </div>
-        <!-- ekka mobile Menu End -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#search').on('input', function () {
+                    var searchQuery = $(this).val();
+                    if (searchQuery !== "") {
+                        $.ajax({
+                            url: 'search.php',
+                            method: 'POST',
+                            data: { query: encodeURIComponent(searchQuery) }, // Encode user input
+                            success: function (data) {
+                                if (data) {
+                                    $('#results').html(data).show(); // Show results if there is data
+                                } else {
+                                    $('#results').hide(); // Hide results if there is no data
+                                }
+                            }
+                        });
+                    } else {
+                        $('#results').html("").hide(); // Hide results and clear any existing results
+                    }
+                });
+
+                // Prevent form submission
+                $('#searchForm').on('submit', function (e) {
+                    e.preventDefault();
+                });
+            });
+        </script>
     </header>

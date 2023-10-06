@@ -183,35 +183,30 @@ if (isset($_GET['error'])) {
                                                         <input type="text" class="form-control" name="price"
                                                             id="displayPrice1" readonly>
                                                     </div>
-                                                    &nbsp;
-                                                    &nbsp;
                                                     <div class="mb-3">
                                                         <label class="form-label">Additional Files</label>
                                                         <input type="file" class="form-control" name="files[]"
                                                             id="fileInput" multiple>
                                                     </div>
-
+                                                    &nbsp;
+                                                    &nbsp;
                                                     <div class="ec-single-cart">
                                                         <div class="button-group">
-                                                            <input type="hidden" name="id"
-                                                                value="<?php echo htmlspecialchars($id, ENT_QUOTES, 'UTF-8'); ?>">
+                                                            <input type="hidden" name="id" value="<?php echo $id; ?>">
                                                             <button class="btn btn-primary" name="submit" type="submit">Add
                                                                 to
                                                                 cart</button>
 
+                                                            <a href="#" class="btn btn-primary"
+                                                                id="previewButton">Preview</a>
                                                         </div>
-
                                                     </div>
                                                 </form>
+                                                &nbsp;
+                                                &nbsp;
                                                 <div class="button-group">
-                                                    <button class="btn btn-primary" id="previewButton">Preview</button>
+                                                    <!-- <button class="btn btn-primary" id="previewButton">Preview</button> -->
                                                 </div>
-
-
-                                                &nbsp;
-                                                &nbsp;
-
-
                                             </div>
                                         </div>
 
@@ -229,7 +224,7 @@ if (isset($_GET['error'])) {
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">
                                     <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-details"
-                                        role="tablist">Additional File Info</a>
+                                        role="tablist">Details</a>
                                 </li>
 
                             </ul>

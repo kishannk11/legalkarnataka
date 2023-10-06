@@ -212,40 +212,92 @@ if (count($cartDetails) > 0) {
                                                         <input type="text" name="state" placeholder="Address Line 1"
                                                             value="Karnataka" required />
                                                     </span>
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    <div class="ec-sidebar-wrap ec-checkout-del-wrap">
+                                                        <div class="ec-sidebar-block">
+                                                            <div class="ec-sb-title">
+                                                                <div class="ec-check-subtitle">Delivery Options
+                                                                </div>
 
-                                                    <div class="ec-sidebar-block">
-                                                        <div class="ec-sb-title">
-                                                            <div class="ec-check-subtitle">Delivery Options
+                                                            </div>
+
+                                                            <div class="ec-sb-block-content">
+                                                                <div class="ec-checkout-del">
+                                                                    <div class="ec-del-desc">Please select the preferred
+                                                                        shipping method to use on this
+                                                                        order.</div>
+                                                                    <span class="ec-del-option">
+                                                                        <span style="display: block; margin-bottom: 10px;">
+                                                                            <img src="assets/images/delivery/download.png"
+                                                                                alt="Indian Post"
+                                                                                style="width: 90px; height: 30px;">
+                                                                            &nbsp;
+                                                                            <span
+                                                                                class="ec-del-opt-head"><b>ShipRocket</b></span>
+                                                                            <input type="radio" id="del1" value="1"
+                                                                                name="radio-group" data-charge="0" checked>
+                                                                            <label for="del1">Rate - Please enter pincode to
+                                                                                see
+                                                                                the delivery charge</label>
+
+                                                                        </span>
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        <span style="display: block; margin-bottom: 10px;">
+                                                                            <img src="assets/images/delivery/indiapostlogo2.png"
+                                                                                alt="Indian Post"
+                                                                                style="width: 30px; height: 30px;">
+                                                                            &nbsp;
+                                                                            <span class="ec-del-opt-head"><b>Indian Post
+                                                                                    (till
+                                                                                    2000km bellow 500grm)</b></span>
+                                                                            <input type="radio" id="del2" value="2"
+                                                                                name="radio-group" data-charge="50">
+                                                                            <label for="del2">Rate - 50</label>
+                                                                        </span>
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        <span style="display: block; margin-bottom: 10px;">
+                                                                            <img src="assets/images/delivery/download.jpeg"
+                                                                                alt="Indian Post"
+                                                                                style="width: 30px; height: 30px;">
+                                                                            &nbsp;
+                                                                            <span class="ec-del-opt-head"><b>24 Hr
+                                                                                    Deivery</b></span>
+                                                                            <input type="radio" id="del3" value="3"
+                                                                                name="radio-group" data-charge="0">
+                                                                            <label for="del3">Rate - We will contact
+                                                                                You</label>
+                                                                        </span>
+                                                                    </span>
+                                                                </div>
                                                             </div>
 
                                                         </div>
-                                                        <div class="ec-sb-block-content">
-                                                            <div class="ec-checkout-del">
-                                                                <div class="ec-del-desc">Please select the preferred
-                                                                    shipping method to use on this
-                                                                    order.</div>
-                                                                <span class="ec-del-option">
-                                                                    <span>
-                                                                        <span class="ec-del-opt-head">ShipRocket</span>
-                                                                        <input type="radio" id="del1" value="1"
-                                                                            name="radio-group" data-charge="0" checked>
-                                                                        <label for="del1">Rate - Please enter pincode to see
-                                                                            the delivery charge</label>
-                                                                    </span>
-                                                                    </br>
-                                                                    <span>
-                                                                        <span class="ec-del-opt-head">Indian Post (till
-                                                                            2000km bellow 500grm)</span>
-                                                                        <input type="radio" id="del2" value="2"
-                                                                            name="radio-group" data-charge="50">
-                                                                        <label for="del2">Rate - 50</label>
-                                                                    </span>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-
                                                     </div>
-
                                             </div>
 
                                         </div>
@@ -318,6 +370,10 @@ if (count($cartDetails) > 0) {
     });
 
     document.getElementById('del2').addEventListener('change', function () {
+        var deliveryCharge = parseInt(this.dataset.charge);
+        updateDeliveryCharge(deliveryCharge);
+    });
+    document.getElementById('del3').addEventListener('change', function () {
         var deliveryCharge = parseInt(this.dataset.charge);
         updateDeliveryCharge(deliveryCharge);
     });

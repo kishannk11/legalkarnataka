@@ -78,7 +78,7 @@ if (isset($_GET['error'])) {
 
                                         echo '<td>';
                                         echo '<div class="btn-group mb-1">';
-                                        echo '<button type="button" class="btn btn-outline-success">Info</button>';
+                                        echo '<button type="button" class="btn btn-outline-success">Action</button>';
                                         echo '<button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">';
                                         echo '<span class="sr-only">Info</span>';
                                         echo '</button>';

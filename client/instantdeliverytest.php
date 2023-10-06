@@ -2,7 +2,7 @@
 try {
     $pickupLocationId = '3220115';
     $pickupPostCode = '560070';
-    $destinationPostalCode = $_POST['pincode'];
+    $destinationPostalCode = '560057';
     // API endpoint for authentication
     $authEndpoint = 'https://apiv2.shiprocket.in/v1/external/auth/login';
 
@@ -76,7 +76,8 @@ try {
     curl_close($shippingChargesCh);
 
     $shippingChargesData = json_decode($shippingChargesResponse, true);
-    /* $availableCompanies = $shippingChargesData['data']['available_courier_companies'];
+    print_r($shippingChargesData);
+    $availableCompanies = $shippingChargesData['data']['available_courier_companies'];
 
     $lowestPrice = null;
 
@@ -95,15 +96,15 @@ try {
         echo "The lowest price among Borzo, Dunzo Local, and Shadowfax Local is: " . $lowestPrice;
     } else {
         echo "None of the specified companies are available.";
-    } */
-    if (!isset($shippingChargesData['data']['available_courier_companies'][0]['freight_charge'])) {
-        throw new Exception('Invalid Delivery Pincode.');
     }
+    /*  if (!isset($shippingChargesData['data']['available_courier_companies'][0]['freight_charge'])) {
+         throw new Exception('Invalid Delivery Pincode.');
+     }
 
-    $shippingCharges = $shippingChargesData['data']['available_courier_companies'][0]['freight_charge'];
+     $shippingCharges = $shippingChargesData['data']['available_courier_companies'][0]['freight_charge'];
 
-    // Output the response
-    echo $shippingCharges;
+     // Output the response
+     echo $shippingCharges; */
 } catch (Exception $e) {
     echo $e->getMessage();
 }

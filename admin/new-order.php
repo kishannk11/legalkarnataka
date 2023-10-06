@@ -9,7 +9,6 @@ $email = $_SESSION['email'];
 $orderDetailsObj = new Order($conn);
 $orderDetails = $orderDetailsObj->getOrderDetails();
 $transactionObj = new Payment($conn);
-
 ?>
 
 <!-- CONTENT WRAPPER -->
@@ -31,13 +30,13 @@ $transactionObj = new Payment($conn);
 									<tr>
 										<th>SL No</th>
 										<th>Order ID</th>
-
-										<th>Product Name</th>
-
 										<th>Price</th>
+										<th>Order Status</th>
+										<th>Delivery Type</th>
+										<th>Payment</th>
+										<th>Product Name</th>
 										<th>Files</th>
 										<th>Description</th>
-										<th>Payment</th>
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -48,6 +47,7 @@ $transactionObj = new Payment($conn);
 									$orderDetailsByOrderId = array();
 									foreach ($orderDetails as $order) {
 										$orderId = $order['order_id'];
+										//echo $orderId;
 										if (!isset($orderDetailsByOrderId[$orderId])) {
 											$orderDetailsByOrderId[$orderId] = array();
 										}
@@ -55,89 +55,65 @@ $transactionObj = new Payment($conn);
 									}
 
 									foreach ($orderDetailsByOrderId as $orderId => $orders) {
+										$rowspan = count($orders);
+										//echo $rowspan;
+										$firstOrder = true;
 										foreach ($orders as $order) {
 											$productObj = new Product($conn);
 											$products = $productObj->getProductwithId($order['prod_id']);
 											foreach ($products as $proddata) {
-												?>
-												<tr>
-													<td>
-														<?php echo $slno ?>
-													</td>
-													<td>
-														<?php echo $order['order_id']; ?>
-													</td>
-													<td>
-														<?php echo $proddata['prod_name']; ?>
-													</td>
-													<td>
-														<?php echo $order['price']; ?>
-													</td>
-													<td>
-														<?php
-														error_reporting(E_ALL);
-														ini_set('display_errors', 1);
-														include 'config/config.php';
-														$order_file = new Order($conn);
-														$orderId = $order['order_id'];
-														$orderFiles = $order_file->getOrderFiles($orderId);
-														if (empty($orderFiles)) {
-															echo "No data";
-														} else {
-															foreach ($orderFiles as $file) {
-																$fileName = $file['file_name'];
-																$filePath = 'upload/' . $fileName; // Update the file path accordingly
-																echo '<a href="' . $filePath . '" target="_blank">' . $fileName . '</a><br>';
-															}
-														}
-														?>
-													</td>
-													<td>
-														<?php
-														$order_preview = new Order($conn);
-														$orderId = $order['order_id'];
-														$orderpreview = $order_preview->getPreviewData($orderId);
-														if (empty($orderpreview)) {
-															echo "No data";
-														} else {
-															foreach ($orderpreview as $filepreview) {
-																echo $filepreview['label'] . ' : ' . $filepreview['value'] . "<br>";
-															}
-														}
-														?>
-													</td>
-													<td>
-														<?php
-														$transactiondetails = $transactionObj->getTransDetails($orderId);
-														//print_r($transactiondetails);
-														if (empty($transactiondetails[0]['status']))
-															echo "Payment Not Done";
-														else
-															echo $transactiondetails[0]['status'];
-														?>
-													</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button" class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-																data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-															<div class="dropdown-menu">
-																<a class="dropdown-item"
-																	href="detail-page.php?order_id=<?php echo $order['order_id']; ?>">Detail</a>
-																<a class="dropdown-item" href="#">Track</a>
-																<a class="dropdown-item" href="#">Cancel</a>
-															</div>
+												echo '<tr>';
+												if ($firstOrder) {
+													echo "<td rowspan='{$rowspan}'>{$slno}</td>";
+													echo "<td rowspan='{$rowspan}'>{$order['order_id']}</td>";
+													echo "<td rowspan='{$rowspan}'>{$order['price']}</td>";
+													echo "<td rowspan='{$rowspan}'>{$order['order_status']}</td>";
+													echo "<td rowspan='{$rowspan}'>{$order['delivery_type']}</td>";
+													$transactiondetails = $transactionObj->getTransDetails($orderId);
+													$paymentStatus = empty($transactiondetails[0]['status']) ? "Payment Not Done" : $transactiondetails[0]['status'];
+													echo "<td rowspan='{$rowspan}'>{$paymentStatus}</td>";
+												}
+												echo "<td>{$proddata['prod_name']}</td>";
+												// Files
+												$order_file = new Order($conn);
+												$orderFiles = $order_file->getOrderFiles($orderId, $order['prod_id']);
+												echo "<td>";
+												if (empty($orderFiles)) {
+													echo "No data";
+												} else {
+													foreach ($orderFiles as $file) {
+														$fileName = $file['file_name'];
+														$filePath = 'upload/' . $fileName; // Update the file path accordingly
+														echo '<a href="' . $filePath . '" target="_blank">' . $fileName . '</a><br>';
+													}
+												}
+												echo "</td>";
+												// Description
+												$order_preview = new Order($conn);
+												$orderpreview = $order_preview->getPreviewData($orderId, $order['prod_id']);
+												echo "<td>";
+												if (empty($orderpreview)) {
+													echo "No data";
+												} else {
+													foreach ($orderpreview as $filepreview) {
+														echo $filepreview['label'] . ' : ' . $filepreview['value'] . "<br>";
+													}
+												}
+												echo "</td>";
+												if ($firstOrder) {
+													echo "<td rowspan='{$rowspan}'>
+														<div class='btn-group mb-1'>
+															<a href='detail-page.php?order_id={$order['order_id']}' class='btn btn-outline-success'>Info</a>
+															
+															
 														</div>
-													</td>
-												</tr>
-												<?php
+													</td>";
+												}
+												echo '</tr>';
+												$firstOrder = false;
 											}
-											$slno += 1;
 										}
+										$slno += 1;
 									}
 									?>
 								</tbody>
@@ -163,7 +139,6 @@ $transactionObj = new Payment($conn);
 
 </div> <!-- End Page Wrapper -->
 </div> <!-- End Wrapper -->
-
 <!-- Common Javascript -->
 <script src="assets/plugins/jquery/jquery-3.5.1.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>

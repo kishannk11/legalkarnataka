@@ -41,7 +41,7 @@ if (isset($_GET['error'])) {
             <div class="col-12">
                 <div class="row ec_breadcrumb_inner">
                     <div class="col-md-6 col-sm-12">
-                        <h2 class="ec-breadcrumb-title">User Profile</h2>
+                        <h2 class="ec-breadcrumb-title"></h2>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <!-- ec-breadcrumb-list start -->
@@ -142,7 +142,7 @@ if (isset($_GET['error'])) {
                                                     <div
                                                         class="ec-vendor-detail-block ec-vendor-block-password mar-b-30">
 
-                                                        <li><strong>Upload Image : </strong><input type="file"
+                                                        <li><strong>Upload Profile Picture : </strong><input type="file"
                                                                 name="image" class="form-control">
                                                         </li>
                                                         </ul>

@@ -5,17 +5,13 @@ error_reporting(E_ALL);
 require_once('config/config.php');
 require('Database.php');
 $product = new Product($conn);
-// Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get the form data
     $prod_name = $_POST['prod_name'];
     $categories = $_POST['categories'];
     $price = $_POST['price'];
     $details = $_POST['details'];
     $image = $_FILES['image'];
     $additionalfiles = $_POST['additionalfiles']; // Get the additional files from the form data
-    //print_r($image);
-    // Split the categories value to extract the optgroup and selected values
     $categoryValues = explode('|', $categories);
     $optgroup = $categoryValues[0];
     $selectedValue = $categoryValues[1];

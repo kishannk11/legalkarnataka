@@ -52,6 +52,7 @@ if (!isset($requestCounts[$requestIdentifier]) || $requestCounts[$requestIdentif
         $_SESSION['otpGenerationTime'] = time();
         // Store the OTP in a session variable
         $_SESSION['otp'] = $otp;
+        $_SESSION['phone'] = $phone;
         // Send the OTP using Fast2SMS API
         $url = "https://www.fast2sms.com/dev/bulkV2";
         $headers = array(

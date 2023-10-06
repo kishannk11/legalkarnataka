@@ -26,8 +26,8 @@
                     <!-- Footer Copyright Start -->
                     <div class="col text-center footer-copy">
                         <div class="footer-bottom-copy ">
-                            <div class="ec-copy">Copyright © 2023 <a class="site-name text-upper" href="#">Legal
-                                    Karnataka<span>.</span></a>. All Rights Reserved</div>
+                            <div class="">Copyright © 2023 <a class="site-name text-upper"
+                                    href="#">LegalKarnataka.com<span>.</span></a> All Rights Reserved</div>
                         </div>
                     </div>
                     <!-- Footer Copyright End -->
@@ -76,7 +76,7 @@
     <!-- Start Right Floating Button-->
     <div class="ec-right-bottom">
         <div class="ec-box">
-            <a href="https://api.whatsapp.com/send?phone=9844240966&text=Hi" target="_blank" rel="noopener noreferrer">
+            <a href="https://api.whatsapp.com/send?phone=8884449627&text=Hi" target="_blank" rel="noopener noreferrer">
                 <div class=" ">
                     <img class="whatsapp" src="assets/images/common/whatsapp.png" alt="whatsapp icon" />
                 </div>

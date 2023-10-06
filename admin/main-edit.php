@@ -30,19 +30,13 @@ if (isset($_GET['error'])) {
 }
 ?>
 <?php
-include('config/config.php');
-
-$id = $_GET['id'];
-$subCategoryObj = new SubCategory($conn);
-$subCategory = $subCategoryObj->getOneSubCategories($id);
-?>
-<?php
 require_once('config/config.php');
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+$id = $_GET['id'];
 $mainCategoryObj = new MainCategory($conn);
-$categories = $mainCategoryObj->getMainCategories();
+$categories = $mainCategoryObj->getMainCategoryById($id);
 ?>
 <!-- CONTENT WRAPPER -->
 <div class="ec-content-wrapper">
@@ -50,7 +44,7 @@ $categories = $mainCategoryObj->getMainCategories();
         <div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
             <h1>Sub Category</h1>
             <p class="breadcrumbs"><span><a href="index.html">Home</a></span>
-                <span><i class="mdi mdi-chevron-right"></i></span>Sub Category Edit
+                <span><i class="mdi mdi-chevron-right"></i></span>Main Category Edit
             </p>
         </div>
         <div class="row">
@@ -59,31 +53,17 @@ $categories = $mainCategoryObj->getMainCategories();
                 <div class="ec-cat-list card card-default mb-24px">
                     <div class="card-body">
                         <div class="ec-cat-form">
-                            <h4>Update Sub Category</h4>
+                            <h4>Update Main Category</h4>
 
-                            <form action="update_sub_category.php" method="POST">
-                                <div class="form-group row">
-                                    <label for="parent-category" class="col-12 col-form-label">Parent Category</label>
-                                    <div class="col-12">
-                                        <select id="parent-category" name="parent-category" class="custom-select">
-                                            <option value="">Select</option>
-                                            <?php foreach ($categories as $category): ?>
-                                                <?php $selected = ($subCategory[0]['parent_category'] == $category['id']) ? 'selected' : ''; ?>
-                                                <option value="<?php echo $category['id']; ?>" <?php echo $selected; ?>>
-                                                    <?php echo $category['name']; ?>
-                                                </option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
+                            <form action="update_main_category.php" method="POST">
                                 <div class="form-group row">
                                     <label for="text" class="col-12 col-form-label">Name</label>
                                     <div class="col-12">
                                         <input type="hidden" name="id"
                                             value="<?php echo htmlspecialchars($id, ENT_QUOTES, 'UTF-8'); ?>">
-                                        <input id="text" name="sub_category" class="form-control here slug-title"
+                                        <input id="text" name="main_category" class="form-control here slug-title"
                                             type="text"
-                                            value="<?php echo htmlspecialchars($subCategory[0]['name'], ENT_QUOTES, 'UTF-8'); ?>">
+                                            value="<?php echo htmlspecialchars($categories['name'], ENT_QUOTES, 'UTF-8'); ?>">
                                     </div>
                                 </div>
                                 <div class="row">

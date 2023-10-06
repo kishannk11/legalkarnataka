@@ -8,7 +8,7 @@ include 'config/config.php';
 $email = $_SESSION['email'];
 $orderDetailsObj = new Order($conn);
 $orderDetails = $orderDetailsObj->getOrderDetailsbyID($email);
-//print_r($orderDetails);
+
 
 ?>
 <div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
@@ -17,7 +17,7 @@ $orderDetails = $orderDetailsObj->getOrderDetailsbyID($email);
             <div class="col-12">
                 <div class="row ec_breadcrumb_inner">
                     <div class="col-md-6 col-sm-12">
-                        <h2 class="ec-breadcrumb-title">Dashboard</h2>
+                        <h2 class="ec-breadcrumb-title"></h2>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <!-- ec-breadcrumb-list start -->

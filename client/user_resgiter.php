@@ -383,8 +383,7 @@ function sendRegistrationEmail($firstname, $lastname, $email)
                                                                                                                                         <span
                                                                                                                                             style="font-size: 12px;">&copy;
                                                                                                                                             2023
-                                                                                                                                            <strong>Legal
-                                                                                                                                                Karnataka</strong>|
+                                                                                                                                            <strong>LegalKarnataka.com</strong> |
                                                                                                                                                 Bangalore, Karnataka, BHARATH</span>
                                                                                                                                     </p>
                                                                                                                                 </div>

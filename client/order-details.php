@@ -91,7 +91,13 @@ $transactiondetails = $transactionObj->getTransDetails($orderid);
                                                         </div>
                                                         <div class="my-2"><span class="text-600 text-90">Transaction ID :
                                                             </span>
-                                                            <?php echo htmlspecialchars($transactiondetails[0]['txnid']) ?>
+                                                            <?php
+                                                            if (empty($transactiondetails[0]['txnid'])) {
+                                                                echo "<span style='color:red;'>Payment not done</span>";
+                                                            } else {
+                                                                echo htmlspecialchars($transactiondetails[0]['txnid']);
+                                                            }
+                                                            ?>
                                                         </div>
                                                     </div>
 
@@ -111,8 +117,11 @@ $transactiondetails = $transactionObj->getTransDetails($orderid);
                                                                 <th scope="col">ID</th>
                                                                 <th scope="col">Name</th>
 
-                                                                <th scope="col">Price</th>
+                                                                <th scope="col" style="width: 10%;">Price</th>
+                                                                <th scope="col">GST(18%)</th>
                                                                 <th scope="col">Stamp Paper Price</th>
+                                                                <th scope="col">Convenience Fee</th>
+                                                                <th scope="col">Convenience Fee with GST(5%)</th>
                                                                 <th scope="col">Amount</th>
                                                             </tr>
                                                         </thead>
@@ -140,23 +149,35 @@ $transactiondetails = $transactionObj->getTransDetails($orderid);
                                                                             </span></td>
                                                                         <td><span>
                                                                                 ₹
+                                                                                <?php echo htmlspecialchars($orderdata['gst_amount']); ?>
+                                                                            </span></td>
+                                                                        <td><span>
+                                                                                ₹
                                                                                 <?php echo htmlspecialchars($orderdata['stamp_price']); ?>
                                                                             </span></td>
                                                                         <td><span>
                                                                                 ₹
-                                                                                <?php echo htmlspecialchars($prod['price'] + $orderdata['stamp_price']); ?>
+                                                                                <?php echo htmlspecialchars($orderdata['commission']); ?>
+                                                                            </span></td>
+                                                                        <td><span>
+                                                                                ₹
+                                                                                <?php echo htmlspecialchars(($orderdata['commission'] * 5) / 100); ?>
+                                                                            </span></td>
+                                                                        <td><span>
+                                                                                ₹
+                                                                                <?php echo htmlspecialchars($prod['price'] + $orderdata['stamp_price'] + $orderdata['gst_amount'] + $orderdata['commission'] + (($orderdata['commission'] * 5) / 100)); ?>
                                                                             </span></td>
                                                                     </tr>
                                                                     <?php
-                                                                    $totalAmount += $prod['price'] + $orderdata['stamp_price'];
-                                                                    $taxprice = $taxprice + $orderdata['commission'];
+                                                                    $totalAmount += $prod['price'] + $orderdata['stamp_price'] + $orderdata['commission'] + (($orderdata['commission'] * 5) / 100) + $orderdata['gst_amount'];
+                                                                    //$taxprice = $taxprice + $orderdata['commission'];
                                                                 }
                                                             }
                                                             ?>
                                                         </tbody>
                                                         <tfoot>
                                                             <tr>
-                                                                <td class="border-none" colspan="3">
+                                                                <td class="border-none" colspan="6">
                                                                     <span></span>
                                                                 </td>
                                                                 <td class="border-color" colspan="1">
@@ -169,22 +190,9 @@ $transactiondetails = $transactionObj->getTransDetails($orderid);
                                                                         </b></span>
                                                                 </td>
                                                             </tr>
+
                                                             <tr>
-                                                                <td class="border-none" colspan="3">
-                                                                    <span></span>
-                                                                </td>
-                                                                <td class="border-color" colspan="1">
-                                                                    <span><strong>GST Amount(18%)</strong></span>
-                                                                </td>
-                                                                <td class="border-color">
-                                                                    <span><b>
-                                                                            ₹
-                                                                            <?php echo htmlspecialchars($orderdata['gst_amount']); ?>
-                                                                        </b></span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border-none" colspan="3">
+                                                                <td class="border-none" colspan="6">
                                                                     <span></span>
                                                                 </td>
                                                                 <td class="border-color" colspan="1">
@@ -197,22 +205,9 @@ $transactiondetails = $transactionObj->getTransDetails($orderid);
                                                                         </b></span>
                                                                 </td>
                                                             </tr>
+
                                                             <tr>
-                                                                <td class="border-none" colspan="3">
-                                                                    <span></span>
-                                                                </td>
-                                                                <td class="border-color" colspan="1">
-                                                                    <span><strong>Stamp Paper Charges</strong></span>
-                                                                </td>
-                                                                <td class="border-color">
-                                                                    <span><b>
-                                                                            ₹
-                                                                            <?php echo htmlspecialchars($taxprice); ?>
-                                                                        </b></span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border-none m-m15" colspan="3"><span
+                                                                <td class="border-none m-m15" colspan="6"><span
                                                                         class="note-text-color">Extra
                                                                         note such as company or payment
                                                                         information...</span></td>
@@ -222,12 +217,12 @@ $transactiondetails = $transactionObj->getTransDetails($orderid);
                                                                 <td class="border-color m-m15">
                                                                     <span><b>
                                                                             ₹
-                                                                            <?php echo $taxprice + $orderdata['delivery_charge'] + $orderdata['gst_amount'] + $totalAmount; ?>
+                                                                            <?php echo htmlspecialchars($orderdata['delivery_charge'] + $totalAmount); ?>
                                                                         </b></span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="border-none" colspan="3">
+                                                                <td class="border-none" colspan="6">
                                                                     <span></span>
                                                                 </td>
                                                                 <td class="border-color" colspan="1">
@@ -236,7 +231,17 @@ $transactiondetails = $transactionObj->getTransDetails($orderid);
                                                                 <td class="border-color">
                                                                     <span><b>
 
-                                                                            <?php echo htmlspecialchars($transactiondetails[0]['status']); ?>
+                                                                            <?php
+                                                                            if (empty($transactiondetails[0]['status'])) {
+                                                                                echo "<span style='color:red;'>Payment not done</span>";
+                                                                            } else {
+                                                                                if ($transactiondetails[0]['status'] == 'success') {
+                                                                                    echo "<span style='color:green;'>" . htmlspecialchars($transactiondetails[0]['status']) . "</span>";
+                                                                                } else {
+                                                                                    echo "<span style='color:red;'>" . htmlspecialchars($transactiondetails[0]['status']) . "</span>";
+                                                                                }
+                                                                            }
+                                                                            ?>
                                                                         </b></span>
                                                                 </td>
                                                             </tr>

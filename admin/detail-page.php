@@ -96,14 +96,14 @@ if (isset($_GET['order_id'])) {
                                                     </td>
                                                     <td>
                                                         <?php
-                                                        foreach ($orderDetails as $orders):
-                                                            $productObj = new Product($conn);
-                                                            $productname = $productObj->getProductwithId($orders['prod_id']);
-                                                            foreach ($productname as $product) {
-                                                                echo htmlspecialchars($product['prod_name'], ENT_QUOTES, 'UTF-8') . "<br>";
+                                                        //foreach ($orderDetails as $orders):
+                                                        $productObj = new Product($conn);
+                                                        $productname = $productObj->getProductwithId($order['prod_id']);
+                                                        foreach ($productname as $product) {
+                                                            echo htmlspecialchars($product['prod_name'], ENT_QUOTES, 'UTF-8') . "<br>";
 
-                                                            }
-                                                        endforeach;
+                                                        }
+                                                        //endforeach;
                                                         ?>
                                                     </td>
                                                     <td>
@@ -314,7 +314,10 @@ if (isset($_GET['order_id'])) {
                                             <td><strong>ID</strong></td>
                                             <td><strong>Name</strong></td>
                                             <td><strong>Price</strong></td>
+                                            <td><strong>GST(18%)</strong></td>
                                             <td><strong>Stamp Paper Price</strong></td>
+                                            <td><strong>Convenience Fee</strong></td>
+                                            <td><strong>Convenience Fee with GST(5%)</strong></td>
                                             <td><strong>Amount</strong></td>
                                         </tr>
                                     </thead>
@@ -342,23 +345,35 @@ if (isset($_GET['order_id'])) {
                                                         </span></td>
                                                     <td><span>
                                                             ₹
+                                                            <?php echo htmlspecialchars($orderdata['gst_amount']); ?>
+                                                        </span></td>
+                                                    <td><span>
+                                                            ₹
                                                             <?php echo htmlspecialchars($orderdata['stamp_price']); ?>
                                                         </span></td>
                                                     <td><span>
                                                             ₹
-                                                            <?php echo htmlspecialchars($prod['price'] + $orderdata['stamp_price']); ?>
+                                                            <?php echo htmlspecialchars($orderdata['commission']); ?>
+                                                        </span></td>
+                                                    <td><span>
+                                                            ₹
+                                                            <?php echo htmlspecialchars(($orderdata['commission'] * 5) / 100); ?>
+                                                        </span></td>
+                                                    <td><span>
+                                                            ₹
+                                                            <?php echo htmlspecialchars($prod['price'] + $orderdata['stamp_price'] + $orderdata['gst_amount'] + $orderdata['commission'] + (($orderdata['commission'] * 5) / 100)); ?>
                                                         </span></td>
                                                 </tr>
                                                 <?php
-                                                $totalAmount += $prod['price'] + $orderdata['stamp_price'];
-                                                $taxprice = $taxprice + $orderdata['commission'];
+                                                $totalAmount += $prod['price'] + $orderdata['stamp_price'] + $orderdata['commission'] + (($orderdata['commission'] * 5) / 100) + $orderdata['gst_amount'];
+                                                //$taxprice = $taxprice + $orderdata['commission'];
                                             }
                                         }
                                         ?>
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td class="border-none" colspan="3">
+                                            <td class="border-none" colspan="6">
                                                 <span></span>
                                             </td>
                                             <td class="border-color" colspan="1">
@@ -371,22 +386,9 @@ if (isset($_GET['order_id'])) {
                                                     </b></span>
                                             </td>
                                         </tr>
+
                                         <tr>
-                                            <td class="border-none" colspan="3">
-                                                <span></span>
-                                            </td>
-                                            <td class="border-color" colspan="1">
-                                                <span><strong>GST Amount(18%)</strong></span>
-                                            </td>
-                                            <td class="border-color">
-                                                <span><b>
-                                                        ₹
-                                                        <?php echo htmlspecialchars($orderdata['gst_amount']); ?>
-                                                    </b></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-none" colspan="3">
+                                            <td class="border-none" colspan="6">
                                                 <span></span>
                                             </td>
                                             <td class="border-color" colspan="1">
@@ -399,22 +401,9 @@ if (isset($_GET['order_id'])) {
                                                     </b></span>
                                             </td>
                                         </tr>
+
                                         <tr>
-                                            <td class="border-none" colspan="3">
-                                                <span></span>
-                                            </td>
-                                            <td class="border-color" colspan="1">
-                                                <span><strong>Stamp Paper Charges</strong></span>
-                                            </td>
-                                            <td class="border-color">
-                                                <span><b>
-                                                        ₹
-                                                        <?php echo htmlspecialchars($taxprice); ?>
-                                                    </b></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-none m-m15" colspan="3"><span class="note-text-color">
+                                            <td class="border-none m-m15" colspan="6"><span class="note-text-color">
                                                 </span></td>
                                             <td class="border-color m-m15" colspan="1">
                                                 <span><strong>Total</strong></span>
@@ -422,12 +411,12 @@ if (isset($_GET['order_id'])) {
                                             <td class="border-color m-m15">
                                                 <span><b>
                                                         ₹
-                                                        <?php echo htmlspecialchars($taxprice + $orderdata['delivery_charge'] + $orderdata['gst_amount'] + $totalAmount); ?>
+                                                        <?php echo htmlspecialchars($orderdata['delivery_charge'] + $totalAmount); ?>
                                                     </b></span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="border-none" colspan="3">
+                                            <td class="border-none" colspan="6">
                                                 <span></span>
                                             </td>
                                             <td class="border-color" colspan="1">
@@ -435,12 +424,15 @@ if (isset($_GET['order_id'])) {
                                             </td>
                                             <td class="border-color">
                                                 <span><b>
-
                                                         <?php
                                                         if (empty($transactiondetails[0]['status'])) {
                                                             echo "<span style='color:red;'>Payment not done</span>";
                                                         } else {
-                                                            echo "<span style='color:green;'>" . htmlspecialchars($transactiondetails[0]['status']) . "</span>";
+                                                            if ($transactiondetails[0]['status'] == 'success') {
+                                                                echo "<span style='color:green;'>" . htmlspecialchars($transactiondetails[0]['status']) . "</span>";
+                                                            } else {
+                                                                echo "<span style='color:red;'>" . htmlspecialchars($transactiondetails[0]['status']) . "</span>";
+                                                            }
                                                         }
                                                         ?>
                                                     </b></span>

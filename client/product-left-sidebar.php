@@ -282,7 +282,48 @@ if (!isset($_SESSION['order_id'])) {
         </div>
     </div>
 </section>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.querySelector(".button-group button[name='submit']").addEventListener("click", function (event) {
+        // Get the form element
+        var form = document.querySelector("form");
 
+        // Check if the template info is filled
+        var templateInputs = document.querySelectorAll(".ec-single-sales input");
+        var isFilled = Array.from(templateInputs).every(input => input.value.trim() !== '');
+
+        if (!isFilled) {
+            event.preventDefault(); // prevent the form from being submitted
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill all the info.',
+            });
+            return;
+        }
+
+        // Create a new FormData object
+        var formData = new FormData(form);
+
+        // Perform an AJAX request to submit the form data
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "add-to-cart.php");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Request was successful
+                    console.log(xhr.responseText);
+                    // You can perform additional actions here, such as displaying a success message or updating the cart UI
+                } else {
+                    // Request failed
+                    console.error("Error: " + xhr.status);
+                    // You can handle the error case here, such as displaying an error message to the user
+                }
+            }
+        };
+        xhr.send(formData);
+    });
+</script>
 <script>
     var id = <?php echo json_encode($id); ?>;
     var order_id = <?php echo json_encode($_SESSION['order_id']); ?>;

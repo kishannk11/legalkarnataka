@@ -111,6 +111,15 @@ $cartCount = $cartObj->getCartItemCount($email);
             /* Change link color on hover */
         }
     </style>
+    <style>
+        .product-name {
+            word-wrap: break-word;
+            display: inline-block;
+            /* This is needed to make sure the width is not infinite */
+            width: 100%;
+            /* Adjust this value according to your needs */
+        }
+    </style>
 
 </head>
 
@@ -299,10 +308,20 @@ $cartCount = $cartObj->getCartItemCount($email);
                                 <li><a href="my-orders.php">My Orders</a></li>
                             </ul>
                         </li>
+                        <li><a href="cart.php">cart<sup>
+                                    <span style="color: red;">
+                                        <?php echo $cartCount; ?>
+                                    </span>
+                                </sup></a>
+
+                        </li>
                         <li class="dropdown"><a href="javascript:void(0)">Contact</a>
                             <ul class="sub-menu">
                                 <li><a href="https://wa.me/8884449627">Contact Admin</a></li>
                             </ul>
+                        </li>
+                        <li><a href="logout.php">Logout</a>
+
                         </li>
 
 

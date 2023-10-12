@@ -59,7 +59,8 @@ if (isset($_GET['error'])) {
 									<tr>
 										<th>Product Image</th>
 										<th>Product Name</th>
-										<th>Category</th>
+										<th>Main Category</th>
+										<th>Sub Category</th>
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -78,7 +79,13 @@ if (isset($_GET['error'])) {
 											<td>
 												<?php echo $product['prod_name']; ?>
 											</td>
-
+											<td>
+												<?php
+												$mainCategoryObj = new MainCategory($conn);
+												$mainCategoryName = $mainCategoryObj->getMainCategoryById($product['main_category']);
+												echo $mainCategoryName['name'];
+												?>
+											</td>
 											<td>
 												<?php
 												$categoryObj = new SubCategory($conn);

@@ -169,11 +169,13 @@ if (isset($_GET['error'])) {
 
                                                 </div>
                                             </div>
-                                            <div class="ec-single-sales">
-                                                <?php foreach ($producttemplate as $product): ?>
-                                                    <?php echo $product['template_fields']['template_fields']; ?>
-                                                <?php endforeach; ?>
+                                            <div id="templateInfo">
+                                                <div class="ec-single-sales">
+                                                    <?php foreach ($producttemplate as $product): ?>
+                                                        <?php echo $product['template_fields']['template_fields']; ?>
+                                                    <?php endforeach; ?>
 
+                                                </div>
                                             </div>
                                             <div class="ec-single-desc">
 
@@ -192,12 +194,13 @@ if (isset($_GET['error'])) {
                                                     &nbsp;
                                                     <div class="ec-single-cart">
                                                         <div class="button-group">
-                                                            <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                                            <input type="hidden" name="id"
+                                                                value="<?php echo htmlspecialchars($id, ENT_QUOTES, 'UTF-8'); ?>">
                                                             <button class="btn btn-primary" name="submit" type="submit">Add
                                                                 to
                                                                 cart</button>
 
-                                                            <a href="#" class="btn btn-primary"
+                                                            <a href="javascript:void(0)" class="btn btn-primary"
                                                                 id="previewButton">Preview</a>
                                                         </div>
                                                     </div>
@@ -260,9 +263,23 @@ if (isset($_GET['error'])) {
 </section>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    document.querySelector(".button-group button[name='submit']").addEventListener("click", function () {
+    document.querySelector(".button-group button[name='submit']").addEventListener("click", function (event) {
         // Get the form element
         var form = document.querySelector("form");
+
+        // Check if the template info is filled
+        var templateInputs = document.querySelectorAll(".ec-single-sales input");
+        var isFilled = Array.from(templateInputs).every(input => input.value.trim() !== '');
+
+        if (!isFilled) {
+            event.preventDefault(); // prevent the form from being submitted
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill all the info.',
+            });
+            return;
+        }
 
         // Create a new FormData object
         var formData = new FormData(form);
@@ -444,7 +461,15 @@ if (isset($_GET['error'])) {
         xhr.open('POST', 'file_save.php?id=' + id, true); // Pass the id as a query parameter
         xhr.onload = function () {
             if (xhr.status === 200) {
-                swal("Success", "File(s) uploaded successfully", "success");
+                // Parse the response
+                const response = JSON.parse(xhr.responseText);
+
+                // Check the response
+                if (response.success) {
+                    swal("Success", "File(s) uploaded successfully", "success");
+                } else {
+                    swal("Error", response.message || "Error uploading file(s)", "error");
+                }
             } else {
                 swal("Error", "Error uploading file(s)", "error");
             }

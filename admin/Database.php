@@ -950,7 +950,7 @@ class Order
         $this->conn = $conn;
     }
 
-    public function saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $email, $productIds, $price, $deliveryCharge, $gstAmount, $stampPriceValue, $commissionValue, $shipmentId, $ShipOrderid, $deliveryType, $OrderStatus)
+    public function saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $email, $productIds, $price, $deliveryCharge, $gstperItem, $stampPriceValue, $commissionValue, $shipmentId, $ShipOrderid, $deliveryType, $OrderStatus)
     {
         // Validate and sanitize the input data
         $firstname = filter_var($firstname, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -964,6 +964,7 @@ class Order
         $productIdsArray = explode(',', $productIds);
         $stampPriceValueArray = explode(',', $stampPriceValue);
         $commissionValueArray = explode(',', $commissionValue);
+        $gstValueArray = explode(',', $gstperItem);
 
         // Insert the order details into the order_details table for each product ID
         foreach ($productIdsArray as $key => $productId) {
@@ -980,7 +981,7 @@ class Order
             $stmt->bindParam(9, $productId);
             $stmt->bindParam(10, $price);
             $stmt->bindParam(11, $deliveryCharge);
-            $stmt->bindParam(12, $gstAmount);
+            $stmt->bindParam(12, $gstValueArray[$key]);
             $stmt->bindParam(13, $stampPriceValueArray[$key]);
             $stmt->bindParam(14, $commissionValueArray[$key]);
             $stmt->bindParam(15, $shipmentId);
@@ -1228,10 +1229,11 @@ class Cart
 
     public function addToCart($productId, $price, $email, $StamPrice)
     {
-        // Check if the item is already in the cart
-        $sql = "SELECT * FROM cart WHERE product_id = ?";
+        // Check if the item is already in the cart for the user
+        $sql = "SELECT * FROM cart WHERE product_id = ? AND email = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(1, $productId);
+        $stmt->bindParam(2, $email);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 

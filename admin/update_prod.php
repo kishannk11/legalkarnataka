@@ -84,8 +84,11 @@ if (isset($_GET['error'])) {
                                                     $subCategoryObj = new SubCategory($conn);
                                                     $subCategories = $subCategoryObj->getSubCategoriesByID($category['id']);
                                                     foreach ($subCategories as $subCategory) {
-
-                                                        echo "<option value=\"{$subCategory['id']}|{$subCategory['parent_category']}\">{$subCategory['name']}</option>";
+                                                        $selected = '';
+                                                        if ($subCategory['id'] == $prodinfo[0]['category']) {
+                                                            $selected = 'selected';
+                                                        }
+                                                        echo "<option value=\"{$subCategory['id']}|{$subCategory['parent_category']}\" {$selected}>{$subCategory['name']}</option>";
                                                     }
                                                     ?>
                                                 </optgroup>

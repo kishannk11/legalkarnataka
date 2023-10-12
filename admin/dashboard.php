@@ -57,7 +57,7 @@ $transactionObj = new Payment($conn);
 				<div class="card card-mini dash-card card-4">
 					<div class="card-body">
 						<h2 class="mb-1">
-							<?php echo $totalRevenue; ?>
+							<?php echo floatval($totalRevenue); ?>
 						</h2>
 						<p>Total Revenue</p>
 						<span class="mdi mdi-currency-usd"></span>

@@ -66,7 +66,15 @@ $transactionObj = new Payment($conn);
                                                     echo "<td rowspan='{$rowspan}'>{$order['order_status']}</td>";
                                                     echo "<td rowspan='{$rowspan}'>{$order['delivery_type']}</td>";
                                                     $transactiondetails = $transactionObj->getTransDetails($orderId);
-                                                    $paymentStatus = empty($transactiondetails[0]['status']) ? "Payment Not Done" : $transactiondetails[0]['status'];
+                                                    if (empty($transactiondetails[0]['status'])) {
+                                                        $paymentStatus = "<span style='color:red;'>Payment not done</span>";
+                                                    } else {
+                                                        if ($transactiondetails[0]['status'] == 'success') {
+                                                            $paymentStatus = "<span style='color:green;'>{$transactiondetails[0]['status']}</span>";
+                                                        } else {
+                                                            $paymentStatus = "<span style='color:red;'>{$transactiondetails[0]['status']}</span>";
+                                                        }
+                                                    }
                                                     echo "<td rowspan='{$rowspan}'>{$paymentStatus}</td>";
                                                 }
 

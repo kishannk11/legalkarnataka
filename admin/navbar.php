@@ -72,10 +72,10 @@ $adminInfo = $admin->getAdminInfo();
 				<!-- begin sidebar scrollbar -->
 				<div class="ec-navigation" data-simplebar>
 					<!-- sidebar menu udate-->
-
+					<?php $currentPage = basename($_SERVER['SCRIPT_NAME']); ?>
 					<ul class="nav sidebar-inner" id="sidebar-menu">
 						<!-- Dashboard -->
-						<li class="<?php if ($page == 'dashboard')
+						<li class="<?php if ($currentPage == 'dashboard.php')
 							echo 'active'; ?>">
 							<a class="sidenav-item-link" href="dashboard.php">
 								<i class="mdi mdi-view-dashboard-outline"></i>
@@ -88,14 +88,17 @@ $adminInfo = $admin->getAdminInfo();
 
 
 						<!-- Users -->
-						<li class="has-sub ">
+						<li class="has-sub <?php if (in_array($currentPage, ['user-list.php']))
+							echo 'active expand'; ?>">
 							<a class="sidenav-item-link" href="javascript:void(0)">
 								<i class="mdi mdi-account-group"></i>
 								<span class="nav-text">Users</span> <b class="caret"></b>
 							</a>
-							<div class="collapse">
+							<div class="collapse <?php if (in_array($currentPage, ['user-list.php']))
+								echo 'show'; ?>">
 								<ul class="sub-menu" id="users" data-parent="#sidebar-menu">
-									<li class="">
+									<li class="<?php if ($currentPage == 'user-list.php')
+										echo 'active'; ?>">
 										<a class="sidenav-item-link" href="user-list.php">
 											<span class="nav-text">User List</span>
 										</a>
@@ -108,30 +111,36 @@ $adminInfo = $admin->getAdminInfo();
 
 						</li>
 
-						<!-- Category -->
-						<li class="has-sub">
+
+						<li class="has-sub <?php if (in_array($currentPage, ['main-category.php', 'view-all-main-category.php', 'sub-category.php', 'view-all-sub-category.php']))
+							echo 'active expand'; ?>">
 							<a class="sidenav-item-link" href="javascript:void(0)">
 								<i class="mdi mdi-dns-outline"></i>
 								<span class="nav-text">Categories</span> <b class="caret"></b>
 							</a>
-							<div class="collapse">
+							<div class="collapse <?php if (in_array($currentPage, ['main-category.php', 'view-all-main-category.php', 'sub-category.php', 'view-all-sub-category.php']))
+								echo 'show'; ?>" id="categorys">
 								<ul class="sub-menu" id="categorys" data-parent="#sidebar-menu">
-									<li class="">
+									<li class="<?php if ($currentPage == 'main-category.php')
+										echo 'active'; ?>">
 										<a class="sidenav-item-link" href="main-category.php">
 											<span class="nav-text">Main Category</span>
 										</a>
 									</li>
-									<li class="">
+									<li class="<?php if ($currentPage == 'view-all-main-category.php')
+										echo 'active'; ?>">
 										<a class="sidenav-item-link" href="view-all-main-category.php">
 											<span class="nav-text">View All Main Category</span>
 										</a>
 									</li>
-									<li class="">
+									<li class="<?php if ($currentPage == 'sub-category.php')
+										echo 'active'; ?>">
 										<a class="sidenav-item-link" href="sub-category.php">
 											<span class="nav-text">Sub Category</span>
 										</a>
 									</li>
-									<li class="">
+									<li class="<?php if ($currentPage == 'view-all-sub-category.php')
+										echo 'active'; ?>">
 										<a class="sidenav-item-link" href="view-all-sub-category.php">
 											<span class="nav-text">View All Sub Category</span>
 										</a>
@@ -141,21 +150,25 @@ $adminInfo = $admin->getAdminInfo();
 						</li>
 
 						<!-- Products -->
-						<li class="has-sub">
+						<li class="has-sub <?php if (in_array($currentPage, ['product-add.php', 'product-list.php']))
+							echo 'active expand'; ?>">
 							<a class="sidenav-item-link" href="javascript:void(0)">
 								<i class="mdi mdi-palette-advanced"></i>
 								<span class="nav-text">Products</span> <b class="caret"></b>
 							</a>
-							<div class="collapse">
+							<div class="collapse <?php if (in_array($currentPage, ['product-add.php', 'product-list.php']))
+								echo 'show'; ?>">
 								<ul class="sub-menu" id="products" data-parent="#sidebar-menu">
-									<li class="">
+									<li class="<?php if ($currentPage == 'product-add.php')
+										echo 'active'; ?>">
 										<a class="sidenav-item-link" href="product-add.php">
 											<span class="nav-text">Add Product</span>
 										</a>
 									</li>
-									<li class="">
+									<li class="<?php if ($currentPage == 'product-list.php')
+										echo 'active'; ?>">
 										<a class="sidenav-item-link" href="product-list.php">
-											<span class="nav-text">List Product</span>
+											<span class="nav-text">Product List</span>
 										</a>
 									</li>
 
@@ -165,24 +178,29 @@ $adminInfo = $admin->getAdminInfo();
 						</li>
 
 						<!-- Orders -->
-						<li class="has-sub">
+						<li class="has-sub <?php if (in_array($currentPage, ['new-order.php', 'shipped-order.php', 'delivered-order.php']))
+							echo 'active expand'; ?>">
 							<a class="sidenav-item-link" href="javascript:void(0)">
 								<i class="mdi mdi-cart"></i>
 								<span class="nav-text">Orders</span> <b class="caret"></b>
 							</a>
-							<div class="collapse">
+							<div class="collapse <?php if (in_array($currentPage, ['new-order.php', 'shipped-order.php', 'delivered-order.php']))
+								echo 'show'; ?>">
 								<ul class="sub-menu" id="orders" data-parent="#sidebar-menu">
-									<li class="">
+									<li class="<?php if ($currentPage == 'new-order.php')
+										echo 'active'; ?>">
 										<a class="sidenav-item-link" href="new-order.php">
 											<span class="nav-text">New Orders</span>
 										</a>
 									</li>
-									<li class="">
+									<li class="<?php if ($currentPage == 'shipped-order.php')
+										echo 'active'; ?>">
 										<a class="sidenav-item-link" href="shipped-order.php">
 											<span class="nav-text">Shipped Orders</span>
 										</a>
 									</li>
-									<li class="">
+									<li class="<?php if ($currentPage == 'delivered-order.php')
+										echo 'active'; ?>">
 										<a class="sidenav-item-link" href="delivered-order.php">
 											<span class="nav-text">Delivered Orders</span>
 										</a>
@@ -191,32 +209,38 @@ $adminInfo = $admin->getAdminInfo();
 								</ul>
 							</div>
 						</li>
-						<li class="has-sub">
+						<li class="has-sub <?php if (in_array($currentPage, ['create_template.php', 'template_list.php', 'product_template.php', 'product_template_list.php']))
+							echo 'active expand'; ?>">
 							<a class="sidenav-item-link" href="javascript:void(0)">
 								<i class="mdi mdi-apps-box"></i>
 								<span class="nav-text">Templates</span> <b class="caret"></b>
 							</a>
-							<div class="collapse">
+							<div class="collapse <?php if (in_array($currentPage, ['create_template.php', 'template_list.php', 'product_template.php', 'product_template_list.php']))
+								echo 'show'; ?>">
 								<ul class="sub-menu" id="orders" data-parent="#sidebar-menu">
-									<li class="">
+									<li class="<?php if ($currentPage == 'create_template.php')
+										echo 'active'; ?>">
 										<a class="sidenav-item-link" href="create_template.php">
-											<span class="nav-text">Add Templates</span>
+											<span class="nav-text">Add Form Field</span>
 										</a>
 									</li>
-									<li class="">
+									<li class="<?php if ($currentPage == 'template_list.php')
+										echo 'active'; ?>">
 										<a class="sidenav-item-link" href="template_list.php">
-											<span class="nav-text">Template List</span>
+											<span class="nav-text">Form List</span>
 										</a>
 									</li>
 
-									<li class="">
+									<li class="<?php if ($currentPage == 'product_template.php')
+										echo 'active'; ?>">
 										<a class="sidenav-item-link" href="product_template.php">
-											<span class="nav-text">Add Templates for Product</span>
+											<span class="nav-text">Add Forms for Products</span>
 										</a>
 									</li>
-									<li class="">
+									<li class="<?php if ($currentPage == 'product_template_list.php')
+										echo 'active'; ?>">
 										<a class="sidenav-item-link" href="product_template_list.php">
-											<span class="nav-text">Product Template list</span>
+											<span class="nav-text">View/Delet Product Field</span>
 										</a>
 									</li>
 								</ul>

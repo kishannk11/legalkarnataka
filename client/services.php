@@ -116,13 +116,15 @@ $displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 												</div>
 											</div>
 											<div class="ec-pro-content">
-												<h5 class="ec-pro-title">
+												<h6 class="ec-pro-titl">
 													<a href="product-info.php?id=<?php echo $allproduct['id'] ?>">
-														<b>
-															<?php echo htmlspecialchars($allproduct['prod_name'], ENT_QUOTES, 'UTF-8'); ?>
-														</b>
+														<div class="product-name">
+															<b class="">
+																<?php echo htmlspecialchars($allproduct['prod_name'], ENT_QUOTES, 'UTF-8'); ?>
+															</b>
+														</div>
 													</a>
-												</h5>
+												</h6>
 												<span class="ec-price">
 													<span class="new-price">₹
 														<?php echo $allproduct['price']; ?>

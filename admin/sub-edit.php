@@ -61,16 +61,17 @@ $categories = $mainCategoryObj->getMainCategories();
                         <div class="ec-cat-form">
                             <h4>Update Sub Category</h4>
 
-                            <form action="update_main_category.php" method="POST">
+                            <form action="update_sub_category.php" method="POST">
                                 <div class="form-group row">
                                     <label for="parent-category" class="col-12 col-form-label">Parent Category</label>
                                     <div class="col-12">
                                         <select id="parent-category" name="parent-category" class="custom-select">
                                             <option value="">Select</option>
                                             <?php foreach ($categories as $category): ?>
-                                                <?php $selected = ($subCategory[0]['parent_category'] == $category['name']) ? 'selected' : ''; ?>
-                                                <option value="<?php echo $category['name']; ?>" <?php echo $selected; ?>>
-                                                    <?php echo $category['name']; ?></option>
+                                                <?php $selected = ($subCategory[0]['parent_category'] == $category['id']) ? 'selected' : ''; ?>
+                                                <option value="<?php echo $category['id']; ?>" <?php echo $selected; ?>>
+                                                    <?php echo $category['name']; ?>
+                                                </option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -78,9 +79,11 @@ $categories = $mainCategoryObj->getMainCategories();
                                 <div class="form-group row">
                                     <label for="text" class="col-12 col-form-label">Name</label>
                                     <div class="col-12">
-                                        <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                        <input type="hidden" name="id"
+                                            value="<?php echo htmlspecialchars($id, ENT_QUOTES, 'UTF-8'); ?>">
                                         <input id="text" name="sub_category" class="form-control here slug-title"
-                                            type="text" value="<?php echo $subCategory[0]['name']; ?>">
+                                            type="text"
+                                            value="<?php echo htmlspecialchars($subCategory[0]['name'], ENT_QUOTES, 'UTF-8'); ?>">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -103,9 +106,9 @@ $categories = $mainCategoryObj->getMainCategories();
 <footer class="footer mt-auto">
     <div class="copyright bg-white">
         <p>
-            Copyright &copy; <span id="ec-year"></span><a class="text-primary"
-                href="https://themeforest.net/user/ashishmaraviya" target="_blank"> Ekka Admin Dashboard</a>. All Rights
-            Reserved.
+            <?php
+            include "footer.php";
+            ?>
         </p>
     </div>
 </footer>

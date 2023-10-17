@@ -56,8 +56,8 @@ if (isset($_GET['error'])) {
                                 <thead>
                                     <tr>
 
-                                        <th>Name</th>
-
+                                        <th>Sub Category</th>
+                                        <th>Main Category</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -73,13 +73,13 @@ if (isset($_GET['error'])) {
                                     $subCategory = $categoryObj->getSubCategories();
                                     foreach ($subCategory as $categories) {
                                         echo '<tr>';
-                                        //echo '<td><img class="vendor-thumb" src="assets/img/vendor/u1.jpg" alt="user profile" /></td>';
                                         echo '<td>' . $categories['name'] . '</td>';
-                                        echo '<td>' . $categories['parent_category'] . '</td>';
-
+                                        $mainCategoryObj = new MainCategory($conn);
+                                        $mainCategory = $mainCategoryObj->getMainCategoryById($categories['parent_category']);
+                                        echo '<td>' . $mainCategory['name'] . '</td>';
                                         echo '<td>';
                                         echo '<div class="btn-group mb-1">';
-                                        echo '<button type="button" class="btn btn-outline-success">Info</button>';
+                                        echo '<button type="button" class="btn btn-outline-success">Action</button>';
                                         echo '<button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">';
                                         echo '<span class="sr-only">Info</span>';
                                         echo '</button>';

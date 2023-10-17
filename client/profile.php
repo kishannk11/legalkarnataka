@@ -7,13 +7,41 @@ $id = $_SESSION['id'];
 $userObj = new User($conn);
 $user = $userObj->getUserInfo($id);
 ?>
+<?php
+if (isset($_GET['success'])) {
+    $success = $_GET['success'];
+    echo '<script>
+	document.addEventListener("DOMContentLoaded", function() {
+			Swal.fire({
+				title: "Success!",
+				text: "' . htmlspecialchars($success) . '",
+				icon: "success",
+				confirmButtonText: "OK"
+			});
+		});
+	</script>';
+}
+
+if (isset($_GET['error'])) {
+    $error = $_GET['error'];
+    echo '<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		Swal.fire({
+			icon: "error",
+			title: "Oops...",
+			text: "' . htmlspecialchars($error, ENT_QUOTES, 'UTF-8') . '",
+		});
+	});
+</script>';
+}
+?>
 <div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="row ec_breadcrumb_inner">
                     <div class="col-md-6 col-sm-12">
-                        <h2 class="ec-breadcrumb-title">User Profile</h2>
+                        <h2 class="ec-breadcrumb-title"></h2>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <!-- ec-breadcrumb-list start -->
@@ -60,61 +88,101 @@ $user = $userObj->getUserInfo($id);
                                             <p></p>
                                         </div>
                                         <h5>Account Information</h5>
+                                        <form method="POST" action="update-profile.php" enctype=multipart/form-data>
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div
+                                                        class="ec-vendor-detail-block ec-vendor-block-email space-bottom-30">
 
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-12">
-                                                <div
-                                                    class="ec-vendor-detail-block ec-vendor-block-email space-bottom-30">
-                                                    <h6>E-mail address <a href="javasript:void(0)"
-                                                            data-link-action="editmodal" title="Edit Detail"
-                                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
-                                                                class="fi-rr-edit"></i></a></h6>
-                                                    <ul>
+                                                        <li><strong>First Name : </strong>
+                                                            <input type="text" name="firstname" class="form-control"
+                                                                value="<?php echo $user['firstname'] ?>">
+                                                        </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div
+                                                        class="ec-vendor-detail-block ec-vendor-block-email space-bottom-30">
+
+                                                        <li><strong>Last Name : </strong>
+                                                            <input type="text" name="lastname" class="form-control"
+                                                                value="<?php echo $user['lastname'] ?>">
+                                                        </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div
+                                                        class="ec-vendor-detail-block ec-vendor-block-email space-bottom-30">
+
                                                         <li><strong>Email : </strong>
-                                                            <?php echo $user['email'] ?>
+                                                            <input type="text" name="email" class="form-control"
+                                                                value="<?php echo $user['email'] ?>">
                                                         </li>
 
-                                                    </ul>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6 col-sm-12">
-                                                <div
-                                                    class="ec-vendor-detail-block ec-vendor-block-contact space-bottom-30">
-                                                    <h6>Contact nubmer<a href="javasript:void(0)"
-                                                            data-link-action="editmodal" title="Edit Detail"
-                                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
-                                                                class="fi-rr-edit"></i></a></h6>
-                                                    <ul>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div
+                                                        class="ec-vendor-detail-block ec-vendor-block-contact space-bottom-30">
+
                                                         <li><strong>Phone Nubmer : </strong>
-                                                            <?php echo $user['phonenumber'] ?>
+                                                            <input class="form-control" name="phone" type="text"
+                                                                value="<?php echo $user['phonenumber'] ?>">
                                                         </li>
 
-                                                    </ul>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div
+                                                        class="ec-vendor-detail-block ec-vendor-block-password mar-b-30">
+
+                                                        <li><strong>Upload Profile Picture : </strong><input type="file"
+                                                                name="image" class="form-control">
+                                                        </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div
+                                                        class="ec-vendor-detail-block ec-vendor-block-password mar-b-30">
+
+                                                        <li><strong>Password : </strong><input type="password"
+                                                                name="password" class="form-control">
+                                                        </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div
+                                                        class="ec-vendor-detail-block ec-vendor-block-password mar-b-30">
+
+                                                        <li><strong>Confirm Password : </strong><input type="password"
+                                                                name="conpassword" class="form-control"></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <div
+                                                            class="ec-vendor-detail-block ec-vendor-block-password mar-b-30">
+                                                            <button type="submit"
+                                                                class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-sm-12">
-                                                <div class="ec-vendor-detail-block ec-vendor-block-address mar-b-30">
-                                                    <h6>Address<a href="javasript:void(0)" data-link-action="editmodal"
-                                                            title="Edit Detail" data-bs-toggle="modal"
-                                                            data-bs-target="#edit_modal"><i class="fi-rr-edit"></i></a>
-                                                    </h6>
-                                                    <ul>
-                                                        <li><strong>Home : </strong>Banglore</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-sm-12">
-                                                <div class="ec-vendor-detail-block ec-vendor-block-address">
-                                                    <h6>Shipping Address<a href="javasript:void(0)"
-                                                            data-link-action="editmodal" title="Edit Detail"
-                                                            data-bs-toggle="modal" data-bs-target="#edit_modal"><i
-                                                                class="fi-rr-edit"></i></a></h6>
-                                                    <ul>
-                                                        <li><strong>Office : </strong>Banglore</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -125,6 +193,7 @@ $user = $userObj->getUserInfo($id);
         </div>
     </div>
 </section>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <?php
 include "footer.php";
 ?>

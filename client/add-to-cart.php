@@ -21,12 +21,13 @@ if (isset($_POST['submit'])) {
     $product = $productObj->getProductwithId($productId);
     $price = $product[0]['price'];
     $result = $cartObj->addToCart($productId, $price, $email, $StamPrice);
-
+    $encodedProductId = urlencode($productId);
     if ($result) {
-        header("Location: cart.php");
+        header("Location: product-info.php?id=$encodedProductId&success=product added to cart");
         exit();
     } else {
-        echo "Error: Unable to add to cart.";
+        //echo "Error: Unable to add to cart.";
+        header("Location: product-info.php?id=$encodedProductId&error=Error: Unable to add to cart");
     }
 }
 ?>

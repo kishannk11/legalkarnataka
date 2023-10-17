@@ -14,7 +14,7 @@ if (isset($_GET['txnid'])) {
                     <h2 class="ec-bg-title">Order Success</h2>
                     <h2 class="ec-title">Order Status</h2>
                     <p class="sub-title mb-3">
-                        <?php echo $txnid; ?>
+                        <?php echo htmlspecialchars($txnid, ENT_QUOTES, 'UTF-8'); ?>
                     </p>
                 </div>
             </div>

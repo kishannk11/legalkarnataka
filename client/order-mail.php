@@ -1,10 +1,21 @@
 <?php
+session_set_cookie_params([
+    'secure' => true,
+    // cookie is sent over secure connections only
+    'httponly' => true,
+    // cookie is accessible over HTTP/HTTPS only (not JavaScript)
+    'samesite' => 'None',
+    // cookie is available for cross-site usage
+]);
+
+session_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-//include '../admin/Database.php';
 require_once 'vendor/autoload.php';
 require_once('config/config.php');
+require_once('config/session.php');
+include 'ordergen.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -12,13 +23,21 @@ require_once('smtp_credentails.php');
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
-session_start();
-include('config/config.php');
-$orderID = $_SESSION['order_id'];
-$cartObj = new Cart($conn);
-$productObj = new Product($conn);
-$cartDetails = $cartObj->getCartDetails($_SESSION['email']);
-$table = '<table
+
+
+echo $deliveryCharge = '';
+function sendOrderEmail($email, $deliveryCharge)
+{
+    include('config/config.php');
+    $orderID = $_SESSION['order_id'];
+    $cartObj = new Cart($conn);
+    $productObj = new Product($conn);
+    $userObj = new User($conn);
+    $cartDetails = $cartObj->getCartDetails($_SESSION['email']);
+    $user = $userObj->getUserByEmail($_SESSION['email']);
+    $firstname = $user['firstname'];
+    $lastname = $user['lastname'];
+    $table = '<table
 style="table-layout: fixed; vertical-align: top; min-width: 320px; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; width: 100%; user-select: none;"
 width="100%" cellspacing="0" cellpadding="0" bgcolor="#f5eeee">
 <tbody>
@@ -170,65 +189,118 @@ width="100%" cellspacing="0" cellpadding="0" bgcolor="#f5eeee">
                                                                                                                                 style="margin: 0; font-size: 18px; line-height: 1.8; word-break: break-word; text-align: center; mso-line-height-alt: 32px; margin-top: 0; margin-bottom: 0;">
                                                                                                                                 <span
                                                                                                                                     style="font-size: 18px;">
-                                                                                                                                    Hi   
+                                                                                                                                    Hi   ' . $firstname . ' ' . $lastname . '
                                                                                                                                     
    
                                                                                                                                     
     
                                                                                                                                 </span><br><span>
                                                                                                                                     Your order number is ' . $orderID . '
-                                                                                                                                    <table style="border-collapse: collapse; border: 1px solid black;margin-left: auto; margin-right: auto;">
+                                                                                                                                    <table style="border-collapse: collapse; border: 1px solid black; margin-left: auto; margin-right: auto; width: 100%;">
                                                                                                                                         <thead>
                                                                                                                                             <tr>
-                                                                                                                                                <th style="border: 1px solid black;">Product Name</th>
-                                                                                                                                                <th style="border: 1px solid black;">Price</th>
-                                                                                                                                                <th style="border: 1px solid black;">Stamp Price</th>
+                                                                                                                                                <th style="border: 1px solid black; width: 20% ;">Product Name</th>
+                                                                                                                                                <th style="border: 1px solid black; width: 10% ;">Price</th>
+                                                                                                                                                <th style="border: 1px solid black;width: 15%">GST(18%)</th>
+                                                                                                                                                <th style="border: 1px solid black;width: 10%">Stamp Price</th>
+                                                                                                                                                <th style="border: 1px solid black;width: 17%">Convenience Fee</th>
+                                                                                                                                                <th style="border: 1px solid black; width: 17%">Convenience Fee with GST(5%)</th>
+                                                                                                                                                <th style="border: 1px solid black;width: 12%">Total</th>
                                                                                                                                             </tr>
                                                                                                                                         </thead>
                                                                                                                                         <tbody>';
-$total = 0;
-foreach ($cartDetails as $cartItem) {
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-    $product = $productObj->getProductwithId($cartItem['product_id']);
-    $total += $product[0]['price'] + $cartItem['stamp_price'];
-    $productIds[] = $cartItem['product_id'];
-    // Add each product to the table
-    $table .= '<tr>
-                    <td style="border: 1px solid black;">' . $product[0]['prod_name'] . '</td>
-                    <td style="border: 1px solid black;">' . $product[0]['price'] . '</td>
-                    <td style="border: 1px solid black;">' . $cartItem['stamp_price'] . '</td>
+    $total = 0;
+    $gstProduct = 0;
+    $stampPriceValue = 0;
+    foreach ($cartDetails as $cartItem) {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+        $product = $productObj->getProductwithId($cartItem['product_id']);
+
+        $stampPrice = $cartItem['stamp_price'];
+        $commission = 0; // Default commission value
+        $gstOnCommission = 0;
+        $commissionValue = 0;
+        $gstOnCommissionValue = 0;
+        // Add commission for stamp paper prices based on the table
+        if ($stampPrice > 0) {
+            if ($stampPrice <= 20) {
+                $commission = 10;
+            } elseif ($stampPrice <= 50) {
+                $commission = 10;
+            } elseif ($stampPrice <= 100) {
+                $commission = 10;
+            } elseif ($stampPrice <= 150) {
+                $commission = 20;
+            } elseif ($stampPrice <= 200) {
+                $commission = 20;
+            } elseif ($stampPrice <= 300) {
+                $commission = 20;
+            } elseif ($stampPrice <= 500) {
+                $commission = 30;
+            } elseif ($stampPrice <= 1000) {
+                $commission = 50;
+            } elseif ($stampPrice > 1000) {
+                $commission = 100;
+            }
+            $gstOnCommission = ($commission * 5) / 100;
+        }
+        $gstPercentage = 18;
+        $gstProduct = $product[0]['price'];
+        $gstAmount = ($gstProduct * $gstPercentage) / 100;
+        // echo $gstAmount;
+        $commissionValue += $commission; // Store the commission
+        $gstOnCommissionValue += $gstOnCommission; // Store the GST on the commission
+        //$total += $product[0]['price'] + $stampPrice + $commission + $gstOnCommissionValue + $commissionValue;
+        $total += $product[0]['price'] + $stampPrice + $gstAmount + $gstOnCommissionValue + $commissionValue;
+
+        //$total += $product[0]['price'] + $cartItem['stamp_price'];
+        $productIds[] = $cartItem['product_id'];
+        // Add each product to the table
+        $table .= '<tr>
+                    <td style="border: 1px solid black; text-align: center;">' . $product[0]['prod_name'] . '</td>
+                    <td style="border: 1px solid black; text-align: center;">₹' . $product[0]['price'] . '</td>
+                    <td style="border: 1px solid black; text-align: center;">₹' . $gstAmount . '</td>
+
+                    <td style="border: 1px solid black; text-align: center;">₹' . $cartItem['stamp_price'] . '</td>
+                    <td style="border: 1px solid black; text-align: center;">₹' . $commissionValue . '</td>
+                    <td style="border: 1px solid black; text-align: center;">₹' . $gstOnCommissionValue . '</td>
+                    <td style="border: 1px solid black; text-align: center;">₹' . $product[0]['price'] + $stampPrice + $gstAmount + $gstOnCommissionValue + $commissionValue . '</td>
                 </tr>';
-}
-$deliveryCharge = 50;
-$gstPercentage = 18;
-$totalWithDelivery = $total + $deliveryCharge;
-$gstAmount = ($totalWithDelivery * $gstPercentage) / 100;
-$price = $totalWithDelivery + $gstAmount;
-// Close the table
-$table .= '<tr>
-                <td style="border: 1px solid black;">Total GST Price</td>
-                <td style="border: 1px solid black;">' . $gstAmount . '</td>
-            </tr>
-     ';
-$table .= '<tr>
-                <td style="border: 1px solid black;">Total Delivery Price</td>
-                <td style="border: 1px solid black;">' . $deliveryCharge . '</td>
+    }
+
+    //$deliveryCharge = 50;
+
+    $totalWithDelivery = $total + $deliveryCharge;
+
+    //$price = $totalWithDelivery + $gstAmount;
+
+    // Close the table
+
+    $table .= '<tr>
+                <td colspan="6" style="border: 1px solid black;">Delivery Charge</td>
+                <td style="border: 1px solid black;">₹' . $deliveryCharge . '</td>
             </tr>
        ';
-$table .= '<tr>
-                <td style="border: 1px solid black;">Total Price</td>
-                <td style="border: 1px solid black;">' . $price . '</td>
+
+    $table .= '<tr>
+                <td colspan="6" style="border: 1px solid black;"><strong>Grand
+                Total
+            </strong></td>
+                <td style="border: 1px solid black;">₹' . $totalWithDelivery . '</td>
             </tr>
         </tbody>
     </table>
     &nbsp;
     &nbsp;
     &nbsp;
+    <div style="text-align: center;">
+    <span>
     Thank you for ordering </br>
-                                                                                                                                    Team legal Karnataka
+                                                                                                                                    Team Legal Karnataka
                                                                                                                                 </span>
+                                                                                                                                </div>
                                                                                                                             </p>
                                                                                                                             <p
                                                                                                                                 style="margin: 0; font-size: 18px; line-height: 1.8; word-break: break-word; text-align: center; mso-line-height-alt: 32px; margin-top: 0; margin-bottom: 0;">
@@ -332,8 +404,7 @@ $table .= '<tr>
                                                                                                                                 <span
                                                                                                                                     style="font-size: 12px;">&copy;
                                                                                                                                     2023
-                                                                                                                                    <strong>Legal
-                                                                                                                                        Karnataka</strong>|
+                                                                                                                                    <strong>legalkarnataka.com</strong>
                                                                                                                                          Bangalore, Karnataka, BHARATH
                                                                                                                                     </span>
                                                                                                                             </p>
@@ -397,95 +468,6 @@ $table .= '<tr>
     </tr>
 </tbody>
 </table>';
-/* $table = '<table style="border-collapse: collapse; border: 1px solid black;">
-            <thead>
-                <tr>
-                    <th style="border: 1px solid black;">Product Name</th>
-                    <th style="border: 1px solid black;">Price</th>
-                    <th style="border: 1px solid black;">Stamp Price</th>
-                </tr>
-            </thead>
-            <tbody>';
-$total = 0;
-foreach ($cartDetails as $cartItem) {
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-    $product = $productObj->getProductwithId($cartItem['product_id']);
-    $total += $product[0]['price'] + $cartItem['stamp_price'];
-    $productIds[] = $cartItem['product_id'];
-    // Add each product to the table
-    $table .= '<tr>
-                    <td style="border: 1px solid black;">' . $product[0]['prod_name'] . '</td>
-                    <td style="border: 1px solid black;">' . $product[0]['price'] . '</td>
-                    <td style="border: 1px solid black;">' . $cartItem['stamp_price'] . '</td>
-                </tr>';
-}
-$deliveryCharge = 50;
-$gstPercentage = 18;
-$totalWithDelivery = $total + $deliveryCharge;
-$gstAmount = ($totalWithDelivery * $gstPercentage) / 100;
-$price = $totalWithDelivery + $gstAmount;
-// Close the table
-$table .= '<tr>
-                <td style="border: 1px solid black;">Total GST Price</td>
-                <td style="border: 1px solid black;">' . $gstAmount . '</td>
-            </tr>
-     ';
-$table .= '<tr>
-                <td style="border: 1px solid black;">Total Delivery Price</td>
-                <td style="border: 1px solid black;">' . $deliveryCharge . '</td>
-            </tr>
-       ';
-$table .= '<tr>
-                <td style="border: 1px solid black;">Total Price</td>
-                <td style="border: 1px solid black;">' . $price . '</td>
-            </tr>
-        </tbody>
-    </table>'; */
-//echo $table;
-$firstname = "test";
-$lastname = "lastname";
-$email = "ranjithchandran220@gmail.com";
-
-/* require_once('TCPDF-main/tcpdf.php');
-
-
-$pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
-
-$pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('Your Name');
-$pdf->SetTitle('Sample PDF');
-$pdf->SetSubject('Sample PDF');
-$pdf->SetKeywords('TCPDF, PDF, example');
-
-$pdf->setPrintHeader(false);
-$pdf->setPrintFooter(false);
-
-$pdf->AddPage();
-
-$pdf->writeHTML($table, true, false, true, false, '');
-
-// Get the order ID and email from session
-$order_id = $_SESSION['order_id'];
-$email = $_SESSION['email'];
-$pdf_name = $order_id . '.pdf';
-
-// Specify the file path to save the PDF
-$file_path = 'pdf/' . $pdf_name;
-
-// Save the PDF to the specified file path
-$pdf->Output($file_path, 'F');
-
-// Save the PDF details to the database
-$savepdfObj->savePdfToDb($order_id, $email, $pdf_name); */
-
-// Output the generated PDF to the browser
-//$dompdf->stream($pdf_name, ['Attachment' => false]);
-function sendOrderEmail($firstname, $lastname, $email, $table)
-{
-
-
     $mail = new PHPMailer(true);
 
     try {
@@ -508,8 +490,8 @@ function sendOrderEmail($firstname, $lastname, $email, $table)
         //echo 'Email sent to ' . $email;
     } catch (Exception $e) {
         // Handle any exceptions or errors that occur during the email sending process
-        echo 'Email could not be sent. Error: ' . $mail->ErrorInfo;
-        //header("Location:register.php?error=" . $mail->ErrorInfo);
+        error_log('Email could not be sent. Error: ' . $mail->ErrorInfo);
+
     }
 }
 ?>

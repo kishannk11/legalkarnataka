@@ -44,14 +44,12 @@ if (isset($_GET['error'])) {
     <div class="content">
         <div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
             <div>
-                <h1>Product</h1>
+                <h1>Template</h1>
                 <p class="breadcrumbs"><span><a href="index.html">Home</a></span>
                     <span><i class="mdi mdi-chevron-right"></i></span>Template
                 </p>
             </div>
-            <div>
-                <a href="product-list.html" class="btn btn-primary"> Template List</a>
-            </div>
+
         </div>
         <div class="row">
             <div class="col-12">
@@ -87,7 +85,7 @@ if (isset($_GET['error'])) {
                                             </td>
                                             <td>
                                                 <div class="btn-group mb-1">
-                                                    <button type="button" class="btn btn-outline-success">Info</button>
+                                                    <button type="button" class="btn btn-outline-success">Action</button>
                                                     <button type="button"
                                                         class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
                                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"

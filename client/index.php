@@ -111,7 +111,7 @@ if (isset($_GET['error'])) {
                                             </div>
                                         </div>
 
-                                        <p><a class="text-blue" href="#">Forgot Password?</a></p>
+                                        <p><a class="text-blue" href="forgot-password.php">Forgot Password?</a></p>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary btn-block mb-4"

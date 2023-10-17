@@ -25,9 +25,7 @@ if (isset($_GET['page'])) {
 $startIndex = ($currentPage - 1) * $productsPerPage;
 $displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 ?>
-<!-- Header End  -->
 
-<!-- Ec breadcrumb start -->
 <div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
 	<div class="container">
 		<div class="row">
@@ -94,12 +92,16 @@ $displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 									$productImages = $productimage->getProductImage($productId);
 									//print_r($productImages);
 									?>
-									<div class="col-lg-3 col-md-4 col-sm-6 mb-4 pro-gl-content"
-										data-category="<?php echo $allproduct['main_category']; ?>">
+									<div class="col-lg-3 col-md-4 col-sm-6 mb-4 pro-gl-content" data-category="<?php
+									$mainCategoryObj = new MainCategory($conn);
+									$mainCategory = $mainCategoryObj->getMainCategoryById($allproduct['main_category']);
+
+									echo $mainCategory['name'];
+									?>">
 										<div class="ec-product-inner">
 											<div class="ec-pro-image-outer">
 												<div class="ec-pro-image">
-													<a href="product-left-sidebar.html" class="image">
+													<a href="#" class="image">
 
 														<div class="product-image">
 															<img class="main-image"
@@ -114,13 +116,15 @@ $displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 												</div>
 											</div>
 											<div class="ec-pro-content">
-												<h5 class="ec-pro-title">
+												<h6 class="ec-pro-titl">
 													<a href="product-info.php?id=<?php echo $allproduct['id'] ?>">
-														<b>
-															<?php echo htmlspecialchars($allproduct['prod_name'], ENT_QUOTES, 'UTF-8'); ?>
-														</b>
+														<div class="product-name">
+															<b class="">
+																<?php echo htmlspecialchars($allproduct['prod_name'], ENT_QUOTES, 'UTF-8'); ?>
+															</b>
+														</div>
 													</a>
-												</h5>
+												</h6>
 												<span class="ec-price">
 													<span class="new-price">₹
 														<?php echo $allproduct['price']; ?>
@@ -147,10 +151,12 @@ $displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 								<?php for ($i = 1; $i <= $totalPages; $i++) { ?>
 									<li><a <?php if ($i == $currentPage)
 										echo 'class="active"'; ?>
-											href="services.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+											href="services.php?page=<?php echo $i; ?>">
+											<?php echo $i; ?>
+										</a></li>
 								<?php } ?>
 								<li><a class="next"
-										href="services.php?page=<?php echo min($currentPage + 1, $totalPages); ?>">Next
+										href="services.php?page=<?php echo htmlspecialchars(min($currentPage + 1, $totalPages), ENT_QUOTES, 'UTF-8'); ?>">Next
 										<i class="ecicon eci-angle-right"></i></a></li>
 							</ul>
 						</div>

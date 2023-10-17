@@ -52,9 +52,7 @@ $products = $product->getProduct();
                     <span><i class="mdi mdi-chevron-right"></i></span>Template
                 </p>
             </div>
-            <div>
-                <a href="product-list.html" class="btn btn-primary"> Add Template</a>
-            </div>
+
         </div>
         <div class="row">
             <div class="col-12">
@@ -71,7 +69,8 @@ $products = $product->getProduct();
                                         <select class="form-select" name="prod_name">
                                             <option value="">Select</option>
                                             <?php foreach ($products as $prod): ?>
-                                                <option value="<?php echo $prod['id']; ?>"><?php echo $prod['prod_name']; ?>
+                                                <option value="<?php echo $prod['id']; ?>">
+                                                    <?php echo $prod['prod_name']; ?>
                                                 </option>
                                             <?php endforeach; ?>
                                         </select>
@@ -82,7 +81,9 @@ $products = $product->getProduct();
                                         <select name="select-number" id="select-number" class="form-select">
                                             <option value="">Select</option>
                                             <?php for ($i = 1; $i <= 10; $i++): ?>
-                                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                <option value="<?php echo $i; ?>">
+                                                    <?php echo $i; ?>
+                                                </option>
                                             <?php endfor; ?>
                                         </select>
                                     </div>
@@ -96,7 +97,9 @@ $products = $product->getProduct();
 
                                                 <option value="">Select</option>
                                                 <?php foreach ($temp as $template): ?>
-                                                    <option value="<?php echo $template['id']; ?>"><?php echo $template['template_name']; ?></option>
+                                                    <option value="<?php echo $template['id']; ?>">
+                                                        <?php echo $template['template_name']; ?>
+                                                    </option>
                                                 <?php endforeach; ?>
                                             </select>
                                             &nbsp;

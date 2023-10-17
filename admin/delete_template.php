@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
         exit();
     } else {
         $error = "Error deleting this Template.";
-        header('Location: template_list.php?success=' . urlencode($error));
+        header('Location: template_list.php?error=' . urlencode($error));
 
 
     }

@@ -33,11 +33,17 @@ if (isset($_GET['error'])) {
 <!-- CONTENT WRAPPER -->
 <div class="ec-content-wrapper">
 	<div class="content">
-		<div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
-			<h1>Main Category</h1>
-			<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
-				<span><i class="mdi mdi-chevron-right"></i></span>Main Category
-			</p>
+		<div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
+			<div>
+				<h1>Add Main Category</h1>
+				<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
+					<span><i class="mdi mdi-chevron-right"></i></span>Main Category
+				</p>
+			</div>
+			<div>
+				<a href="view-all-main-category.php" class="btn btn-primary"> View All
+				</a>
+			</div>
 		</div>
 		<div class="row">
 

@@ -38,9 +38,7 @@ if (isset($_GET['error'])) {
                     <span><i class="mdi mdi-chevron-right"></i></span>Template
                 </p>
             </div>
-            <div>
-                <a href="product-list.html" class="btn btn-primary"> Add Template</a>
-            </div>
+
         </div>
         <div class="row">
             <div class="col-12">

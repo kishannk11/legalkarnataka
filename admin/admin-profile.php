@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($_FILES['image']['type'] == 'image/png' || $_FILES['image']['type'] == 'image/jpg' || $_FILES['image']['type'] == 'image/jpeg') {
             if ($_FILES['image']['size'] < 1000000) { // Check file size
                 // Image file is valid, continue with upload
-                $random_filename = rand() . $_FILES['image']['name'];
+                $random_filename = rand() . basename($_FILES['image']['name']);
                 $target_file = 'upload/' . $random_filename;
                 if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
                     // Image uploaded successfully 

@@ -43,31 +43,16 @@
     </style>
 </head>
 <?php
-if (isset($_GET['success'])) {
-    $success = $_GET['success'];
+if (!isset($_GET['token'])) {
     echo '<script>
-	document.addEventListener("DOMContentLoaded", function() {
-			Swal.fire({
-				title: "Success!",
-				text: "' . htmlspecialchars($success) . '",
-				icon: "success",
-				confirmButtonText: "OK"
-			});
-		});
-	</script>';
-}
-
-if (isset($_GET['error'])) {
-    $error = $_GET['error'];
-    echo '<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		Swal.fire({
-			icon: "error",
-			title: "Oops...",
-			text: "' . htmlspecialchars($error, ENT_QUOTES, 'UTF-8') . '",
-		});
-	});
-</script>';
+    document.addEventListener("DOMContentLoaded", function() {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Token is missing!",
+        });
+    });
+    </script>';
 }
 ?>
 
@@ -90,11 +75,21 @@ if (isset($_GET['error'])) {
                     <div class="card-body p-5">
                         <h4 class="text-dark mb-5">Forgot Password?</h4>
 
-                        <form action="send-reset-link.php" method="POST">
-                            <div class="row">
-                                <div class="form-group col-md-12 mb-4">
-                                    <input type="email" class="form-control" id="email" name="email"
-                                        placeholder="Email">
+                        <form action="reset.php" method="POST" onsubmit="return checkPasswords()">
+                            <div class="row" style="max-width: 300px; margin: auto;">
+                                <div class="form-group mb-4 position-relative">
+                                    <input type="hidden" name="token"
+                                        value="<?php echo htmlspecialchars($_GET['token']); ?>">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="Password">
+                                    <button type="button" onclick="togglePasswordVisibility('password')"
+                                        style="position: absolute; top: 50%; right: -35px; transform: translateY(-50%);">👁️</button>
+                                </div>
+                                <div class="form-group mb-4 position-relative">
+                                    <input type="password" class="form-control" id="conpassword" name="conpassword"
+                                        placeholder="Confirm Password">
+                                    <button type="button" onclick="togglePasswordVisibility('conpassword')"
+                                        style="position: absolute; top: 50%; right: -35px; transform: translateY(-50%);">👁️</button>
                                 </div>
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary btn-block mb-4"
@@ -111,5 +106,32 @@ if (isset($_GET['error'])) {
 </body>
 <script src="assets/js/plugins/sweetalert2.min.js"></script>
 <script src="assets/js/plugins/jquery.sweet-alert.init.js"></script>
+<script>
+    function togglePasswordVisibility(id) {
+        var x = document.getElementById(id);
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
+<script>
+    function checkPasswords() {
+        var password = document.getElementById('password').value;
+        var conpassword = document.getElementById('conpassword').value;
+
+        if (password != conpassword) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Passwords do not match!",
+            });
+            return false;
+        }
+
+        return true;
+    }
+</script>
 
 </html>

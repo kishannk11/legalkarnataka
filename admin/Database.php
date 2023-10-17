@@ -891,6 +891,26 @@ class User
         $employees = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $employees;
     }
+    public function reset_token($email, $token)
+    {
+        $stmt = $this->conn->prepare("INSERT INTO password_token (email, token) VALUES (?, ?)");
+
+        // Bind the parameters
+        $stmt->bindParam(1, $email);
+        $stmt->bindParam(2, $token);
+
+        // Execute the statement
+        if ($stmt->execute()) {
+            return $token;
+        } else {
+            return false;
+        }
+    }
+    public function delete_existing_tokens($email)
+    {
+        $stmt = $this->conn->prepare('DELETE FROM password_token WHERE email = ?');
+        $stmt->execute([$email]);
+    }
 
 }
 class Payment

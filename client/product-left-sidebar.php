@@ -137,8 +137,8 @@ if (!isset($_SESSION['order_id'])) {
                                             <input type="text" class="form-control" name="price" id="displayPrice1" readonly>
                                         </div>
                                         <div class="mb-3">
-                                        <label class="form-label">Additional Files</label>
-                                        <input type="file" class="form-control" name="files[]" id="fileInput" multiple>
+                                            <label class="form-label">Additional Files</label>
+                                            <input type="file" class="form-control" name="files[]" id="fileInput" multiple title="Please upload only those files that are specified in the Additional Files section. Ensure that the files are in either JPEG or PDF format.">
                                         </div>
                                             &nbsp;
                                             &nbsp;

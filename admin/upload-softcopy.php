@@ -18,7 +18,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle the uploaded file
     if (isset($_FILES['image'])) {
         $file = $_FILES['image'];
-        $result = $userObj->saveSoftcopy($orderId, $email, $file);
+        $randomNumber = rand(10, 99);
+        $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $newFilename = $orderId . "_" . $randomNumber . "." . $extension;
+        $uploadDir = 'upload/';
+        $uploadPath = $uploadDir . $newFilename;
+        if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
+            $result = $userObj->saveSoftcopy($orderId, $email, $newFilename);
+        } else {
+            echo "Error: Failed to move the uploaded file.";
+        }
         if ($result) {
             // File saved successfully, send email
             $to = $email;
@@ -26,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Get the filename
             $filename = $file['name'];
             // Append the file URL
-            $fileUrl = "https://legalkarnataka.com/admin/upload/" . $filename;
+            $fileUrl = "https://legalkarnataka.com/admin/upload/" . $newFilename;
             $message .= '<table
             style="table-layout: fixed; vertical-align: top; min-width: 320px; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; width: 100%; user-select: none;"
             width="100%" cellspacing="0" cellpadding="0" bgcolor="#f5eeee">

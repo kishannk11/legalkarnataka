@@ -1119,31 +1119,16 @@ class Order
 
         $stmt->execute();
     }
-    function saveSoftcopy($orderId, $email, $file)
+    function saveSoftcopy($orderId, $email, $fileName)
     {
+        $sql = "INSERT INTO softcopy (orderid, email, filename) VALUES (?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(1, $orderId);
+        $stmt->bindValue(2, $email);
+        $stmt->bindValue(3, $fileName);
+        $stmt->execute();
 
-        if ($file['error'] === UPLOAD_ERR_OK) {
-            $fileName = $file['name'];
-            $fileTmpPath = $file['tmp_name'];
-
-            $uploadDir = 'upload/';
-            $uploadPath = $uploadDir . $fileName;
-
-            if (move_uploaded_file($fileTmpPath, $uploadPath)) {
-                $sql = "INSERT INTO softcopy (orderid, email, filename) VALUES (?, ?, ?)";
-                $stmt = $this->conn->prepare($sql);
-                $stmt->bindValue(1, $orderId);
-                $stmt->bindValue(2, $email);
-                $stmt->bindValue(3, $fileName);
-                $stmt->execute();
-
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+        return true;
     }
     public function saveSoftcopyInfo($action, $email, $orderid)
     {

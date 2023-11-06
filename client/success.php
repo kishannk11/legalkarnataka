@@ -32,6 +32,7 @@ if ($status === "success") {
         header("Location: payment-success.php?txnid=" . htmlspecialchars($success, ENT_QUOTES, 'UTF-8'));
 
     } else {
+        sendOrderEmail($user_email, $deliveryCharge);
         $cartObj->removeAllCartItems();
         $success = "Payment Successful! Transaction ID: " . $txnid . " (but failed to save)";
         echo htmlspecialchars($success, ENT_QUOTES, 'UTF-8');

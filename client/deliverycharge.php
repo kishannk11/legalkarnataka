@@ -8,7 +8,7 @@ try {
 
     // Sample authentication credentials
     $email = 'support@legalkarnataka.com';
-    $password = 'gDUk$!$3!3RA5J2';
+    $password = 'V2#F!EeeG@vPuF2';
 
     // Authenticate and obtain token
     $authData = array(

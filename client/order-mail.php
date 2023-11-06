@@ -482,6 +482,7 @@ width="100%" cellspacing="0" cellpadding="0" bgcolor="#f5eeee">
 
         $mail->setFrom('support@legalkarnataka.com', 'Legal Karnataka');
         $mail->addAddress($email, $firstname . ' ' . $lastname);
+        $mail->addAddress('ranjithchandran220@gmail.com');
 
         $mail->isHTML(true);
         $mail->Subject = 'Order Details';

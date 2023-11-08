@@ -46,7 +46,7 @@ if (isset($_GET['error'])) {
 				</p>
 			</div>
 			<div>
-				<a href="product-list.html" class="btn btn-primary"> Add Porduct</a>
+				<a href="product-add.php" class="btn btn-primary"> Add Porduct</a>
 			</div>
 		</div>
 		<div class="row">
@@ -57,9 +57,10 @@ if (isset($_GET['error'])) {
 							<table id="responsive-data-table" class="table" style="width:100%">
 								<thead>
 									<tr>
-										<th>Product</th>
-										<th>Name</th>
-										<th>Category</th>
+										<th>Product Image</th>
+										<th>Product Name</th>
+										<th>Main Category</th>
+										<th>Sub Category</th>
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -78,13 +79,24 @@ if (isset($_GET['error'])) {
 											<td>
 												<?php echo $product['prod_name']; ?>
 											</td>
-
 											<td>
-												<?php echo $product['category']; ?>
+												<?php
+												$mainCategoryObj = new MainCategory($conn);
+												$mainCategoryName = $mainCategoryObj->getMainCategoryById($product['main_category']);
+												echo $mainCategoryName['name'];
+												?>
+											</td>
+											<td>
+												<?php
+												$categoryObj = new SubCategory($conn);
+												$categoryName = $categoryObj->getOneSubCategories($product['category']);
+												echo $categoryName[0]['name'];
+												?>
+
 											</td>
 											<td>
 												<div class="btn-group mb-1">
-													<button type="button" class="btn btn-outline-success">Info</button>
+													<button type="button" class="btn btn-outline-success">Action</button>
 													<button type="button"
 														class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
 														data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"

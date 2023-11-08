@@ -71,13 +71,14 @@ if (isset($_GET['error'])) {
                                         <div class="mb-3">
                                             <label class="form-label">Template Name</label>
                                             <input type="text" class="form-control" name="template_name"
-                                                value="<?php echo $template['template_name']; ?>">
-                                            <input type="hidden" name="id" value="<?php echo $template['id']; ?>">
+                                                value="<?php echo htmlspecialchars($template['template_name'], ENT_QUOTES, 'UTF-8'); ?>">
+                                            <input type="hidden" name="id"
+                                                value="<?php echo htmlspecialchars($template['id'], ENT_QUOTES, 'UTF-8'); ?>">
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Template Code</label>
                                             <textarea class="form-control" name="details"
-                                                rows="4"><?php echo $template['template_fields']; ?></textarea>
+                                                rows="4"><?php echo htmlspecialchars($template['template_fields'], ENT_QUOTES, 'UTF-8'); ?></textarea>
                                         </div>
                                     </div>
                                 </div>

@@ -70,7 +70,8 @@ if (empty($price)) {
                                                 <span class="ec-bill-wrap ec-bill-half">
                                                     <label>First Name*</label>
                                                     <input type="hidden" name="value" id="hidden-total-amount">
-                                                    <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                                    <input type="hidden" name="id"
+                                                        value="<?php echo htmlspecialchars($id, ENT_QUOTES, 'UTF-8'); ?>">
                                                     <input type="text" name="firstname"
                                                         placeholder="Enter your first name" required />
                                                 </span>
@@ -160,11 +161,11 @@ if (empty($price)) {
 
                                     <div>
                                         <span class="text-left">
-                                            <?php echo $product[0]['prod_name']; ?>
+                                            <?php echo htmlspecialchars($product[0]['prod_name'], ENT_QUOTES, 'UTF-8'); ?>
                                         </span>
                                         <span class="text-right">
                                             ₹
-                                            <?php echo $price; ?>
+                                            <?php echo htmlspecialchars($price, ENT_QUOTES, 'UTF-8'); ?>
                                         </span>
                                     </div>
                                     <div>
@@ -187,7 +188,7 @@ if (empty($price)) {
                                                 <div class="ec-pro-image">
                                                     <a href="" class="image">
                                                         <img class="main-image"
-                                                            src="../admin/upload/<?php echo $product[0]['image']; ?>"
+                                                            src="../admin/upload/<?php echo htmlspecialchars($product[0]['image'], ENT_QUOTES, 'UTF-8'); ?>"
                                                             alt="Product" />
 
                                                     </a>
@@ -195,14 +196,14 @@ if (empty($price)) {
                                             </div>
                                             <div class="ec-pro-content">
                                                 <h5 class="ec-pro-title"><a
-                                                        href="product-info.php?id=<?php echo $product[0]['id'] ?>">
-                                                        <?php echo $product[0]['prod_name']; ?>
+                                                        href="product-info.php?id=<?php echo htmlspecialchars($product[0]['id'], ENT_QUOTES, 'UTF-8'); ?>">
+                                                        <?php echo htmlspecialchars($product[0]['prod_name'], ENT_QUOTES, 'UTF-8'); ?>
                                                     </a></h5>
 
                                                 <span class="ec-price">
                                                     <span class="new-price">
                                                         ₹
-                                                        <?php echo $price; ?>
+                                                        <?php echo htmlspecialchars($price, ENT_QUOTES, 'UTF-8'); ?>
                                                     </span>
                                                 </span>
                                                 <div class="ec-pro-option">
@@ -254,7 +255,7 @@ if (empty($price)) {
         });
 
         function calculateTotalAmount() {
-            const price = <?php echo $price; ?>;
+            const price = <?php echo htmlspecialchars($price, ENT_QUOTES, 'UTF-8'); ?>;
             const deliveryCharges = parseFloat(deliveryPrice.textContent.replace('₹', ''));
             const gstPercentage = 18;
             const gstAmount = (deliveryCharges * gstPercentage) / 100;

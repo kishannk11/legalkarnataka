@@ -9,16 +9,33 @@ $id = $_GET['id'];
 $products = $productObj->getProductwithId($id);
 $producttemplate = $productObj->getProductData($id);
 ?>
+
 <?php
-session_start();
-if (!isset($_SESSION['order_id'])) {
-    // Generate a new value for $orderId
-    $orderId = rand(100000, 999999);
-    // Set the session variable
-    $_SESSION['order_id'] = $orderId;
-} else {
-    // Retrieve the existing value from the session variable
-    $orderId = $_SESSION['order_id'];
+if (isset($_GET['success'])) {
+    $success = $_GET['success'];
+    echo '<script>
+	document.addEventListener("DOMContentLoaded", function() {
+			Swal.fire({
+				title: "Success!",
+				text: "' . htmlspecialchars($success) . '",
+				icon: "success",
+				confirmButtonText: "OK"
+			});
+		});
+	</script>';
+}
+
+if (isset($_GET['error'])) {
+    $error = $_GET['error'];
+    echo '<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		Swal.fire({
+			icon: "error",
+			title: "Oops...",
+			text: "' . htmlspecialchars($error, ENT_QUOTES, 'UTF-8') . '",
+		});
+	});
+</script>';
 }
 ?>
 <!-- Header End  -->
@@ -54,151 +71,238 @@ if (!isset($_SESSION['order_id'])) {
 
 <!-- Sart Single product -->
 <section class="ec-page-content section-space-p">
-    <div class="checkout_page">
-        <div class="container">
-            <div class="row">
-                <div class="ec-pro-rightside ec-common-rightside col-lg-12 order-lg-last col-md-12 order-md-first">
+    <?php
+    if (empty($products)) {
+        ?>
+        <section class="ec-page-content section-space-p">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="section-title">
+                            <h2 class="ec-bg-title">No Product</h2>
+                            <h2 class="ec-title">No Product found</h2>
+                            <p class="sub-title mb-3">No Product Found for this ID</p>
+                        </div>
+                    </div>
+                    <div class="ec-common-wrapper">
 
-                    <!-- Single product content Start -->
-                    <div class="single-pro-block">
-                        <div class="single-pro-inner">
-                            <div class="row">
-                                <div class="single-pro-img">
-                                    <div class="single-product-scroll">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <?php
+    } else {
+        ?>
+        <div class="checkout_page">
+            <div class="container">
+                <div class="row">
+                    <div class="ec-pro-rightside ec-common-rightside col-lg-12 order-lg-last col-md-12 order-md-first">
+
+                        <!-- Single product content Start -->
+                        <div class="single-pro-block">
+                            <div class="single-pro-inner">
+                                <div class="row">
+                                    <div class="single-pro-img">
                                         <div class="single-product-scroll">
-                                            <?php
-                                            $productimage = new Product($conn);
-                                            $productId = $products[0]['id'];
+                                            <div class="single-product-scroll">
+                                                <?php
+                                                $productimage = new Product($conn);
+                                                $productId = $products[0]['id'];
 
-                                            $productImages = $productimage->getProductImage($productId);
+                                                $productImages = $productimage->getProductImage($productId);
 
-                                            ?>
-                                            <a class="ec-header-btn ec-header-wishlist ec-video-icon"
-                                                data-link-action="quickview" title="Product Player"
-                                                data-bs-toggle="modal" data-bs-target="#ec_product_player_modal">
-                                                <div class="header-icon"><i class="fi-rr-video-camera-alt"></i></div>
-                                            </a>
-                                            <div class="single-product-cover">
-                                            <?php foreach ($productImages as $imageName): ?>
-                                                <div class="single-slide zoom-image-hover">
-                                                    <img class="img-responsive" src="../admin/upload/<?php echo $imageName;?>"
-                                                        alt="">
+                                                ?>
+                                                <a class="ec-header-btn ec-header-wishlist ec-video-icon"
+                                                    data-link-action="quickview" title="Product Player"
+                                                    data-bs-toggle="modal" data-bs-target="#ec_product_player_modal">
+                                                    <div class="header-icon"><i class="fi-rr-video-camera-alt"></i></div>
+                                                </a>
+                                                <div class="single-product-cover">
+                                                    <?php foreach ($productImages as $imageName): ?>
+                                                        <div class="single-slide zoom-image-hover">
+                                                            <img class="img-responsive"
+                                                                src="../admin/upload/<?php echo htmlspecialchars($imageName, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                alt="">
+                                                        </div>
+                                                    <?php endforeach; ?>
                                                 </div>
-                                                <?php endforeach; ?>
-                                            </div>
-                                            <div class="single-nav-thumb">
-                                                <?php foreach ($productImages as $imageName): ?>
-                                                    <div class="single-slide">
-                                                        <img class="img-responsive" src="../admin/upload/<?php echo $imageName;?>"
-                                                            alt="">
-                                                    </div>
-                                                <?php endforeach; ?>
+                                                <div class="single-nav-thumb">
+                                                    <?php foreach ($productImages as $imageName): ?>
+                                                        <div class="single-slide">
+                                                            <img class="img-responsive" width="100" height="100"
+                                                                src="../admin/upload/<?php echo htmlspecialchars($imageName, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                alt="">
+                                                        </div>
+                                                    <?php endforeach; ?>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="single-pro-desc">
-                                    <div class="single-pro-content">
-                                        <h5 class="ec-single-title">
-                                            <?php echo $products[0]['prod_name']; ?>
-                                        </h5>
+                                    <div class="single-pro-desc">
+                                        <div class="single-pro-content">
+                                            <h5 class="ec-single-title">
+                                                <?php echo htmlspecialchars($products[0]['prod_name'], ENT_QUOTES, 'UTF-8'); ?>
+                                            </h5>
 
-                                        <div class="ec-single-rating-wrap">
-                                            <b>
-                                                ₹
-                                                <?php echo $products[0]['price'] ?>
-                                            </b>
-                                        </div>
-                                        <div class="ec-single-desc">
-                                            <?php echo $products[0]['details'] ?>
-                                        </div>
-                                        <div class="ec-single-sales">
-                                            <?php foreach ($producttemplate as $product): ?>
-                                                <?php echo $product['template_fields']['template_fields']; ?>
-                                            <?php endforeach; ?>
+                                            <div class="ec-single-rating-wrap">
+                                                <b>
+                                                    ₹
+                                                    <?php echo htmlspecialchars($products[0]['price'], ENT_QUOTES, 'UTF-8'); ?>
+                                                </b>
+                                            </div>
+                                            <div class="ec-single-rating-wrap">
+                                                <b> Additional Files Required</b>
+                                            </div>
+                                            <div id="ec-spt-nav-details" class="tab-pane fade show active">
+                                                <div class="ec-single-pro-tab-desc">
+                                                    <p>
 
-                                        </div>
-                                        <div class="ec-single-desc">
-                                        
-                                            <form method="POST" action="add-to-cart.php">
-                                                <div id="display">
-                                                    <b><label class="form-label">Stamp Paper Price</label></b>
-                                                    <input type="text" class="form-control" name="price"
-                                                        id="displayPrice1" readonly>
+                                                    </p>
+                                                    <ul>
+                                                        <?php
+                                                        $details = explode("\n", $products[0]['additionalfiles']);
+                                                        foreach ($details as $detail) {
+                                                            echo '<li>' . htmlspecialchars($detail, ENT_QUOTES, 'UTF-8') . '</li>';
+                                                        }
+                                                        ?>
+                                                    </ul>
+
                                                 </div>
+                                            </div>
+                                            <div id="templateInfo">
+                                                <div class="ec-single-sales">
+                                                    <?php foreach ($producttemplate as $product): ?>
+                                                        <?php echo $product['template_fields']['template_fields']; ?>
+                                                    <?php endforeach; ?>
+
+                                                </div>
+                                            </div>
+                                            <div class="ec-single-desc">
+
+                                                <form method="POST" action="add-to-cart.php">
+                                                    <div id="display">
+                                                        <b><label class="form-label">Stamp Paper Price</label></b>
+                                                        <input type="text" class="form-control" name="price"
+                                                            id="displayPrice1" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Additional Files</label>
+                                                        <input type="file" class="form-control" name="files[]"
+                                                            id="fileInput" multiple>
+                                                    </div>
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    <div class="ec-single-cart">
+                                                        <div class="button-group">
+                                                            <input type="hidden" name="id"
+                                                                value="<?php echo htmlspecialchars($id, ENT_QUOTES, 'UTF-8'); ?>">
+                                                            <button class="btn btn-primary" name="submit" type="submit">Add
+                                                                to
+                                                                cart</button>
+
+                                                            <a href="javascript:void(0)" class="btn btn-primary"
+                                                                id="previewButton">Preview</a>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                                 &nbsp;
                                                 &nbsp;
-                                                <div class="mb-3">
-                                        <label class="form-label">Additional Files</label>
-                                        <input type="file" class="form-control" name="files[]" id="fileInput" multiple>
-                                    </div>
-                                                <div class="ec-single-cart">
-                                                    <div class="button-group">
-                                                        <input type="hidden" name="id" value="<?php echo $id; ?>">
-                                                        <button class="btn btn-primary" name="submit" type="submit">Add
-                                                            to
-                                                            cart</button>
-                                                            
-                                                    </div>
-                                                    
+                                                <div class="button-group">
+                                                    <!-- <button class="btn btn-primary" id="previewButton">Preview</button> -->
                                                 </div>
-                                            </form>
-                                            &nbsp;
-                                            &nbsp;
-                                            <div class="button-group">
-                                                <button class="btn btn-primary" id="previewButton">Preview</button>
                                             </div>
-                                            
                                         </div>
+
+
                                     </div>
-                                    
 
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="ec-single-pro-tab">
-                <div class="ec-single-pro-tab-wrapper">
-                    <div class="ec-single-pro-tab-nav">
-                        <ul class="nav nav-tabs">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-details"
-                                    role="tablist">Detail</a>
-                            </li>
+                <div class="ec-single-pro-tab">
+                    <div class="ec-single-pro-tab-wrapper">
+                        <div class="ec-single-pro-tab-nav">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-details"
+                                        role="tablist">Details</a>
+                                </li>
 
-                        </ul>
-                    </div>
-                    <div class="tab-content  ec-single-pro-tab-content">
-                        <div id="ec-spt-nav-details" class="tab-pane fade show active">
-                            <div class="ec-single-pro-tab-desc">
-                                <p>
-
-                                </p>
-                                <ul>
-                                    <li>
-                                        <?php echo $products[0]['details'] ?>
-                                    </li>
-
-                            </div>
+                            </ul>
                         </div>
-                        <div id="ec-spt-nav-info" class="tab-pane fade">
-                            <div class="ec-single-pro-tab-moreinfo">
-                                <ul>
+                        <div class="tab-content  ec-single-pro-tab-content">
+                            <div id="ec-spt-nav-details" class="tab-pane fade show active">
+                                <div class="ec-single-pro-tab-desc">
+                                    <p>
 
-                                </ul>
+                                    </p>
+                                    <ul>
+                                        <?php echo htmlspecialchars($products[0]['details'], ENT_QUOTES, 'UTF-8'); ?>
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                            <div id="ec-spt-nav-info" class="tab-pane fade">
+                                <div class="ec-single-pro-tab-moreinfo">
+                                    <ul>
+
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
+        <?php
+    }
+    ?>
 </section>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.querySelector(".button-group button[name='submit']").addEventListener("click", function (event) {
+        // Get the form element
+        var form = document.querySelector("form");
+
+        // Check if the template info is filled
+        var templateInputs = document.querySelectorAll(".ec-single-sales input");
+        var isFilled = Array.from(templateInputs).every(input => input.value.trim() !== '');
+
+        if (!isFilled) {
+            event.preventDefault(); // prevent the form from being submitted
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill all the info.',
+            });
+            return;
+        }
+
+        // Create a new FormData object
+        var formData = new FormData(form);
+
+        // Perform an AJAX request to submit the form data
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "add-to-cart.php");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Request was successful
+                    console.log(xhr.responseText);
+                    // You can perform additional actions here, such as displaying a success message or updating the cart UI
+                } else {
+                    // Request failed
+                    console.error("Error: " + xhr.status);
+                    // You can handle the error case here, such as displaying an error message to the user
+                }
+            }
+        };
+        xhr.send(formData);
+    });
+</script>
 <script>
     var id = <?php echo json_encode($id); ?>;
     var order_id = <?php echo json_encode($_SESSION['order_id']); ?>;
@@ -357,7 +461,15 @@ if (!isset($_SESSION['order_id'])) {
         xhr.open('POST', 'file_save.php?id=' + id, true); // Pass the id as a query parameter
         xhr.onload = function () {
             if (xhr.status === 200) {
-                swal("Success", "File(s) uploaded successfully", "success");
+                // Parse the response
+                const response = JSON.parse(xhr.responseText);
+
+                // Check the response
+                if (response.success) {
+                    swal("Success", "File(s) uploaded successfully", "success");
+                } else {
+                    swal("Error", response.message || "Error uploading file(s)", "error");
+                }
             } else {
                 swal("Error", "Error uploading file(s)", "error");
             }

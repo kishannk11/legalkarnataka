@@ -9,7 +9,6 @@ error_reporting(E_ALL);
 require_once('config/config.php');
 $templates = new Templates($conn);
 $temp = $templates->getProductTemplates();
-print_r($temp);
 ?>
 
 <?php
@@ -45,14 +44,12 @@ if (isset($_GET['error'])) {
     <div class="content">
         <div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
             <div>
-                <h1>Product</h1>
+                <h1>Product Template</h1>
                 <p class="breadcrumbs"><span><a href="index.html">Home</a></span>
                     <span><i class="mdi mdi-chevron-right"></i></span>Template
                 </p>
             </div>
-            <div>
-                <a href="product-list.html" class="btn btn-primary"> Template List</a>
-            </div>
+
         </div>
         <div class="row">
             <div class="col-12">
@@ -63,14 +60,16 @@ if (isset($_GET['error'])) {
                                 <thead>
                                     <tr>
                                         <th>SL NO</th>
+                                        <th>Product Name</th>
                                         <th>Template Name</th>
-                                        <th>Template code</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
+
                                     <?php $i = 1;
+                                    //print_r($temp);
                                     foreach ($temp as $temps) {
 
                                         ?>
@@ -80,14 +79,23 @@ if (isset($_GET['error'])) {
                                             </td>
 
                                             <td>
-                                                <?php echo $temps['prod_name']; ?>
+                                                <?php
+                                                $productObj = new Product($conn);
+                                                $prodname = $productObj->getProductwithId($temps['prod_name']);
+                                                echo $prodname[0]['prod_name'];
+                                                ?>
                                             </td>
                                             <td>
-                                                <?php echo $temps['template_id']; ?>
+                                                <?php
+                                                $tempname = $templates->getTemplatebyID($temps['template_id']);
+
+                                                echo $tempname['template_name'];
+
+                                                ?>
                                             </td>
                                             <td>
                                                 <div class="btn-group mb-1">
-                                                    <button type="button" class="btn btn-outline-success">Info</button>
+                                                    <button type="button" class="btn btn-outline-success">Action</button>
                                                     <button type="button"
                                                         class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
                                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -96,8 +104,7 @@ if (isset($_GET['error'])) {
                                                     </button>
 
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item"
-                                                            href="template-info.php?id=<?php echo $temps['id']; ?>">Edit</a>
+
                                                         <a class="dropdown-item"
                                                             onclick="confirmDelete(<?php echo $temps['id']; ?>)">Delete</a>
                                                     </div>
@@ -145,7 +152,7 @@ if (isset($_GET['error'])) {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                window.location.replace("delete_template.php?id=" + productId);
+                window.location.replace("delete-prod-template.php?id=" + productId);
             }
         });
     }

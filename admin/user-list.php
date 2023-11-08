@@ -44,8 +44,7 @@ if (isset($_GET['error'])) {
 				</p>
 			</div>
 			<div>
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUser"> Add User
-				</button>
+
 			</div>
 		</div>
 		<div class="row">

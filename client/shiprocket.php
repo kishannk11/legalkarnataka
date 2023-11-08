@@ -1,6 +1,6 @@
 <?php
 
-$pickupLocationId = '4153676';
+$pickupLocationId = '4156431';
 // API endpoint for authentication
 $authEndpoint = 'https://apiv2.shiprocket.in/v1/external/auth/login';
 
@@ -49,9 +49,9 @@ $token = $authData['token'];
 
 // Sample shipment data
 $shipmentData = array(
-    'order_id' => '1453333346',
+    'order_id' => '14598753',
     'order_date' => date('Y-m-d H:i:s'),
-    'pickup_location' => 'Primary',
+    'pickup_location' => 'Test Address',
     'pickup_location_id' => $pickupLocationId,
     'billing_customer_name' => 'John Doe',
     'billing_last_name' => 'Doe',
@@ -109,6 +109,7 @@ curl_setopt($shipmentCh, CURLOPT_POST, true);
 curl_setopt($shipmentCh, CURLOPT_POSTFIELDS, $payload);
 
 $shipmentResponse = curl_exec($shipmentCh);
+//echo $shipmentResponse;
 
 if ($shipmentResponse === false) {
     die('Error: ' . curl_error($shipmentCh));
@@ -125,14 +126,8 @@ if (!isset($shipmentData['shipment_id'])) {
 $shipmentId = $shipmentData['shipment_id'];
 
 // Fetch shipping charges using Shiprocket API
-$shippingChargesEndpoint = 'https://apiv2.shiprocket.in/v1/external/calculate/shipment';
-$shippingChargesData = array(
-    'weight' => $shipmentData['weight'],
-    'order_price' => $shipmentData['sub_total'],
-    // Add other required parameters as per the Shiprocket API documentation
-);
-
-$shippingChargesPayload = json_encode($shippingChargesData);
+$shippingChargesEndpoint = 'https://apiv2.shiprocket.in/v1/external/courier/serviceability';
+$shippingChargesEndpoint .= '?order_id=' . $shipmentData['order_id']; // Add order_id as GET parameter
 
 $shippingChargesCh = curl_init($shippingChargesEndpoint);
 curl_setopt($shippingChargesCh, CURLOPT_RETURNTRANSFER, true);
@@ -144,11 +139,9 @@ curl_setopt(
         'Authorization: Bearer ' . $token,
     )
 );
-curl_setopt($shippingChargesCh, CURLOPT_POST, true);
-curl_setopt($shippingChargesCh, CURLOPT_POSTFIELDS, $shippingChargesPayload);
+curl_setopt($shippingChargesCh, CURLOPT_CUSTOMREQUEST, 'GET');
 
 $shippingChargesResponse = curl_exec($shippingChargesCh);
-echo $shippingChargesResponse;
 
 if ($shippingChargesResponse === false) {
     die('Error: ' . curl_error($shippingChargesCh));
@@ -158,11 +151,11 @@ curl_close($shippingChargesCh);
 
 $shippingChargesData = json_decode($shippingChargesResponse, true);
 
-if (!isset($shippingChargesData['data']['total_shipping_charges'])) {
+if (!isset($shippingChargesData['data']['available_courier_companies'][0]['freight_charge'])) {
     die('Failed to fetch shipping charges. Please check your data or try again later.');
 }
 
-$shippingCharges = $shippingChargesData['data']['total_shipping_charges'];
+$shippingCharges = $shippingChargesData['data']['available_courier_companies'][0]['freight_charge'];
 
 // Output the response
 echo 'Shipment ID: ' . $shipmentId . '<br>';

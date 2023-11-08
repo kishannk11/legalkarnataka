@@ -6,12 +6,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include 'config/config.php';
 $id = $_GET['id'];
-$mainCategorySql = "SELECT name FROM main_category";
-$mainCategoryStmt = $conn->prepare($mainCategorySql);
-$mainCategoryStmt->execute();
-$categories = $mainCategoryStmt->fetchAll(PDO::FETCH_COLUMN);
-$subCategorySql = "SELECT name FROM sub_category WHERE parent_category = :category";
-$subCategoryStmt = $conn->prepare($subCategorySql);
+$mainCategoryObj = new MainCategory($conn);
+$categories = $mainCategoryObj->getMainCategories();
 $productObj = new Product($conn);
 $prodinfo = $productObj->getProductwithId($id);
 ?>
@@ -74,19 +70,25 @@ if (isset($_GET['error'])) {
                                     <div class="mb-3">
                                         <label class="form-label">Product Name</label>
                                         <input type="text" class="form-control" name="prod_name"
-                                            value="<?php echo $prodinfo[0]['prod_name']; ?>">
+                                            value="<?php echo htmlspecialchars($prodinfo[0]['prod_name'], ENT_QUOTES, 'UTF-8'); ?>">
+                                        <input type="hidden" class="form-control" name="prod_id"
+                                            value="<?php echo htmlspecialchars($id, ENT_QUOTES, 'UTF-8'); ?>">
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Select Categories</label>
                                         <select name="categories" id="Categories" class="form-select">
                                             <?php foreach ($categories as $category): ?>
-                                                <optgroup label="<?php echo $category; ?>">
+                                                <optgroup
+                                                    label="<?php echo htmlspecialchars($category['name'], ENT_QUOTES, 'UTF-8'); ?>">
                                                     <?php
-                                                    $subCategoryStmt->bindParam(':category', $category);
-                                                    $subCategoryStmt->execute();
-                                                    $subCategories = $subCategoryStmt->fetchAll(PDO::FETCH_COLUMN);
+                                                    $subCategoryObj = new SubCategory($conn);
+                                                    $subCategories = $subCategoryObj->getSubCategoriesByID($category['id']);
                                                     foreach ($subCategories as $subCategory) {
-                                                        echo "<option value=\"$subCategory\">$subCategory</option>";
+                                                        $selected = '';
+                                                        if ($subCategory['id'] == $prodinfo[0]['category']) {
+                                                            $selected = 'selected';
+                                                        }
+                                                        echo "<option value=\"{$subCategory['id']}|{$subCategory['parent_category']}\" {$selected}>{$subCategory['name']}</option>";
                                                     }
                                                     ?>
                                                 </optgroup>
@@ -96,7 +98,7 @@ if (isset($_GET['error'])) {
                                     <div class="mb-3">
                                         <label class="form-label">Price</label>
                                         <input type="text" class="form-control" name="price"
-                                            value="<?php echo $prodinfo[0]['price']; ?>">
+                                            value="<?php echo htmlspecialchars($prodinfo[0]['price'], ENT_QUOTES, 'UTF-8'); ?>">
                                     </div>
                             </div>
                         </div>
@@ -104,19 +106,23 @@ if (isset($_GET['error'])) {
                             <div class="mb-3">
                                 <label class="form-label">Full Detail</label>
                                 <textarea class="form-control" name="details"
-                                    rows="4"><?php echo $prodinfo[0]['details']; ?></textarea>
+                                    rows="4"><?php echo htmlspecialchars($prodinfo[0]['details'], ENT_QUOTES, 'UTF-8'); ?></textarea>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Image</label>
-                                <input type="file" class="form-control" name="image">
+                                <label class="form-label">Full Detail</label>
+                                <textarea class="form-control" name="additionalfiles"
+                                    rows="4"><?php echo htmlspecialchars($prodinfo[0]['additionalfiles'], ENT_QUOTES, 'UTF-8'); ?></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Images</label>
+                                <input type="file" class="form-control" name="images[]" multiple>
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
+
                     </form>
                 </div>
             </div>

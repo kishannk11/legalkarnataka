@@ -40,11 +40,17 @@ if (isset($_GET['error'])) {
 <!-- CONTENT WRAPPER -->
 <div class="ec-content-wrapper">
 	<div class="content">
-		<div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
-			<h1>Sub Category</h1>
-			<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
-				<span><i class="mdi mdi-chevron-right"></i></span>Sub Category
-			</p>
+		<div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
+			<div>
+				<h1>Add Sub Category</h1>
+				<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
+					<span><i class="mdi mdi-chevron-right"></i></span>Sub Category
+				</p>
+			</div>
+			<div>
+				<a href="view-all-sub-category.php" class="btn btn-primary"> View All
+				</a>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-xl-12	 col-lg-12">
@@ -60,7 +66,9 @@ if (isset($_GET['error'])) {
 										<select id="parent-category" name="parent-category" class="custom-select">
 											<option value="">Select</option>
 											<?php foreach ($categories as $category): ?>
-												<option value="<?php echo $category['name']; ?>"><?php echo $category['name']; ?></option>
+												<option value="<?php echo $category['id']; ?>">
+													<?php echo $category['name']; ?>
+												</option>
 											<?php endforeach; ?>
 										</select>
 									</div>

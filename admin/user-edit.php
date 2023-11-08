@@ -86,8 +86,9 @@ if (isset($_GET['error'])) {
                                             <div class="form-group">
                                                 <label for="firstName">First name</label>
                                                 <input type="text" class="form-control" name="firstname" id="firstName"
-                                                    value="<?php echo $userinInfo['firstname']; ?>">
-                                                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                                    value="<?php echo htmlspecialchars($userinInfo['firstname'], ENT_QUOTES, 'UTF-8'); ?>">
+                                                <input type="hidden" name="id"
+                                                    value="<?php echo htmlspecialchars($id, ENT_QUOTES, 'UTF-8'); ?>">
                                             </div>
                                         </div>
 
@@ -95,7 +96,7 @@ if (isset($_GET['error'])) {
                                             <div class="form-group">
                                                 <label for="lastName">Last name</label>
                                                 <input type="text" class="form-control" name="lastname" id="lastName"
-                                                    value="<?php echo $userinInfo['lastname']; ?>">
+                                                    value="<?php echo htmlspecialchars($userinInfo['lastname'], ENT_QUOTES, 'UTF-8'); ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -103,12 +104,12 @@ if (isset($_GET['error'])) {
                                     <div class="form-group mb-4">
                                         <label for="email">Email</label>
                                         <input type="email" name="email" class="form-control" id="email"
-                                            value="<?php echo $userinInfo['email']; ?>">
+                                            value="<?php echo htmlspecialchars($userinInfo['email'], ENT_QUOTES, 'UTF-8'); ?>">
                                     </div>
                                     <div class="form-group mb-4">
                                         <label for="email">Phone Number</label>
                                         <input type="tel" name="phone" class="form-control" id="email"
-                                            value="<?php echo $userinInfo['phonenumber']; ?>">
+                                            value="<?php echo htmlspecialchars($userinInfo['phonenumber'], ENT_QUOTES, 'UTF-8'); ?>">
                                     </div>
 
                                     <div class="form-group mb-4">

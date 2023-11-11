@@ -61,11 +61,11 @@ $adminInfo = $admin->getAdminInfo();
 			<div id="sidebar" class="sidebar ec-sidebar-footer">
 
 				<div class="ec-brand">
-					<a href="index.html" title="Legal Karnataka">
+					<a href="dashboard.php" title="Legal Karnataka">
 						<img class="ec-brand-icon" src="assets/img/logo/legal.png" alt="" />
 						&nbsp;
 						&nbsp;
-						<h4><span style="color: #BA110C">Legal Karnataka</span></h4>
+						<h4><span style="color: #3f77ef">Legal Karnataka</span></h4>
 					</a>
 				</div>
 
@@ -299,12 +299,6 @@ $adminInfo = $admin->getAdminInfo();
 											<i class="mdi mdi-account"></i> Profile
 										</a>
 									</li>
-									<li>
-										<a href="#">
-											<i class="mdi mdi-email"></i> Message
-										</a>
-									</li>
-
 									<li class="dropdown-footer">
 										<a href="logout.php"> <i class="mdi mdi-logout"></i> Log Out </a>
 									</li>

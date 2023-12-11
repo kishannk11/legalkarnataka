@@ -239,10 +239,14 @@ $cartCount = $cartObj->getCartItemCount($email);
 
                     <div class="col">
                         <div class="header-search">
-                            <form class="ec-btn-group-form" action="#">
-                                <input class="form-control ec-search-bar" placeholder="Search products..." type="text">
-                                <button class="submit" type="submit"><i class="fi-rr-search"></i></button>
-                            </form>
+                            <div class="search-container">
+                                <form id="mobileSearchForm" class="ec-btn-group-form" action="#">
+                                    <input id="mobileSearch" class="form-control ec-search-bar"
+                                        placeholder="Search products..." type="text">
+                                    <button class="submit" type="submit"><i class="fi-rr-search"></i></button>
+                                </form>
+                                <div id="mobileResults"></div>
+                            </div>
                         </div>
                     </div>
                     <!-- Ec Header Search End -->
@@ -355,6 +359,34 @@ $cartCount = $cartObj->getCartItemCount($email);
 
                 // Prevent form submission
                 $('#searchForm').on('submit', function (e) {
+                    e.preventDefault();
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+
+                // Mobile search
+                $('#mobileSearch').on('input', function () {
+                    var searchQuery = $(this).val();
+                    if (searchQuery !== "") {
+                        $.ajax({
+                            url: 'search.php',
+                            method: 'POST',
+                            data: { query: encodeURIComponent(searchQuery) }, // Encode user input
+                            success: function (data) {
+                                if (data) {
+                                    $('#mobileResults').html(data).show(); // Show results if there is data
+                                } else {
+                                    $('#mobileResults').hide(); // Hide results if there is no data
+                                }
+                            }
+                        });
+                    } else {
+                        $('#mobileResults').html("").hide(); // Hide results and clear any existing results
+                    }
+                });
+                $('#mobileSearchForm').on('submit', function (e) {
                     e.preventDefault();
                 });
             });

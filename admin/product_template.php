@@ -66,7 +66,7 @@ $products = $product->getProduct();
                                 <div class="table-responsive">
                                     <div class="col-md-6">
                                         <span>Select Product</span>
-                                        <select class="form-select" name="prod_name">
+                                        <select class="form-select select2" name="prod_name">
                                             <option value="">Select</option>
                                             <?php foreach ($products as $prod): ?>
                                                 <option value="<?php echo $prod['id']; ?>">
@@ -168,9 +168,14 @@ $products = $product->getProduct();
 <script src="assets/plugins/options-sidebar/optionswitcher.js"></script>
 <script src="assets/plugins/sweet-alert2/sweetalert2.min.js"></script>
 <script src="assets/pages/jquery.sweet-alert.init.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <!-- Ekka Custom -->
 <script src="assets/js/ekka.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.select2').select2();
+    });
+</script>
 </body>
 
 </html>

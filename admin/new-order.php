@@ -30,13 +30,11 @@ $transactionObj = new Payment($conn);
 									<tr>
 										<th>SL No</th>
 										<th>Order ID</th>
-										<th>Price</th>
+
 										<th>Order Status</th>
 										<th>Delivery Type</th>
 										<th>Payment</th>
-										<th>Product Name</th>
-										<th>Files</th>
-										<th>Description</th>
+
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -46,81 +44,31 @@ $transactionObj = new Payment($conn);
 									$slno = 1;
 									$orderDetailsByOrderId = array();
 									foreach ($orderDetails as $order) {
-										$orderId = $order['order_id'];
-										//echo $orderId;
-										if (!isset($orderDetailsByOrderId[$orderId])) {
-											$orderDetailsByOrderId[$orderId] = array();
-										}
-										$orderDetailsByOrderId[$orderId][] = $order;
-									}
+										echo '<tr>';
 
-									foreach ($orderDetailsByOrderId as $orderId => $orders) {
-										$rowspan = count($orders);
-										//echo $rowspan;
-										$firstOrder = true;
-										foreach ($orders as $order) {
-											$productObj = new Product($conn);
-											$products = $productObj->getProductwithId($order['prod_id']);
-											foreach ($products as $proddata) {
-												echo '<tr>';
-												if ($firstOrder) {
-													echo "<td rowspan='{$rowspan}'>{$slno}</td>";
-													echo "<td rowspan='{$rowspan}'>{$order['order_id']}</td>";
-													echo "<td rowspan='{$rowspan}'>{$order['price']}</td>";
-													echo "<td rowspan='{$rowspan}'>{$order['order_status']}</td>";
-													echo "<td rowspan='{$rowspan}'>{$order['delivery_type']}</td>";
-													$transactiondetails = $transactionObj->getTransDetails($orderId);
-													if (empty($transactiondetails[0]['status'])) {
-														$paymentStatus = "<span style='color:red;'>Payment not done</span>";
-													} else {
-														if ($transactiondetails[0]['status'] == 'success') {
-															$paymentStatus = "<span style='color:green;'>{$transactiondetails[0]['status']}</span>";
-														} else {
-															$paymentStatus = "<span style='color:red;'>{$transactiondetails[0]['status']}</span>";
-														}
-													}
-													echo "<td rowspan='{$rowspan}'>{$paymentStatus}</td>";
-												}
-												echo "<td>{$proddata['prod_name']}</td>";
-												// Files
-												$order_file = new Order($conn);
-												$orderFiles = $order_file->getOrderFiles($orderId, $order['prod_id']);
-												echo "<td>";
-												if (empty($orderFiles)) {
-													echo "No data";
-												} else {
-													foreach ($orderFiles as $file) {
-														$fileName = $file['file_name'];
-														$filePath = 'upload/' . $fileName; // Update the file path accordingly
-														echo '<a href="' . $filePath . '" target="_blank">' . $fileName . '</a><br>';
-													}
-												}
-												echo "</td>";
-												// Description
-												$order_preview = new Order($conn);
-												$orderpreview = $order_preview->getPreviewData($orderId, $order['prod_id']);
-												echo "<td>";
-												if (empty($orderpreview)) {
-													echo "No data";
-												} else {
-													foreach ($orderpreview as $filepreview) {
-														echo $filepreview['label'] . ' : ' . $filepreview['value'] . "<br>";
-													}
-												}
-												echo "</td>";
-												if ($firstOrder) {
-													echo "<td rowspan='{$rowspan}'>
-														<div class='btn-group mb-1'>
-															<a href='detail-page.php?order_id={$order['order_id']}' class='btn btn-outline-success'>Info</a>
-															
-															
-														</div>
-													</td>";
-												}
-												echo '</tr>';
-												$firstOrder = false;
+										echo "<td  '>{$slno}</td>";
+										echo "<td  '>{$order['order_id']}</td>";
+
+										echo "<td  '>{$order['order_status']}</td>";
+										echo "<td  '>{$order['delivery_type']}</td>";
+										$transactiondetails = $transactionObj->getTransDetails($order['order_id']);
+										if (empty($transactiondetails[0]['status'])) {
+											$paymentStatus = "<span style='color:red;'>Payment not done</span>";
+										} else {
+											if ($transactiondetails[0]['status'] == 'success') {
+												$paymentStatus = "<span style='color:green;'>{$transactiondetails[0]['status']}</span>";
+											} else {
+												$paymentStatus = "<span style='color:red;'>{$transactiondetails[0]['status']}</span>";
 											}
 										}
+										echo "<td  '>{$paymentStatus}</td>";
+
+										echo "<td  '>
+												<div class='btn-group mb-1'>
+													<a href='detail-page.php?order_id={$order['order_id']}' class='btn btn-outline-success'>Info</a>
+												</div>
+											</td>";
+										echo '</tr>';
 										$slno += 1;
 									}
 									?>

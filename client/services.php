@@ -7,7 +7,12 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include 'config/config.php';
 $product = new Product($conn);
-$products = $product->getProduct();
+if (isset($_GET['category'])) {
+	$categoryId = $_GET['category'];
+	$products = $product->getProductByCategory($categoryId);
+} else {
+	$products = $product->getProduct();
+}
 $mainCategoryObj = new MainCategory($conn);
 $mainCategories = $mainCategoryObj->getMainCategories();
 ?>
@@ -70,7 +75,7 @@ $displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 									<?php
 									foreach ($mainCategories as $mainCategory) {
 										?>
-										<option value="<?php echo $mainCategory['name']; ?>">
+										<option value="<?php echo $mainCategory['id']; ?>">
 											<?php echo $mainCategory['name']; ?>
 										</option>
 										<?php
@@ -170,15 +175,12 @@ $displayedProducts = array_slice($products, $startIndex, $productsPerPage);
 </section>
 <script>
 	document.getElementById('ec-select').addEventListener('change', function () {
-		var selectedCategory = this.value;
-		var productElements = document.querySelectorAll('#filtered-products .pro-gl-content');
-		productElements.forEach(function (element) {
-			if (selectedCategory === 'all' || element.getAttribute('data-category') === selectedCategory) {
-				element.style.display = 'block';
-			} else {
-				element.style.display = 'none';
-			}
-		});
+		var selectedCategoryId = this.value;
+		if (selectedCategoryId === 'all') {
+			window.location.href = 'services.php';
+		} else {
+			window.location.href = 'services.php?category=' + selectedCategoryId;
+		}
 	});
 </script>
 

@@ -179,7 +179,7 @@ if (isset($_GET['error'])) {
                                             </div>
                                             <div class="ec-single-desc">
 
-                                                <form method="POST" action="add-to-cart.php">
+                                                <form id="myForm" method="POST" action="add-to-cart.php">
                                                     <div id="display">
                                                         <b><label class="form-label">Stamp Paper Price</label></b>
                                                         <input type="text" class="form-control" name="price"
@@ -194,14 +194,15 @@ if (isset($_GET['error'])) {
                                                     &nbsp;
                                                     <div class="ec-single-cart">
                                                         <div class="button-group">
+
                                                             <input type="hidden" name="id"
                                                                 value="<?php echo htmlspecialchars($id, ENT_QUOTES, 'UTF-8'); ?>">
                                                             <button class="btn btn-primary" name="submit" type="submit">Add
                                                                 to
                                                                 cart</button>
-
                                                             <a href="javascript:void(0)" class="btn btn-primary"
-                                                                id="previewButton">Preview</a>
+                                                                id="previewButton">Preview & Save</a>
+
                                                         </div>
                                                     </div>
                                                 </form>
@@ -265,7 +266,8 @@ if (isset($_GET['error'])) {
 <script>
     document.querySelector(".button-group button[name='submit']").addEventListener("click", function (event) {
         // Get the form element
-        var form = document.querySelector("form");
+        event.preventDefault();
+        var form = document.querySelector("#myForm");
 
         // Check if the template info is filled
         var templateInputs = document.querySelectorAll(".ec-single-sales input");
@@ -291,23 +293,45 @@ if (isset($_GET['error'])) {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
                     // Request was successful
-                    console.log(xhr.responseText);
-                    // You can perform additional actions here, such as displaying a success message or updating the cart UI
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: response.message
+                        }).then(function () {
+                            // This code will run after the user clicks "OK"
+                            document.getElementById('previewButton').click();
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.message
+                        });
+                    }
                 } else {
                     // Request failed
-                    console.error("Error: " + xhr.status);
-                    // You can handle the error case here, such as displaying an error message to the user
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: "Error: " + xhr.status
+                    });
                 }
             }
         };
         xhr.send(formData);
+
     });
+</script>
+<script>
+    document.getElementById('previewButton').style.visibility = 'hidden';
 </script>
 <script>
     var id = <?php echo json_encode($id); ?>;
     var order_id = <?php echo json_encode($_SESSION['order_id']); ?>;
     document.getElementById('previewButton').addEventListener('click', function () {
-        var inputElements = document.querySelectorAll('.ec-single-sales input');
+        var inputElements = document.querySelectorAll('.ec-single-sales input, .ec-single-sales textarea');
         var isEmpty = false;
         inputElements.forEach(function (input) {
             if (input.value.trim() === '') {
@@ -322,7 +346,7 @@ if (isset($_GET['error'])) {
             });
         } else {
             var previewContent = '';
-            var inputElements = document.querySelectorAll('.ec-single-sales input');
+            var inputElements = document.querySelectorAll('.ec-single-sales input, .ec-single-sales textarea');
             var data = [];
             inputElements.forEach(function (input) {
                 label = input.previousElementSibling.textContent;

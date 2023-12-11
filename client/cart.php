@@ -108,7 +108,7 @@ if (count($cartDetails) > 0) {
                                                             </span>
                                                         </td>
 
-                                                        <td data-label="Stamp Price" class="ec-cart-pro-subtotal">₹
+                                                        <td data-label="GST(18%)" class="ec-cart-pro-subtotal">₹
                                                             <?php echo $gstAmount; ?>
                                                         </td>
                                                         <td data-label="Stamp Price" class="ec-cart-pro-subtotal">
@@ -116,12 +116,13 @@ if (count($cartDetails) > 0) {
                                                                 <?php echo $stampPrice; ?>
                                                             </span>
                                                         </td>
-                                                        <td data-label="Stamp Price" class="ec-cart-pro-subtotal">
+                                                        <td data-label="Convenience Fee" class="ec-cart-pro-subtotal">
                                                             <span class="amount">₹
                                                                 <?php echo $commissionValue; ?>
                                                             </span>
                                                         </td>
-                                                        <td data-label="Stamp Price" class="ec-cart-pro-subtotal">
+                                                        <td data-label="Convenience Fee with GST(5%)"
+                                                            class="ec-cart-pro-subtotal">
                                                             <span class="amount">₹
                                                                 <?php echo $gstOnCommissionValue; ?>
                                                             </span>
@@ -148,7 +149,7 @@ if (count($cartDetails) > 0) {
                                                     <td colspan="6" class="ec-cart-pro-subtotal text-right"><strong>Delivery
                                                             Charge:</strong></td>
                                                     <td class="ec-cart-pro-subtotal">₹<strong id="delivery-charge">
-                                                            Enter Pincode
+                                                            Select Delivery Option
                                                         </strong></td>
                                                     <td></td>
                                                 </tr>
@@ -224,88 +225,55 @@ if (count($cartDetails) > 0) {
                                                     </span>
                                                     &nbsp;
                                                     &nbsp;
-                                                    <div class="ec-sidebar-wrap ec-checkout-del-wrap">
-                                                        <div class="ec-sidebar-block">
-                                                            <div class="ec-sb-title">
-                                                                <div class="ec-check-subtitle">Delivery Options
+                                                    <div class="container-fluid">
+                                                        <div class="ec-sidebar-wrap ec-checkout-del-wrap">
+                                                            <div class="ec-sidebar-block">
+                                                                <div class="ec-sb-title">
+                                                                    <div class="ec-check-subtitle">Delivery Options
+                                                                    </div>
+
                                                                 </div>
 
-                                                            </div>
+                                                                <div class="ec-sb-block-content">
+                                                                    <div class="ec-checkout-del">
+                                                                        <div class="ec-del-desc">Please select the preferred
+                                                                            shipping method to use on this
+                                                                            order.</div>
+                                                                        <span class="ec-del-option">
 
-                                                            <div class="ec-sb-block-content">
-                                                                <div class="ec-checkout-del">
-                                                                    <div class="ec-del-desc">Please select the preferred
-                                                                        shipping method to use on this
-                                                                        order.</div>
-                                                                    <span class="ec-del-option">
-                                                                        <span style="display: block; margin-bottom: 10px;">
-                                                                            <img src="assets/images/delivery/download.png"
-                                                                                alt="Indian Post"
-                                                                                style="width: 90px; height: 30px;">
-                                                                            &nbsp;
                                                                             <span
-                                                                                class="ec-del-opt-head"><b>ShipRocket</b></span>
-                                                                            <input type="radio" id="del1" value="1"
-                                                                                name="radio-group" data-charge="0" checked>
-                                                                            <label for="del1">Rate - Please enter pincode to
-                                                                                see
-                                                                                the delivery charge</label>
+                                                                                style="display: block; margin-bottom: 10px;">
+                                                                                <img src="assets/images/delivery/indiapostlogo2.png"
+                                                                                    alt="Indian Post"
+                                                                                    style="width: 30px; height: 30px;">
+                                                                                &nbsp;
+                                                                                <span class="ec-del-opt-head"><b>Indian Post
+                                                                                        (till
+                                                                                        2000km bellow 500grm)</b></span>
+                                                                                <input type="radio" id="del2" value="2"
+                                                                                    name="radio-group" data-charge="50"
+                                                                                    required>
+                                                                                <label for="del2">Rate - 50</label>
+                                                                            </span>
 
+                                                                            <span
+                                                                                style="display: block; margin-bottom: 10px;">
+                                                                                <img src="assets/images/delivery/download.jpeg"
+                                                                                    alt="Indian Post"
+                                                                                    style="width: 30px; height: 30px;">
+                                                                                &nbsp;
+                                                                                <span class="ec-del-opt-head"><b>24 Hr
+                                                                                        Delivery</b></span>
+                                                                                <input type="radio" id="del3" value="3"
+                                                                                    name="radio-group" data-charge="0">
+                                                                                <label for="del3">Rate - We will contact
+                                                                                    You</label>
+                                                                            </span>
                                                                         </span>
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        <span style="display: block; margin-bottom: 10px;">
-                                                                            <img src="assets/images/delivery/indiapostlogo2.png"
-                                                                                alt="Indian Post"
-                                                                                style="width: 30px; height: 30px;">
-                                                                            &nbsp;
-                                                                            <span class="ec-del-opt-head"><b>Indian Post
-                                                                                    (till
-                                                                                    2000km bellow 500grm)</b></span>
-                                                                            <input type="radio" id="del2" value="2"
-                                                                                name="radio-group" data-charge="50">
-                                                                            <label for="del2">Rate - 50</label>
-                                                                        </span>
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        <span style="display: block; margin-bottom: 10px;">
-                                                                            <img src="assets/images/delivery/download.jpeg"
-                                                                                alt="Indian Post"
-                                                                                style="width: 30px; height: 30px;">
-                                                                            &nbsp;
-                                                                            <span class="ec-del-opt-head"><b>24 Hr
-                                                                                    Delivery</b></span>
-                                                                            <input type="radio" id="del3" value="3"
-                                                                                name="radio-group" data-charge="0">
-                                                                            <label for="del3">Rate - We will contact
-                                                                                You</label>
-                                                                        </span>
-                                                                    </span>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
 
+                                                            </div>
                                                         </div>
                                                     </div>
                                             </div>
@@ -374,10 +342,6 @@ if (count($cartDetails) > 0) {
     }
 </script>
 <script>
-    document.getElementById('del1').addEventListener('change', function () {
-        var deliveryCharge = parseFloat(this.dataset.charge);
-        updateDeliveryCharge(deliveryCharge);
-    });
 
     document.getElementById('del2').addEventListener('change', function () {
         var deliveryCharge = parseInt(this.dataset.charge);
@@ -399,32 +363,7 @@ if (count($cartDetails) > 0) {
         document.getElementById('total-with-gst').textContent = totalWithDelivery;
     }
 
-    function updateDeliveryChargeShip() {
-        var pincode = document.getElementById('postalcode').value;
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'deliverycharge.php', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var deliveryCharge = xhr.responseText;
-                document.getElementById('delivery-charge').textContent = parseFloat(deliveryCharge);
-                // Recalculate total with delivery and GST
-                var total = <?php echo $totalWithDelivery; ?>;
-                var gstPercentage = <?php echo $gstPercentage; ?>;
-                var gstProduct = <?php echo $gstProduct; ?>;
-                var gstOnCommissionValue = <?php echo $gstOnCommissionValue; ?>;
-                var totalWithDelivery = total + parseFloat(deliveryCharge);
-                var gstAmount = (gstProduct * gstPercentage) / 100;
-                document.getElementById('total-with-gst').textContent = totalWithDelivery;
-                document.getElementById('del1').dataset.charge = parseFloat(deliveryCharge);
-                document.getElementById('del1').nextElementSibling.textContent = 'Rate - ' + deliveryCharge;
-            }
-        };
-        xhr.send('pincode=' + encodeURIComponent(pincode));
-        // Add loading screen
-        document.getElementById('delivery-charge').textContent = 'Loading...';
-        document.getElementById('total-with-gst').textContent = 'Loading...';
-    }
+
 </script>
 <?php
 include 'footer.php';

@@ -34,6 +34,12 @@ $adminInfo = $admin->getAdminInfo();
 	<link href="assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
 	<link href="assets/plugins/simplebar/simplebar.css" rel="stylesheet" />
 	<link href="assets/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+	<link href='assets/plugins/data-tables/datatables.bootstrap5.min.css' rel='stylesheet'>
+	<link href='assets/plugins/data-tables/responsive.datatables.min.css' rel='stylesheet'>
+	<!-- Select2 CSS -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+	<!-- Select2 JavaScript -->
 
 	<!-- Ekka CSS -->
 	<link id="ekka-css" href="assets/css/ekka.css" rel="stylesheet" />
@@ -44,6 +50,44 @@ $adminInfo = $admin->getAdminInfo();
 		.ec-brand-name {
 			font-size: 100px;
 			/* adjust the font size as needed */
+		}
+
+		.select2-container--default .select2-selection--single {
+			border: 1px solid #d2d2e4;
+			border-radius: 6px;
+			height: 38px;
+			padding: 2px;
+		}
+
+		.select2-container--default .select2-selection--single .select2-selection__rendered {
+			color: #3e3f5e;
+			line-height: 36px;
+		}
+
+		.select2-container--default .select2-selection--single .select2-selection__arrow {
+			height: 36px;
+			right: 10px;
+		}
+
+		.select2-dropdown {
+			border: 1px solid #d2d2e4;
+			border-radius: 6px;
+		}
+
+		.select2-results__option {
+			padding: 6px 12px;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+
+		.select2-results__option[aria-selected="true"] {
+			background-color: #e4e4f3;
+			color: #3e3f5e;
+		}
+
+		.select2-results__option--highlighted[aria-selected] {
+			background-color: #d2d2e4;
+			color: #3e3f5e;
 		}
 	</style>
 	<!--<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->

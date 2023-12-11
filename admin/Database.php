@@ -552,6 +552,14 @@ class Product
             return false;
         }
     }
+    public function getProductByCategory($categoryId)
+    {
+        $query = "SELECT * FROM products WHERE main_category = :categoryId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':categoryId', $categoryId);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 
 }
@@ -970,7 +978,7 @@ class Order
         $this->conn = $conn;
     }
 
-    public function saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $email, $productIds, $price, $deliveryCharge, $gstperItem, $stampPriceValue, $commissionValue, $shipmentId, $ShipOrderid, $deliveryType, $OrderStatus)
+    public function saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $email, $productIds, $price, $deliveryCharge, $gstperItem, $stampPriceValue, $commissionValue, $deliveryType, $OrderStatus)
     {
         // Validate and sanitize the input data
         $firstname = filter_var($firstname, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -988,7 +996,7 @@ class Order
 
         // Insert the order details into the order_details table for each product ID
         foreach ($productIdsArray as $key => $productId) {
-            $sql = "INSERT INTO order_details (firstname, lastname, address, city, postalcode, state, order_id, email, prod_id, price, delivery_charge, gst_amount, stamp_price, commission, shipment_id, shipment_order_id, delivery_type, order_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO order_details (firstname, lastname, address, city, postalcode, state, order_id, email, prod_id, price, delivery_charge, gst_amount, stamp_price, commission, delivery_type, order_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(1, $firstname);
             $stmt->bindParam(2, $lastname);
@@ -1004,10 +1012,8 @@ class Order
             $stmt->bindParam(12, $gstValueArray[$key]);
             $stmt->bindParam(13, $stampPriceValueArray[$key]);
             $stmt->bindParam(14, $commissionValueArray[$key]);
-            $stmt->bindParam(15, $shipmentId);
-            $stmt->bindParam(16, $ShipOrderid);
-            $stmt->bindParam(17, $deliveryType);
-            $stmt->bindParam(18, $OrderStatus);
+            $stmt->bindParam(15, $deliveryType);
+            $stmt->bindParam(16, $OrderStatus);
             if (!$stmt->execute()) {
                 // Error occurred while saving the order
                 echo "Error: " . $stmt->errorInfo()[2];
@@ -1019,7 +1025,7 @@ class Order
     {
         $orderDetails = array();
 
-        $sql = "SELECT * FROM order_details WHERE order_status='New'";
+        $sql = "SELECT * FROM order_details WHERE order_status='New' ORDER BY id DESC";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -1242,9 +1248,8 @@ class Cart
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($result) {
-            return false;
-        } else {
+        // If the product is a stamp paper, allow multiple additions
+        if ($productId == '44') {
             // Prepare the SQL statement
             $sql = "INSERT INTO cart (product_id, price, email, stamp_price) VALUES (?, ?, ?, ?)";
             $stmt = $this->conn->prepare($sql);
@@ -1260,6 +1265,28 @@ class Cart
                 return true;
             } else {
                 return false;
+            }
+        } else {
+            // If the product is not a stamp paper and it's already in the cart, prevent addition
+            if ($result) {
+                return false;
+            } else {
+                // Prepare the SQL statement
+                $sql = "INSERT INTO cart (product_id, price, email, stamp_price) VALUES (?, ?, ?, ?)";
+                $stmt = $this->conn->prepare($sql);
+
+                // Bind the parameters
+                $stmt->bindParam(1, $productId);
+                $stmt->bindParam(2, $price);
+                $stmt->bindParam(3, $email);
+                $stmt->bindParam(4, $StamPrice);
+
+                // Execute the statement
+                if ($stmt->execute()) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
     }

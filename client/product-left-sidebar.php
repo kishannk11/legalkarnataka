@@ -131,7 +131,7 @@ if (!isset($_SESSION['order_id'])) {
                                     </div>
                                     <div class="ec-single-desc">
                                     
-                                        <form method="POST" action="add-to-cart.php">
+                                    <form id="myForm" method="POST" action="add-to-cart.php">
                                         <div id="display">
                                             <b><label class="form-label">Stamp Paper Price</label></b>
                                             <input type="text" class="form-control" name="price" id="displayPrice1" readonly>
@@ -217,34 +217,15 @@ if (!isset($_SESSION['order_id'])) {
                                 
                                 <li>
                                     <?php foreach ($categories as $category): ?>
-                                        <div class="ec-sidebar-block-item" onclick="toggleSubCategories('<?php echo $category['id']; ?>')">
+                                        <div class="ec-sidebar-block-item" onclick="window.location.href='services.php?category=<?php echo $category['id']; ?>'">
                                             <?php echo $category['name']; ?>
                                         </div>
-                                        <?php
-                                        $subCategoryObj = new SubCategory($conn);
-                                        $subCategories = $subCategoryObj->getSubCategoriesByID($category['id']);
-                                        echo '<ul id="subCategories-' . $category['id'] . '" style="display: none;">';
-                                        foreach ($subCategories as $subCategory) {
-                                            echo '<li>';
-                                            echo '<div class="ec-sidebar-sub-item"><a href="product-info.php?id=' . $products[0]['id'] . '">' . $subCategory['name'] . '</a></div>';
-                                            echo '</li>';
-                                        }
-                                        echo '</ul>';
-                                        ?>
+                                        
                                     <?php endforeach; ?>
                                 </li>
                             </ul>
                         </div>
-                        <script>
-                            function toggleSubCategories(categoryId) {
-                                var subCategories = document.getElementById('subCategories-' + categoryId);
-                                if (subCategories.style.display === "none") {
-                                    subCategories.style.display = "block";
-                                } else {
-                                    subCategories.style.display = "none";
-                                }
-                            }
-                        </script>
+                        
 
                     </div>
                     <!-- Sidebar Category Block -->
@@ -286,7 +267,8 @@ if (!isset($_SESSION['order_id'])) {
 <script>
     document.querySelector(".button-group button[name='submit']").addEventListener("click", function (event) {
         // Get the form element
-        var form = document.querySelector("form");
+        event.preventDefault();
+        var form = document.querySelector("#myForm");
 
         // Check if the template info is filled
         var templateInputs = document.querySelectorAll(".ec-single-sales input");
@@ -312,17 +294,39 @@ if (!isset($_SESSION['order_id'])) {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
                     // Request was successful
-                    console.log(xhr.responseText);
-                    // You can perform additional actions here, such as displaying a success message or updating the cart UI
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: response.message
+                        }).then(function () {
+                            // This code will run after the user clicks "OK"
+                            document.getElementById('previewButton').click();
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.message
+                        });
+                    }
                 } else {
                     // Request failed
-                    console.error("Error: " + xhr.status);
-                    // You can handle the error case here, such as displaying an error message to the user
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: "Error: " + xhr.status
+                    });
                 }
             }
         };
         xhr.send(formData);
+
     });
+</script>
+<script>
+    document.getElementById('previewButton').style.visibility = 'hidden';
 </script>
 <script>
     var id = <?php echo json_encode($id); ?>;

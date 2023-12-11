@@ -1,20 +1,11 @@
 <?php
-session_set_cookie_params([
-    'secure' => true,
-    // cookie is sent over secure connections only
-    'httponly' => true,
-    // cookie is accessible over HTTP/HTTPS only (not JavaScript)
-    'samesite' => 'None',
-    // cookie is available for cross-site usage
-]);
-
 session_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require_once 'vendor/autoload.php';
 require_once('config/config.php');
-require_once('config/session.php');
+//require_once('config/session.php');
 include 'ordergen.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -482,7 +473,7 @@ width="100%" cellspacing="0" cellpadding="0" bgcolor="#f5eeee">
 
         $mail->setFrom('support@legalkarnataka.com', 'Legal Karnataka');
         $mail->addAddress($email, $firstname . ' ' . $lastname);
-        $mail->addAddress('ranjithchandran220@gmail.com');
+        $mail->addBCC('ranjithchandran220@gmail.com');
 
         $mail->isHTML(true);
         $mail->Subject = 'Order Details';

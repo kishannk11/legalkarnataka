@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['id'])) {
     $productId = $_POST['id'];
     $price = $_POST['price'];
     $email = $_SESSION['email'];
@@ -16,18 +16,15 @@ if (isset($_POST['submit'])) {
         $StamPrice = 0;
     } else {
         $StamPrice = $price;
-
     }
     $product = $productObj->getProductwithId($productId);
     $price = $product[0]['price'];
     $result = $cartObj->addToCart($productId, $price, $email, $StamPrice);
     $encodedProductId = urlencode($productId);
     if ($result) {
-        header("Location: product-info.php?id=$encodedProductId&success=product added to cart");
-        exit();
+        echo json_encode(['success' => true, 'message' => 'Product added to cart']);
     } else {
-        //echo "Error: Unable to add to cart.";
-        header("Location: product-info.php?id=$encodedProductId&error=Error: Unable to add to cart");
+        echo json_encode(['success' => false, 'message' => 'Error: Unable to add to cart']);
     }
 }
 ?>

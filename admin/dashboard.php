@@ -65,121 +65,74 @@ $transactionObj = new Payment($conn);
 				</div>
 			</div>
 		</div>
+		<div class="breadcrumb-wrapper breadcrumb-wrapper-2">
+			<h1>New Orders</h1>
 
-
+		</div>
 		<div class="row">
-			<div class="col-12 p-b-15">
+			<div class="col-12">
+				<div class="card card-default">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="responsive-data-table" class="table" style="width:100%">
+								<thead>
+									<tr>
+										<th>SL No</th>
+										<th>Order ID</th>
 
-				<div class="card card-table-border-none card-default recent-orders" id="recent-orders">
-					<div class="card-header justify-content-between">
-						<h2>Recent Orders</h2>
+										<th>Order Status</th>
+										<th>Delivery Type</th>
+										<th>Payment</th>
 
-					</div>
-					<div class="card-body pt-0 pb-5">
-						<table class="table card-table table-responsive table-responsive-large" style="width:100%">
-							<thead>
-								<tr>
-									<th>SL No</th>
-									<th>Order ID</th>
-									<th>Price</th>
-									<th>Order Status</th>
-									<th>Delivery Type</th>
-									<th>Payment</th>
-									<th>Product Name</th>
-									<th>Files</th>
-									<th>Description</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
+										<th>Action</th>
+									</tr>
+								</thead>
 
-								<?php
-								$slno = 1;
-								$orderDetailsByOrderId = array();
-								foreach ($orderDetails as $order) {
-									$orderId = $order['order_id'];
-									if (!isset($orderDetailsByOrderId[$orderId])) {
-										$orderDetailsByOrderId[$orderId] = array();
-									}
-									$orderDetailsByOrderId[$orderId][] = $order;
-								}
+								<tbody>
+									<?php
+									$slno = 1;
+									$orderDetailsByOrderId = array();
+									foreach ($orderDetails as $order) {
+										echo '<tr>';
 
-								foreach ($orderDetailsByOrderId as $orderId => $orders) {
-									$rowspan = count($orders);
-									$firstOrder = true;
-									foreach ($orders as $order) {
-										$productObj = new Product($conn);
-										$products = $productObj->getProductwithId($order['prod_id']);
-										foreach ($products as $proddata) {
-											echo '<tr>';
-											if ($firstOrder) {
-												echo "<td rowspan='{$rowspan}'>{$slno}</td>";
-												echo "<td rowspan='{$rowspan}'>{$order['order_id']}</td>";
-												echo "<td rowspan='{$rowspan}'>{$order['price']}</td>";
-												echo "<td rowspan='{$rowspan}'>{$order['order_status']}</td>";
-												echo "<td rowspan='{$rowspan}'>{$order['delivery_type']}</td>";
-												$transactiondetails = $transactionObj->getTransDetails($orderId);
-												if (empty($transactiondetails[0]['status'])) {
-													$paymentStatus = "<span style='color:red;'>Payment not done</span>";
-												} else {
-													if ($transactiondetails[0]['status'] == 'success') {
-														$paymentStatus = "<span style='color:green;'>{$transactiondetails[0]['status']}</span>";
-													} else {
-														$paymentStatus = "<span style='color:red;'>{$transactiondetails[0]['status']}</span>";
-													}
-												}
-												echo "<td rowspan='{$rowspan}'>{$paymentStatus}</td>";
-											}
-											echo "<td>{$proddata['prod_name']}</td>";
-											// Files
-											$order_file = new Order($conn);
-											$orderFiles = $order_file->getOrderFiles($orderId, $order['prod_id']);
-											echo "<td>";
-											if (empty($orderFiles)) {
-												echo "No data";
+										echo "<td  '>{$slno}</td>";
+										echo "<td  '>{$order['order_id']}</td>";
+
+										echo "<td  '>{$order['order_status']}</td>";
+										echo "<td  '>{$order['delivery_type']}</td>";
+										$transactiondetails = $transactionObj->getTransDetails($order['order_id']);
+										if (empty($transactiondetails[0]['status'])) {
+											$paymentStatus = "<span style='color:red;'>Payment not done</span>";
+										} else {
+											if ($transactiondetails[0]['status'] == 'success') {
+												$paymentStatus = "<span style='color:green;'>{$transactiondetails[0]['status']}</span>";
 											} else {
-												foreach ($orderFiles as $file) {
-													$fileName = $file['file_name'];
-													$filePath = 'upload/' . $fileName; // Update the file path accordingly
-													echo '<a href="' . $filePath . '" target="_blank">' . $fileName . '</a><br>';
-												}
+												$paymentStatus = "<span style='color:red;'>{$transactiondetails[0]['status']}</span>";
 											}
-											echo "</td>";
-											// Description
-											$order_preview = new Order($conn);
-											$orderpreview = $order_preview->getPreviewData($orderId, $order['prod_id']);
-											echo "<td>";
-											if (empty($orderpreview)) {
-												echo "No data";
-											} else {
-												foreach ($orderpreview as $filepreview) {
-													echo $filepreview['label'] . ' : ' . $filepreview['value'] . "<br>";
-												}
-											}
-											echo "</td>";
-											if ($firstOrder) {
-												echo "<td rowspan='{$rowspan}'>
-														<div class='btn-group mb-1'>
-															<a href='detail-page.php?order_id={$order['order_id']}' class='btn btn-outline-success'>Info</a>
-															
-															
-														</div>
-													</td>";
-											}
-											echo '</tr>';
-											$firstOrder = false;
 										}
+										echo "<td  '>{$paymentStatus}</td>";
+
+										echo "<td  '>
+												<div class='btn-group mb-1'>
+													<a href='detail-page.php?order_id={$order['order_id']}' class='btn btn-outline-success'>Info</a>
+												</div>
+											</td>";
+										echo '</tr>';
+										$slno += 1;
 									}
-									$slno += 1;
-								}
-								?>
-							</tbody>
-						</table>
+									?>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
+		<div class="breadcrumb-wrapper breadcrumb-wrapper-2">
+			<h1></h1>
+
+		</div>
 		<div class="row">
 			<div class="col-xl-5">
 				<!-- New Customers -->
@@ -268,7 +221,9 @@ $transactionObj = new Payment($conn);
 
 <!-- Option Switcher -->
 <script src="assets/plugins/options-sidebar/optionswitcher.js"></script>
-
+<script src='assets/plugins/data-tables/jquery.datatables.min.js'></script>
+<script src='assets/plugins/data-tables/datatables.bootstrap5.min.js'></script>
+<script src='assets/plugins/data-tables/datatables.responsive.min.js'></script>
 <!-- Ekka Custom -->
 <script src="assets/js/ekka.js"></script>
 </body>

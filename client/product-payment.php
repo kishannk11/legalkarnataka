@@ -81,16 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $gstperItem[] = $gstAmount;
     }
     //echo $total;
-    if ($shippingMethod === '1') {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'http://localhost/legalkarnataka/client/deliverycharge.php');
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array('pincode' => $postalcode)));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $deliveryCharge = curl_exec($ch);
-        curl_close($ch);
-        $deliveryType = "Shiprocket";
-    } else if ($shippingMethod === '2') {
+    if ($shippingMethod === '2') {
         $deliveryCharge = 50;
         $deliveryType = "Indian Post";
     } else {
@@ -125,132 +116,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $udf4 = "";
     $udf5 = "";
 
-    $pickupLocationId = '3220115';
-    // API endpoint for authentication
-    $authEndpoint = 'https://apiv2.shiprocket.in/v1/external/auth/login';
-
-    // API endpoint for creating a shipment
-    $shipmentEndpoint = 'https://apiv2.shiprocket.in/v1/external/orders/create/adhoc';
-
-    // Sample authentication credentials
-    $email = 'support@legalkarnataka.com';
-    $password = 'V2#F!EeeG@vPuF2';
-
-    // Authenticate and obtain token
-    $authData = array(
-        'email' => $email,
-        'password' => $password,
-    );
-
-    $authPayload = json_encode($authData);
-
-    $authCh = curl_init($authEndpoint);
-    curl_setopt($authCh, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt(
-        $authCh,
-        CURLOPT_HTTPHEADER,
-        array(
-            'Content-Type: application/json',
-        )
-    );
-    curl_setopt($authCh, CURLOPT_POST, true);
-    curl_setopt($authCh, CURLOPT_POSTFIELDS, $authPayload);
-
-    $authResponse = curl_exec($authCh);
-
-    if ($authResponse === false) {
-        die('Error: ' . curl_error($authCh));
-    }
-
-    curl_close($authCh);
-
-    $authData = json_decode($authResponse, true);
-
-    if (!isset($authData['token'])) {
-        die('Failed to authenticate. Please check your credentials or try again later.');
-    }
-
-    $token = $authData['token'];
-
-    // Sample shipment data
-    $shipmentData = array(
-        'order_id' => $order,
-        'order_date' => date('Y-m-d H:i:s'),
-        'pickup_location' => 'Primary',
-        'pickup_location_id' => $pickupLocationId,
-        'billing_customer_name' => $firstname,
-        'billing_last_name' => $lastname,
-        'billing_address' => $address,
-        'billing_city' => $city,
-        'billing_pincode' => $postalcode,
-        'billing_state' => $state,
-        'billing_country' => 'India',
-        'billing_email' => $userinfo['email'],
-        'billing_phone' => $userinfo['phonenumber'],
-        'shipping_is_billing' => true,
-        'order_items' => array(),
-        'payment_method' => 'Prepaid',
-        'sub_total' => $price,
-        'length' => 10,
-        'breadth' => 5,
-        'height' => 8,
-        'weight' => 0.50,
-    );
-    foreach ($cartDetails as $cartItem1) {
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
-        $product1 = $productObj->getProductwithId($cartItem1['product_id']);
-
-        $shipmentData['order_items'][] = array(
-            'name' => $product1[0]['prod_name'],
-            'sku' => $product1[0]['id'],
-            'units' => 1,
-            'selling_price' => $product1[0]['price'],
-            'discount' => 0,
-            'tax' => 0,
-            'hsn' => 1234,
-        );
-    }
-
-    // Convert shipment data to JSON
-    $payload = json_encode($shipmentData);
-
-    // Create cURL request for creating a shipment
-    $shipmentCh = curl_init($shipmentEndpoint);
-    curl_setopt($shipmentCh, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt(
-        $shipmentCh,
-        CURLOPT_HTTPHEADER,
-        array(
-            'Content-Type: application/json',
-            'Authorization: Bearer ' . $token,
-        )
-    );
-    curl_setopt($shipmentCh, CURLOPT_POST, true);
-    curl_setopt($shipmentCh, CURLOPT_POSTFIELDS, $payload);
-
-    $shipmentResponse = curl_exec($shipmentCh);
-    //echo $shipmentResponse;
-    if ($shipmentResponse === false) {
-        die('Error: ' . curl_error($shipmentCh));
-    }
-
-    curl_close($shipmentCh);
-
-    $shipmentData = json_decode($shipmentResponse, true);
-
-
-    if (!isset($shipmentData['shipment_id'])) {
-        die('Failed to create shipment. Please check your data or try again later.');
-    }
-
-    $shipmentId = $shipmentData['shipment_id'];
-    $ShipOrderid = $shipmentData['order_id'];
-
-    // Output the response
-    //echo 'Shipment ID: ' . $shipmentId;
-    //echo $ShipOrderid;
 
 
     $hashSequence = $merchantKey . "|" . $txnid . "|" . $price . "|" . $productInfo . "|" . $firstname . "|" . $user_email . "|" . $udf1 . "|" . $udf2 . "|" . $udf3 . "|" . $udf4 . "|" . $udf5 . "||||||" . $salt;
@@ -274,12 +139,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "hash" => $hash,
     ];
 
-    //echo $commissionValue;
-    //echo $stampPriceValue;
-    //print_r($data['udf1']);
-    //Save order details to the database
     $OrderStatus = "New";
-    $orderObj->saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $user_email, $udf1, $price, $deliveryCharge, $gstValue, $stampPriceValue, $commissionValue, $shipmentId, $ShipOrderid, $deliveryType, $OrderStatus); // Pass the array of product_ids
+    $orderObj->saveOrder($firstname, $lastname, $address, $city, $postalcode, $state, $order, $user_email, $udf1, $price, $deliveryCharge, $gstValue, $stampPriceValue, $commissionValue, $deliveryType, $OrderStatus); // Pass the array of product_ids
 
 
     // Create a form to submit payment data to PayU
